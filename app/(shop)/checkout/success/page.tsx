@@ -48,7 +48,7 @@ async function OrderDetails({ orderId }: { orderId: string }) {
                     {/* Order Items */}
                     <div className="space-y-3">
                         <h3 className="font-semibold">Order Items</h3>
-                        {order.line_items.map((item) => (
+                        {order.line_items.map((item: any) => (
                             <div key={item.id} className="flex justify-between text-sm">
                                 <span className="text-neutral-600 dark:text-neutral-400">
                                     {item.name} × {item.quantity}
