@@ -12,8 +12,8 @@ export const WC_API_CONFIG = {
 
   // Authentication credentials (server-side only)
   auth: {
-    consumerKey: process.env.WC_CONSUMER_KEY || '',
-    consumerSecret: process.env.WC_CONSUMER_SECRET || '',
+    consumerKey: process.env.WORDPRESS_CONSUMER_KEY || '',
+    consumerSecret: process.env.WORDPRESS_CONSUMER_SECRET || '',
   },
 
   // WooCommerce REST API v3 Endpoints
@@ -124,8 +124,8 @@ export function getWooCommerceUrl(endpoint: string): string {
  */
 export function getWooCommerceAuthHeader(): string {
   // Read environment variables directly to ensure they're available at runtime
-  const consumerKey = process.env.WC_CONSUMER_KEY;
-  const consumerSecret = process.env.WC_CONSUMER_SECRET;
+  const consumerKey = process.env.WORDPRESS_CONSUMER_KEY;
+  const consumerSecret = process.env.WORDPRESS_CONSUMER_SECRET;
 
   if (!consumerKey || !consumerSecret) {
     console.error('Missing WC credentials:', {
@@ -134,7 +134,7 @@ export function getWooCommerceAuthHeader(): string {
       nodeEnv: process.env.NODE_ENV
     });
     throw new Error(
-      'WooCommerce API credentials are not configured. Please set WC_CONSUMER_KEY and WC_CONSUMER_SECRET environment variables.'
+      'WooCommerce API credentials are not configured. Please set WORDPRESS_CONSUMER_KEY and WORDPRESS_CONSUMER_SECRET environment variables.'
     );
   }
 
@@ -177,12 +177,12 @@ export function validateWooCommerceConfig(): {
     errors.push('NEXT_PUBLIC_WORDPRESS_URL is not set');
   }
 
-  if (!process.env.WC_CONSUMER_KEY) {
-    errors.push('WC_CONSUMER_KEY is not set');
+  if (!process.env.WORDPRESS_CONSUMER_KEY) {
+    errors.push('WORDPRESS_CONSUMER_KEY is not set');
   }
 
-  if (!process.env.WC_CONSUMER_SECRET) {
-    errors.push('WC_CONSUMER_SECRET is not set');
+  if (!process.env.WORDPRESS_CONSUMER_SECRET) {
+    errors.push('WORDPRESS_CONSUMER_SECRET is not set');
   }
 
   return {
