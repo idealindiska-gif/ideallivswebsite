@@ -1,0 +1,22 @@
+# robots.txt for Royal Sweets & Restaurant
+
+User-agent: *
+Allow: /
+
+# Disallow cart and checkout (no need to index)
+Disallow: /cart
+Disallow: /checkout
+
+# Allow all product and content pages
+Allow: /shop
+Allow: /menu
+Allow: /posts
+Allow: /about
+Allow: /contact
+Allow: /reservations
+
+# Sitemap
+Sitemap: https://royalbr.se/sitemap.xml
+
+# Crawl-delay (optional, helps prevent server overload)
+Crawl-delay: 1

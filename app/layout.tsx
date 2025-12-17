@@ -1,0 +1,98 @@
+import "./globals.css";
+
+import { Inter as FontSans, Montserrat as FontHeading } from "next/font/google";
+import { ThemeProvider } from "@/components/theme/theme-provider";
+import { Analytics } from "@vercel/analytics/react";
+import { TopInfoBar } from "@/components/layout/top-info-bar";
+import { VerticalSidebar } from "@/components/layout/vertical-sidebar";
+import { ContentHeader } from "@/components/layout/content-header";
+import { Footer } from "@/components/layout/footer";
+import { CartDrawer } from "@/components/cart/cart-drawer";
+import { siteConfig } from "@/site.config";
+import { cn } from "@/lib/utils";
+import { AiChatWidget } from "@/components/ai/ai-chat-widget";
+
+import { getProductCategories } from "@/lib/woocommerce";
+
+import type { Metadata } from "next";
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontHeading = FontHeading({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: siteConfig.site_name,
+    template: `%s | ${siteConfig.site_name}`,
+  },
+  description: siteConfig.site_description,
+  metadataBase: new URL(siteConfig.site_domain),
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: "https://ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+    shortcut: "https://ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+    apple: "https://ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+  },
+};
+
+// Viewport configuration for mobile devices
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
+
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const categories = await getProductCategories({ parent: 0 });
+
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={cn("min-h-screen font-sans antialiased", fontSans.variable, fontHeading.variable)} suppressHydrationWarning>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* Top Green Info Bar - Desktop only */}
+          <TopInfoBar />
+
+          {/* Main Layout Container */}
+          <div className="flex min-h-screen lg:min-h-[calc(100vh-40px)] overflow-x-hidden">
+            {/* Vertical Sidebar - Fixed on left, hidden on mobile */}
+            <VerticalSidebar categories={categories} />
+
+            {/* Main Content Area - Responsive margin */}
+            <div className="flex-1 lg:ml-64 flex flex-col overflow-x-hidden max-w-full">
+              {/* Content Header - Search, Login, Cart */}
+              <ContentHeader />
+
+              {/* Page Content */}
+              <main className="flex-1 w-full overflow-x-hidden">{children}</main>
+              <Footer />
+            </div>
+          </div>
+
+          <CartDrawer />
+        </ThemeProvider>
+        <Analytics />
+        <AiChatWidget />
+      </body>
+    </html>
+  );
+}
