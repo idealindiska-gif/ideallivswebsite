@@ -287,11 +287,23 @@ export async function getPageBySlug(slug: string): Promise<Page> {
 }
 
 export async function getAllAuthors(): Promise<Author[]> {
-  return wordpressFetch<Author[]>("/wp-json/wp/v2/users");
+  try {
+    return await wordpressFetch<Author[]>("/wp-json/wp/v2/users");
+  } catch (error) {
+    // Authors endpoint requires authentication - return empty array if unavailable
+    console.warn('WordPress authors endpoint unavailable:', error instanceof Error ? error.message : 'Unknown error');
+    return [];
+  }
 }
 
-export async function getAuthorById(id: number): Promise<Author> {
-  return wordpressFetch<Author>(`/wp-json/wp/v2/users/${id}`);
+export async function getAuthorById(id: number): Promise<Author | null> {
+  try {
+    return await wordpressFetch<Author>(`/wp-json/wp/v2/users/${id}`);
+  } catch (error) {
+    // Author not found or authentication required - return null
+    console.warn(`WordPress author ${id} unavailable:`, error instanceof Error ? error.message : 'Unknown error');
+    return null;
+  }
 }
 
 export async function getAuthorBySlug(slug: string): Promise<Author> {
