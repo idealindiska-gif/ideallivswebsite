@@ -18,7 +18,7 @@ export function Hero({
     badge = "Premium Quality Guaranteed"
 }: HeroProps) {
     return (
-        <section className="relative w-full h-[60vh] min-h-[450px] flex items-center justify-start overflow-hidden bg-muted/20 mt-[3px]">
+        <section className="relative w-full h-[60vh] min-h-[450px] flex items-center justify-start overflow-hidden bg-muted/20">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 {/* Fallback pattern if no image */}
