@@ -110,7 +110,7 @@ export function wordPressArticleSchema(post: any, baseUrl: string = 'https://ide
         url,
         authorName,
         publisherName: 'Ideal Indiska LIVS',
-        publisherLogo: 'https://ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png',
+        publisherLogo: 'https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png',
         datePublished: post.date,
         dateModified: post.modified,
         featuredImage,

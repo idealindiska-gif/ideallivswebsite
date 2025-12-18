@@ -101,8 +101,8 @@ export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://ideall
     alternateName: 'Ideal Livs',
     description: 'Indian & Pakistani Grocery Store in Stockholm, now delivering across Europe with DHL. Free delivery from 500kr in Stockholm (min. order 300kr with 30kr fee). Same-day delivery available.',
     url: baseUrl,
-    logo: 'https://ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png',
-    image: 'https://ideallivs.com/wp-content/uploads/2025/07/ideal-indiska-livs-stockholm.jpg',
+    logo: 'https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png',
+    image: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/ideal-indiska-livs-stockholm.jpg',
     telephone: '+46728494801',
     email: 'hello@ideallivs.com',
     address: {
