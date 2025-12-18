@@ -92,7 +92,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
       <aside
         id="mobile-sidebar"
         className={cn(
-          "fixed left-0 top-0 lg:top-[40px] h-screen lg:h-[calc(100vh-40px)] w-64 bg-background border-r border-border overflow-y-auto z-50 transition-transform duration-300",
+          "fixed left-0 top-0 lg:top-[36px] h-screen lg:h-[calc(100vh-36px)] w-64 bg-background border-r border-border overflow-y-auto z-40 transition-transform duration-300",
           // Mobile: slide in/out
           "lg:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"

@@ -25,8 +25,8 @@ export function TopInfoBar() {
   const whatsappLink = `https://wa.me/${phoneClean.replace('+', '')}`;
 
   return (
-    <div className="hidden lg:block w-full bg-green-700 text-white py-2 px-4">
-      <div className="container mx-auto flex items-center justify-between text-xs md:text-sm font-medium">
+    <div className="hidden lg:block w-full bg-green-700 text-white py-2 px-6">
+      <div className="flex items-center justify-between text-xs md:text-sm font-medium">
         {/* Left side - Contact info */}
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
