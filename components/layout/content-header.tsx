@@ -22,7 +22,7 @@ export function ContentHeader() {
   };
 
   return (
-    <header className="sticky top-0 lg:top-[40px] z-30 w-full bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
+    <header className="sticky top-0 lg:top-[10px] z-30 w-full bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
       {/* Desktop Header */}
       <div className="hidden lg:flex items-center justify-between px-6 h-14 gap-4 bg-white/70 backdrop-blur-md">
 

@@ -27,7 +27,7 @@ export async function Footer() {
               </div>
             </Link>
 
-            <div className="space-y-3 text-xs text-muted-foreground leading-relaxed">
+            <div className="space-y-3 text-xs text-muted-foreground leading-none">
               <div>
                 <p>{brandProfile.address.street}</p>
                 <p>{brandProfile.address.area}</p>
@@ -208,8 +208,11 @@ export async function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-border/10 pt-6 flex flex-col items-center justify-center text-[10px] text-muted-foreground/60 uppercase tracking-widest font-medium">
-          <p>© {new Date().getFullYear()} Fourlines Ecome Theme. All Rights Reserved.</p>
+        <div className="border-t border-border/10 pt-6 mt-10 flex flex-col sm:flex-row items-center sm:justify-between gap-2 text-[10px] text-muted-foreground/60 uppercase tracking-widest font-medium">
+          <p>© {new Date().getFullYear()} Ideal Indiska Livs Stockholm. All Rights Reserved.</p>
+          <p className="flex items-center gap-1">
+            Crafted with ☕ & a cup of chai by <a href="https://fourlines.agency" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Fourlines Agency</a>
+          </p>
         </div>
       </div>
     </footer>

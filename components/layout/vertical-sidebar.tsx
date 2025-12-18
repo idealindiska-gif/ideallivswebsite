@@ -92,7 +92,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
       <aside
         id="mobile-sidebar"
         className={cn(
-          "fixed left-0 top-0 lg:top-[36px] h-screen lg:h-[calc(100vh-36px)] w-64 bg-background border-r border-border overflow-y-auto z-40 transition-transform duration-300",
+          "fixed left-0 top-0 lg:top-[44px] h-screen lg:h-[calc(100vh-44px)] w-64 bg-background border-r border-border overflow-y-auto z-40 transition-transform duration-300",
           // Mobile: slide in/out
           "lg:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
@@ -197,7 +197,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
           {/* Product Categories */}
           <div>
             <h2 className="text-sm font-bold text-foreground mb-3 uppercase tracking-wider">Categories</h2>
-            <div className="space-y-1">
+            <div className="space-y-0">
               {categories.map((category) => {
                 const IconComponent = categoryIcons[category.name] || Package;
                 const isHovered = hoveredCategory === category.id;
@@ -209,14 +209,14 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                     key={category.id}
                     href={`/product-category/${category.slug}`}
                     className={cn(
-                      "flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group border border-transparent",
+                      "flex items-center gap-2 py-1.5 px-2 rounded-lg transition-all duration-200 group border border-transparent",
                       isHovered ? "bg-green-50 dark:bg-green-950/20 border-green-100 dark:border-green-900" : "hover:bg-muted"
                     )}
                     onMouseEnter={() => setHoveredCategory(category.id)}
                     onMouseLeave={() => setHoveredCategory(null)}
                   >
                     <div className={cn(
-                      "p-2 rounded-lg transition-all duration-300",
+                      "p-1.5 rounded-md transition-all duration-300",
                       isHovered
                         ? "bg-green-600 text-white shadow-md scale-105"
                         : "bg-muted text-muted-foreground group-hover:bg-green-100 dark:group-hover:bg-green-950/30 group-hover:text-green-600"
