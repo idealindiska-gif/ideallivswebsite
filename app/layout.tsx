@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "https://ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
-    shortcut: "https://ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
-    apple: "https://ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+    icon: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+    shortcut: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+    apple: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
   },
 };
 

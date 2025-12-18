@@ -18,7 +18,7 @@ export function Hero({
     badge = "Premium Quality Guaranteed"
 }: HeroProps) {
     return (
-        <section className="relative w-full h-[60vh] min-h-[450px] flex items-center justify-start overflow-hidden bg-muted/20">
+        <section className="relative w-full h-[70vh] min-h-[450px] flex items-start justify-start overflow-hidden bg-muted/20">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 {/* Fallback pattern if no image */}
@@ -40,8 +40,8 @@ export function Hero({
                 </div>
             </div>
 
-            <div className="w-full max-w-[1400px] mx-auto relative z-20 px-4 sm:px-6 md:px-8">
-                <div className="max-w-2xl space-y-6 md:space-y-8">
+            <div className="w-full max-w-[1400px] mx-auto relative z-20 px-4 sm:px-6 md:px-8 pt-16 md:pt-28">
+                <div className="max-w-2xl space-y-6 md:space-y-4">
                     {/* Badge */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -58,8 +58,8 @@ export function Hero({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-foreground tracking-tight"
-                        style={{ lineHeight: 1.1 }}
+                        className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-[3.5rem] font-heading font-bold text-foreground tracking-tight"
+                        style={{ lineHeight: 1 }}
                     >
                         Authentic Indian & Pakistani{' '}
                         <span className="text-primary">Groceries in Stockholm</span>
