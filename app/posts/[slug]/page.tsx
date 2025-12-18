@@ -3,7 +3,6 @@ import {
   getFeaturedMediaById,
   getAuthorById,
   getCategoryById,
-  getAllPostSlugs,
 } from "@/lib/wordpress";
 
 import { Section, Container, Article, Prose } from "@/components/craft";
@@ -16,15 +15,9 @@ import Balancer from "react-wrap-balancer";
 
 import type { Metadata } from "next";
 
-export async function generateStaticParams() {
-  try {
-    return await getAllPostSlugs();
-  } catch (error) {
-    // If WordPress API is unavailable (SSL errors, timeouts, etc), return empty array
-    console.warn('WordPress API unavailable during build, skipping post generation:', error instanceof Error ? error.message : 'Unknown error');
-    return [];
-  }
-}
+// Make this route dynamic to prevent build failures when WordPress API is unavailable
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,

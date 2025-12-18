@@ -1,25 +1,13 @@
-import { getPageBySlug, getAllPages } from "@/lib/wordpress";
+import { getPageBySlug } from "@/lib/wordpress";
 import { PageTemplate } from "@/components/templates";
 import { siteConfig } from "@/site.config";
 import { notFound } from "next/navigation";
 
 import type { Metadata } from "next";
 
-// Revalidate pages every hour
+// Make this route dynamic to prevent build failures when WordPress API is unavailable
+export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
-
-export async function generateStaticParams() {
-  try {
-    const pages = await getAllPages();
-    return pages.map((page) => ({
-      slug: page.slug,
-    }));
-  } catch (error) {
-    // If WordPress API is unavailable, return empty array to allow build to continue
-    console.warn('WordPress API unavailable during build, skipping page generation:', error instanceof Error ? error.message : 'Unknown error');
-    return [];
-  }
-}
 
 export async function generateMetadata({
   params,
