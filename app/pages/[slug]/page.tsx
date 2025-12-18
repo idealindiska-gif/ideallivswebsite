@@ -9,11 +9,16 @@ import type { Metadata } from "next";
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const pages = await getAllPages();
-
-  return pages.map((page) => ({
-    slug: page.slug,
-  }));
+  try {
+    const pages = await getAllPages();
+    return pages.map((page) => ({
+      slug: page.slug,
+    }));
+  } catch (error) {
+    // If WordPress API is unavailable, return empty array to allow build to continue
+    console.warn('WordPress API unavailable during build, skipping page generation:', error instanceof Error ? error.message : 'Unknown error');
+    return [];
+  }
 }
 
 export async function generateMetadata({
