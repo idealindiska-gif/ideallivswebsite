@@ -53,6 +53,8 @@ export async function loginUserAction(credentials: LoginCredentials) {
     console.log('Trying Simple JWT Login URL:', simpleJwtUrl);
 
     try {
+        const authKey = process.env.SIMPLE_JWT_AUTH_KEY || 'IdealIndiskaStockholmAuthKey';
+
         const response = await fetch(simpleJwtUrl, {
             method: 'POST',
             headers: {
@@ -61,7 +63,7 @@ export async function loginUserAction(credentials: LoginCredentials) {
             body: JSON.stringify({
                 email: credentials.username,
                 password: credentials.password,
-                AUTH_KEY: 'IdealIndiskaStockholmAuthKey',
+                AUTH_KEY: authKey,
             }),
         });
 
@@ -69,7 +71,7 @@ export async function loginUserAction(credentials: LoginCredentials) {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Simple JWT Login Success');
+            console.log('Simple JWT Login Success:', data);
 
             const transformedData = {
                 token: data.data?.jwt || data.jwt,
@@ -79,9 +81,14 @@ export async function loginUserAction(credentials: LoginCredentials) {
             };
 
             return { success: true, data: transformedData };
+        } else {
+            // Log the error response for debugging
+            const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
+            console.error('Simple JWT Login Error:', response.status, errorData);
         }
     } catch (error: any) {
-        console.log('Simple JWT Login not available, trying alternative methods...');
+        console.error('Simple JWT Login exception:', error);
+        console.log('Trying alternative authentication methods...');
     }
 
     // Method 2: Try JWT Authentication for WP REST API plugin
