@@ -78,6 +78,7 @@ export interface Product {
   meta_data: MetaData[];
   brands?: Brand[];
   _links?: HATEOASLinks;
+  [key: string]: unknown;
 }
 
 export interface Brand {
@@ -214,6 +215,7 @@ export interface ProductCategoryFull extends ProductCategory {
   menu_order: number;
   count: number;
   _links?: HATEOASLinks;
+  [key: string]: unknown;
 }
 
 export type CategoryDisplay = 'default' | 'products' | 'subcategories' | 'both';
