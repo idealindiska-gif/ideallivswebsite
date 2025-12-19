@@ -195,7 +195,7 @@ export function wooCommerceProductSchema(
     images?: Array<{ src: string; alt?: string }>;
     categories?: Array<{ name: string }>;
     stock_status?: 'instock' | 'outofstock' | 'onbackorder';
-    type?: 'simple' | 'variable' | 'grouped';
+    type?: 'simple' | 'variable' | 'grouped' | 'external';
     average_rating?: string | number;
     rating_count?: number;
     variations?: unknown[];
