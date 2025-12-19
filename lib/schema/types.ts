@@ -133,6 +133,7 @@ export interface CollectionPage {
     numberOfItems: number;
     itemListElement: unknown[];
   };
+  [key: string]: unknown;
 }
 
 // Breadcrumb Schema
@@ -146,6 +147,7 @@ export interface BreadcrumbList {
     name: string;
     item?: string;
   }[];
+  [key: string]: unknown;
 }
 
 // Website Schema
@@ -167,6 +169,7 @@ export interface WebSite {
     };
     'query-input': string;
   };
+  [key: string]: unknown;
 }
 
 // WebPage Schema
@@ -183,6 +186,7 @@ export interface WebPage {
   inLanguage?: string;
   datePublished?: string;
   dateModified?: string;
+  [key: string]: unknown;
 }
 
 // Article/BlogPosting Schema
@@ -225,6 +229,7 @@ export interface ItemList {
   itemListElement: unknown[];
   name?: string;
   description?: string;
+  [key: string]: unknown;
 }
 
 // FAQ Schema Types
@@ -244,6 +249,7 @@ export interface FAQPage {
   name?: string;
   description?: string;
   mainEntity: Question[];
+  [key: string]: unknown;
 }
 
 
