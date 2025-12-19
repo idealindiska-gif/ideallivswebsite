@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter as FontSans, Montserrat as FontHeading } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TopInfoBar } from "@/components/layout/top-info-bar";
 import { VerticalSidebar } from "@/components/layout/vertical-sidebar";
 import { ContentHeader } from "@/components/layout/content-header";
@@ -91,6 +92,7 @@ export default async function RootLayout({
           <CartDrawer />
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
         <AiChatWidget />
       </body>
     </html>
