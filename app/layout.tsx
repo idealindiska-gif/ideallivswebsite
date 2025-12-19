@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TopInfoBar } from "@/components/layout/top-info-bar";
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { websiteSchema } from "@/lib/schema";
+import { GoogleTagManager, GoogleTagManagerNoScript, FacebookPixel } from "@/components/analytics";
 import { VerticalSidebar } from "@/components/layout/vertical-sidebar";
 import { ContentHeader } from "@/components/layout/content-header";
 import { Footer } from "@/components/layout/footer";
@@ -45,6 +46,9 @@ export const metadata: Metadata = {
     shortcut: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
     apple: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
   },
+  verification: {
+    google: "JHCIpEz_IWYNdnNQGCkUKVQ8tiUre1hcCOqcSNhKlmQ",
+  },
 };
 
 // Viewport configuration for mobile devices
@@ -64,8 +68,17 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        {/* Google Tag Manager */}
+        <GoogleTagManager />
+      </head>
       <body className={cn("min-h-screen font-sans antialiased", fontSans.variable, fontHeading.variable)} suppressHydrationWarning>
+        {/* Google Tag Manager (noscript) */}
+        <GoogleTagManagerNoScript />
+
+        {/* Facebook Pixel */}
+        <FacebookPixel />
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
