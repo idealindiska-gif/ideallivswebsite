@@ -73,7 +73,7 @@ export default function AboutPage() {
                       alt="Ideal Indiska Store"
                       fill
                       className="object-cover"
-                      unoptimized
+                      sizes="(max-width: 1024px) 100vw, 66vw"
                     />
                   </div>
                   <p className="mt-8">

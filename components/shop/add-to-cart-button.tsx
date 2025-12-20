@@ -14,6 +14,7 @@ interface AddToCartButtonProps {
   variant?: 'default' | 'outline' | 'secondary';
   size?: 'default' | 'sm' | 'lg';
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export function AddToCartButton({
@@ -23,6 +24,7 @@ export function AddToCartButton({
   variant = 'default',
   size = 'default',
   className,
+  style,
 }: AddToCartButtonProps) {
   const [isAdded, setIsAdded] = useState(false);
   const { addItem, openCart } = useCartStore();
@@ -57,6 +59,7 @@ export function AddToCartButton({
       variant={variant}
       size={size}
       className={className}
+      style={style}
     >
       {isAdded ? (
         <>

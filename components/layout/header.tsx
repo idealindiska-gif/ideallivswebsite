@@ -78,7 +78,8 @@ export function Header({ className, categories = [] }: HeaderProps) {
                       alt={brandProfile.name}
                       fill
                       className="object-contain"
-                      unoptimized
+                      sizes="160px"
+                      priority
                     />
                   </div>
                 </Link>
@@ -133,7 +134,7 @@ export function Header({ className, categories = [] }: HeaderProps) {
                     fill
                     className="object-contain"
                     priority
-                    unoptimized
+                    sizes="(max-width: 640px) 128px, 144px"
                   />
                 </div>
               </Link>

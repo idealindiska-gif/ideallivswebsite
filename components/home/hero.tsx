@@ -30,11 +30,11 @@ export function Hero({
                     <div className="relative h-full w-full bg-muted">
                         <Image
                             src="https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png"
-                            alt="Fresh Groceries"
+                            alt="Delivery Cover Post"
                             fill
                             className="object-cover object-center"
                             priority
-                            unoptimized
+                            sizes="(max-width: 768px) 100vw, 66vw"
                         />
                     </div>
                 </div>

@@ -61,11 +61,9 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 alt={product.images[0].alt || product.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
-                priority={false}
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 loading="lazy"
                 onError={() => setImageError(true)}
-                unoptimized
               />
             ) : (
               <div className="flex h-full items-center justify-center bg-muted/30">

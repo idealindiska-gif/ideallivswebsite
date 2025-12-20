@@ -94,7 +94,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                                         alt={post.title.rendered}
                                         fill
                                         className="object-cover group-hover:scale-105 transition-transform"
-                                        unoptimized
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 </div>
                             )}

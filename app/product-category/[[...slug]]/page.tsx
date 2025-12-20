@@ -142,7 +142,7 @@ export default async function ProductCategoryPage({ params, searchParams }: Prod
                                         alt={product.name}
                                         fill
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                                        unoptimized
+                                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                                     />
                                 </div>
                             )}
