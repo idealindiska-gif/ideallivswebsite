@@ -94,7 +94,7 @@ export default async function ProductCategoryPage({ params, searchParams }: Prod
     });
 
     // Build breadcrumbs from slug array
-    const breadcrumbs = [
+    const breadcrumbs: { label: string; href?: string }[] = [
         { label: 'Shop', href: '/shop' },
     ];
 
