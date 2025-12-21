@@ -219,7 +219,7 @@ export function wooCommerceProductSchema(
 
   // Build product URL
   const productUrl = options?.baseUrl
-    ? `${options.baseUrl}/shop/product/${wooProduct.slug}`
+    ? `${options.baseUrl}/product/${wooProduct.slug}`
     : undefined;
 
   // Determine if variable product

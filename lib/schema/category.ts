@@ -137,7 +137,7 @@ export function wooCategorySchema(
       salePrice: wooProduct.sale_price,
       currency: 'SEK',
       availability,
-      url: `${options.baseUrl}/shop/product/${wooProduct.slug}`,
+      url: `${options.baseUrl}/product/${wooProduct.slug}`,
       images: wooProduct.images,
       category: wooCategory.name,
       rating: wooProduct.average_rating ? Number(wooProduct.average_rating) : undefined,

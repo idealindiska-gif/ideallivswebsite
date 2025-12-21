@@ -55,7 +55,7 @@ export function brandSchema(
  */
 export function idealIndiskaBrandSchema(): Brand {
   return brandSchema('Ideal Indiska LIVS', {
-    url: 'https://ideallivs.com',
+    url: 'https://www.ideallivs.com',
     logo: 'https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png',
     description: 'Stockholm\'s premier destination for authentic Pakistani & Indian cuisine, sweets, and grocery',
   });

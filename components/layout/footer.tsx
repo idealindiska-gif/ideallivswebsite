@@ -69,7 +69,7 @@ export async function Footer() {
               {saleProducts.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/shop/product/${product.slug}`}
+                  href={`/product/${product.slug}`}
                   className="flex gap-3 group items-start"
                 >
                   <div className="relative w-10 h-10 rounded-sm overflow-hidden bg-muted flex-shrink-0 border border-border/50">

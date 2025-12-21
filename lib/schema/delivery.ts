@@ -10,7 +10,7 @@ import { cleanSchema } from './base';
  * Generate Stockholm Delivery Service Schema
  * For /delivery-information page
  */
-export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://ideallivs.com') {
+export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://www.ideallivs.com') {
   const schema: Service = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -127,7 +127,7 @@ export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://ideall
  * Generate Europe Delivery Service Schema
  * For /europe-delivery page
  */
-export function europeDeliveryServiceSchema(baseUrl: string = 'https://ideallivs.com') {
+export function europeDeliveryServiceSchema(baseUrl: string = 'https://www.ideallivs.com') {
   const schema: Service = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -176,7 +176,7 @@ export function europeDeliveryServiceSchema(baseUrl: string = 'https://ideallivs
  * Generate Göteborg & Malmö Delivery Service Schema
  * For /delivery-goteborg-malmo page
  */
-export function goteborgMalmoDeliveryServiceSchema(baseUrl: string = 'https://ideallivs.com') {
+export function goteborgMalmoDeliveryServiceSchema(baseUrl: string = 'https://www.ideallivs.com') {
   const schema: Service = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -237,7 +237,7 @@ export function goteborgMalmoDeliveryServiceSchema(baseUrl: string = 'https://id
 /**
  * Generate FAQ Page Schema for Delivery
  */
-export function deliveryFAQSchema(baseUrl: string = 'https://ideallivs.com') {
+export function deliveryFAQSchema(baseUrl: string = 'https://www.ideallivs.com') {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
