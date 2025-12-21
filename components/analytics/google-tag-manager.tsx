@@ -3,14 +3,17 @@
  * Integrates GTM tracking for the entire site
  */
 
+import Script from 'next/script';
+
 export function GoogleTagManager() {
   const GTM_ID = 'GTM-NMWTPV89';
 
   return (
     <>
       {/* Google Tag Manager Script */}
-      <script
+      <Script
         id="gtm-script"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

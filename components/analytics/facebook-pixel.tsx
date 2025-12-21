@@ -3,6 +3,8 @@
  * Integrates Meta/Facebook Pixel tracking
  */
 
+import Image from 'next/image';
+
 export function FacebookPixel() {
   const PIXEL_ID = '651966044655390';
 
@@ -27,9 +29,9 @@ fbq('track', 'PageView');
         }}
       />
       <noscript>
-        <img
-          height="1"
-          width="1"
+        <Image
+          height={1}
+          width={1}
           style={{ display: 'none' }}
           src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
           alt=""

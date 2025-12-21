@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -41,7 +41,7 @@ export function ShippingCalculator({ className }: { className?: string }) {
     }
   };
 
-  const handleCalculate = () => {
+  const handleCalculate = useCallback(() => {
     if (!postcode || !city) {
       return;
     }
@@ -57,7 +57,7 @@ export function ShippingCalculator({ className }: { className?: string }) {
       city,
       country,
     });
-  };
+  }, [postcode, city, country, setShippingAddress]);
 
   // Auto-calculate when all fields are filled (with debounce)
   useEffect(() => {
@@ -68,8 +68,7 @@ export function ShippingCalculator({ className }: { className?: string }) {
 
       return () => clearTimeout(timer);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postcode, city, country]);
+  }, [postcode, city, postcodeError, handleCalculate]);
 
   return (
     <Card className={className}>
