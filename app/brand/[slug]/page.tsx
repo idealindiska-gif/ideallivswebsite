@@ -62,28 +62,27 @@ export default async function BrandArchivePage({ params, searchParams }: BrandAr
         getProductBrands({ hide_empty: true })
     ]);
 
-    // Fetch all products first then filter (Client-side filtering pattern requested in previous sessions)
-    // Or if supported, use server side.
-    // NOTE: The previous refined code used client side filtering because of API limitations
-    // However, to keep it consistent with the "Refined" version the user liked, I will follow that pattern
-    // BUT, the ArchiveTemplate expects "products", so I should fetch them.
+    // Fetch products with brand filter
+    // WooCommerce Brands plugin requires client-side filtering
+    // Fetch multiple pages to ensure we capture all brand products (up to 500)
 
-    // Let's use getProducts with brand filter if available (ideal) or fallback
-    // The previous code in Step 203 used client side filtering.
-    // The "Refined" logic mentioned "Optimise Brand Page Fetching -> Update to use server-side filtering if possible".
-    // I will try to use the most robust method: filtering via queryParams if getProducts supports it, 
-    // or keep the robust logic I see in Step 203 but WRAPPED in ArchiveTemplate.
+    const [page1, page2, page3, page4, page5] = await Promise.all([
+        getProducts({ per_page: 100, page: 1, orderby: (resolvedSearchParams.orderby as any) || 'date', order: (resolvedSearchParams.order as 'asc' | 'desc') || 'desc' }),
+        getProducts({ per_page: 100, page: 2 }),
+        getProducts({ per_page: 100, page: 3 }),
+        getProducts({ per_page: 100, page: 4 }),
+        getProducts({ per_page: 100, page: 5 }),
+    ]);
 
-    // Let's try to match the robust logic from Step 203 but integrated into ArchiveTemplate
+    const allProducts = [
+        ...page1.data,
+        ...page2.data,
+        ...page3.data,
+        ...page4.data,
+        ...page5.data,
+    ];
 
-    const allProductsResponse = await getProducts({
-        per_page: 100,
-        page: 1,
-        orderby: (resolvedSearchParams.orderby as any) || 'date',
-        order: (resolvedSearchParams.order as 'asc' | 'desc') || 'desc',
-    });
-
-    const brandProducts = allProductsResponse.data.filter(product =>
+    const brandProducts = allProducts.filter(product =>
         product.brands?.some(b => b.id === brand.id || b.slug === brand.slug)
     );
 
