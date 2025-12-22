@@ -234,8 +234,16 @@ export default function CheckoutPage() {
       return;
     }
 
-    // Check if this is a Stripe payment
-    const isStripe = paymentMethod === 'stripe' || paymentMethod === 'stripe_cc';
+    // Check if this is a Stripe payment method
+    // Include Klarna, Link, and other redirect-based methods that go through Stripe
+    const stripePaymentMethods = [
+      'stripe',
+      'stripe_cc',
+      'stripe_klarna', // Klarna through Stripe
+      'klarna',        // Standalone Klarna but still uses Stripe in headless mode
+      'link',          // Link by Stripe
+    ];
+    const isStripe = stripePaymentMethods.includes(paymentMethod) || paymentMethod.startsWith('stripe');
     setIsStripePayment(isStripe);
 
     setIsProcessing(true);
