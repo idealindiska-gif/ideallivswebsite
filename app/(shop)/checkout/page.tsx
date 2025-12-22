@@ -323,6 +323,28 @@ export default function CheckoutPage() {
             throw new Error('Failed to get payment client secret');
           }
 
+          // Store checkout data in sessionStorage for redirect-based payments (Klarna, etc.)
+          // This data will be retrieved on the stripe-return page to create the WooCommerce order
+          const checkoutData = {
+            billing: billingData,
+            shipping: shippingData,
+            shippingMethod: {
+              method_id: shippingMethod.method_id,
+              label: shippingMethod.label,
+              cost: shippingCost,
+            },
+            paymentMethod: paymentMethod,
+            items: items.map((item) => ({
+              product_id: item.productId,
+              variation_id: item.variationId,
+              quantity: item.quantity,
+            })),
+            orderNotes: orderNotes,
+            coupon: coupon ? { code: coupon.code } : null,
+            paymentIntentId: paymentIntentId,
+          };
+          sessionStorage.setItem('pendingCheckoutData', JSON.stringify(checkoutData));
+
           // Store paymentIntentId for later order creation
           setPendingOrderId(0); // Temporary flag to indicate we're in Stripe flow
           setStripeClientSecret(clientSecret);
@@ -330,6 +352,7 @@ export default function CheckoutPage() {
 
           if (process.env.NODE_ENV === 'development') {
             console.log('✅ Stripe PaymentIntent created:', paymentIntentId);
+            console.log('📦 Checkout data saved to sessionStorage for redirect recovery');
           }
 
           // The Stripe payment form will now be shown
