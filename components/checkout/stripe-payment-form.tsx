@@ -95,8 +95,20 @@ export function StripePaymentForm({
                     <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
                         <PaymentElement
                             options={{
-                                layout: 'tabs',
-                                paymentMethodOrder: ['card', 'klarna', 'apple_pay', 'google_pay'],
+                                layout: {
+                                    type: 'accordion',
+                                    defaultCollapsed: false,
+                                    radios: true,
+                                    spacedAccordionItems: true,
+                                },
+                                paymentMethodOrder: ['apple_pay', 'google_pay', 'klarna', 'card', 'link'],
+                                wallets: {
+                                    applePay: 'auto',
+                                    googlePay: 'auto',
+                                },
+                                business: {
+                                    name: 'Ideal Indiska LIVS',
+                                },
                             }}
                         />
                     </div>

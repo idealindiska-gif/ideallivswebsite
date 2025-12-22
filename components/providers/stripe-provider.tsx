@@ -63,14 +63,33 @@ export function StripeProvider({ children, clientSecret }: StripeProviderProps) 
                 appearance: {
                     theme: 'stripe',
                     variables: {
-                        colorPrimary: '#10b981', // primary-600
+                        colorPrimary: '#166534', // forest green (primary-700)
                         colorBackground: '#ffffff',
                         colorText: '#0a0a0a',
                         colorDanger: '#ef4444',
-                        fontFamily: 'system-ui, sans-serif',
+                        fontFamily: 'Inter, system-ui, sans-serif',
                         borderRadius: '0.5rem',
+                        spacingUnit: '4px',
+                    },
+                    rules: {
+                        '.Tab': {
+                            border: '1px solid #e5e7eb',
+                            boxShadow: 'none',
+                        },
+                        '.Tab--selected': {
+                            borderColor: '#166534',
+                            boxShadow: '0 0 0 1px #166534',
+                        },
+                        '.Input': {
+                            borderColor: '#e5e7eb',
+                        },
+                        '.Input:focus': {
+                            borderColor: '#166534',
+                            boxShadow: '0 0 0 1px #166534',
+                        },
                     },
                 },
+                loader: 'auto',
             }}
         >
             {children}

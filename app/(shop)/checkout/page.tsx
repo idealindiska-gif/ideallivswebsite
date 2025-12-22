@@ -283,6 +283,24 @@ export default function CheckoutPage() {
               amount: Math.round(totalAmount * 100), // Convert to öre (cents)
               currency: 'sek',
               customerEmail: billingData.email,
+              customerName: `${billingData.first_name} ${billingData.last_name}`,
+              billingAddress: {
+                line1: billingData.address_1,
+                line2: billingData.address_2,
+                city: billingData.city,
+                state: billingData.state,
+                postal_code: billingData.postcode,
+                country: billingData.country,
+              },
+              shippingAddress: {
+                name: `${shippingData.first_name} ${shippingData.last_name}`,
+                address_1: shippingData.address_1,
+                address_2: shippingData.address_2,
+                city: shippingData.city,
+                state: shippingData.state,
+                postcode: shippingData.postcode,
+                country: shippingData.country,
+              },
               metadata: {
                 customer_name: `${billingData.first_name} ${billingData.last_name}`,
                 items: JSON.stringify(items.map(item => ({
