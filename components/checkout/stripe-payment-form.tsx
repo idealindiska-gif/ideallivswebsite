@@ -124,13 +124,31 @@ export function StripePaymentForm({
                                     radios: true,
                                     spacedAccordionItems: true,
                                 },
-                                paymentMethodOrder: ['apple_pay', 'google_pay', 'klarna', 'card', 'link'],
+                                // Prioritize wallets first for better UX
+                                paymentMethodOrder: ['apple_pay', 'google_pay', 'link', 'klarna', 'card'],
+                                // Wallet configuration
                                 wallets: {
-                                    applePay: 'auto',
-                                    googlePay: 'auto',
+                                    applePay: 'auto', // Shows on Safari/iOS automatically
+                                    googlePay: 'auto', // Shows on Chrome with Google account
                                 },
+                                // Business info for wallet payments
                                 business: {
                                     name: 'Ideal Indiska LIVS',
+                                },
+                                // Fields configuration - minimal since we already have address from checkout
+                                fields: {
+                                    billingDetails: {
+                                        name: 'auto',      // Collect name for wallet payments
+                                        email: 'auto',     // Collect email
+                                        phone: 'never',    // Don't collect phone
+                                        address: 'never',  // We already have this from checkout
+                                    },
+                                },
+                                // Terms display
+                                terms: {
+                                    card: 'never',         // Don't show terms for cards
+                                    applePay: 'never',     // Apple Pay has its own
+                                    googlePay: 'never',    // Google Pay has its own
                                 },
                             }}
                         />

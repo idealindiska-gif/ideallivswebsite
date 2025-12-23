@@ -32,22 +32,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Build PaymentIntent params
+    // Build PaymentIntent params with full wallet support
     const paymentIntentParams: Stripe.PaymentIntentCreateParams = {
       amount: Math.round(amount), // Ensure it's an integer (öre/cents)
       currency: currency.toLowerCase(),
-      // Enable automatic payment methods with redirect support for Klarna
+
+      // Enable ALL payment methods including Apple Pay, Google Pay, Klarna, Link
+      // Using automatic_payment_methods ensures all enabled methods in Dashboard appear
       automatic_payment_methods: {
         enabled: true,
-        allow_redirects: 'always', // Required for Klarna and other redirect-based methods
+        allow_redirects: 'always', // Required for Klarna and redirect-based methods
       },
+
       receipt_email: customerEmail || undefined,
+      description: `Order from ${customerName || customerEmail || 'Customer'}`,
+
       metadata: {
         integration: 'headless-woocommerce',
         source: 'nextjs-frontend',
+        customer_name: customerName || '',
+        customer_email: customerEmail || '',
         ...metadata,
       },
     };
+
+    // Note: Billing address will be collected by PaymentElement during payment confirmation
+    // Shipping address is added to PaymentIntent for address verification
 
     // Add shipping address if provided (required for some payment methods)
     if (shippingAddress) {
@@ -55,9 +65,9 @@ export async function POST(request: NextRequest) {
         name: shippingAddress.name || customerName || '',
         address: {
           line1: shippingAddress.address_1 || shippingAddress.line1 || '',
-          line2: shippingAddress.address_2 || shippingAddress.line2 || '',
+          line2: shippingAddress.address_2 || shippingAddress.line2 || undefined,
           city: shippingAddress.city || '',
-          state: shippingAddress.state || '',
+          state: shippingAddress.state || undefined,
           postal_code: shippingAddress.postcode || shippingAddress.postal_code || '',
           country: shippingAddress.country || 'SE',
         },
