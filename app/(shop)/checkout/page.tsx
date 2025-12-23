@@ -61,6 +61,7 @@ export default function CheckoutPage() {
     if (items.length > 0) {
       trackInitiateCheckout(items, getTotalPrice());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Fetch minimum order amount on mount - DISABLED (no minimum requirement)
@@ -857,6 +858,7 @@ export default function CheckoutPage() {
                   Scan and pay by Swish
                 </h3>
                 <div className="flex justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="https://crm.ideallivs.com/wp-content/uploads/2025/05/swish.jpg"
                     alt="Swish QR Code"
