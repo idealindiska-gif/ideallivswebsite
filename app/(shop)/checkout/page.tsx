@@ -25,6 +25,7 @@ import { Separator } from '@/components/ui/separator';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StripeProvider } from '@/components/providers/stripe-provider';
 import { StripePaymentForm } from '@/components/checkout/stripe-payment-form';
+import { PaymentRequestButton } from '@/components/checkout/payment-request-button';
 import { trackInitiateCheckout } from '@/lib/analytics';
 
 type CheckoutStep = 'shipping' | 'shipping-method' | 'billing' | 'payment' | 'review';
@@ -824,6 +825,18 @@ export default function CheckoutPage() {
                         Complete Payment
                       </h3>
                       <StripeProvider clientSecret={stripeClientSecret}>
+                        {/* Payment Request Button (Apple Pay / Google Pay) - SAME as WordPress */}
+                        <PaymentRequestButton
+                          amount={getTotalPrice() + shippingCost - calculateDiscount()}
+                          currency="SEK"
+                          onSuccess={handleStripeSuccess}
+                          onError={(error) => {
+                            console.error('Wallet payment failed:', error);
+                            setError(`Wallet payment failed: ${error}`);
+                          }}
+                        />
+
+                        {/* Regular Payment Form (Card, Klarna, Link) */}
                         <StripePaymentForm
                           amount={getTotalPrice() + shippingCost - calculateDiscount()}
                           currency="SEK"
