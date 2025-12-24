@@ -10,6 +10,7 @@ import { AlertTriangle, Gift, Loader2, Truck, Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/lib/woocommerce';
 import { ShippingMethod } from '@/lib/shipping-service';
+import { useEffect } from 'react';
 
 export type { ShippingMethod };
 
@@ -46,6 +47,17 @@ export function ShippingMethodSelector({
   const effectivePostcode = postcode || shippingAddress?.postcode;
   const subtotal = cartTotal !== undefined ? cartTotal : getSubtotal();
   const freeShippingProgress = Math.min((subtotal / freeShippingThreshold) * 100, 100);
+
+  // FIX: Auto-notify parent when cart store selects a shipping method (e.g., free shipping)
+  useEffect(() => {
+    if (selectedShippingMethod && onMethodChange && !selectedMethod) {
+      console.log('✅ Auto-selecting shipping method for parent:', selectedShippingMethod.label);
+      onMethodChange(selectedShippingMethod);
+      if (onShippingCostChange) {
+        onShippingCostChange(selectedShippingMethod.cost);
+      }
+    }
+  }, [selectedShippingMethod, onMethodChange, onShippingCostChange, selectedMethod]);
 
   const getMethodIcon = (methodId: string) => {
     switch (methodId) {
