@@ -74,8 +74,9 @@ export async function POST(request: NextRequest) {
       cart_subtotal: data.cart_total || 0,
       free_shipping_threshold: 500,
       amount_to_free_shipping: Math.max(0, 500 - (data.cart_total || 0)),
-      minimum_order: 300,
-      minimum_order_met: (data.cart_total || 0) >= 300,
+      // NO minimum order requirement - users can order any amount
+      minimum_order: 0,
+      minimum_order_met: true,  // Always met since no minimum
     });
   } catch (error) {
     console.error('❌ [API Route] Error:', error);

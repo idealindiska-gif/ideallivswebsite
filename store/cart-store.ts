@@ -297,10 +297,11 @@ export const useCartStore = create<CartState>()(
             set({
               availableShippingMethods: result.available_methods || [],
               restrictedProducts: result.restricted_products || [],
-              freeShippingThreshold: result.free_shipping_threshold || 2000,
+              freeShippingThreshold: result.free_shipping_threshold || 500,
               amountToFreeShipping: result.amount_to_free_shipping || 0,
-              minimumOrder: result.minimum_order || 550,
-              minimumOrderMet: result.minimum_order_met || false,
+              // No minimum order - set to 0
+              minimumOrder: result.minimum_order || 0,
+              minimumOrderMet: result.minimum_order_met ?? true,
               isCalculatingShipping: false,
             });
 
