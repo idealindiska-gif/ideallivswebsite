@@ -1,7 +1,7 @@
 'use client';
 
 import { ExpressCheckoutElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js';
-import { loadStripe, StripeExpressCheckoutElementClickEvent, StripeExpressCheckoutElementConfirmEvent } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { useState, useMemo, useEffect } from 'react';
 import type {
     StripeExpressCheckoutElementOptions,
@@ -22,7 +22,6 @@ interface ExpressCheckoutProps {
 /**
  * Express Checkout Element Component
  * Uses the NEW Stripe ExpressCheckoutElement (same as WordPress Stripe Gateway)
- * This shows Apple Pay, Google Pay, Link, etc. as buttons
  */
 function ExpressCheckoutInner({
     amount,
@@ -32,34 +31,33 @@ function ExpressCheckoutInner({
 }: ExpressCheckoutProps) {
     const stripe = useStripe();
     const elements = useElements();
-    const [status, setStatus] = useState<'loading' | 'ready' | 'unavailable'>('loading');
+    const [status, setStatus] = useState<'loading' | 'ready' | 'unavailable' | 'error'>('loading');
     const [availableMethods, setAvailableMethods] = useState<any>(null);
+    const [errorMsg, setErrorMsg] = useState<string>('');
 
     useEffect(() => {
-        console.log('🔧 Stripe loaded:', !!stripe);
-        console.log('🔧 Elements loaded:', !!elements);
-    }, [stripe, elements]);
+        console.log('🔧 ExpressCheckoutInner mounted');
+        console.log('🔧 Stripe:', !!stripe);
+        console.log('🔧 Elements:', !!elements);
+        console.log('🔧 Amount:', amount);
+    }, [stripe, elements, amount]);
 
     // Handle click - called when user clicks the button
-    const handleClick = (event: StripeExpressCheckoutElementClickEvent) => {
+    const handleClick = (event: any) => {
         console.log('🔘 Express Checkout clicked:', event.expressPaymentType);
-        // Resolve to show the payment sheet
         event.resolve();
     };
 
     // Handle confirm - called after user authenticates
-    const handleConfirm = async (event: StripeExpressCheckoutElementConfirmEvent) => {
+    const handleConfirm = async (event: any) => {
         if (!stripe || !elements) {
             onError?.('Stripe not loaded');
             return;
         }
 
-        console.log('✅ Express Checkout confirming:', event.expressPaymentType);
-        console.log('Billing details:', event.billingDetails);
-        console.log('Shipping address:', event.shippingAddress);
+        console.log('✅ Confirming payment:', event.expressPaymentType);
 
         try {
-            // Submit the payment
             const { error } = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
@@ -71,8 +69,7 @@ function ExpressCheckoutInner({
                 console.error('Payment error:', error);
                 onError?.(error.message || 'Payment failed');
             } else {
-                // Payment succeeded or will redirect
-                console.log('Payment submitted successfully');
+                console.log('Payment submitted');
                 onSuccess({ success: true });
             }
         } catch (err) {
@@ -81,21 +78,32 @@ function ExpressCheckoutInner({
         }
     };
 
-    // Handle ready - called when buttons are mounted
-    const handleReady = ({ availablePaymentMethods }: { availablePaymentMethods?: any }) => {
-        console.log('📱 Express Checkout ready, available methods:', availablePaymentMethods);
-        setAvailableMethods(availablePaymentMethods);
+    // Handle ready - called when element is ready
+    const handleReady = (event: { availablePaymentMethods?: Record<string, boolean> }) => {
+        console.log('📱 ExpressCheckout onReady fired');
+        console.log('📱 Available payment methods:', event.availablePaymentMethods);
+        console.log('📱 Full event:', event);
 
-        if (availablePaymentMethods && Object.keys(availablePaymentMethods).length > 0) {
-            // Check if at least one method is available
-            const hasMethod = Object.values(availablePaymentMethods).some(v => v === true);
+        setAvailableMethods(event.availablePaymentMethods);
+
+        if (event.availablePaymentMethods && Object.keys(event.availablePaymentMethods).length > 0) {
+            const hasMethod = Object.values(event.availablePaymentMethods).some(v => v === true);
+            console.log('📱 Has at least one method:', hasMethod);
             setStatus(hasMethod ? 'ready' : 'unavailable');
         } else {
+            console.log('📱 No payment methods available');
             setStatus('unavailable');
         }
     };
 
-    // Options for the Express Checkout Element
+    // Handle load error
+    const handleLoadError = (event: { error: { message: string } }) => {
+        console.error('❌ ExpressCheckout load error:', event.error);
+        setStatus('error');
+        setErrorMsg(event.error?.message || 'Failed to load');
+    };
+
+    // Options for the Express Checkout Element  
     const expressCheckoutOptions: StripeExpressCheckoutElementOptions = {
         buttonHeight: 48,
         buttonTheme: {
@@ -107,9 +115,9 @@ function ExpressCheckoutInner({
             googlePay: 'plain',
         },
         paymentMethods: {
-            applePay: 'always',  // Always try to show
-            googlePay: 'always', // Always try to show
-            link: 'auto',        // Show if configured
+            applePay: 'always',
+            googlePay: 'always',
+            link: 'auto',
         },
         layout: {
             maxRows: 2,
@@ -118,7 +126,7 @@ function ExpressCheckoutInner({
         },
     };
 
-    // If no methods available and not in debug mode, hide completely
+    // Don't hide if unavailable in debug mode
     if (status === 'unavailable' && !showDebug) {
         return null;
     }
@@ -135,25 +143,33 @@ function ExpressCheckoutInner({
                 </span>
             </div>
 
-            {/* Express Checkout Element - Always render it, Stripe handles visibility */}
-            <div className={status === 'loading' ? 'min-h-[48px]' : ''}>
+            {/* Express Checkout Element Container */}
+            <div className="min-h-[48px]">
                 <ExpressCheckoutElement
                     options={expressCheckoutOptions}
                     onClick={handleClick}
                     onConfirm={handleConfirm}
                     onReady={handleReady}
+                    onLoadError={handleLoadError}
                 />
             </div>
 
-            {/* Debug info - shown only when enabled */}
+            {/* Debug info */}
             {showDebug && (
                 <div className="mt-4 rounded bg-yellow-50 p-3 text-xs dark:bg-yellow-900/20">
                     <p className="font-bold text-yellow-800 dark:text-yellow-300">Debug Info:</p>
-                    <p>Status: {status}</p>
+                    <p>Status: <strong>{status}</strong></p>
                     <p>Stripe loaded: {stripe ? 'Yes' : 'No'}</p>
                     <p>Elements loaded: {elements ? 'Yes' : 'No'}</p>
-                    <p>Amount: {amount} SEK</p>
+                    <p>Amount: {amount} SEK ({Math.round(amount * 100)} öre)</p>
                     <p>Available methods: {JSON.stringify(availableMethods)}</p>
+                    {errorMsg && <p className="text-red-600">Error: {errorMsg}</p>}
+                    <p className="mt-2 text-yellow-700">
+                        <strong>Check Stripe Dashboard:</strong><br />
+                        1. Go to Settings → Payment Methods<br />
+                        2. Enable Apple Pay and Google Pay<br />
+                        3. Go to Settings → Apple Pay → Add domain
+                    </p>
                 </div>
             )}
 
@@ -164,20 +180,24 @@ function ExpressCheckoutInner({
                 </p>
             )}
 
-            {status === 'unavailable' && showDebug && (
+            {status === 'error' && (
                 <p className="mt-2 text-center text-xs text-red-500">
-                    No express payment methods available. Check Stripe Dashboard settings.
+                    Error loading payment options: {errorMsg}
+                </p>
+            )}
+
+            {status === 'unavailable' && showDebug && (
+                <p className="mt-2 text-center text-xs text-orange-500">
+                    No express payment methods available.
+                    Make sure Apple Pay & Google Pay are enabled in Stripe Dashboard.
                 </p>
             )}
 
             {status === 'ready' && (
                 <>
-                    {/* Info text */}
                     <p className="mt-4 text-center text-xs text-neutral-500 dark:text-neutral-400">
                         Pay instantly with Apple Pay, Google Pay, or Link
                     </p>
-
-                    {/* Separator */}
                     <div className="mt-6 flex items-center gap-3">
                         <div className="h-px flex-1 bg-neutral-300 dark:bg-neutral-700" />
                         <span className="text-sm font-medium text-neutral-500">Or continue below</span>
@@ -190,18 +210,19 @@ function ExpressCheckoutInner({
 }
 
 /**
- * Wrapper component that provides Stripe Elements context
- * ExpressCheckoutElement requires an Elements provider with mode='payment'
+ * Wrapper component with Stripe Elements context
  */
 export function StripeExpressCheckout(props: ExpressCheckoutProps) {
     const { amount, currency = 'SEK' } = props;
 
-    // Options for Elements - required for ExpressCheckout
-    // This uses "deferred" mode where we'll create the PaymentIntent on confirm
+    // Elements options for deferred payment intent
     const elementsOptions: StripeElementsOptionsMode = useMemo(() => ({
         mode: 'payment',
-        amount: Math.round(amount * 100), // Amount in smallest currency unit
+        amount: Math.round(amount * 100), // Amount in smallest currency unit (öre)
         currency: currency.toLowerCase(),
+        // IMPORTANT: For Express Checkout to work without a PaymentIntent,
+        // we need to use payment_method_creation: 'manual'
+        paymentMethodCreation: 'manual',
         appearance: {
             theme: 'stripe',
             variables: {
@@ -210,12 +231,17 @@ export function StripeExpressCheckout(props: ExpressCheckoutProps) {
         },
     }), [amount, currency]);
 
+    // Debug logging
+    useEffect(() => {
+        console.log('🚀 StripeExpressCheckout mounting');
+        console.log('🚀 Amount:', amount, currency);
+        console.log('🚀 Stripe Key:', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.substring(0, 20) + '...');
+    }, [amount, currency]);
+
     if (amount <= 0) {
-        console.log('⚠️ Express Checkout: Amount is 0 or less, not rendering');
+        console.log('⚠️ Amount is 0 or less, not rendering');
         return null;
     }
-
-    console.log('🚀 Rendering Express Checkout with amount:', amount, currency);
 
     return (
         <Elements stripe={stripePromise} options={elementsOptions}>
