@@ -167,7 +167,7 @@ export default function CartPage() {
                 <StripeExpressCheckout
                   amount={getTotalPrice()}
                   currency="SEK"
-                  showDebug={true}
+                  showDebug={false}
                   onSuccess={(result) => {
                     console.log('Express checkout from cart success:', result);
                   }}

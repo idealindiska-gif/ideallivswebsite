@@ -188,7 +188,7 @@ function PaymentRequestButtonInner({
             {status === 'ready' && (
                 <>
                     <p className="mt-4 text-center text-xs text-neutral-500 dark:text-neutral-400">
-                        Pay instantly with Apple Pay or Google Pay
+                        Pay instantly with Link, Apple Pay, or Google Pay
                     </p>
                     <div className="mt-6 flex items-center gap-3">
                         <div className="h-px flex-1 bg-neutral-300 dark:bg-neutral-700" />

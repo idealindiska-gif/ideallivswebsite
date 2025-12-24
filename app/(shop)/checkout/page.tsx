@@ -520,24 +520,8 @@ export default function CheckoutPage() {
           </Alert>
         )}
 
-        {/* Minimum Order Amount Info */}
-        {!loadingMinimum && minimumOrderAmount > 0 && !meetsMinimum && (
-          <Alert className="mb-6 border-blue-200 bg-blue-50 dark:border-blue-900 dark:bg-blue-950/20">
-            <AlertCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-            <AlertDescription>
-              <p className="font-semibold text-blue-800 dark:text-blue-300">Order Amount Information</p>
-              <p className="mt-1 text-blue-700 dark:text-blue-400">
-                Your current cart total is {formatPrice(cartTotal, 'SEK')}.
-                <br />
-                • 300 SEK minimum for Stockholm local delivery
-                <br />
-                • 500 SEK for free shipping
-                <br />
-                • <strong>DHL shipping available for any amount</strong>
-              </p>
-            </AlertDescription>
-          </Alert>
-        )}
+
+        {/* Minimum order notification removed - no minimum order requirement */}
 
         {/* Shipping Restrictions */}
         {shippingRestrictions.length > 0 && (
@@ -569,11 +553,11 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Express Checkout - Shows Apple Pay/Google Pay BEFORE forms (like WordPress) */}
+                  {/* Express Checkout - Shows Link, Apple Pay, Google Pay BEFORE forms (like WordPress) */}
                   <StripeExpressCheckout
                     amount={getTotalPrice()}
                     currency="SEK"
-                    showDebug={true}  /* Enable debug mode to see why buttons aren't showing */
+                    showDebug={false}  /* Debug disabled - Express Checkout working with Link */
                     onSuccess={async (result) => {
                       console.log('Express checkout success:', result);
                       // Payment was processed via Express Checkout
