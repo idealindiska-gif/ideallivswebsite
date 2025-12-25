@@ -38,7 +38,9 @@ export default function MyAccountPage() {
       if (!user?.id || user.id === 0) {
         console.log('No valid user ID, skipping order fetch');
         setIsLoadingOrders(false);
-        setOrdersError('No customer ID found. Please ensure your account is properly set up in WooCommerce.');
+        setOrdersError(
+          'Your account is not properly linked to our order system. This usually happens when there was an issue creating your customer profile. Please contact our support team to resolve this issue.'
+        );
         return;
       }
 

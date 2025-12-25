@@ -58,8 +58,11 @@ export function LoginForm() {
             console.log('User result:', userResult);
 
             if (!userResult.success || !userResult.data) {
-                console.error('Failed to load user profile');
-                toast.error('Failed to load user profile');
+                console.error('Failed to load user profile:', userResult.error);
+                const errorMsg = userResult.error || 'Failed to load user profile. Please try again or contact support.';
+                toast.error(errorMsg, {
+                    duration: 5000,
+                });
                 return;
             }
 

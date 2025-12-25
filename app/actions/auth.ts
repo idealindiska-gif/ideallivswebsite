@@ -304,21 +304,11 @@ export async function getCurrentUserAction(token: string, userEmail?: string) {
             }
         }
 
-        // Fallback: Return basic user object if customer creation failed
-        console.warn('Using fallback user object (no WooCommerce customer)');
+        // Fallback: If we reach here, customer creation and all fallbacks have failed
+        console.error('Failed to create or find WooCommerce customer for:', email);
         return {
-            success: true,
-            data: {
-                id: 0, // No ID available
-                email: email,
-                first_name: firstName,
-                last_name: lastName,
-                username: emailUsername,
-                role: 'customer',
-                avatar_url: '',
-                billing: {},
-                shipping: {},
-            }
+            success: false,
+            error: 'Unable to link your account with WooCommerce. Please contact support.'
         };
 
     } catch (error: any) {
