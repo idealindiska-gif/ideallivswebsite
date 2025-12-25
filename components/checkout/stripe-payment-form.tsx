@@ -135,13 +135,13 @@ export function StripePaymentForm({
                                 business: {
                                     name: 'Ideal Indiska LIVS',
                                 },
-                                // Fields configuration - minimal since we already have address from checkout
+                                // Fields configuration - collect all required billing details
                                 fields: {
                                     billingDetails: {
                                         name: 'auto',      // Collect name for wallet payments
                                         email: 'auto',     // Collect email
                                         phone: 'auto',     // Collect phone number
-                                        address: 'never',  // We already have this from checkout
+                                        address: 'auto',   // Collect billing address (required for some payment methods)
                                     },
                                 },
                                 // Terms display
