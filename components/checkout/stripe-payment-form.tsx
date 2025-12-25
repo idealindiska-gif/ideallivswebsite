@@ -140,7 +140,7 @@ export function StripePaymentForm({
                                     billingDetails: {
                                         name: 'auto',      // Collect name for wallet payments
                                         email: 'auto',     // Collect email
-                                        phone: 'never',    // Don't collect phone
+                                        phone: 'auto',     // Collect phone number
                                         address: 'never',  // We already have this from checkout
                                     },
                                 },
