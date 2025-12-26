@@ -193,8 +193,18 @@ function ideal_livs_calculate_shipping($request) {
         }
 
         // Apply free shipping threshold
-        $free_shipping_threshold = 2000; // SEK
-        if ($cart_subtotal >= $free_shipping_threshold) {
+        $free_shipping_threshold = 500; // SEK
+        
+        // IMPORTANT: Filter out free shipping methods if cart doesn't qualify
+        if ($cart_subtotal < $free_shipping_threshold) {
+            // Remove any free shipping methods that WooCommerce might have returned
+            $available_methods = array_filter($available_methods, function($method) {
+                return $method['method_id'] !== 'free_shipping';
+            });
+            // Re-index array after filtering
+            $available_methods = array_values($available_methods);
+        } else {
+            // Cart qualifies for free shipping
             $has_free_shipping = false;
             foreach ($available_methods as &$method) {
                 if ($method['method_id'] === 'free_shipping') {
@@ -209,7 +219,7 @@ function ideal_livs_calculate_shipping($request) {
                 $available_methods[] = array(
                     'id' => 'free_shipping:custom',
                     'method_id' => 'free_shipping',
-                    'label' => 'Free Shipping (Orders over 2000 SEK)',
+                    'label' => 'Free Shipping (Orders over 500 SEK)',
                     'cost' => 0,
                     'total_cost' => 0,
                     'tax' => 0,
