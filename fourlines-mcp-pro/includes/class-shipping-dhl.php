@@ -197,23 +197,26 @@ class Fourlines_MCP_Shipping_DHL {
             // Get cart total for minimum amount check
             $cart_total = WC()->cart->get_subtotal();
             
-            // Free shipping threshold check (500 SEK)
-            $free_shipping_threshold = 500;
+            // DEBUG: Log what we received from WooCommerce
+            error_log('MCP Shipping Debug:');
+            error_log('Cart Total: ' . $cart_total);
+            error_log('Methods from WooCommerce: ' . print_r($available_methods, true));
             
-            // CRITICAL: Filter out free shipping methods if cart doesn't qualify
+            // GLOBAL FREE SHIPPING THRESHOLD (500 SEK)
+            // Hide free shipping if cart total is below 500 SEK, regardless of zone settings
+            $free_shipping_threshold = 500;
             if ($cart_total < $free_shipping_threshold) {
                 // Remove any free shipping methods
-                $available_methods = array_filter($available_methods, function($method) {
-                    return $method['method_id'] !== 'free_shipping';
+                $available_methods = array_filter($available_methods, function($m) {
+                    return $m['method_id'] !== 'free_shipping';
                 });
-                // Re-index array
                 $available_methods = array_values($available_methods);
             } else {
-                // Cart qualifies for free shipping - ensure cost is 0
-                foreach ($available_methods as &$method) {
-                    if ($method['method_id'] === 'free_shipping') {
-                        $method['cost'] = 0;
-                        $method['total_cost'] = 0;
+                // Cart qualifies – ensure any free shipping method has zero cost
+                foreach ($available_methods as &$m) {
+                    if ($m['method_id'] === 'free_shipping') {
+                        $m['cost'] = 0;
+                        $m['total_cost'] = 0;
                     }
                 }
             }
@@ -235,7 +238,11 @@ class Fourlines_MCP_Shipping_DHL {
             // Clear cart after calculation
             WC()->cart->empty_cart();
 
-            // Return response
+            // Return response with debug info
+            $debug = [
+                'cart_total' => $cart_total,
+                'available_methods' => $available_methods,
+            ];
             return [
                 'available_methods' => $available_methods,
                 'zone' => [
@@ -247,6 +254,7 @@ class Fourlines_MCP_Shipping_DHL {
                 'free_shipping_threshold' => $free_shipping_threshold,
                 'free_shipping_available' => $cart_total >= $free_shipping_threshold,
                 'amount_to_free_shipping' => max(0, $free_shipping_threshold - $cart_total),
+                'debug' => $debug,
             ];
 
         } catch (Exception $e) {
