@@ -5,7 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Breadcrumbs, BreadcrumbItem } from '@/components/layout/breadcrumbs';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { AddToCartButton } from '@/components/shop/add-to-cart-button';
+import { Plus } from 'lucide-react';
 import { ProductGrid } from '@/components/shop/product-grid';
 import { ProductImageGallery } from '@/components/shop/product-image-gallery';
 import { ProductVariationSelector } from '@/components/shop/product-variation-selector';
@@ -15,6 +17,7 @@ import { StockIndicator } from '@/components/shop/stock-indicator';
 import { QuantitySelector } from '@/components/shop/quantity-selector';
 import { ProductRecommendations } from '@/components/ai/product-recommendations';
 import { StripeExpressCheckout } from '@/components/checkout/stripe-express-checkout';
+import { WishlistButton } from '@/components/wishlist/wishlist-button';
 import { formatPrice, getDiscountPercentage } from '@/lib/woocommerce';
 import { decodeHtmlEntities } from '@/lib/utils';
 import { trackViewContent } from '@/lib/analytics';
@@ -74,8 +77,8 @@ export function ProductTemplate({
       {/* SEO Schema */}
       <ProductSchema product={product} reviews={reviews} />
 
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-screen-2xl py-6 md:py-8">
+      <div className="min-h-screen bg-background overflow-x-hidden max-w-full">
+        <div className="w-full px-5 py-6 md:py-8 max-w-full">
           {/* Breadcrumbs */}
           {breadcrumbs && breadcrumbs.length > 0 && (
             <Breadcrumbs items={breadcrumbs} className="mb-4" />
@@ -83,21 +86,21 @@ export function ProductTemplate({
 
           {/* Product Content - 3 Column Layout (Always in One Row) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
-            {/* Column 1: Related Products (LEFT) - Hidden on mobile, visible on large screens */}
+            {/* Column 1: Related Products (LEFT) - Last on mobile, first on desktop */}
             {relatedProducts && relatedProducts.length > 0 && (
-              <div className="hidden lg:block lg:col-span-3">
-                <div className="sticky top-24 space-y-3">
+              <div className="lg:col-span-3 order-3 lg:order-1">
+                <div className="lg:sticky lg:top-24 space-y-3">
                   <h3 style={{ fontSize: '20px', fontWeight: 500, lineHeight: 1.52, letterSpacing: '0.025em' }} className="text-foreground border-b border-border/50 pb-2">
                     You May Also Like
                   </h3>
-                  <div className="space-y-3">
+                  {/* Desktop: Vertical list */}
+                  <div className="hidden lg:block space-y-3">
                     {relatedProducts.slice(0, 4).map((relatedProduct) => (
-                      <a
+                      <div
                         key={relatedProduct.id}
-                        href={`/product/${relatedProduct.slug}`}
-                        className="group block bg-background border border-border hover:border-primary/30 rounded-lg p-3 transition-all duration-300 hover:shadow-md"
+                        className="group relative bg-background border border-border hover:border-primary/30 rounded-lg p-3 transition-all duration-300 hover:shadow-md"
                       >
-                        <div className="flex gap-3">
+                        <a href={`/product/${relatedProduct.slug}`} className="flex gap-3">
                           {/* Product Image */}
                           <div className="relative w-20 h-20 flex-shrink-0 overflow-hidden rounded-md bg-muted">
                             {relatedProduct.images && relatedProduct.images[0] ? (
@@ -137,24 +140,97 @@ export function ProductTemplate({
                               )}
                             </div>
                           </div>
-                        </div>
-                      </a>
+                        </a>
+                        {/* Add to Cart Plus Button */}
+                        <Button
+                          size="icon"
+                          className="absolute bottom-3 right-3 h-8 w-8 rounded-full bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:scale-105 transition-all"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // Add to cart logic here
+                          }}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Mobile: 2 per row grid */}
+                  <div className="grid grid-cols-2 gap-3 lg:hidden">
+                    {relatedProducts.slice(0, 4).map((relatedProduct) => (
+                      <div
+                        key={relatedProduct.id}
+                        className="group relative bg-background border border-border hover:border-primary/30 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md"
+                      >
+                        <a href={`/product/${relatedProduct.slug}`} className="block">
+                          {/* Product Image */}
+                          <div className="relative aspect-square overflow-hidden bg-muted">
+                            {relatedProduct.images && relatedProduct.images[0] ? (
+                              <Image
+                                src={relatedProduct.images[0].src}
+                                alt={relatedProduct.name}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                sizes="(max-width: 768px) 50vw, 25vw"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
+                                No Image
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Product Info */}
+                          <div className="p-2">
+                            <h4 className="text-xs font-medium text-foreground line-clamp-2 mb-1">
+                              {decodeHtmlEntities(relatedProduct.name)}
+                            </h4>
+                            <div>
+                              {relatedProduct.on_sale && relatedProduct.sale_price && relatedProduct.sale_price !== '' ? (
+                                <div className="flex items-baseline gap-1">
+                                  <span className="text-sm font-semibold text-primary">
+                                    {formatPrice(relatedProduct.sale_price, 'SEK')}
+                                  </span>
+                                  <span className="text-xs text-muted-foreground line-through">
+                                    {formatPrice(relatedProduct.regular_price, 'SEK')}
+                                  </span>
+                                </div>
+                              ) : (
+                                <span className="text-sm font-semibold text-primary">
+                                  {formatPrice(relatedProduct.price, 'SEK')}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </a>
+                        {/* Add to Cart Plus Button */}
+                        <Button
+                          size="icon"
+                          className="absolute bottom-2 right-2 h-7 w-7 rounded-full bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:scale-105 transition-all z-10"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // Add to cart logic here
+                          }}
+                        >
+                          <Plus className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
             )}
 
-            {/* Column 2: Product Images (CENTER) */}
-            <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-5" : "lg:col-span-6"}>
+            {/* Column 2: Product Images (CENTER) - First on mobile */}
+            <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-5 order-1 lg:order-2" : "lg:col-span-6 order-1"}>
               <ProductImageGallery
                 images={product.images || []}
                 productName={product.name}
               />
             </div>
 
-            {/* Column 3: Product Info (RIGHT) */}
-            <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-4 space-y-3" : "lg:col-span-6 space-y-3"}>
+            {/* Column 3: Product Info (RIGHT) - Second on mobile */}
+            <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-4 space-y-3 order-2 lg:order-3" : "lg:col-span-6 space-y-3 order-2"}>
               {/* Categories & Badges */}
               <div className="flex flex-wrap items-center gap-2">
                 {product.categories && product.categories.length > 0 && (
@@ -214,7 +290,7 @@ export function ProductTemplate({
                   </div>
                 )}
 
-                <h1 style={{ fontSize: '31.25px', fontWeight: 700, lineHeight: 1.47, letterSpacing: '0.02em' }} className="font-heading text-foreground">
+                <h1 className="font-heading text-foreground text-2xl md:text-[27px] font-bold leading-tight">
                   {decodeHtmlEntities(product.name)}
                 </h1>
                 {product.sku && (
@@ -281,15 +357,15 @@ export function ProductTemplate({
 
                   return isOnSale ? (
                     <>
-                      <span style={{ fontSize: '34.94px', fontWeight: 800, lineHeight: 1.47, letterSpacing: '0.015em' }} className="font-heading text-primary">
+                      <span className="font-heading text-primary text-2xl md:text-[27px] font-extrabold leading-tight">
                         {formatPrice(displaySalePrice, 'SEK')}
                       </span>
-                      <span style={{ fontSize: '22.36px', fontWeight: 600, lineHeight: 1.52, letterSpacing: '0.025em' }} className="text-muted-foreground line-through">
+                      <span className="text-muted-foreground line-through text-lg md:text-2xl font-semibold">
                         {formatPrice(displayRegularPrice, 'SEK')}
                       </span>
                     </>
                   ) : (
-                    <span style={{ fontSize: '34.94px', fontWeight: 800, lineHeight: 1.47, letterSpacing: '0.015em' }} className="font-heading text-primary">
+                    <span className="font-heading text-primary text-2xl md:text-[27px] font-extrabold leading-tight">
                       {formatPrice(priceStr, 'SEK')}
                     </span>
                   );
@@ -367,15 +443,24 @@ export function ProductTemplate({
                   return null;
                 })()}
 
-                {/* Add to Cart Button */}
-                <AddToCartButton
-                  product={product}
-                  variation={selectedVariation}
-                  quantity={quantity}
-                  size="lg"
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full py-5"
-                  style={{ fontSize: '17.89px', fontWeight: 500, lineHeight: 1.52, letterSpacing: '0.03em' }}
-                />
+                {/* Add to Cart & Wishlist Buttons */}
+                <div className="flex gap-3">
+                  <AddToCartButton
+                    product={product}
+                    variation={selectedVariation}
+                    quantity={quantity}
+                    size="lg"
+                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full py-5"
+                    style={{ fontSize: '17.89px', fontWeight: 500, lineHeight: 1.52, letterSpacing: '0.03em' }}
+                  />
+                  <WishlistButton
+                    product={product}
+                    variation={selectedVariation || undefined}
+                    size="lg"
+                    variant="outline"
+                    className="rounded-full py-5 px-6 border-2 hover:bg-red-50 dark:hover:bg-red-950/20"
+                  />
+                </div>
 
                 {/* Express Checkout - Apple Pay / Google Pay (like WordPress) */}
                 <StripeExpressCheckout
@@ -431,7 +516,7 @@ export function ProductTemplate({
 
       {/* AI-Powered Recommendations */}
       <div className="bg-primary/5 py-12">
-        <div className="container px-4 md:px-6">
+        <div className="w-full px-5 max-w-full">
           <ProductRecommendations currentProduct={product} maxRecommendations={4} />
         </div>
       </div>

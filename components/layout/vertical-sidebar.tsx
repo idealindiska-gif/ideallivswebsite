@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CartIcon } from "@/components/cart/cart-icon";
+import { WishlistIcon } from "@/components/wishlist/wishlist-icon";
 import { UserNav } from "@/components/layout/user-nav";
 
 interface Category {
@@ -255,11 +256,14 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
               <span className="text-sm">My Account</span>
             </Link>
             <Link
-              href="/my-account/wishlist"
+              href="/wishlist"
               className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
             >
-              <Heart className="h-4 w-4 text-muted-foreground" />
+              <Heart className="h-4 w-4 text-red-500" />
               <span className="text-sm">Wishlist</span>
+              <div className="ml-auto">
+                <WishlistIcon />
+              </div>
             </Link>
             <Link
               href="/my-account/orders"

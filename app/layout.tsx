@@ -12,6 +12,7 @@ import { VerticalSidebar } from "@/components/layout/vertical-sidebar";
 import { ContentHeader } from "@/components/layout/content-header";
 import { Footer } from "@/components/layout/footer";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { WishlistDrawer } from "@/components/wishlist/wishlist-drawer";
 import { siteConfig } from "@/site.config";
 import { cn } from "@/lib/utils";
 import { AiChatWidget } from "@/components/ai/ai-chat-widget";
@@ -105,6 +106,7 @@ export default async function RootLayout({
           </div>
 
           <CartDrawer />
+          <WishlistDrawer />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

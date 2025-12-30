@@ -9,11 +9,11 @@ export async function Footer() {
   const saleProducts = await getOnSaleProducts(3);
 
   return (
-    <footer className="w-full bg-background border-t border-border/10 pt-16 pb-8">
+    <footer className="w-full bg-background border-t border-border/10 pt-8 pb-4 sm:pt-12 sm:pb-6">
       <div className="w-full px-5 max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 mb-16">
           {/* Left Column: Brand Info */}
-          <div className="md:col-span-12 lg:col-span-3 space-y-6">
+          <div className="md:col-span-12 lg:col-span-3 space-y-1 text-xs text-muted-foreground leading-tight">
             <Link href="/" className="inline-block">
               {/* Brand Logo */}
               <div className="relative h-16 w-28">
@@ -27,7 +27,7 @@ export async function Footer() {
               </div>
             </Link>
 
-            <div className="space-y-3 text-xs text-muted-foreground leading-none">
+            <div className="space-y-1 text-xs text-muted-foreground leading-tight">
               <div>
                 <p>{brandProfile.address.street}</p>
                 <p>{brandProfile.address.area}</p>
@@ -40,6 +40,7 @@ export async function Footer() {
               </div>
             </div>
           </div>
+
 
           {/* Column 2: Delivery Information (Replaced Newsletter) */}
           <div className="md:col-span-4 lg:col-span-2">

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, ThumbsUp, ThumbsDown, RefreshCw, Loader2 } from 'lucide-react';
+import { Sparkles, ThumbsUp, ThumbsDown, RefreshCw, Loader2, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/lib/woocommerce';
 import Image from 'next/image';
@@ -112,15 +112,15 @@ export function ProductRecommendations({
             </div>
 
             {isLoading ? (
-                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     {Array.from({ length: maxRecommendations }).map((_, i) => (
                         <Card key={i} className="h-64 animate-pulse bg-neutral-100 dark:bg-neutral-800" />
                     ))}
                 </div>
             ) : (
-                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     {recommendations.map(({ product, reason, confidence }) => (
-                        <Card key={product.id} className="group overflow-hidden transition-all hover:shadow-lg">
+                        <Card key={product.id} className="group relative overflow-hidden transition-all hover:shadow-lg">
                             <Link href={`/${product.slug}`}>
                                 {/* Image */}
                                 <div className="relative aspect-square overflow-hidden bg-neutral-100 dark:bg-neutral-800">
@@ -147,10 +147,10 @@ export function ProductRecommendations({
 
                                 {/* Content */}
                                 <div className="p-4">
-                                    <h3 className="mb-1 line-clamp-2 font-heading text-lg font-medium text-primary-950 dark:text-primary-50">
+                                    <h3 className="mb-1 line-clamp-2 font-heading text-base font-medium text-primary-950 dark:text-primary-50">
                                         {product.name}
                                     </h3>
-                                    <p className="mb-2 text-xs text-neutral-600 dark:text-neutral-400">
+                                    <p className="mb-2 text-xs text-neutral-600 dark:text-neutral-400 line-clamp-1">
                                         {reason}
                                     </p>
                                     <div className="flex items-center justify-between">
@@ -190,6 +190,18 @@ export function ProductRecommendations({
                                     </div>
                                 </div>
                             </Link>
+                            {/* Add to Cart Plus Button */}
+                            <Button
+                                size="icon"
+                                className="absolute bottom-4 right-4 h-9 w-9 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 hover:scale-105 transition-all z-10 opacity-0 group-hover:opacity-100"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    // Add to cart logic here
+                                }}
+                            >
+                                <Plus className="h-4 w-4" />
+                            </Button>
                         </Card>
                     ))}
                 </div>

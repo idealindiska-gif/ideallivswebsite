@@ -29,8 +29,8 @@ export function StockIndicator({
       <div className={cn('space-y-2', className)}>
         {/* Stock Status Badge */}
         {stock_status === 'instock' && (
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-5 w-5 text-green-600" />
+          <div className="flex items-start gap-2">
+            <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
             <div>
               <p className="font-semibold text-green-600">In Stock</p>
               {showQuantity && manage_stock && stock_quantity !== null && (
@@ -43,8 +43,8 @@ export function StockIndicator({
         )}
 
         {stock_status === 'onbackorder' && (
-          <div className="flex items-center gap-2">
-            <Clock className="h-5 w-5 text-yellow-600" />
+          <div className="flex items-start gap-2">
+            <Clock className="h-5 w-5 text-yellow-600 mt-0.5" />
             <div>
               <p className="font-semibold text-yellow-600">Available on Backorder</p>
               <p className="text-sm text-muted-foreground">
@@ -55,8 +55,8 @@ export function StockIndicator({
         )}
 
         {stock_status === 'outofstock' && (
-          <div className="flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-red-600" />
+          <div className="flex items-start gap-2">
+            <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
             <div>
               <p className="font-semibold text-red-600">Out of Stock</p>
               <p className="text-sm text-muted-foreground">

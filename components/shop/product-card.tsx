@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import { ShoppingBag, Star, Plus } from 'lucide-react';
 import { useCartStore } from '@/store/cart-store';
 import { cn, decodeHtmlEntities } from '@/lib/utils';
+import { WishlistToggle } from '@/components/wishlist/wishlist-button';
 
 interface ProductCardProps {
   product: Product;
@@ -75,6 +76,11 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 </div>
               </div>
             )}
+
+            {/* Wishlist Toggle - Top Right */}
+            <div className="absolute top-3 right-3 z-10">
+              <WishlistToggle product={product} />
+            </div>
 
             {/* Quick Add Button (Desktop: Hover) - Clean & Minimal */}
             <div className="absolute bottom-3 right-3 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 z-10">
