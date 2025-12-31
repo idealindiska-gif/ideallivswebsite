@@ -6,10 +6,8 @@
 
 import { NextResponse } from 'next/server';
 import { siteConfig } from '@/site.config';
-
-const WOOCOMMERCE_API_URL = process.env.NEXT_PUBLIC_WOOCOMMERCE_API_URL || '';
-const CONSUMER_KEY = process.env.WOOCOMMERCE_CONSUMER_KEY || '';
-const CONSUMER_SECRET = process.env.WOOCOMMERCE_CONSUMER_SECRET || '';
+import { fetchWooCommerceCached } from '@/lib/woocommerce/api';
+import { WC_API_CONFIG } from '@/lib/woocommerce/config';
 
 // Settings (match WordPress snippet defaults)
 const STORE_CODE = '12397410391306859227'; // Google Merchant store code
@@ -114,22 +112,12 @@ function generateLocalInventoryXML(product: WooProduct): string {
 
 export async function GET() {
   try {
-    // Fetch all published products from WooCommerce
-    const response = await fetch(
-      `${WOOCOMMERCE_API_URL}/products?status=publish&per_page=100&page=1`,
-      {
-        headers: {
-          'Authorization': 'Basic ' + Buffer.from(`${CONSUMER_KEY}:${CONSUMER_SECRET}`).toString('base64'),
-        },
-        next: { revalidate: 3600 } // Cache for 1 hour
-      }
+    // Fetch all published products from WooCommerce using the library
+    const products: WooProduct[] = await fetchWooCommerceCached(
+      `/products?status=publish&per_page=100`,
+      3600, // Cache for 1 hour
+      ['products', 'google-local-feed']
     );
-
-    if (!response.ok) {
-      throw new Error(`WooCommerce API error: ${response.status}`);
-    }
-
-    const products: WooProduct[] = await response.json();
 
     // Fetch variations for variable products
     const allProducts: WooProduct[] = [];
@@ -138,22 +126,15 @@ export async function GET() {
         // Fetch variations
         for (const variationId of product.variations) {
           try {
-            const varResponse = await fetch(
-              `${WOOCOMMERCE_API_URL}/products/${product.id}/variations/${variationId}`,
-              {
-                headers: {
-                  'Authorization': 'Basic ' + Buffer.from(`${CONSUMER_KEY}:${CONSUMER_SECRET}`).toString('base64'),
-                },
-                next: { revalidate: 3600 }
-              }
+            const variation = await fetchWooCommerceCached(
+              `/products/${product.id}/variations/${variationId}`,
+              3600,
+              ['products', 'variations', 'google-local-feed']
             );
-            if (varResponse.ok) {
-              const variation = await varResponse.json();
-              allProducts.push({
-                ...variation,
-                attributes: [...(product.attributes || []), ...(variation.attributes || [])]
-              });
-            }
+            allProducts.push({
+              ...variation,
+              attributes: [...(product.attributes || []), ...(variation.attributes || [])]
+            });
           } catch (error) {
             console.error(`Error fetching variation ${variationId}:`, error);
           }

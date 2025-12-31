@@ -79,7 +79,7 @@ export async function GET() {
     // Generate RSS feed
     const now = new Date().toUTCString();
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-    xml += `<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">\n`;
+    xml += `<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">\n`;
     xml += `  <channel>\n`;
     xml += `    <title><![CDATA[${siteConfig.site_name} Blog]]></title>\n`;
     xml += `    <link>${siteConfig.site_domain}</link>\n`;
