@@ -240,11 +240,16 @@ curl -I https://www.ideallivs.com/api/google-products-feed
 
 **Check Environment Variables:**
 ```env
-NEXT_PUBLIC_WOOCOMMERCE_API_URL=https://crm.ideallivs.com/wp-json/wc/v3
-WOOCOMMERCE_CONSUMER_KEY=ck_xxxxx
-WOOCOMMERCE_CONSUMER_SECRET=cs_xxxxx
+NEXT_PUBLIC_WORDPRESS_URL=https://crm.ideallivs.com
+WORDPRESS_CONSUMER_KEY=ck_xxxxx
+WORDPRESS_CONSUMER_SECRET=cs_xxxxx
 NEXT_PUBLIC_WORDPRESS_API_URL=https://crm.ideallivs.com/wp-json/wp/v2
 ```
+
+**Note:** The feeds use the existing WooCommerce library which requires:
+- `WORDPRESS_CONSUMER_KEY` (not `WOOCOMMERCE_CONSUMER_KEY`)
+- `WORDPRESS_CONSUMER_SECRET` (not `WOOCOMMERCE_CONSUMER_SECRET`)
+- `NEXT_PUBLIC_WORDPRESS_URL` (base WordPress URL, API path is added automatically)
 
 ### Products Missing from Feed
 
