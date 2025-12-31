@@ -127,55 +127,56 @@ export async function loginUserAction(credentials: LoginCredentials) {
         console.log('JWT Auth for WP REST API not available, trying WooCommerce...');
     }
 
-    // Method 3: Fallback to WooCommerce customer lookup (no JWT)
-    console.log('Attempting WooCommerce customer verification...');
-    const baseUrl = WC_API_CONFIG.baseUrl;
-    const consumerKey = process.env.WORDPRESS_CONSUMER_KEY;
-    const consumerSecret = process.env.WORDPRESS_CONSUMER_SECRET;
-
-    if (!consumerKey || !consumerSecret) {
-        return { success: false, error: 'Authentication service unavailable. Please contact support.' };
-    }
+    // Method 3: WordPress password verification via custom endpoint
+    // IMPORTANT: This requires a custom WordPress endpoint that verifies passwords
+    // The previous method was insecure as it didn't verify passwords
+    console.log('Attempting WordPress password verification...');
+    const wordpressUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL;
 
     try {
-        // Look up customer by email
-        const customerUrl = `${baseUrl}/customers?email=${encodeURIComponent(credentials.username)}`;
-        const customerResponse = await fetch(customerUrl, {
+        // Try to verify password using WordPress REST API
+        // This requires Application Passwords or a custom endpoint
+        const wpAuthUrl = `${wordpressUrl}/wp-json/wp/v2/users/me`;
+
+        const wpResponse = await fetch(wpAuthUrl, {
             headers: {
-                'Authorization': 'Basic ' + Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64'),
+                'Authorization': 'Basic ' + Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64'),
             },
         });
 
-        if (customerResponse.ok) {
-            const customers = await customerResponse.json();
+        if (wpResponse.ok) {
+            const wpUser = await wpResponse.json();
+            console.log('WordPress authentication successful');
 
-            if (customers.length > 0) {
-                console.log('Customer found in WooCommerce, creating session...');
-                // Create a simple session token (not JWT, just for frontend state)
-                const sessionToken = Buffer.from(JSON.stringify({
-                    email: credentials.username,
-                    timestamp: Date.now(),
-                })).toString('base64');
+            // Create a session token
+            const sessionToken = Buffer.from(JSON.stringify({
+                email: credentials.username,
+                id: wpUser.id,
+                timestamp: Date.now(),
+            })).toString('base64');
 
-                return {
-                    success: true,
-                    data: {
-                        token: sessionToken,
-                        user_email: credentials.username,
-                        user_nicename: customers[0].username || credentials.username.split('@')[0],
-                        user_display_name: `${customers[0].first_name} ${customers[0].last_name}`.trim() || credentials.username,
-                    },
-                };
-            } else {
-                return { success: false, error: 'Invalid email or password' };
-            }
+            return {
+                success: true,
+                data: {
+                    token: sessionToken,
+                    user_email: wpUser.email || credentials.username,
+                    user_nicename: wpUser.slug || credentials.username.split('@')[0],
+                    user_display_name: wpUser.name || credentials.username,
+                },
+            };
         }
-
-        return { success: false, error: 'Invalid email or password' };
     } catch (error: any) {
-        console.error('All login methods failed:', error);
-        return { success: false, error: 'Login service temporarily unavailable. Please try again later.' };
+        console.log('WordPress REST API authentication failed, trying WooCommerce customer lookup...');
     }
+
+    // SECURITY WARNING: The code below is DISABLED because it's insecure
+    // It would log in users without password verification
+    // To enable WooCommerce-only authentication, you MUST implement proper password verification
+    console.error('All secure authentication methods failed. WooCommerce-only login requires JWT plugins.');
+    return {
+        success: false,
+        error: 'Authentication failed. Please ensure JWT authentication plugins are installed on WordPress, or enable Application Passwords in WordPress settings.'
+    };
 }
 
 export async function getCurrentUserAction(token: string, userEmail?: string) {
