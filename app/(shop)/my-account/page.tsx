@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { useAuthStore } from '@/store/auth-store';
@@ -17,7 +17,7 @@ import type { Order } from '@/types/woocommerce';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 
-export default function MyAccountPage() {
+function MyAccountContent() {
   const { user, isAuthenticated, logout, setUser } = useAuthStore();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -850,5 +850,21 @@ export default function MyAccountPage() {
         </Tabs>
       </Container>
     </Section>
+  );
+}
+
+export default function MyAccountPage() {
+  return (
+    <Suspense fallback={
+      <Section className="bg-neutral-50 dark:bg-neutral-900/50">
+        <Container>
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        </Container>
+      </Section>
+    }>
+      <MyAccountContent />
+    </Suspense>
   );
 }
