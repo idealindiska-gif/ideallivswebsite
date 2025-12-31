@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getPageBySlug } from '@/lib/wordpress';
+import { transformPost } from '@/lib/wordpress-transform';
 import { PageTemplate, BlogPostTemplate } from '@/components/templates';
 import type { Metadata } from 'next';
 
@@ -71,10 +72,12 @@ export default async function DynamicPage({ params, searchParams }: DynamicPageP
 
   // Try blog post first (WordPress posts at root level - matching WordPress URL structure)
   try {
-    const post = await getPostBySlug(resolvedParams.slug);
-    if (post) {
+    const wpPost = await getPostBySlug(resolvedParams.slug);
+    if (wpPost) {
+      // Transform WordPress API post to match BlogPostTemplate's expected format
+      const transformedPost = transformPost(wpPost);
       return (
-        <BlogPostTemplate post={post as any} />
+        <BlogPostTemplate post={transformedPost} />
       );
     }
   } catch {
