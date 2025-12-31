@@ -16,6 +16,7 @@ import { WishlistDrawer } from "@/components/wishlist/wishlist-drawer";
 import { siteConfig } from "@/site.config";
 import { cn } from "@/lib/utils";
 import { AiChatWidget } from "@/components/ai/ai-chat-widget";
+import { ExitSurveyWrapper } from "@/components/feedback/exit-survey-wrapper";
 
 import { getProductCategories } from "@/lib/woocommerce";
 
@@ -107,6 +108,7 @@ export default async function RootLayout({
 
           <CartDrawer />
           <WishlistDrawer />
+          <ExitSurveyWrapper />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
