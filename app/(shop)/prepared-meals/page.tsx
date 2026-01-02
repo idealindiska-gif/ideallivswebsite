@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Weekend Biryani Pre-Orders | Ideal Livs',
     description: 'Authentic dum biryani available for weekend orders. Pre-book before Friday!',
+    images: [
+      {
+        url: 'https://crm.ideallivs.com/wp-content/uploads/2026/01/dum-biryani-scaled.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Weekend Biryani Pre-Orders - Authentic Dum Biryani',
+      },
+    ],
   },
 };
 

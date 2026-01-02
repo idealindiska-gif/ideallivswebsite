@@ -20,18 +20,28 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
             };
         }
 
+        // Default fallback image if product has no images
+        const defaultImage = {
+            url: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm',
+        };
+
         return {
             title: `${product.name} | Ideal Indiska LIVS`,
             description: product.short_description?.replace(/\<[^>]*>/g, '').substring(0, 160) || product.name,
             openGraph: {
                 title: product.name,
                 description: product.short_description?.replace(/\<[^>]*>/g, '').substring(0, 160),
-                images: product.images.map((img) => ({
-                    url: img.src,
-                    width: 800,
-                    height: 800,
-                    alt: img.alt || product.name,
-                })),
+                images: product.images && product.images.length > 0
+                    ? product.images.map((img) => ({
+                        url: img.src,
+                        width: 800,
+                        height: 800,
+                        alt: img.alt || product.name,
+                    }))
+                    : [defaultImage],
                 url: `https://ideallivs.com/product/${resolvedParams.slug}`,
             },
         };

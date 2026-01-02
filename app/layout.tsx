@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     description: siteConfig.site_description,
     images: [
       {
-        url: "https://crm.ideallivs.com/wp-content/uploads/2025/07/ideal-indiska-livs-stockholm.jpg",
+        url: "https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg",
         width: 1200,
         height: 630,
         alt: "Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm",
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.site_name,
     description: siteConfig.site_description,
-    images: ["https://crm.ideallivs.com/wp-content/uploads/2025/07/ideal-indiska-livs-stockholm.jpg"],
+    images: ["https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg"],
   },
   // Additional metadata
   keywords: [
