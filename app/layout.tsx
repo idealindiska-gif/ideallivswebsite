@@ -28,12 +28,16 @@ import type { Metadata } from "next";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+  preload: true,
 });
 
 const fontHeading = FontHeading({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-heading",
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -126,6 +130,20 @@ export default async function RootLayout({
   return (
     <html lang="sv-SE" suppressHydrationWarning>
       <head>
+        {/* Preconnect to external domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://crm.ideallivs.com" />
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
+
+        {/* Preload critical hero image */}
+        <link
+          rel="preload"
+          as="image"
+          href="https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png"
+          fetchPriority="high"
+        />
+
         {/* Geo-Targeting Meta Tags */}
         <GeoMetaTags />
 

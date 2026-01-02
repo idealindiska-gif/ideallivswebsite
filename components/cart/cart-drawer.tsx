@@ -60,6 +60,23 @@ export function CartDrawer() {
           </div>
         ) : (
           <>
+            {/* WhatsApp Order Button - Top of Cart */}
+            <div className="px-4 pt-4">
+              <WhatsAppOrderButton
+                context="cart"
+                cartItems={items}
+                cartTotal={getTotalPrice().toString()}
+                cartSubtotal={getTotalPrice().toString()}
+                requireCustomerInfo={true}
+                variant="outline"
+                size="sm"
+                className="w-full border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20"
+                label="Order via WhatsApp"
+                onSuccess={() => {
+                  closeCart();
+                }}
+              />
+            </div>
             {/* Cart Items */}
             <div className="flex-1 overflow-y-auto py-4">
               <div className="space-y-4">
@@ -143,21 +160,6 @@ export function CartDrawer() {
                 <span>Total:</span>
                 <span>{formatPrice(getTotalPrice(), 'SEK')}</span>
               </div>
-
-              <WhatsAppOrderButton
-                context="cart"
-                cartItems={items}
-                cartTotal={getTotalPrice().toString()}
-                cartSubtotal={getTotalPrice().toString()}
-                requireCustomerInfo={true}
-                variant="outline"
-                size="default"
-                className="w-full border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20"
-                label="Order via WhatsApp"
-                onSuccess={() => {
-                  closeCart();
-                }}
-              />
 
               <div className="grid grid-cols-2 gap-3">
                 <Button asChild variant="outline" size="default" onClick={closeCart} className="text-sm">

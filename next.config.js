@@ -1,5 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // Performance optimizations
+    swcMinify: true,
+    compress: true,
+    poweredByHeader: false,
+
+    // Optimize bundle
+    compiler: {
+        removeConsole: process.env.NODE_ENV === 'production',
+    },
+
+    // Experimental optimizations
+    experimental: {
+        optimizePackageImports: ['lucide-react', 'date-fns'],
+    },
+
     images: {
         unoptimized: true, // Disable Vercel image optimization to avoid 402 errors
         formats: ['image/avif', 'image/webp'],
