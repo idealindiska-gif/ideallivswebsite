@@ -137,12 +137,14 @@ export async function createWhatsAppOrderAction(
       first_name: data.customer.firstName,
       last_name: data.customer.lastName,
       phone: data.customer.phone,
+      state: data.shipping.state || '',
     };
 
     const billingWithName = {
       ...billing,
       first_name: data.customer.firstName,
       last_name: data.customer.lastName,
+      state: billing.state || '',
     };
 
     // Step 7: Create WooCommerce order
