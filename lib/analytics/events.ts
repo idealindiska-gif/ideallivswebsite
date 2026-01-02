@@ -225,3 +225,109 @@ export function trackSearch(searchQuery: string, resultCount: number = 0) {
     });
   }
 }
+
+/**
+ * Track WhatsApp order initiated event
+ */
+export function trackWhatsAppOrderInitiated(
+  context: 'product' | 'cart',
+  product?: Product | null,
+  cartItems?: any[] | null,
+  totalValue: number = 0
+) {
+  // Google Tag Manager
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    const items =
+      context === 'product' && product
+        ? [
+            {
+              item_id: product.id.toString(),
+              item_name: product.name,
+              item_brand: product.brands?.[0]?.name || 'Ideal Indiska LIVS',
+              item_category: product.categories?.[0]?.name || '',
+              price: parseFloat(product.price || '0'),
+              quantity: 1,
+            },
+          ]
+        : (cartItems || []).map((item) => ({
+            item_id: item.productId?.toString() || item.product?.id?.toString(),
+            item_name: item.product?.name || '',
+            item_brand: item.product?.brands?.[0]?.name || 'Ideal Indiska LIVS',
+            item_category: item.product?.categories?.[0]?.name || '',
+            item_variant: item.variationId?.toString(),
+            price: parseFloat(item.product?.price || '0'),
+            quantity: item.quantity || 1,
+          }));
+
+    window.dataLayer.push({
+      event: 'whatsapp_order_initiated',
+      order_method: 'whatsapp',
+      order_context: context,
+      ecommerce: {
+        currency: 'SEK',
+        value: totalValue,
+        items: items,
+      },
+    });
+  }
+
+  // Facebook Pixel - Track as InitiateCheckout for WhatsApp
+  if (typeof window !== 'undefined' && window.fbq) {
+    const contentIds =
+      context === 'product' && product
+        ? [product.id]
+        : (cartItems || []).map((item) => item.productId || item.product?.id);
+
+    window.fbq('track', 'InitiateCheckout', {
+      content_ids: contentIds,
+      content_type: 'product',
+      value: totalValue,
+      currency: 'SEK',
+      num_items: context === 'product' ? 1 : (cartItems || []).length,
+    });
+  }
+}
+
+/**
+ * Track WhatsApp order created successfully
+ */
+export function trackWhatsAppOrderCreated(
+  orderId: number,
+  orderNumber: string,
+  totalValue: number,
+  items?: any[]
+) {
+  // Google Tag Manager
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: 'whatsapp_order_created',
+      order_id: orderId,
+      order_number: orderNumber,
+      order_method: 'whatsapp',
+      order_value: totalValue,
+      currency: 'SEK',
+      ecommerce: items
+        ? {
+            currency: 'SEK',
+            value: totalValue,
+            items: items.map((item) => ({
+              item_id: item.productId?.toString() || item.id?.toString(),
+              item_name: item.name || '',
+              price: parseFloat(item.price || '0'),
+              quantity: item.quantity || 1,
+            })),
+          }
+        : undefined,
+    });
+  }
+
+  // Facebook Pixel - Track as custom event
+  if (typeof window !== 'undefined' && window.fbq) {
+    window.fbq('trackCustom', 'WhatsAppOrder', {
+      order_id: orderId,
+      order_number: orderNumber,
+      value: totalValue,
+      currency: 'SEK',
+    });
+  }
+}

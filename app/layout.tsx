@@ -15,6 +15,7 @@ import { GeoMetaTags } from "@/components/seo/geo-meta-tags";
 import { HreflangTags } from "@/components/seo/hreflang-tags";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import { WishlistDrawer } from "@/components/wishlist/wishlist-drawer";
+import { Toaster } from "@/components/ui/toaster";
 import { siteConfig } from "@/site.config";
 import { cn } from "@/lib/utils";
 import { AiChatWidget } from "@/components/ai/ai-chat-widget";
@@ -168,6 +169,7 @@ export default async function RootLayout({
 
           <CartDrawer />
           <WishlistDrawer />
+          <Toaster />
           <ExitSurveyWrapper />
         </ThemeProvider>
         <Analytics />

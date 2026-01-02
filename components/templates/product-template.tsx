@@ -18,6 +18,7 @@ import { QuantitySelector } from '@/components/shop/quantity-selector';
 import { ProductRecommendations } from '@/components/ai/product-recommendations';
 import { StripeExpressCheckout } from '@/components/checkout/stripe-express-checkout';
 import { WishlistButton } from '@/components/wishlist/wishlist-button';
+import { WhatsAppOrderButton } from '@/components/whatsapp/whatsapp-order-button';
 import { formatPrice, getDiscountPercentage } from '@/lib/woocommerce';
 import { decodeHtmlEntities } from '@/lib/utils';
 import { trackViewContent } from '@/lib/analytics';
@@ -473,6 +474,19 @@ export function ProductTemplate({
                   onError={(error) => {
                     console.error('Express checkout error:', error);
                   }}
+                />
+
+                {/* WhatsApp Order Button */}
+                <WhatsAppOrderButton
+                  context="product"
+                  product={product}
+                  variation={selectedVariation || undefined}
+                  quantity={quantity}
+                  requireCustomerInfo={true}
+                  variant="outline"
+                  size="lg"
+                  className="w-full rounded-full py-5 border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20"
+                  label="Order via WhatsApp"
                 />
 
                 {/* Additional Info */}
