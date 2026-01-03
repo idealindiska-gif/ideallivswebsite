@@ -26,19 +26,30 @@ const bookingFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   phone: z.string().min(10, 'Valid phone number required'),
   email: z.string().email('Valid email required').optional().or(z.literal('')),
-  biryaniType: z.enum(['chicken', 'vegetable'], {
+  biryaniType: z.enum(['chicken', 'vegetable', 'catering'], {
     required_error: 'Please select a biryani type',
   }),
   quantity: z.string().min(1, 'Quantity required'),
-  pickupDay: z.enum(['saturday', 'sunday'], {
-    required_error: 'Please select pickup/delivery day',
-  }),
-  preferredTime: z.string().min(1, 'Preferred time required'),
+  pickupDay: z.enum(['saturday', 'sunday']).optional(),
+  preferredTime: z.string().optional(),
   deliveryMethod: z.enum(['pickup', 'delivery'], {
     required_error: 'Please select delivery method',
   }),
   address: z.string().optional(),
+  eventDate: z.string().optional(), // For catering orders
   specialRequests: z.string().optional(),
+}).refine((data) => {
+  // For chicken and vegetable, pickupDay and preferredTime are required
+  if ((data.biryaniType === 'chicken' || data.biryaniType === 'vegetable') && (!data.pickupDay || !data.preferredTime)) {
+    return false;
+  }
+  // For catering, eventDate is required
+  if (data.biryaniType === 'catering' && !data.eventDate) {
+    return false;
+  }
+  return true;
+}, {
+  message: 'Please complete all required fields for your order type',
 });
 
 type BookingFormData = z.infer<typeof bookingFormSchema>;
@@ -66,18 +77,30 @@ export function BiryaniBookingForm() {
 
     try {
       // Calculate price
-      const pricePerItem = data.biryaniType === 'chicken' ? 119 : 119;
+      const pricePerItem = 119;
       const totalPrice = pricePerItem * parseInt(data.quantity || '1');
 
-      // Format WhatsApp message
-      const message = `*🍛 Biryani Pre-Order Request*
+      // Format WhatsApp message based on order type
+      let message = `*🍛 Biryani ${data.biryaniType === 'catering' ? 'Bulk Order / Catering Request' : 'Pre-Order Request'}*
 
 *Customer Details:*
 Name: ${data.name}
 Phone: ${data.phone}
 ${data.email ? `Email: ${data.email}` : ''}
 
-*Order Details:*
+*Order Details:*`;
+
+      if (data.biryaniType === 'catering') {
+        message += `
+Type: Bulk Order for Events/Catering
+Quantity: ${data.quantity} portion(s) (Minimum 10)
+Estimated Total: ${totalPrice} kr (Contact for final pricing)
+
+*Event Details:*
+Event Date: ${data.eventDate}
+Available Anytime: 13:00 - 19:00`;
+      } else {
+        message += `
 Biryani: ${data.biryaniType === 'chicken' ? 'Chicken Biryani' : 'Vegetable Biryani'}
 Quantity: ${data.quantity} portion(s)
 Price per portion: ${pricePerItem} kr
@@ -85,13 +108,16 @@ Price per portion: ${pricePerItem} kr
 
 *Pickup/Delivery:*
 Day: ${data.pickupDay === 'saturday' ? 'Saturday' : 'Sunday'}
-Preferred Time: ${data.preferredTime}
+Preferred Time: ${data.preferredTime}`;
+      }
+
+      message += `
 Method: ${data.deliveryMethod === 'pickup' ? 'Store Pickup' : 'Home Delivery'}
 ${data.deliveryMethod === 'delivery' && data.address ? `Address: ${data.address}` : ''}
 
 ${data.specialRequests ? `*Special Requests:*\n${data.specialRequests}` : ''}
 
-Please confirm this pre-order. Thank you!`;
+Please confirm this ${data.biryaniType === 'catering' ? 'bulk order' : 'pre-order'}. Thank you!`;
 
       // Generate WhatsApp URL
       const phone = getWhatsAppPhone('orders');
@@ -190,21 +216,28 @@ Please confirm this pre-order. Thank you!`;
               </Label>
               <RadioGroup
                 value={biryaniType}
-                onValueChange={(value) => setValue('biryaniType', value as 'chicken' | 'vegetable')}
+                onValueChange={(value) => setValue('biryaniType', value as 'chicken' | 'vegetable' | 'catering')}
                 className="mt-2"
               >
                 <div className="flex items-center space-x-2 border rounded-lg p-4 hover:bg-orange-50 dark:hover:bg-orange-950/20 cursor-pointer">
                   <RadioGroupItem value="chicken" id="chicken" />
                   <Label htmlFor="chicken" className="flex-1 cursor-pointer">
                     <div className="font-semibold">Chicken Biryani</div>
-                    <div className="text-sm text-gray-500">119 kr per portion</div>
+                    <div className="text-sm text-gray-500">119 kr per portion (Weekend only)</div>
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2 border rounded-lg p-4 hover:bg-orange-50 dark:hover:bg-orange-950/20 cursor-pointer">
                   <RadioGroupItem value="vegetable" id="vegetable" />
                   <Label htmlFor="vegetable" className="flex-1 cursor-pointer">
                     <div className="font-semibold">Vegetable Biryani</div>
-                    <div className="text-sm text-gray-500">119 kr per portion</div>
+                    <div className="text-sm text-gray-500">119 kr per portion (Weekend only)</div>
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2 border-2 border-green-200 bg-green-50 dark:bg-green-950/20 rounded-lg p-4 hover:bg-green-100 dark:hover:bg-green-950/30 cursor-pointer">
+                  <RadioGroupItem value="catering" id="catering" />
+                  <Label htmlFor="catering" className="flex-1 cursor-pointer">
+                    <div className="font-semibold text-green-900 dark:text-green-100">Events or Catering</div>
+                    <div className="text-sm text-green-700 dark:text-green-300">Bulk orders - Min 10 portions (Any day, 13:00-19:00)</div>
                   </Label>
                 </div>
               </RadioGroup>
@@ -220,17 +253,27 @@ Please confirm this pre-order. Thank you!`;
               <Input
                 id="quantity"
                 type="number"
-                min="1"
-                max="20"
+                min={biryaniType === 'catering' ? '10' : '1'}
+                max="100"
                 {...register('quantity')}
-                placeholder="1"
+                placeholder={biryaniType === 'catering' ? '10' : '1'}
               />
               {errors.quantity && (
                 <p className="text-sm text-red-500 mt-1">{errors.quantity.message}</p>
               )}
-              {quantity && biryaniType && (
+              {biryaniType === 'catering' && (
+                <p className="text-sm text-green-600 dark:text-green-400 mt-1">
+                  Minimum 10 portions for bulk orders
+                </p>
+              )}
+              {quantity && biryaniType && biryaniType !== 'catering' && (
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                   Total: {(biryaniType === 'chicken' ? 119 : 119) * parseInt(quantity)} kr
+                </p>
+              )}
+              {quantity && biryaniType === 'catering' && (
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Total: {119 * parseInt(quantity)} kr (Contact for final pricing)
                 </p>
               )}
             </div>
@@ -242,48 +285,70 @@ Please confirm this pre-order. Thank you!`;
               Pickup / Delivery Details
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* For Catering Orders - Show Event Date */}
+            {biryaniType === 'catering' ? (
               <div>
-                <Label htmlFor="pickupDay">
-                  Day <span className="text-red-500">*</span>
+                <Label htmlFor="eventDate">
+                  Event Date <span className="text-red-500">*</span>
                 </Label>
-                <Select onValueChange={(value) => setValue('pickupDay', value as 'saturday' | 'sunday')}>
-                  <SelectTrigger id="pickupDay">
-                    <SelectValue placeholder="Select day" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="saturday">Saturday</SelectItem>
-                    <SelectItem value="sunday">Sunday</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.pickupDay && (
-                  <p className="text-sm text-red-500 mt-1">{errors.pickupDay.message}</p>
+                <Input
+                  id="eventDate"
+                  type="date"
+                  {...register('eventDate')}
+                  min={new Date().toISOString().split('T')[0]}
+                />
+                <p className="text-sm text-green-600 dark:text-green-400 mt-1">
+                  Available any day between 13:00 - 19:00
+                </p>
+                {errors.eventDate && (
+                  <p className="text-sm text-red-500 mt-1">{errors.eventDate.message}</p>
                 )}
               </div>
+            ) : (
+              /* For Weekend Orders - Show Day and Time Selectors */
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="pickupDay">
+                    Day <span className="text-red-500">*</span>
+                  </Label>
+                  <Select onValueChange={(value) => setValue('pickupDay', value as 'saturday' | 'sunday')}>
+                    <SelectTrigger id="pickupDay">
+                      <SelectValue placeholder="Select day" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="saturday">Saturday</SelectItem>
+                      <SelectItem value="sunday">Sunday</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {errors.pickupDay && (
+                    <p className="text-sm text-red-500 mt-1">{errors.pickupDay.message}</p>
+                  )}
+                </div>
 
-              <div>
-                <Label htmlFor="preferredTime">
-                  Preferred Time <span className="text-red-500">*</span>
-                </Label>
-                <Select onValueChange={(value) => setValue('preferredTime', value)}>
-                  <SelectTrigger id="preferredTime">
-                    <SelectValue placeholder="Select time" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="14:00-15:00">14:00 - 15:00</SelectItem>
-                    <SelectItem value="15:00-16:00">15:00 - 16:00</SelectItem>
-                    <SelectItem value="16:00-17:00">16:00 - 17:00</SelectItem>
-                    <SelectItem value="17:00-18:00">17:00 - 18:00</SelectItem>
-                    <SelectItem value="18:00-19:00">18:00 - 19:00</SelectItem>
-                    <SelectItem value="19:00-20:00">19:00 - 20:00</SelectItem>
-                    <SelectItem value="20:00-21:00">20:00 - 21:00</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.preferredTime && (
-                  <p className="text-sm text-red-500 mt-1">{errors.preferredTime.message}</p>
-                )}
+                <div>
+                  <Label htmlFor="preferredTime">
+                    Preferred Time <span className="text-red-500">*</span>
+                  </Label>
+                  <Select onValueChange={(value) => setValue('preferredTime', value)}>
+                    <SelectTrigger id="preferredTime">
+                      <SelectValue placeholder="Select time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="14:00-15:00">14:00 - 15:00</SelectItem>
+                      <SelectItem value="15:00-16:00">15:00 - 16:00</SelectItem>
+                      <SelectItem value="16:00-17:00">16:00 - 17:00</SelectItem>
+                      <SelectItem value="17:00-18:00">17:00 - 18:00</SelectItem>
+                      <SelectItem value="18:00-19:00">18:00 - 19:00</SelectItem>
+                      <SelectItem value="19:00-20:00">19:00 - 20:00</SelectItem>
+                      <SelectItem value="20:00-21:00">20:00 - 21:00</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {errors.preferredTime && (
+                    <p className="text-sm text-red-500 mt-1">{errors.preferredTime.message}</p>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             <div>
               <Label>

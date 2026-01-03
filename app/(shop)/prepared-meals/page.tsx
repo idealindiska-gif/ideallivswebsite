@@ -34,7 +34,7 @@ export default function PreparedMealsPage() {
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://crm.ideallivs.com/wp-content/uploads/2026/01/dum-biryani-scaled.jpg)' }}
+          style={{ backgroundImage: 'url(https://crm.ideallivs.com/wp-content/uploads/2026/01/Ideal-Biryani-Stockholm.jpg)' }}
         ></div>
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-orange-900/90 to-red-900/90"></div>
@@ -45,11 +45,10 @@ export default function PreparedMealsPage() {
               <span className="text-sm font-medium">Fresh & Authentic</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Weekend Biryani
+              Authentic Biryani
             </h1>
             <p className="text-lg md:text-xl text-orange-50 mb-8 max-w-2xl mx-auto">
-              Experience the authentic flavors of traditional dum biryani, slow-cooked to perfection.
-              Available exclusively on weekends with pre-order.
+              Weekend pre-orders for family meals. Bulk orders available any day for events and catering (13:00-19:00).
             </p>
 
             {/* Key Info Cards */}
@@ -100,6 +99,77 @@ export default function PreparedMealsPage() {
           </div>
 
           <BiryaniMenu />
+        </div>
+      </section>
+
+      {/* Bulk Orders & Catering Section */}
+      <section className="container mx-auto px-4 py-16 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-4 py-2 rounded-full mb-4">
+              <ChefHat className="h-5 w-5 text-green-700 dark:text-green-400" />
+              <span className="text-sm font-medium text-green-700 dark:text-green-400">Events & Catering</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Bulk Orders for Events & Catering
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Planning a party, corporate event, or celebration? Order our delicious biryani in bulk!
+              Available any day of the week between 13:00 to 19:00.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm text-center">
+              <Clock className="h-8 w-8 mx-auto mb-3 text-green-600" />
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Flexible Timing</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Any day of the week<br />13:00 - 19:00
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm text-center">
+              <ChefHat className="h-8 w-8 mx-auto mb-3 text-green-600" />
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Fresh Prepared</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Made fresh for your event<br />Minimum 10 portions
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm text-center">
+              <Calendar className="h-8 w-8 mx-auto mb-3 text-green-600" />
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Advance Booking</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Order 24-48 hours in advance<br />for best availability
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">
+            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Perfect For:</h3>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-600 dark:text-gray-300">
+              <li className="flex items-center gap-2">
+                <span className="text-green-600">✓</span> Birthday Parties
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-600">✓</span> Corporate Events
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-600">✓</span> Wedding Functions
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-600">✓</span> Family Gatherings
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-600">✓</span> Office Lunches
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-600">✓</span> Special Celebrations
+              </li>
+            </ul>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-6 p-4 bg-gray-50 dark:bg-gray-900 rounded">
+              <strong>Note:</strong> For bulk orders, use the "Events or Catering" option in the booking form below.
+              No calendar or time restrictions - order any day you need!
+            </p>
+          </div>
         </div>
       </section>
 

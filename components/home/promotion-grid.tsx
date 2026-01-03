@@ -15,7 +15,7 @@ export function PromotionGrid() {
                         <div className="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-lg transition-all h-full">
                             <div className="relative aspect-[4/4] w-full">
                                 <Image
-                                    src="https://crm.ideallivs.com/wp-content/uploads/2026/01/dum-biryani-scaled.jpg"
+                                    src="https://crm.ideallivs.com/wp-content/uploads/2026/01/biryani-at-ideal-indiska-stockholm.jpg"
                                     alt="Weekend Biryani Pre-Orders - Authentic Dum Biryani"
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-500"
