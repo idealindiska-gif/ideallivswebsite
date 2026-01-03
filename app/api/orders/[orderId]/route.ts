@@ -26,6 +26,15 @@ export async function GET(
             return NextResponse.json({ error: 'Order key is required' }, { status: 400 });
         }
 
+        // Validate environment variables
+        if (!CONSUMER_KEY || !CONSUMER_SECRET) {
+            console.error('Missing WooCommerce API credentials');
+            return NextResponse.json(
+                { error: 'Server configuration error. Please contact support.' },
+                { status: 500 }
+            );
+        }
+
         // Fetch order from WooCommerce
         const auth = Buffer.from(`${CONSUMER_KEY}:${CONSUMER_SECRET}`).toString('base64');
 
