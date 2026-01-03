@@ -167,7 +167,7 @@ export function SmartSearch({
                                 {results.map((result) => (
                                     <Link
                                         key={result.id}
-                                        href={`/product/${result.slug}`}
+                                        href={`/shop/${result.slug}`}
                                         onClick={() => {
                                             setIsOpen(false);
                                             setQuery('');

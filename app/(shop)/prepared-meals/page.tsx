@@ -11,7 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export const metadata: Metadata = {
   title: 'Weekend Biryani Pre-Orders | Ideal Livs',
-  description: 'Order authentic Chicken Dum Biryani and Vegetable Dum Biryani for weekend enjoyment. Pre-order before Friday for weekend pickup or delivery.',
+  description: 'Order authentic Chicken Biryani and Vegetable Biryani for weekend enjoyment. Pre-order before Friday for weekend pickup or delivery.',
   openGraph: {
     title: 'Weekend Biryani Pre-Orders | Ideal Livs',
     description: 'Authentic dum biryani available for weekend orders. Pre-book before Friday!',
@@ -45,7 +45,7 @@ export default function PreparedMealsPage() {
               <span className="text-sm font-medium">Fresh & Authentic</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Weekend Dum Biryani
+              Weekend Biryani
             </h1>
             <p className="text-lg md:text-xl text-orange-50 mb-8 max-w-2xl mx-auto">
               Experience the authentic flavors of traditional dum biryani, slow-cooked to perfection.

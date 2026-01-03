@@ -27,7 +27,7 @@ interface BiryaniItem {
 const biryanis: BiryaniItem[] = [
   {
     id: 'chicken-dum-biryani',
-    name: 'Chicken Dum Biryani',
+    name: 'Chicken Biryani',
     description: 'Tender chicken pieces marinated in aromatic spices, slow-cooked with fragrant basmati rice using the traditional dum pukht method. Garnished with fried onions, fresh mint, and coriander.',
     price: 119,
     type: 'chicken',
@@ -38,24 +38,21 @@ const biryanis: BiryaniItem[] = [
       'Long-grain basmati rice',
       'Slow-cooked for 45 minutes',
       'Garnished with fried onions',
-      'Serves 1-2 people',
-      'Includes raita & pickle'
+      'Serves 1-2 people'
     ]
   },
   {
     id: 'vegetable-dum-biryani',
-    name: 'Vegetable Dum Biryani',
-    description: 'A delightful medley of fresh seasonal vegetables and paneer, layered with basmati rice and aromatic spices. Cooked in the traditional dum style for authentic flavors.',
+    name: 'Vegetable Biryani',
+    description: 'A delightful medley of fresh seasonal vegetables, layered with basmati rice and aromatic spices. Cooked in the traditional dum style for authentic flavors.',
     price: 119,
     type: 'vegetable',
     spiceLevel: 2,
     features: [
       'Fresh seasonal vegetables',
-      'Paneer cubes included',
       'Long-grain basmati rice',
       'Traditional dum cooking',
-      'Serves 1-2 people',
-      'Includes raita & pickle'
+      'Serves 1-2 people'
     ]
   }
 ];

@@ -98,23 +98,18 @@ export function SearchModal() {
         <>
             {/* Search Trigger Button - Centered */}
             <div className="w-full flex justify-center">
-                <button
-                    type="button"
-                    className="relative h-10 w-full max-w-md flex items-center justify-start text-sm text-muted-foreground bg-background border border-border hover:bg-muted hover:border-primary/30 transition-all duration-300 rounded-full shadow-sm px-3"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log('[SearchModal] Button clicked!');
-                        setIsOpen(true);
-                    }}
+                <Button
+                    variant="outline"
+                    className="relative h-10 w-full max-w-md justify-start text-sm text-muted-foreground sm:pr-12 bg-background border border-border hover:bg-muted hover:border-primary/30 transition-all duration-300 rounded-full shadow-sm"
+                    onClick={() => setIsOpen(true)}
                 >
-                    <Search className="mr-2 h-4 w-4 text-primary flex-shrink-0" />
+                    <Search className="mr-2 h-4 w-4 text-primary" />
                     <span className="hidden sm:inline-flex text-foreground/70">Search products...</span>
                     <span className="inline-flex sm:hidden text-foreground/70">Search...</span>
                     <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 hidden h-6 select-none items-center gap-1 rounded-md border bg-muted px-1.5 font-mono text-[10px] font-medium sm:flex">
                         <span className="text-xs">⌘</span>K
                     </kbd>
-                </button>
+                </Button>
             </div>
 
             {/* Search Modal Overlay */}
@@ -183,7 +178,7 @@ export function SearchModal() {
                                                 {searchResults.map((result) => (
                                                     <Link
                                                         key={result.id}
-                                                        href={`/product/${result.slug}`}
+                                                        href={`/shop/${result.slug}`}
                                                         onClick={() => setIsOpen(false)}
                                                         className="flex items-center gap-4 rounded-lg p-3 transition-all hover:bg-muted group border border-border"
                                                     >

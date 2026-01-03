@@ -78,7 +78,7 @@ Phone: ${data.phone}
 ${data.email ? `Email: ${data.email}` : ''}
 
 *Order Details:*
-Biryani: ${data.biryaniType === 'chicken' ? 'Chicken Dum Biryani' : 'Vegetable Dum Biryani'}
+Biryani: ${data.biryaniType === 'chicken' ? 'Chicken Biryani' : 'Vegetable Biryani'}
 Quantity: ${data.quantity} portion(s)
 Price per portion: ${pricePerItem} kr
 *Total: ${totalPrice} kr*
@@ -196,14 +196,14 @@ Please confirm this pre-order. Thank you!`;
                 <div className="flex items-center space-x-2 border rounded-lg p-4 hover:bg-orange-50 dark:hover:bg-orange-950/20 cursor-pointer">
                   <RadioGroupItem value="chicken" id="chicken" />
                   <Label htmlFor="chicken" className="flex-1 cursor-pointer">
-                    <div className="font-semibold">Chicken Dum Biryani</div>
+                    <div className="font-semibold">Chicken Biryani</div>
                     <div className="text-sm text-gray-500">119 kr per portion</div>
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2 border rounded-lg p-4 hover:bg-orange-50 dark:hover:bg-orange-950/20 cursor-pointer">
                   <RadioGroupItem value="vegetable" id="vegetable" />
                   <Label htmlFor="vegetable" className="flex-1 cursor-pointer">
-                    <div className="font-semibold">Vegetable Dum Biryani</div>
+                    <div className="font-semibold">Vegetable Biryani</div>
                     <div className="text-sm text-gray-500">119 kr per portion</div>
                   </Label>
                 </div>
