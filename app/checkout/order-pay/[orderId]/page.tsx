@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Container, Section } from '@/components/craft';
 import { Button } from '@/components/ui/button';
@@ -157,7 +157,8 @@ function PaymentForm({ clientSecret, orderData, orderKey }: PaymentFormProps) {
     );
 }
 
-export default function OrderPayPage({ params }: { params: { orderId: string } }) {
+export default function OrderPayPage({ params }: { params: Promise<{ orderId: string }> }) {
+    const { orderId } = use(params);
     const searchParams = useSearchParams();
     const orderKey = searchParams.get('key') || '';
     const payForOrder = searchParams.get('pay_for_order') === 'true';
@@ -174,7 +175,7 @@ export default function OrderPayPage({ params }: { params: { orderId: string } }
                 setError(null);
 
                 // Fetch order details from WooCommerce
-                const orderResponse = await fetch(`/api/orders/${params.orderId}?key=${orderKey}`);
+                const orderResponse = await fetch(`/api/orders/${orderId}?key=${orderKey}`);
 
                 if (!orderResponse.ok) {
                     const errorData = await orderResponse.json();
@@ -232,13 +233,13 @@ export default function OrderPayPage({ params }: { params: { orderId: string } }
             }
         };
 
-        if (params.orderId && orderKey) {
+        if (orderId && orderKey) {
             fetchOrderAndCreatePaymentIntent();
         } else {
             setError('Invalid payment link. Please check the URL.');
             setIsLoading(false);
         }
-    }, [params.orderId, orderKey]);
+    }, [orderId, orderKey]);
 
     // Loading state
     if (isLoading) {
