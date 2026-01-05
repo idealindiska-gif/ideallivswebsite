@@ -25,47 +25,50 @@ export function PromotionGrid() {
                         </div>
                     </Link>
 
-                    {/* Card 2: Free Delivery in Selected Stockholm Areas */}
-                    <div className="relative overflow-hidden rounded-2xl bg-primary/5 border border-primary/20 shadow-sm group hover:shadow-md transition-all">
-                        <div className="p-6 relative z-10 flex flex-col h-full justify-between min-h-[280px]">
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <Truck className="h-5 w-5 text-primary" />
-                                    <span className="inline-block px-3 py-1 bg-primary text-primary-foreground text-xs font-bold rounded-full uppercase">
-                                        Free Delivery
-                                    </span>
-                                </div>
+                    {/* Card 2: 99 kr Special Offers */}
+                    <Link href="/deals" className="group">
+                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 text-white shadow-sm group-hover:shadow-xl transition-all h-full">
+                            <div className="p-6 relative z-10 flex flex-col h-full justify-between min-h-[280px]">
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full uppercase border border-white/30">
+                                            Limited Time
+                                        </span>
+                                    </div>
 
-                                <h3 className="text-2xl font-bold text-foreground">
-                                    Free Delivery in Selected Areas
-                                </h3>
+                                    <div>
+                                        <h3 className="text-5xl md:text-6xl font-black text-white mb-2">
+                                            99 kr
+                                        </h3>
+                                        <p className="text-2xl md:text-3xl font-bold text-white/90">
+                                            Special Offers
+                                        </p>
+                                    </div>
 
-                                <p className="text-base font-semibold text-primary">
-                                    When you spend 500 SEK
-                                </p>
-
-                                <div className="mt-4 space-y-2">
-                                    <div className="flex items-start gap-2">
-                                        <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                                        <div className="text-sm text-muted-foreground leading-relaxed">
-                                            <span className="font-medium">Delivery Areas:</span>
-                                            <br />
-                                            Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna & Sundbyberg
-                                        </div>
+                                    <div className="space-y-2 text-white/90">
+                                        <p className="text-base font-semibold">
+                                            Amazing deals on:
+                                        </p>
+                                        <ul className="text-sm space-y-1">
+                                            <li>✓ Premium Rice 5kg</li>
+                                            <li>✓ Chakki Atta 5kg</li>
+                                            <li>✓ & More!</li>
+                                        </ul>
                                     </div>
                                 </div>
+
+                                <div className="mt-4">
+                                    <Button size="sm" className="rounded-full bg-white text-orange-600 hover:bg-gray-100 font-bold">
+                                        View All Deals <ArrowRight className="ml-2 h-3 w-3" />
+                                    </Button>
+                                </div>
                             </div>
 
-                            <div className="mt-4">
-                                <Button size="sm" className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                                    Shop Now <ArrowRight className="ml-2 h-3 w-3" />
-                                </Button>
-                            </div>
+                            {/* Background Decorations */}
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -ml-16 -mb-16"></div>
                         </div>
-
-                        {/* Background Decoration */}
-                        <div className="absolute right-0 bottom-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-10 -mb-10"></div>
-                    </div>
+                    </Link>
 
                     {/* Card 3: Europe-Wide Delivery via DHL */}
                     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-sm group hover:shadow-lg transition-all">
