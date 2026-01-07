@@ -293,7 +293,7 @@ export function ProductTemplate({
                   </div>
                 )}
 
-                <h1 style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '0px' }} className="font-heading text-foreground leading-tight">
+                <h1 style={{ fontSize: '24px', fontWeight: 500, letterSpacing: '0px' }} className="font-heading text-foreground leading-tight">
                   {decodeHtmlEntities(product.name)}
                 </h1>
                 {product.sku && (

@@ -37,6 +37,12 @@ export function ProductTabs({ product, reviews = [], onSubmitReview }: ProductTa
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content (65%) */}
               <div className="w-full lg:w-[65%]">
+                <style jsx>{`
+                  .prose :global(h2) {
+                    font-size: 20px !important;
+                    font-weight: 400 !important;
+                  }
+                `}</style>
                 <div
                   className="prose max-w-none dark:prose-invert"
                   dangerouslySetInnerHTML={{ __html: product.description }}
