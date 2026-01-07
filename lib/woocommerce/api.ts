@@ -7,6 +7,7 @@
 
 import { WC_API_CONFIG, getWooCommerceAuthHeader, buildQueryString } from './config';
 import type { WooCommerceError } from '@/types/woocommerce';
+import { errorTracker } from '@/lib/error-tracking';
 
 /**
  * Custom error class for WooCommerce API errors
@@ -48,6 +49,71 @@ function parseWooCommerceError(status: number, errorData: any): WooCommerceAPIEr
 }
 
 /**
+ * Timeout wrapper for fetch requests
+ */
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit = {},
+  timeoutMs: number = 15000
+): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error: any) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error(`Request timeout after ${timeoutMs}ms`);
+    }
+    throw error;
+  }
+}
+
+/**
+ * Retry logic with exponential backoff
+ */
+async function fetchWithRetry<T>(
+  fetchFn: () => Promise<T>,
+  maxRetries: number = 3,
+  baseDelay: number = 1000
+): Promise<T> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fetchFn();
+    } catch (error: any) {
+      lastError = error;
+
+      // Don't retry on authentication errors (401, 403) or client errors (4xx)
+      if (error instanceof WooCommerceAPIError) {
+        if (error.status >= 400 && error.status < 500) {
+          throw error;
+        }
+      }
+
+      // Don't retry on the last attempt
+      if (attempt === maxRetries - 1) {
+        break;
+      }
+
+      // Exponential backoff: 1s, 2s, 4s
+      const delay = baseDelay * Math.pow(2, attempt);
+      console.warn(`API request failed, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+
+  throw lastError || new Error('Max retries exceeded');
+}
+
+/**
  * Generic WooCommerce API fetch function with authentication
  *
  * This is a server-side only function due to API credentials.
@@ -70,61 +136,92 @@ export async function fetchWooCommerceAPI<T>(
 
   const url = `${WC_API_CONFIG.baseUrl}${endpoint}`;
 
-  try {
-    // Get authentication header
-    const authHeader = getWooCommerceAuthHeader();
+  return fetchWithRetry(async () => {
+    try {
+      // Get authentication header
+      const authHeader = getWooCommerceAuthHeader();
 
-    // Merge headers
-    const headers: HeadersInit = {
-      'Content-Type': 'application/json',
-      'Authorization': authHeader,
-      ...options.headers,
-    };
+      // Merge headers
+      const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+        'Authorization': authHeader,
+        ...options.headers,
+      };
 
-    // Make the request
-    const response = await fetch(url, {
-      ...options,
-      headers,
-    });
+      // Make the request with timeout
+      const response = await fetchWithTimeout(url, {
+        ...options,
+        headers,
+      }, 15000); // 15 second timeout
 
-    // Handle non-OK responses
-    if (!response.ok) {
-      let errorData;
-      try {
-        errorData = await response.json();
-      } catch {
-        errorData = { message: response.statusText };
+      // Handle non-OK responses
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch {
+          errorData = { message: response.statusText };
+        }
+
+        // Log authentication errors with more detail
+        if (response.status === 401) {
+          console.error('WooCommerce API 401 Unauthorized:', {
+            endpoint,
+            url,
+            errorData,
+            hasConsumerKey: !!process.env.WORDPRESS_CONSUMER_KEY,
+            hasConsumerSecret: !!process.env.WORDPRESS_CONSUMER_SECRET,
+          });
+
+          // Track auth errors
+          errorTracker.captureAPIError(
+            endpoint,
+            401,
+            'WooCommerce authentication failed',
+            { errorData, url }
+          );
+        }
+
+        throw parseWooCommerceError(response.status, errorData);
       }
 
-      throw parseWooCommerceError(response.status, errorData);
-    }
+      // Parse and return JSON
+      const data = await response.json();
+      return data as T;
 
-    // Parse and return JSON
-    const data = await response.json();
-    return data as T;
+    } catch (error) {
+      // Re-throw WooCommerceAPIError
+      if (error instanceof WooCommerceAPIError) {
+        throw error;
+      }
 
-  } catch (error) {
-    // Re-throw WooCommerceAPIError
-    if (error instanceof WooCommerceAPIError) {
-      throw error;
-    }
+      // Handle network errors
+      if (error instanceof TypeError) {
+        throw new WooCommerceAPIError(
+          0,
+          `Network error: ${error.message}`,
+          'network_error'
+        );
+      }
 
-    // Handle network errors
-    if (error instanceof TypeError) {
+      // Handle timeout errors
+      if (error instanceof Error && error.message.includes('timeout')) {
+        errorTracker.captureTimeout(endpoint, 15000, { url });
+        throw new WooCommerceAPIError(
+          0,
+          `Request timeout: ${error.message}`,
+          'timeout_error'
+        );
+      }
+
+      // Handle unknown errors
       throw new WooCommerceAPIError(
-        0,
-        `Network error: ${error.message}`,
-        'network_error'
+        500,
+        error instanceof Error ? error.message : 'Unknown error occurred',
+        'unknown_error'
       );
     }
-
-    // Handle unknown errors
-    throw new WooCommerceAPIError(
-      500,
-      error instanceof Error ? error.message : 'Unknown error occurred',
-      'unknown_error'
-    );
-  }
+  }, 3); // Retry up to 3 times
 }
 
 /**
@@ -180,56 +277,77 @@ export async function fetchWooCommercePaginated<T>(
 
   const url = `${WC_API_CONFIG.baseUrl}${endpoint}${queryString}`;
 
-  try {
-    const authHeader = getWooCommerceAuthHeader();
+  return fetchWithRetry(async () => {
+    try {
+      const authHeader = getWooCommerceAuthHeader();
 
-    const fetchOptions: RequestInit = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': authHeader,
-      },
-    };
-
-    // Add caching if specified
-    if (cacheTime !== undefined) {
-      fetchOptions.next = {
-        revalidate: cacheTime,
-        tags: [...(tags || []), 'woocommerce'],
+      const fetchOptions: RequestInit = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': authHeader,
+        },
       };
+
+      // Add caching if specified
+      if (cacheTime !== undefined) {
+        fetchOptions.next = {
+          revalidate: cacheTime,
+          tags: [...(tags || []), 'woocommerce'],
+        };
+      }
+
+      const response = await fetchWithTimeout(url, fetchOptions, 15000);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: response.statusText }));
+
+        // Log authentication errors
+        if (response.status === 401) {
+          console.error('WooCommerce API 401 Unauthorized (Paginated):', {
+            endpoint,
+            url,
+            errorData,
+          });
+        }
+
+        throw parseWooCommerceError(response.status, errorData);
+      }
+
+      // Get pagination info from headers
+      const total = parseInt(response.headers.get('x-wp-total') || '0', 10);
+      const totalPages = parseInt(response.headers.get('x-wp-totalpages') || '1', 10);
+
+      const data = await response.json();
+
+      return {
+        data: data as T[],
+        total,
+        totalPages,
+        currentPage: params.page || 1,
+        perPage: params.per_page || WC_API_CONFIG.defaults.perPage,
+      };
+
+    } catch (error) {
+      if (error instanceof WooCommerceAPIError) {
+        throw error;
+      }
+
+      // Handle timeout errors
+      if (error instanceof Error && error.message.includes('timeout')) {
+        throw new WooCommerceAPIError(
+          0,
+          `Request timeout: ${error.message}`,
+          'timeout_error'
+        );
+      }
+
+      throw new WooCommerceAPIError(
+        500,
+        error instanceof Error ? error.message : 'Failed to fetch paginated data',
+        'pagination_error'
+      );
     }
-
-    const response = await fetch(url, fetchOptions);
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ message: response.statusText }));
-      throw parseWooCommerceError(response.status, errorData);
-    }
-
-    // Get pagination info from headers
-    const total = parseInt(response.headers.get('x-wp-total') || '0', 10);
-    const totalPages = parseInt(response.headers.get('x-wp-totalpages') || '1', 10);
-
-    const data = await response.json();
-
-    return {
-      data: data as T[],
-      total,
-      totalPages,
-      currentPage: params.page || 1,
-      perPage: params.per_page || WC_API_CONFIG.defaults.perPage,
-    };
-
-  } catch (error) {
-    if (error instanceof WooCommerceAPIError) {
-      throw error;
-    }
-
-    throw new WooCommerceAPIError(
-      500,
-      error instanceof Error ? error.message : 'Failed to fetch paginated data',
-      'pagination_error'
-    );
-  }
+  }, 3); // Retry up to 3 times
 }
 
 /**

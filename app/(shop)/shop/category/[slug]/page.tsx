@@ -26,9 +26,19 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       };
     }
 
+    // Canonical URL points to /product-category/ (not /shop/category/)
+    const canonicalUrl = `https://www.ideallivs.com/product-category/${resolvedParams.slug}`;
+
     return {
       title: category.name,
       description: category.description || `Browse our ${category.name} products`,
+      alternates: {
+        canonical: canonicalUrl,
+      },
+      robots: {
+        index: false, // Don't index /shop/category/ URLs
+        follow: true,
+      },
     };
   } catch {
     return {

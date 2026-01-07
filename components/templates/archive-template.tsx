@@ -169,7 +169,7 @@ export function ArchiveTemplate({
                   </div>
                 )}
               </>
-            ) : (
+            ) : totalProducts === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
                 <div className="mb-4 h-24 w-24 rounded-full bg-primary/5 flex items-center justify-center">
                   <svg
@@ -205,7 +205,7 @@ export function ArchiveTemplate({
                   </div>
                 )}
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
