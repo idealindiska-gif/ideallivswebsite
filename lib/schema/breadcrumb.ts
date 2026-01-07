@@ -94,7 +94,7 @@ export function productBreadcrumbs(
 ): BreadcrumbInput[] {
   const breadcrumbs: BreadcrumbInput[] = [
     { name: 'Home', url: baseUrl },
-    { name: 'Menu', url: `${baseUrl}/shop` },
+    { name: 'Shop', url: `${baseUrl}/shop` },
   ];
 
   // Add category if available
@@ -130,7 +130,7 @@ export function categoryBreadcrumbs(
 ): BreadcrumbInput[] {
   const breadcrumbs: BreadcrumbInput[] = [
     { name: 'Home', url: baseUrl },
-    { name: 'Menu', url: `${baseUrl}/shop` },
+    { name: 'Shop', url: `${baseUrl}/shop` },
   ];
 
   // Add parent category if available

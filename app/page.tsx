@@ -13,7 +13,43 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm",
-  description: "Shop Indian & Pakistani groceries in Stockholm. Premium Basmati rice, spices, halal meat & fresh produce. FREE delivery over 500 SEK. Shop online or visit Bandhagen!",
+  description: "Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, premium Basmati rice, and halal meat delivered to your door. Free delivery on orders over 500 SEK.",
+  alternates: {
+    canonical: "https://www.ideallivs.com",
+  },
+  openGraph: {
+    title: "Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm",
+    description: "Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, premium Basmati rice, and halal meat delivered to your door.",
+    url: "https://www.ideallivs.com",
+    siteName: "Ideal Indiska LIVS",
+    images: [
+      {
+        url: "https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png",
+        width: 1200,
+        height: 630,
+        alt: "Ideal Indiska LIVS Store - Indian & Pakistani Groceries",
+      },
+    ],
+    locale: "sv_SE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm",
+    description: "Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, premium Basmati rice, and halal meat delivered to your door.",
+    images: ["https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default async function HomePage() {

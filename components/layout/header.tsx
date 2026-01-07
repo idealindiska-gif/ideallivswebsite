@@ -76,7 +76,7 @@ export function Header({ className, categories = [] }: HeaderProps) {
                   <div className="relative h-24 w-40 transition-transform duration-500 group-hover:scale-105">
                     <Image
                       src={logoUrl}
-                      alt={brandProfile.name}
+                      alt="Ideal Indiska LIVS - Stockholm Grocery Store"
                       fill
                       className="object-contain"
                       sizes="160px"
