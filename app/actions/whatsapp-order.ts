@@ -147,7 +147,9 @@ export async function createWhatsAppOrderAction(
       state: billing.state || '',
     };
 
-    // Step 7: Create WooCommerce order
+    // Step 7: Create WooCommerce order - DISABLED TO PREVENT STOCK DEDUCTION
+    // Order creation commented out to avoid stock issues
+    /*
     const orderData: CreateOrderData = {
       billing: billingWithName,
       shipping: shippingWithName,
@@ -155,7 +157,7 @@ export async function createWhatsAppOrderAction(
       payment_method: 'whatsapp',
       payment_method_title: 'WhatsApp Order',
       customer_note: data.notes,
-      set_paid: false, // Order starts as pending payment
+      set_paid: false,
     };
 
     const order = await createOrder(orderData);
@@ -166,6 +168,11 @@ export async function createWhatsAppOrderAction(
         error: 'Failed to create order in WooCommerce',
       };
     }
+    */
+
+    // Generate temporary reference for tracking
+    const tempOrderRef = `WA-${Date.now()}`;
+    const order = { id: tempOrderRef, number: tempOrderRef, order_key: '' };
 
     // Step 8: Build WhatsApp message with order details
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -197,9 +204,9 @@ export async function createWhatsAppOrderAction(
     const tax = data.cart?.tax;
 
     const message = formatOrderMessage({
-      orderId: order.id,
-      orderNumber: order.number,
-      orderUrl,
+      orderId: tempOrderRef as any, // Temporary reference instead of numeric ID
+      orderNumber: tempOrderRef,
+      orderUrl: siteUrl,
       items: messageItems,
       subtotal: formatPrice(subtotal, 'SEK'),
       shipping: shipping ? formatPrice(shipping, 'SEK') : undefined,
@@ -214,22 +221,18 @@ export async function createWhatsAppOrderAction(
       orderNotes: data.notes,
     });
 
-    // Step 8.5: Generate payment link for the order
-    const paymentUrl = `${siteUrl}/checkout/order-pay/${order.id}?pay_for_order=true&key=${order.order_key}`;
-
-    // Add payment information to message
+    // Step 8.5: Payment link disabled (no order created in WooCommerce)
     const enhancedMessage = `${message}
 
-*💳 Payment Options:*
+*📝 Order Reference:* ${tempOrderRef}
 
-*Option 1: Pay Online Now*
-Click here to pay securely with card:
-${paymentUrl}
+*💬 Next Steps:*
+Our team will review your order and contact you via WhatsApp to:
+- Confirm product availability
+- Arrange payment
+- Schedule delivery/pickup
 
-*Option 2: Pay on Delivery/Pickup*
-You can also pay when you receive your order.
-
-Please confirm your order and let us know your preferred payment method. Thank you!`;
+Thank you for your order!`;
 
     // Step 9: Generate WhatsApp URL
     const phone = getWhatsAppPhone('orders');
@@ -239,8 +242,8 @@ Please confirm your order and let us know your preferred payment method. Thank y
     // Step 10: Return success with WhatsApp URL
     return {
       success: true,
-      orderId: order.id,
-      orderNumber: order.number,
+      orderId: undefined, // No order created
+      orderNumber: tempOrderRef,
       whatsappUrl: urlResult.url,
     };
   } catch (error) {
