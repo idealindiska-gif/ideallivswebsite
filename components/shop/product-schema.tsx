@@ -1,6 +1,7 @@
 import type { Product, ProductReview } from '@/types/woocommerce';
 import { wooCommerceProductSchema, breadcrumbSchema, productBreadcrumbs } from '@/lib/schema';
 import { siteConfig } from '@/site.config';
+import { brandConfig } from '@/config/brand.config';
 
 interface ProductSchemaProps {
   product: Product;
@@ -11,11 +12,13 @@ interface ProductSchemaProps {
 export function ProductSchema({ product, reviews = [], breadcrumbs }: ProductSchemaProps) {
   const baseUrl = siteConfig.site_domain;
 
+
+
   // Generate product schema using standardized function
   const productSchema = wooCommerceProductSchema(product, {
     baseUrl,
-    brandName: 'Ideal Indiska LIVS',
-    sellerName: 'Ideal Indiska LIVS',
+    brandName: brandConfig.businessName,
+    sellerName: brandConfig.businessName,
   });
 
   // Add reviews to schema if available

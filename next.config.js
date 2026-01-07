@@ -14,8 +14,12 @@ const nextConfig = {
         optimizePackageImports: ['lucide-react', 'date-fns'],
     },
 
-    // Modern browser targets - reduces legacy JavaScript
+    // Modern browser targets - reduces legacy JavaScript and polyfills
     transpilePackages: [],
+
+    // Target modern browsers to reduce bundle size
+    swcMinify: true,
+
     modularizeImports: {
         'lucide-react': {
             transform: 'lucide-react/dist/esm/icons/{{kebabCase member}}',

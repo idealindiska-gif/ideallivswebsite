@@ -30,6 +30,8 @@ const fontSans = FontSans({
   variable: "--font-sans",
   display: "swap",
   preload: true,
+  adjustFontFallback: true, // Better font fallback
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
 });
 
 const fontHeading = FontHeading({
@@ -38,6 +40,8 @@ const fontHeading = FontHeading({
   variable: "--font-heading",
   display: "swap",
   preload: true,
+  adjustFontFallback: true,
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
 });
 
 export const metadata: Metadata = {
@@ -130,11 +134,17 @@ export default async function RootLayout({
   return (
     <html lang="sv-SE" suppressHydrationWarning>
       <head>
-        {/* Preconnect to external domains */}
+        {/* Critical preconnects - Most important first */}
+        <link rel="preconnect" href="https://crm.ideallivs.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://crm.ideallivs.com" />
+
+        {/* Font preconnects */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://crm.ideallivs.com" />
-        <link rel="preconnect" href="https://connect.facebook.net" crossOrigin="anonymous" />
+
+        {/* Analytics preconnects - Lower priority */}
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://www.facebook.com" />
 
         {/* Preload critical hero image */}
