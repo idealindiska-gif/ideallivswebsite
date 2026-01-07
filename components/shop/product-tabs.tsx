@@ -38,9 +38,34 @@ export function ProductTabs({ product, reviews = [], onSubmitReview }: ProductTa
               {/* Main Content (65%) */}
               <div className="w-full lg:w-[65%]">
                 <style jsx>{`
-                  .prose :global(h2) {
-                    font-size: 20px !important;
+                  .prose :global(h1),
+                  .prose :global(h2),
+                  .prose :global(h3),
+                  .prose :global(h4),
+                  .prose :global(h5),
+                  .prose :global(h6) {
+                    font-size: 14px !important;
+                    font-weight: 500 !important;
+                    line-height: 1 !important;
+                    margin-top: 1.5em !important;
+                    margin-bottom: 0.75em !important;
+                  }
+                  .prose :global(p),
+                  .prose :global(li),
+                  .prose :global(ul),
+                  .prose :global(ol) {
+                    font-size: 12px !important;
                     font-weight: 400 !important;
+                    line-height: 1 !important;
+                  }
+                  .prose :global(ul),
+                  .prose :global(ol) {
+                    margin-top: 0.5em !important;
+                    margin-bottom: 0.5em !important;
+                  }
+                  .prose :global(li) {
+                    margin-top: 0.25em !important;
+                    margin-bottom: 0.25em !important;
                   }
                 `}</style>
                 <div
