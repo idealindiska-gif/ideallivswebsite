@@ -9,26 +9,72 @@ import { BiryaniMenu } from '@/components/prepared-meals/biryani-menu';
 import { Clock, Calendar, ChefHat, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
+import { brandProfile } from '@/config/brand-profile';
+import { SchemaScript } from "@/lib/schema/schema-script";
+import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
+
 export const metadata: Metadata = {
-  title: 'Weekend Biryani Pre-Orders | Ideal Livs',
-  description: 'Order authentic Chicken Biryani and Vegetable Biryani for weekend enjoyment. Pre-order before Friday for weekend pickup or delivery.',
-  openGraph: {
-    title: 'Weekend Biryani Pre-Orders | Ideal Livs',
-    description: 'Authentic dum biryani available for weekend orders. Pre-book before Friday!',
-    images: [
-      {
-        url: 'https://crm.ideallivs.com/wp-content/uploads/2026/01/dum-biryani-scaled.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Weekend Biryani Pre-Orders - Authentic Dum Biryani',
-      },
-    ],
+  title: `Best Chicken & Vegetable Biryani Stockholm | ${brandProfile.name}`,
+  description: 'Authentic Chicken Biryani and Vegetable Biryani in Stockholm. Freshly prepared for weekend pickup/delivery. We also accept bulk orders for events and catering delivery any day of the week.',
+  keywords: [
+    'biryani stockholm',
+    'chicken biryani stockholm',
+    'vegetable biryani stockholm',
+    'best biryani near me',
+    'halal biryani stockholm',
+    'indian catering stockholm',
+    'bulk biryani order sweden',
+    'weekend biryani stockholm',
+  ].join(', '),
+  alternates: {
+    canonical: 'https://www.ideallivs.com/prepared-meals',
   },
 };
 
 export default function PreparedMealsPage() {
+  const biryaniSchema = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "name": "Weekend Biryani Menu",
+    "description": "Authentic Chicken and Vegetable Biryani available for weekend pickup and delivery in Stockholm.",
+    "hasMenuItem": [
+      {
+        "@type": "MenuItem",
+        "name": "Chicken Biryani",
+        "description": "Tender chicken marinated in spices, layered with aromatic basmati rice.",
+        "offers": {
+          "@type": "Offer",
+          "price": "119.00",
+          "priceCurrency": "SEK"
+        }
+      },
+      {
+        "@type": "MenuItem",
+        "name": "Vegetable Biryani",
+        "description": "Seasonal vegetables layered with basmati rice and traditional spices.",
+        "offers": {
+          "@type": "Offer",
+          "price": "119.00",
+          "priceCurrency": "SEK"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <SchemaScript
+        id="biryani-breadcrumb"
+        schema={breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Prepared Meals', url: '/prepared-meals' },
+        ])}
+      />
+      <SchemaScript
+        id="biryani-menu-schema"
+        schema={biryaniSchema}
+      />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-r from-orange-600 to-red-600 text-white">
         {/* Background Image */}
@@ -45,28 +91,65 @@ export default function PreparedMealsPage() {
               <span className="text-sm font-medium">Fresh & Authentic</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Authentic Biryani
+              Authentic Biryani in Stockholm
             </h1>
-            <p className="text-lg md:text-xl text-orange-50 mb-8 max-w-2xl mx-auto">
-              Weekend pre-orders for family meals. Bulk orders available any day for events and catering (13:00-19:00).
+            <p className="text-lg md:text-xl text-orange-50 mb-8 max-w-2xl mx-auto italic font-medium">
+              Weekend family meals & any-day bulk orders for your special events.
             </p>
 
+            {/* Price Badge */}
+            <div className="flex justify-center mb-8">
+              <div className="bg-white text-orange-600 px-6 py-2 rounded-full font-bold text-xl shadow-lg flex items-center gap-2">
+                <span className="text-sm text-gray-500 line-through">149 kr</span>
+                <span>Only 119 kr</span>
+              </div>
+            </div>
+
             {/* Key Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
                 <Calendar className="h-8 w-8 mx-auto mb-2" />
-                <p className="font-semibold">Available Weekends</p>
-                <p className="text-sm text-orange-100">Saturday & Sunday</p>
+                <p className="font-semibold">Weekend Pickup</p>
+                <p className="text-sm text-orange-100">Every Sat & Sun</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
                 <Clock className="h-8 w-8 mx-auto mb-2" />
-                <p className="font-semibold">Pre-Order Deadline</p>
-                <p className="text-sm text-orange-100">Before Friday 6 PM</p>
+                <p className="font-semibold">Catering/Bulk</p>
+                <p className="text-sm text-orange-100">Available Any Day</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
                 <ChefHat className="h-8 w-8 mx-auto mb-2" />
                 <p className="font-semibold">Fresh Prepared</p>
-                <p className="text-sm text-orange-100">Made to Order</p>
+                <p className="text-sm text-orange-100">Handcrafted Weekly</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Content Section: The Best Biryani in Stockholm */}
+      <section className="bg-white dark:bg-gray-900 py-16 border-b border-gray-100 dark:border-gray-800">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="prose prose-orange max-w-none dark:prose-invert">
+            <h2 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+              Authentic Biryani Delivery in Stockholm
+            </h2>
+            <div className="grid md:grid-cols-2 gap-12 text-gray-600 dark:text-gray-300">
+              <div className="space-y-4">
+                <p>
+                  Searching for the <strong>best biryani in Stockholm</strong>? Look no further. At Ideal Indiska LIVS, we bring the true flavors of South Asia to your table. Our biryani is slow-cooked to perfection, ensuring every grain of basmati rice absorbs the rich aroma of our hand-picked spices.
+                </p>
+                <p>
+                  Whether you are craving a hearty <strong>Chicken Biryani</strong> or a fresh <strong>Vegetable Biryani</strong>, our weekend pre-order service is designed to bring a touch of tradition to your Saturday and Sunday family dinners.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <p>
+                  We don&apos;t just serve individuals; we are proud to offer <strong>bulk biryani orders in Stockholm</strong> for any occasion. Whether it&apos;s a birthday, corporate lunch, or a community gathering, we can deliver mass quantities of fresh, hot biryani any day of the week.
+                </p>
+                <p>
+                  Our prices are consistent and transparent—just <strong>119 SEK per portion</strong>. Quality ingredients, authentic recipes, and local Stockholm service make us the preferred choice for biryani lovers across Sweden.
+                </p>
               </div>
             </div>
           </div>
@@ -77,10 +160,10 @@ export default function PreparedMealsPage() {
       <section className="container mx-auto px-4 -mt-8 relative z-10">
         <Alert className="max-w-4xl mx-auto bg-yellow-50 border-yellow-200 dark:bg-yellow-950/20 dark:border-yellow-900">
           <AlertCircle className="h-4 w-4 text-yellow-600" />
-          <AlertTitle className="text-yellow-800 dark:text-yellow-200">Pre-Order Required</AlertTitle>
+          <AlertTitle className="text-yellow-800 dark:text-yellow-200">Weekend Order Deadline</AlertTitle>
           <AlertDescription className="text-yellow-700 dark:text-yellow-300">
-            All biryani orders must be placed before <strong>Friday 6:00 PM</strong> for weekend pickup or delivery.
-            Limited quantities available - order early to secure your meal!
+            For individual weekend meals, please book before <strong>Friday 6:00 PM</strong>.
+            Bulk and catering orders can be scheduled for <strong>any day of the week</strong> with 48 hours notice.
           </AlertDescription>
         </Alert>
       </section>
@@ -90,11 +173,11 @@ export default function PreparedMealsPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Our Signature Biryanis
+              Our Signature Rice Bowls
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Slow-cooked using traditional dum pukht method, layered with aromatic basmati rice,
-              fresh herbs, and authentic spices.
+              Handcrafted using traditional methods, layered with aromatic basmati rice,
+              fresh herbs, and authentic spices from our own store.
             </p>
           </div>
 
@@ -111,63 +194,62 @@ export default function PreparedMealsPage() {
               <span className="text-sm font-medium text-green-700 dark:text-green-400">Events & Catering</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Bulk Orders for Events & Catering
+              Bulk Orders & Catering
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Planning a party, corporate event, or celebration? Order our delicious biryani in bulk!
-              Available any day of the week between 13:00 to 19:00.
+              Planning a party or corporate event? Get the best <strong>biryani catering in Stockholm</strong> delivered to your venue.
+              Available 7 days a week for bulk orders (10+ portions).
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm text-center">
               <Clock className="h-8 w-8 mx-auto mb-3 text-green-600" />
-              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Flexible Timing</h3>
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Daily Availability</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">
-                Any day of the week<br />13:00 - 19:00
+                Any day of the week<br />For bulk orders
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm text-center">
               <ChefHat className="h-8 w-8 mx-auto mb-3 text-green-600" />
-              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Fresh Prepared</h3>
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Party Sizes</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">
-                Made fresh for your event<br />Minimum 10 portions
+                From small gatherings<br />to large weddings
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm text-center">
               <Calendar className="h-8 w-8 mx-auto mb-3 text-green-600" />
-              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Advance Booking</h3>
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Easy Scheduling</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">
-                Order 24-48 hours in advance<br />for best availability
+                Just 48 hours notice<br />for guaranteed delivery
               </p>
             </div>
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Perfect For:</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Stockholm Catering Packages:</h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-600 dark:text-gray-300">
               <li className="flex items-center gap-2">
-                <span className="text-green-600">✓</span> Birthday Parties
+                <span className="text-green-600">✓</span> Birthday & Dinner Parties
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-600">✓</span> Corporate Events
+                <span className="text-green-600">✓</span> Corporate Lunch Events
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-600">✓</span> Wedding Functions
+                <span className="text-green-600">✓</span> Mosque & Community Gatherings
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-600">✓</span> Family Gatherings
+                <span className="text-green-600">✓</span> Family Get-togethers
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-600">✓</span> Office Lunches
+                <span className="text-green-600">✓</span> Office Catering
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-600">✓</span> Special Celebrations
+                <span className="text-green-600">✓</span> Custom Weekend Packages
               </li>
             </ul>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-6 p-4 bg-gray-50 dark:bg-gray-900 rounded">
-              <strong>Note:</strong> For bulk orders, use the "Events or Catering" option in the booking form below.
-              No calendar or time restrictions - order any day you need!
+              <strong>Note:</strong> Bulk orders are available any day. Individual weekend orders must be booked by Friday.
             </p>
           </div>
         </div>
@@ -178,10 +260,10 @@ export default function PreparedMealsPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Pre-Order Your Biryani
+              Order Biryani Online
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              Fill in your details below or contact us via WhatsApp for quick booking
+              Quick booking for individuals and bulk events via form or WhatsApp.
             </p>
           </div>
 
@@ -193,43 +275,43 @@ export default function PreparedMealsPage() {
       <section className="container mx-auto px-4 py-16 bg-gray-50 dark:bg-gray-800/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-            How It Works
+            Simple 4-Step Process
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                 1
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Choose Your Biryani</h3>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Selection</h3>
               <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Select from Chicken or Vegetable Dum Biryani
+                Chicken or Vegetable options available
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                 2
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Pre-Order</h3>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Booking</h3>
               <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Book before Friday 6 PM via form or WhatsApp
+                Pre-order before Friday (or 48h for bulk)
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                 3
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">We Prepare</h3>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Preparation</h3>
               <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Fresh biryani made to order for weekend
+                Cooked fresh by our specialty chef
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                 4
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Pickup/Delivery</h3>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Enjoy</h3>
               <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Collect on Saturday or Sunday
+                Pickup at store or get it delivered
               </p>
             </div>
           </div>
@@ -240,40 +322,31 @@ export default function PreparedMealsPage() {
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-            Frequently Asked Questions
+            Stockholm Biryani Guide & FAQ
           </h2>
           <div className="space-y-6">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
               <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">
-                What is the minimum order quantity?
+                How do I place a bulk order for a weekday?
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Minimum order is 1 portion. Each portion serves 1-2 people generously.
+                For 10 or more portions, we deliver any day of the week. Simply select the "Events or Catering" option in our form or message us directly on WhatsApp.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
               <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">
-                Can I order for specific time on weekend?
+                What is included in the 119 SEK portion?
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Yes! Specify your preferred pickup/delivery time in the booking form, and we'll confirm availability.
+                Each portion includes a generous serving of aromatic biryani rice, protein (chicken) or mixed vegetables, and is accompanied by our cool yogurt raita.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
               <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">
-                Is delivery available?
+                Do you offer biryani delivery across Stockholm?
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Yes, delivery is available within Stockholm area. Delivery charges may apply based on location.
-              </p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">
-                What if I miss the Friday deadline?
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Contact us via WhatsApp. We may be able to accommodate late orders based on availability,
-                but we cannot guarantee it.
+                Yes, we offer delivery within the Stockholm metropolitan area. Delivery charges depend on your location, but it is free for orders over 500 SEK in many areas.
               </p>
             </div>
           </div>

@@ -26,9 +26,9 @@ interface BiryaniItem {
 
 const biryanis: BiryaniItem[] = [
   {
-    id: 'chicken-dum-biryani',
+    id: 'chicken-biryani',
     name: 'Chicken Biryani',
-    description: 'Tender chicken pieces marinated in aromatic spices, slow-cooked with fragrant basmati rice using the traditional dum pukht method. Garnished with fried onions, fresh mint, and coriander.',
+    description: 'Tender chicken pieces marinated in aromatic spices, slow-cooked with fragrant basmati rice. Garnished with fried onions, fresh mint, and coriander.',
     price: 119,
     type: 'chicken',
     spiceLevel: 3,
@@ -42,16 +42,16 @@ const biryanis: BiryaniItem[] = [
     ]
   },
   {
-    id: 'vegetable-dum-biryani',
+    id: 'vegetable-biryani',
     name: 'Vegetable Biryani',
-    description: 'A delightful medley of fresh seasonal vegetables, layered with basmati rice and aromatic spices. Cooked in the traditional dum style for authentic flavors.',
+    description: 'A delightful medley of fresh seasonal vegetables, layered with basmati rice and aromatic spices. Cooked to perfection for authentic flavors.',
     price: 119,
     type: 'vegetable',
     spiceLevel: 2,
     features: [
       'Fresh seasonal vegetables',
       'Long-grain basmati rice',
-      'Traditional dum cooking',
+      'Traditional cooking style',
       'Serves 1-2 people'
     ]
   }
@@ -104,11 +104,10 @@ export function BiryaniMenu() {
                 {[...Array(5)].map((_, i) => (
                   <Flame
                     key={i}
-                    className={`h-4 w-4 ${
-                      i < biryani.spiceLevel
+                    className={`h-4 w-4 ${i < biryani.spiceLevel
                         ? 'text-red-500 fill-red-500'
                         : 'text-gray-300 dark:text-gray-600'
-                    }`}
+                      }`}
                   />
                 ))}
               </div>

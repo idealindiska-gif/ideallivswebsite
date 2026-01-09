@@ -30,7 +30,7 @@ export async function GET() {
         const timestamp = new Date().toISOString();
         const effectiveDateStart = new Date().toISOString().split('.')[0] + 'Z';
         const endDate = new Date();
-        endDate.setFullYear(endDate.getFullYear() + 1);
+        endDate.setMonth(endDate.getMonth() + 5); // Max 6 months allowed by Google
         const effectiveDateEnd = endDate.toISOString().split('.')[0] + 'Z';
 
         // Format: YYYY-MM-DDTHH:mm:ss/YYYY-MM-DDTHH:mm:ss
@@ -48,10 +48,10 @@ export async function GET() {
             // 1. Generic Promotion for all sale items
             xml += `    <item>\n`;
             xml += `      <g:promotion_id>WEEKLY_DEALS</g:promotion_id>\n`;
-            xml += `      <g:long_title><![CDATA[Save on Authentic Indian & Pakistani Groceries - Weekly Specials]]></g:long_title>\n`;
+            xml += `      <g:long_title><![CDATA[Weekly Specials: Indian & Pakistani Grocery Deals]]></g:long_title>\n`;
             xml += `      <g:promotion_display_path>Weekly Deals</g:promotion_display_path>\n`;
             xml += `      <g:redemption_channel>ONLINE</g:redemption_channel>\n`;
-            xml += `      <g:offer_type>NO_CODE_REQUIRED</g:offer_type>\n`;
+            xml += `      <g:offer_type>NO_CODE</g:offer_type>\n`;
             xml += `      <g:promotion_effective_dates>${effectiveDates}</g:promotion_effective_dates>\n`;
             xml += `      <g:product_applicability>SPECIFIC_PRODUCTS</g:product_applicability>\n`;
             xml += `    </item>\n`;
@@ -62,7 +62,7 @@ export async function GET() {
             xml += `      <g:long_title><![CDATA[Free Delivery in Stockholm on orders over 500 SEK]]></g:long_title>\n`;
             xml += `      <g:promotion_display_path>Free Shipping</g:promotion_display_path>\n`;
             xml += `      <g:redemption_channel>ONLINE</g:redemption_channel>\n`;
-            xml += `      <g:offer_type>NO_CODE_REQUIRED</g:offer_type>\n`;
+            xml += `      <g:offer_type>NO_CODE</g:offer_type>\n`;
             xml += `      <g:promotion_effective_dates>${effectiveDates}</g:promotion_effective_dates>\n`;
             xml += `      <g:product_applicability>ALL_PRODUCTS</g:product_applicability>\n`;
             xml += `    </item>\n`;
