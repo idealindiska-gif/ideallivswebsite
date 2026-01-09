@@ -104,6 +104,8 @@ export function middleware(request: NextRequest) {
     '/shop-by-brand-top-indian-pakistani-grocery-brands-ideal-indiska-stockholm': '/brands',
     '/grocery-delivery-in-goteborg-and-malmo/': '/delivery-goteborg-malmo',
     '/grocery-delivery-in-goteborg-and-malmo': '/delivery-goteborg-malmo',
+    '/special-offers/': '/deals',
+    '/special-offers': '/deals',
     '/pages/delivery-information': '/europe-delivery',
   };
 

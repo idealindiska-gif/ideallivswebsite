@@ -5,9 +5,17 @@ import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
 import { ProductCard } from '@/components/shop/product-card';
 import { Loader2, Percent, TrendingDown } from 'lucide-react';
 
+import { brandProfile } from '@/config/brand-profile';
+import { SchemaScript } from "@/lib/schema/schema-script";
+import { collectionPageSchema } from "@/lib/schema/collection";
+import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
+
 export const metadata: Metadata = {
-    title: 'Deals & Offers | Special Promotions',
-    description: 'Discover our latest deals and special offers. Save big on your favorite products with exclusive promotions and discounts.',
+    title: `Indian Grocery Deals & Offers Stockholm | ${brandProfile.name}`,
+    description: `Huge savings on authentic Indian and Pakistani groceries in Stockholm. Fresh weekly deals on Basmati rice, spices, lentils, and Halal meat. Don't miss out!`,
+    alternates: {
+        canonical: 'https://www.ideallivs.com/deals',
+    },
 };
 
 async function DealsContent() {
@@ -15,6 +23,28 @@ async function DealsContent() {
 
     return (
         <div className="min-h-screen w-full bg-background">
+            {/* SEO Structured Data */}
+            <SchemaScript
+                id="deals-breadcrumb"
+                schema={breadcrumbSchema([
+                    { name: 'Home', url: '/' },
+                    { name: 'Deals & Offers', url: '/deals' },
+                ])}
+            />
+            <SchemaScript
+                id="deals-collection"
+                schema={collectionPageSchema({
+                    name: "Special Offers on Indian & Pakistani Groceries",
+                    description: "Weekly discounts and promotions on authentic South Asian products in Stockholm.",
+                    url: "https://www.ideallivs.com/deals",
+                    items: saleProducts.slice(0, 20).map(p => ({
+                        url: `https://www.ideallivs.com/product/${p.slug}`,
+                        name: p.name,
+                        image: p.images?.[0]?.src
+                    }))
+                })}
+            />
+
             {/* Hero Section */}
             <div className="relative overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-red-950/20 dark:via-orange-950/20 dark:to-yellow-950/20">
                 <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25" />
@@ -32,10 +62,10 @@ async function DealsContent() {
                         {/* Title */}
                         <div className="space-y-3">
                             <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent">
-                                Deals & Offers
+                                Indian Grocery Deals & Offers
                             </h1>
-                            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                                Save big on your favorite products with our exclusive deals and special promotions
+                            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto italic font-medium">
+                                Stockholm&apos;s best prices on South Asian cooking essentials.
                             </p>
                         </div>
 
@@ -44,19 +74,63 @@ async function DealsContent() {
                             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black/20 backdrop-blur-sm border border-border">
                                 <TrendingDown className="h-5 w-5 text-red-600" />
                                 <span className="text-sm font-semibold text-foreground">
-                                    {saleProducts.length} Products on Sale
+                                    {saleProducts.length} Flash Deals Active
                                 </span>
                             </div>
                             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-500 to-orange-600 text-white">
                                 <Percent className="h-4 w-4" />
                                 <span className="text-sm font-bold">
-                                    Up to 50% Off
+                                    Stockholm Delivery
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* In-depth SEO Description Section */}
+            <section className="w-full bg-muted/30 py-12 border-y border-border/50">
+                <div className="container mx-auto px-5 max-w-[1400px]">
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="space-y-4">
+                            <h2 className="text-3xl font-heading font-bold text-foreground">
+                                Authentic Flavors, <span className="text-primary">Unbeatable Prices</span>
+                            </h2>
+                            <p className="text-muted-foreground leading-relaxed">
+                                At <strong>Ideal Indiska LIVS</strong>, we believe that authentic cooking shouldn&apos;t break the bank. Our weekly <strong>Special Offers</strong> bring you the best discounts on high-quality Indian and Pakistani staples right here in <strong>Stockholm</strong>.
+                            </p>
+                            <p className="text-muted-foreground leading-relaxed">
+                                From 5kg bags of premium <strong>Basmati Rice</strong> to essential <strong>spices and dals</strong>, we regularly discount the items your family uses most. Our deals are updated every week, so be sure to bookmark this page!
+                            </p>
+                        </div>
+                        <div className="bg-card p-6 rounded-2xl border border-border shadow-sm">
+                            <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-primary">
+                                <Percent className="w-5 h-5" /> What to look for this week:
+                            </h3>
+                            <ul className="grid grid-cols-2 gap-3 text-sm">
+                                <li className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Rice & Flour Deals
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Spice Mix Discounts
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Halal Meat Offers
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Fresh Vegetable Sales
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Frozen Food Promos
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Brand of the Week
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* Products Grid */}
             <div className="w-full px-5 max-w-[1400px] mx-auto py-12">

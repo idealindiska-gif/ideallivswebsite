@@ -205,6 +205,12 @@ function generateProductXML(product: WooProduct): string {
   xml += `    <g:custom_label_0>DHL_WEIGHT_BASED_SHIPPING</g:custom_label_0>\n`;
   xml += `    <g:custom_label_1>STOCKHOLM_LOCAL_DELIVERY</g:custom_label_1>\n`;
 
+  // Promotions
+  if (product.sale_price && parseFloat(product.sale_price) > 0) {
+    xml += `    <g:promotion_id>WEEKLY_DEALS</g:promotion_id>\n`;
+  }
+  xml += `    <g:promotion_id>FREE_DELIVERY_500</g:promotion_id>\n`;
+
   xml += `  </item>\n`;
 
   return xml;
