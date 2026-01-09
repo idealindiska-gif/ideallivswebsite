@@ -76,51 +76,59 @@ export default function PreparedMealsPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-orange-600 to-red-600 text-white">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://crm.ideallivs.com/wp-content/uploads/2026/01/Ideal-Biryani-Stockholm.jpg)' }}
-        ></div>
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-900/90 to-red-900/90"></div>
-        <div className="container relative mx-auto px-4 py-16 md:py-24">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <ChefHat className="h-5 w-5" />
-              <span className="text-sm font-medium">Fresh & Authentic</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Authentic Biryani in Stockholm
-            </h1>
-            <p className="text-lg md:text-xl text-orange-50 mb-8 max-w-2xl mx-auto italic font-medium">
-              Weekend family meals & any-day bulk orders for your special events.
-            </p>
+      <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/5 py-12 md:py-16 border-b border-border/50 overflow-hidden">
+        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
+            {/* Column 1: Heading & Pricing */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full mb-6 text-[11px] font-bold uppercase tracking-[0.2em] border border-primary/20">
+                <ChefHat className="h-3.5 w-3.5" />
+                <span>Chef&apos;s Special</span>
+              </div>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-[1.15] text-foreground tracking-tight mb-8">
+                Authentic Biryani <br className="hidden md:block" /> in Stockholm
+              </h1>
 
-            {/* Price Badge */}
-            <div className="flex justify-center mb-8">
-              <div className="bg-white text-orange-600 px-6 py-2 rounded-full font-bold text-xl shadow-lg flex items-center gap-2">
-                <span className="text-sm text-gray-500 line-through">149 kr</span>
-                <span>Only 119 kr</span>
+              <div className="flex items-center gap-4">
+                <div className="bg-primary text-white px-6 py-2.5 rounded-full font-bold text-xl shadow-lg shadow-primary/20 flex items-center gap-2">
+                  <span className="text-xs opacity-80 font-medium">Portion</span>
+                  <span>119 kr</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-muted-foreground line-through text-xs">149 kr</span>
+                  <span className="text-primary text-[10px] font-bold uppercase tracking-wider">Save 20%</span>
+                </div>
               </div>
             </div>
 
-            {/* Key Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                <Calendar className="h-8 w-8 mx-auto mb-2" />
-                <p className="font-semibold">Weekend Pickup</p>
-                <p className="text-sm text-orange-100">Every Sat & Sun</p>
+            {/* Column 2: Description & Quick Tips */}
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <p className="text-lg text-muted-foreground leading-relaxed italic font-medium border-l-4 border-primary/30 pl-6">
+                  &quot;Weekend family meals & any-day bulk orders for your special events. Handcrafted weekly by our gourmet chefs.&quot;
+                </p>
+                <p className="text-muted-foreground leading-relaxed pl-7">
+                  Experience the true taste of the South Subcontinent. Our Biryani is slow-cooked with premium basmati rice and hand-milled spices, prepared fresh every Friday for your weekend enjoyment.
+                </p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                <Clock className="h-8 w-8 mx-auto mb-2" />
-                <p className="font-semibold">Catering/Bulk</p>
-                <p className="text-sm text-orange-100">Available Any Day</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                <ChefHat className="h-8 w-8 mx-auto mb-2" />
-                <p className="font-semibold">Fresh Prepared</p>
-                <p className="text-sm text-orange-100">Handcrafted Weekly</p>
+
+              {/* Key Info Grid */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-white dark:bg-card border border-border/50 rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow group">
+                  <Calendar className="h-6 w-6 mx-auto mb-2 text-primary group-hover:scale-110 transition-transform" />
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-foreground">Weekends</p>
+                  <p className="text-[9px] text-muted-foreground mt-1">Pickup/Delivery</p>
+                </div>
+                <div className="bg-white dark:bg-card border border-border/50 rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow group">
+                  <Clock className="h-6 w-6 mx-auto mb-2 text-primary group-hover:scale-110 transition-transform" />
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-foreground">Bulk</p>
+                  <p className="text-[9px] text-muted-foreground mt-1">Available Daily</p>
+                </div>
+                <div className="bg-white dark:bg-card border border-border/50 rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-shadow group">
+                  <ChefHat className="h-6 w-6 mx-auto mb-2 text-primary group-hover:scale-110 transition-transform" />
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-foreground">Fresh</p>
+                  <p className="text-[9px] text-muted-foreground mt-1">Gourmet Quality</p>
+                </div>
               </div>
             </div>
           </div>
@@ -130,7 +138,7 @@ export default function PreparedMealsPage() {
       {/* SEO Content Section: The Best Biryani in Stockholm */}
       <section className="bg-white dark:bg-gray-900 py-16 border-b border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="prose prose-orange max-w-none dark:prose-invert">
+          <div className="prose prose-primary max-w-none dark:prose-invert">
             <h2 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
               Authentic Biryani Delivery in Stockholm
             </h2>

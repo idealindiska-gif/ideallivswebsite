@@ -68,12 +68,12 @@ export default async function BlogPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-900 to-primary-800 dark:from-primary-950 dark:to-primary-900 text-white py-16 md:py-24">
+      <section className="bg-primary text-primary-foreground py-16 md:py-24">
         <div className="container px-4 md:px-6 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
             Our Blog
           </h1>
-          <p className="text-lg md:text-xl text-primary-100 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
             Discover authentic recipes, cooking tips, and the rich culinary traditions of Indian and Pakistani cuisine in Sweden.
           </p>
         </div>

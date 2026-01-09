@@ -36,30 +36,26 @@ export default async function ShopByBrandPage() {
     return (
         <main className="min-h-screen bg-background">
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/5 py-16 md:py-24">
+            <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/5 py-12 md:py-16 border-b border-border/50">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-                            Shop Your Favorite Indian & Pakistani Grocery Brands
-                        </h1>
-                        <p className="text-xl text-muted-foreground mb-4">
-                            At {brandProfile.name}, we are proud to bring you a curated selection of the most trusted and beloved Indian and Pakistani grocery brands.
-                        </p>
-                        <p className="text-lg text-muted-foreground">
-                            Whether you're looking for the authentic spices of Shan, the delicious snacks from Haldiram's, or quality staples from ITC and KTC, find them all here. Explore our brand directory below and shop with confidence.
-                        </p>
-                    </div>
-                </Container>
-            </section>
-
-            {/* Brands Count */}
-            <section className="py-8 bg-muted/30 border-y border-border">
-                <Container>
-                    <div className="flex items-center justify-center gap-2 text-muted-foreground">
-                        <Package className="w-5 h-5" />
-                        <span className="font-medium">
-                            {brands.length} Premium Brands Available
-                        </span>
+                    <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
+                        <div>
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-[1.15] text-foreground tracking-tight mb-6">
+                                Shop Your Favorite Indian & Pakistani Brands
+                            </h1>
+                            <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide uppercase bg-primary/5 w-fit px-4 py-2 rounded-full border border-primary/10">
+                                <Package className="w-4 h-4" />
+                                <span>{brands.length} Premium Brands</span>
+                            </div>
+                        </div>
+                        <div className="space-y-4">
+                            <p className="text-lg text-muted-foreground leading-relaxed">
+                                At {brandProfile.name}, we bring you a curated selection of the most trusted and beloved Indian and Pakistani grocery brands, serving Stockholm since 2020.
+                            </p>
+                            <p className="text-muted-foreground leading-relaxed">
+                                Explore authentic spices from Shan, snacks from Haldiram&apos;s, or quality staples from ITC and KTC. Our directory is designed to help you find precisely what you need for your kitchen.
+                            </p>
+                        </div>
                     </div>
                 </Container>
             </section>
