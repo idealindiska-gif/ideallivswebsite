@@ -52,6 +52,17 @@ export function AddToCartButton({
   const hasVariations = product.type === 'variable' && product.variations && product.variations.length > 0;
   const needsVariationSelection = hasVariations && !variation;
 
+  // Debug logging
+  console.log('🛒 AddToCartButton state:', {
+    productName: product.name,
+    productType: product.type,
+    hasVariations,
+    variationProvided: !!variation,
+    variationId: variation?.id,
+    needsVariationSelection,
+    isDisabled: isOutOfStock || isAdded || needsVariationSelection
+  });
+
   return (
     <Button
       onClick={handleAddToCart}

@@ -74,6 +74,11 @@ export function ProductTemplate({
     }
   }, [hasVariations, product.id, product.attributes]);
 
+  // Monitor selectedVariation changes
+  useEffect(() => {
+    console.log('🔄 selectedVariation state changed to:', selectedVariation);
+  }, [selectedVariation]);
+
   return (
     <>
       {/* SEO Schema */}
@@ -429,8 +434,10 @@ export function ProductTemplate({
                       product={product}
                       variations={variations}
                       onVariationChange={(variation) => {
-                        console.log('Selected variation:', variation);
+                        console.log('🎯 ProductTemplate: onVariationChange called with:', variation);
+                        console.log('🎯 Setting selectedVariation to:', variation?.id || 'null');
                         setSelectedVariation(variation);
+                        console.log('🎯 selectedVariation state updated');
                       }}
                     />
                   )}

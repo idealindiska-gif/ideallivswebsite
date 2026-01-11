@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Sparkles, ThumbsUp, ThumbsDown, RefreshCw, Loader2, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/lib/woocommerce';
+import { useCartStore } from '@/store/cart-store';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@/types/woocommerce';
@@ -75,6 +76,25 @@ export function ProductRecommendations({
             });
         } catch (error) {
             console.error('Failed to send feedback:', error);
+        }
+    };
+
+    const handleAddToCart = (product: Product, e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Check if product has variations
+        const hasVariations = product.type === 'variable' &&
+            product.variations &&
+            product.variations.length > 0;
+
+        if (hasVariations) {
+            // Redirect to product page to select variations
+            window.location.href = `/product/${product.slug}`;
+        } else {
+            // Add simple product directly to cart
+            const cartStore = useCartStore.getState();
+            cartStore.addItem(product, 1);
         }
     };
 
@@ -194,11 +214,7 @@ export function ProductRecommendations({
                             <Button
                                 size="icon"
                                 className="absolute bottom-4 right-4 h-9 w-9 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 hover:scale-105 transition-all z-10 opacity-0 group-hover:opacity-100"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    // Add to cart logic here
-                                }}
+                                onClick={(e) => handleAddToCart(product, e)}
                             >
                                 <Plus className="h-4 w-4" />
                             </Button>

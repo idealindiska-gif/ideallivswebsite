@@ -6,7 +6,8 @@ const nextConfig = {
 
     // Optimize bundle
     compiler: {
-        removeConsole: process.env.NODE_ENV === 'production',
+        // Keep console.log for debugging, only remove console.error/warn in production
+        removeConsole: false,
     },
 
     // Experimental optimizations
