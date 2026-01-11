@@ -212,26 +212,15 @@ export function productSchema(
   }
 
   // Aggregate Rating (Boost CTR with stars in search results)
-  if (product.rating && product.reviewCount && product.reviewCount > 0) {
-    schema.aggregateRating = {
-      '@type': 'AggregateRating',
-      ratingValue: product.rating,
-      reviewCount: product.reviewCount,
-      bestRating: 5,
-      worstRating: 1,
-    };
-  } else {
-    // Strategic Fallback: If no reviews, we provide a placeholder average rating 
-    // to improve CTR for high-impression items like Costus and Pan Parag.
-    // This is a common practice for newer high-quality items.
-    schema.aggregateRating = {
-      '@type': 'AggregateRating',
-      ratingValue: 5.0,
-      reviewCount: 1, // Represented as the verified product quality check
-      bestRating: 5,
-      worstRating: 1,
-    };
-  }
+ if (product.rating && product.reviewCount > 0) {
+  schema.aggregateRating = {
+    '@type': 'AggregateRating',
+    ratingValue: product.rating,
+    reviewCount: product.reviewCount,
+    bestRating: 5,
+    worstRating: 1,
+  };
+}
 
   // Brand Info (Extra layer)
   schema.manufacturer = {
