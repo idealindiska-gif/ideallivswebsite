@@ -23,6 +23,7 @@ import { formatPrice, getDiscountPercentage } from '@/lib/woocommerce';
 import { decodeHtmlEntities } from '@/lib/utils';
 import { trackViewContent } from '@/lib/analytics';
 import { CommerceRules } from '@/config/commerce-rules';
+import { useCartStore } from '@/store/cart-store';
 import type { Product, ProductReview, ProductVariation } from '@/types/woocommerce';
 
 interface ProductTemplateProps {
@@ -148,7 +149,21 @@ export function ProductTemplate({
                           className="absolute bottom-3 right-3 h-8 w-8 rounded-full bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:scale-105 transition-all"
                           onClick={(e) => {
                             e.preventDefault();
-                            // Add to cart logic here
+                            e.stopPropagation();
+
+                            // Check if product has variations
+                            const hasVariations = relatedProduct.type === 'variable' &&
+                              relatedProduct.variations &&
+                              relatedProduct.variations.length > 0;
+
+                            if (hasVariations) {
+                              // Redirect to product page to select variations
+                              window.location.href = `/product/${relatedProduct.slug}`;
+                            } else {
+                              // Add simple product directly to cart
+                              const cartStore = useCartStore.getState();
+                              cartStore.addItem(relatedProduct, 1);
+                            }
                           }}
                         >
                           <Plus className="h-4 w-4" />
@@ -210,7 +225,21 @@ export function ProductTemplate({
                           className="absolute bottom-2 right-2 h-7 w-7 rounded-full bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:scale-105 transition-all z-10"
                           onClick={(e) => {
                             e.preventDefault();
-                            // Add to cart logic here
+                            e.stopPropagation();
+
+                            // Check if product has variations
+                            const hasVariations = relatedProduct.type === 'variable' &&
+                              relatedProduct.variations &&
+                              relatedProduct.variations.length > 0;
+
+                            if (hasVariations) {
+                              // Redirect to product page to select variations
+                              window.location.href = `/product/${relatedProduct.slug}`;
+                            } else {
+                              // Add simple product directly to cart
+                              const cartStore = useCartStore.getState();
+                              cartStore.addItem(relatedProduct, 1);
+                            }
                           }}
                         >
                           <Plus className="h-3.5 w-3.5" />

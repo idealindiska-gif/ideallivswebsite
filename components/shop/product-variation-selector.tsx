@@ -91,32 +91,60 @@ export function ProductVariationSelector({
       ? product.attributes
       : variationAttributes;
 
+    console.log('🔍 Checking variation match:', {
+      attributesToCheck: attributesToCheck.map(a => a.name),
+      selectedAttributes,
+      totalVariations: variations.length
+    });
+
     const allAttributesSelected = attributesToCheck.every(
       (attr) => selectedAttributes[attr.name]
     );
 
+    console.log('✅ All attributes selected?', allAttributesSelected);
+
     if (!allAttributesSelected) {
+      console.log('⚠️ Not all attributes selected yet');
       setSelectedVariation(null);
       onVariationChange?.(null);
       return;
     }
 
     const matchingVariation = variations.find((variation) => {
-      return variation.attributes.every((attr) => {
-        return selectedAttributes[attr.name] === attr.option;
+      const matches = variation.attributes.every((attr) => {
+        const match = selectedAttributes[attr.name] === attr.option;
+        console.log(`  Checking ${attr.name}: ${selectedAttributes[attr.name]} === ${attr.option} ? ${match}`);
+        return match;
       });
+      return matches;
     });
 
     console.log('🎯 Matching variation found:', matchingVariation);
+
+    if (matchingVariation) {
+      console.log('✅ Setting selected variation:', {
+        id: matchingVariation.id,
+        price: matchingVariation.price,
+        stock_status: matchingVariation.stock_status
+      });
+    } else {
+      console.log('❌ No matching variation found for selections:', selectedAttributes);
+    }
+
     setSelectedVariation(matchingVariation || null);
     onVariationChange?.(matchingVariation || null);
   }, [selectedAttributes, variations, product.attributes, variationAttributes, onVariationChange]);
 
   const handleAttributeChange = (attributeName: string, value: string) => {
-    setSelectedAttributes((prev) => ({
-      ...prev,
-      [attributeName]: value,
-    }));
+    console.log(`🎨 Attribute changed: ${attributeName} = ${value}`);
+    setSelectedAttributes((prev) => {
+      const updated = {
+        ...prev,
+        [attributeName]: value,
+      };
+      console.log('📝 Updated selections:', updated);
+      return updated;
+    });
   };
 
   // Check if an option is available (in stock) for a given attribute
