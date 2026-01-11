@@ -212,7 +212,11 @@ export function productSchema(
   }
 
   // Aggregate Rating (Boost CTR with stars in search results)
- if (product.rating && product.reviewCount > 0) {
+ if (
+  typeof product.rating === 'number' &&
+  typeof product.reviewCount === 'number' &&
+  product.reviewCount > 0
+) {
   schema.aggregateRating = {
     '@type': 'AggregateRating',
     ratingValue: product.rating,
