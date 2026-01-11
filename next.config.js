@@ -4,6 +4,10 @@ const nextConfig = {
     compress: true,
     poweredByHeader: false,
 
+    // SEO: Enforce no trailing slashes (prevents duplicate URLs)
+    trailingSlash: false,
+    skipTrailingSlashRedirect: false,
+
     // Optimize bundle
     compiler: {
         // Keep console.log for debugging, only remove console.error/warn in production

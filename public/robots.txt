@@ -1,24 +1,55 @@
-# robots.txt for Ideal Indiska LIVS
+# ==================================================
+# robots.txt for ideallivs.com
+# Ecommerce SEO Optimized (Next.js + WooCommerce API)
+# ==================================================
 
 User-agent: *
 Allow: /
 
-# Disallow cart and checkout (no need to index)
-Disallow: /cart
-Disallow: /checkout
-Disallow: /my-account
+# --- CRITICAL: Block add-to-cart parameter URLs ---
+# Prevents duplicate content issues in Search Console
+Disallow: /*?add-to-cart=*
+Disallow: /*&add-to-cart=*
+Disallow: /*/add-to-cart/*
 
-# Allow all product and content pages
+# --- Block transactional & private areas ---
+Disallow: /cart/
+Disallow: /cart
+Disallow: /checkout/
+Disallow: /checkout
+Disallow: /my-account/
+Disallow: /my-account
+Disallow: /wishlist/
+Disallow: /wishlist
+
+# --- Block internal system paths ---
+Disallow: /api/
+Disallow: /_next/
+Disallow: /cdn-cgi/
+
+# --- Allow important pages (explicit for clarity) ---
 Allow: /shop
 Allow: /product
 Allow: /product-category
 Allow: /brand
+Allow: /blog
 Allow: /posts
 Allow: /about
 Allow: /contact
+Allow: /deals
 
+# --- Allow assets ---
+Allow: /_next/static/
+Allow: /images/
+Allow: /wp-content/uploads/
+
+# --------------------------------------------------
 # Sitemap
+# --------------------------------------------------
 Sitemap: https://www.ideallivs.com/sitemap.xml
 
-# Crawl-delay (optional, helps prevent server overload)
+# --------------------------------------------------
+# Crawl Settings
+# --------------------------------------------------
+# Crawl-delay helps prevent server overload
 Crawl-delay: 1

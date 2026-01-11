@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: ProductCategoryPageProps): Pr
                 type: 'website',
             },
             alternates: {
-                canonical: `/product-category/${resolvedParams.slug?.join('/')}`,
+                canonical: `${siteConfig.site_domain}/product-category/${resolvedParams.slug?.join('/')}`,
             },
         };
     } catch {
