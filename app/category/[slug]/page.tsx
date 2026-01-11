@@ -89,7 +89,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                     {posts.map((post: any) => (
                         <Link
                             key={post.id}
-                            href={`/${post.slug}`}
+                            href={`/blog/${post.slug}`}
                             className="group block border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all"
                         >
                             {post._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
