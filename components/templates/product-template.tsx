@@ -85,7 +85,7 @@ export function ProductTemplate({
       <ProductSchema product={product} reviews={reviews} />
 
       <div className="min-h-screen bg-background overflow-x-hidden max-w-full">
-        <div className="w-full px-[25px] py-6 md:py-8 max-w-full">
+        <div className="w-full px-[30px] py-6 md:py-8 max-w-full">
           {/* Breadcrumbs */}
           {breadcrumbs && breadcrumbs.length > 0 && (
             <Breadcrumbs items={breadcrumbs} className="mb-4" />
@@ -706,25 +706,23 @@ export function ProductTemplate({
             )}
 
             {/* 3. Reviews Section */}
-            {(reviews.length > 0 || product.reviews_allowed) && (
-              <section className="border-t border-border pt-8">
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground flex items-center gap-3">
-                  Customer Reviews
-                  {product.rating_count > 0 && (
-                    <Badge variant="secondary" className="text-base">
-                      {product.rating_count} {product.rating_count === 1 ? 'Review' : 'Reviews'}
-                    </Badge>
-                  )}
-                </h2>
-                <ProductReviews
-                  productId={product.id}
-                  reviews={reviews}
-                  averageRating={product.average_rating}
-                  ratingCount={product.rating_count}
-                  compact={false}
-                />
-              </section>
-            )}
+            <section className="border-t border-border pt-8">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground flex items-center gap-3">
+                Customer Reviews
+                {product.rating_count > 0 && (
+                  <Badge variant="secondary" className="text-base">
+                    {product.rating_count} {product.rating_count === 1 ? 'Review' : 'Reviews'}
+                  </Badge>
+                )}
+              </h2>
+              <ProductReviews
+                productId={product.id}
+                reviews={reviews}
+                averageRating={product.average_rating}
+                ratingCount={product.rating_count}
+                compact={false}
+              />
+            </section>
 
           </div>
         </div>
@@ -732,7 +730,7 @@ export function ProductTemplate({
 
       {/* 4. AI-Powered Recommendations - You May Also Like */}
       <div className="bg-primary/5 py-12 border-t border-border">
-        <div className="w-full px-[25px] max-w-full">
+        <div className="w-full px-[30px] max-w-full">
           <ProductRecommendations currentProduct={product} maxRecommendations={5} />
         </div>
       </div>
