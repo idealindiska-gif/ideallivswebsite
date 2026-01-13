@@ -12,7 +12,7 @@ export async function GET() {
 ${posts
             .map(
                 (post) => `  <url>
-    <loc>${baseUrl}/${post.slug}</loc>
+    <loc>${baseUrl}/blog/${post.slug}</loc>
     <lastmod>${new Date(post.modified).toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>

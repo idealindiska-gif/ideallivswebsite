@@ -120,7 +120,7 @@ export async function GET() {
         fullContent = `<img src="${escapeXml(imageUrl)}" alt="${escapeXml(imageAlt)}" />\n${contentHtml}`;
       }
 
-      const frontendLink = `${siteConfig.site_domain}/${post.slug}`;
+      const frontendLink = `${siteConfig.site_domain}/blog/${post.slug}`;
 
       xml += `    <item>\n`;
       xml += `      <title><![CDATA[${title}]]></title>\n`;
