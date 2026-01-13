@@ -11,8 +11,8 @@ import { collectionPageSchema } from "@/lib/schema/collection";
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
 
 export const metadata: Metadata = {
-    title: `January Grocery Deals Stockholm: Basmati, Idli Rice, Atta & Sweets | ${brandProfile.name}`,
-    description: `Don't miss our January 13-18 Flash Sale! Exclusive deals in Stockholm on Aashirvaad Atta (99 kr), India Gate Idli Rice (99 kr), Basmati (139 kr), and Haldirams Sweets. Order online for same-day delivery.`,
+    title: `Indian Grocery Deals & Offers Stockholm | ${brandProfile.name}`,
+    description: `Huge savings on authentic Indian and Pakistani groceries in Stockholm. Fresh weekly deals on Basmati rice, spices, lentils, and Halal meat. Don't miss out!`,
     alternates: {
         canonical: 'https://www.ideallivs.com/deals',
     },

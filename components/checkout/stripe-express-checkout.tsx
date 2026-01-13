@@ -33,80 +33,71 @@ function PaymentRequestButtonInner({
     const [errorMsg, setErrorMsg] = useState<string>('');
     const buttonRef = useRef<HTMLDivElement>(null);
 
+    const prRef = useRef<PaymentRequest | null>(null);
+
     useEffect(() => {
-        if (!stripe) {
-            console.log('⏳ Waiting for Stripe to load...');
-            return;
+        if (!stripe) return;
+
+        // Create Payment Request only once
+        if (!prRef.current) {
+            console.log('🔧 Initializing Payment Request...');
+            const pr = stripe.paymentRequest({
+                country: 'SE',
+                currency: currency.toLowerCase(),
+                total: {
+                    label: 'Total',
+                    amount: Math.round(amount * 100),
+                },
+                requestPayerName: true,
+                requestPayerEmail: true,
+                requestPayerPhone: true,
+            });
+
+            // Check if payment request is supported
+            pr.canMakePayment().then((result) => {
+                console.log('📱 canMakePayment result:', result);
+                setCanMakePayment(result);
+                if (result) {
+                    setPaymentRequest(pr);
+                    setStatus('ready');
+                } else {
+                    setStatus('unavailable');
+                }
+            }).catch((error) => {
+                console.error('❌ canMakePayment error:', error);
+                setStatus('error');
+            });
+
+            // Handle payment method
+            pr.on('paymentmethod', async (event) => {
+                console.log('💳 Payment method received:', event.paymentMethod);
+                try {
+                    event.complete('success');
+                    onSuccess({
+                        paymentMethod: event.paymentMethod,
+                        payerEmail: event.payerEmail,
+                        payerName: event.payerName,
+                        payerPhone: event.payerPhone,
+                    });
+                } catch (error) {
+                    console.error('Payment failed:', error);
+                    event.complete('fail');
+                    onError?.('Payment failed');
+                }
+            });
+
+            prRef.current = pr;
+        } else {
+            // Update existing Payment Request if amount/currency changes
+            console.log('🔧 Updating Payment Request amount:', amount);
+            prRef.current.update({
+                total: {
+                    label: 'Total',
+                    amount: Math.round(amount * 100),
+                },
+            });
         }
-
-        console.log('🔧 Creating Payment Request...');
-        console.log('🔧 Amount:', amount, 'Currency:', currency);
-
-        // Create PaymentRequest - this is what WordPress uses
-        const pr = stripe.paymentRequest({
-            country: 'SE',
-            currency: currency.toLowerCase(),
-            total: {
-                label: 'Total',
-                amount: Math.round(amount * 100), // Convert to öre
-            },
-            requestPayerName: true,
-            requestPayerEmail: true,
-            requestPayerPhone: true,
-        });
-
-        // Check if payment request is supported
-        pr.canMakePayment().then((result) => {
-            console.log('📱 canMakePayment result:', result);
-            setCanMakePayment(result);
-
-            if (result) {
-                setPaymentRequest(pr);
-                setStatus('ready');
-                console.log('✅ Payment Request is available!');
-            } else {
-                setStatus('unavailable');
-                console.log('❌ Payment Request not available');
-                console.log('   This could mean:');
-                console.log('   - No wallet configured in browser');
-                console.log('   - Domain not registered for Apple Pay');
-                console.log('   - Browser doesn\'t support payment request API');
-            }
-        }).catch((error) => {
-            console.error('❌ canMakePayment error:', error);
-            setStatus('error');
-            setErrorMsg(error.message || 'Failed to check payment methods');
-        });
-
-        // Handle payment method
-        pr.on('paymentmethod', async (event) => {
-            console.log('💳 Payment method received:', event.paymentMethod);
-
-            try {
-                // In WordPress, this would confirm the payment on the server
-                // For now, we'll complete the event and let parent handle it
-                event.complete('success');
-                onSuccess({
-                    paymentMethod: event.paymentMethod,
-                    payerEmail: event.payerEmail,
-                    payerName: event.payerName,
-                    payerPhone: event.payerPhone,
-                });
-            } catch (error) {
-                console.error('Payment failed:', error);
-                event.complete('fail');
-                onError?.(error instanceof Error ? error.message : 'Payment failed');
-            }
-        });
-
-        pr.on('cancel', () => {
-            console.log('🚫 Payment cancelled by user');
-        });
-
-        return () => {
-            // Clean up
-        };
-    }, [stripe, amount, currency, onSuccess, onError]);
+    }, [stripe, amount, currency]);
 
     // Mount the button when ready
     useEffect(() => {

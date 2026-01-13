@@ -27,6 +27,7 @@ interface WooProduct {
   regular_price: string;
   sale_price: string;
   permalink: string;
+  slug: string;
   images: Array<{ src: string }>;
   stock_status: 'instock' | 'outofstock' | 'onbackorder';
   stock_quantity: number | null;
@@ -152,11 +153,14 @@ function generateProductXML(product: WooProduct): string {
   );
   const brand = brandCategory?.name || BRAND;
 
+  // Transform permalink to frontend URL (prevent crm links in Google Shopping)
+  const productLink = `${siteConfig.site_domain}/product/${product.slug || product.id}`;
+
   let xml = `  <item>\n`;
   xml += `    <g:id>${product.id}</g:id>\n`;
   xml += `    <title><![CDATA[${product.name}]]></title>\n`;
   xml += `    <description><![CDATA[${description}]]></description>\n`;
-  xml += `    <link>${escapeXml(product.permalink)}</link>\n`;
+  xml += `    <link>${escapeXml(productLink)}</link>\n`;
   xml += `    <g:condition>new</g:condition>\n`;
   xml += `    <g:availability>${availability}</g:availability>\n`;
   xml += `    <g:availability_date>${availabilityDate}</g:availability_date>\n`;
@@ -265,6 +269,7 @@ export async function GET() {
               description: variation.description || product.description,
               short_description: variation.description || product.short_description,
               categories: product.categories,
+              slug: product.slug, // Use parent slug for variations to point to product page
             });
           } catch (error) {
             console.error(`Error fetching variation ${variationId}:`, error);

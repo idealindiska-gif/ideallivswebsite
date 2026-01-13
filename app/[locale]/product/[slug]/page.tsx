@@ -85,19 +85,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
             customDescription = `Find the best deals on KTC oils, pure Ghee, and sunflower oils at Ideal Indiska LIVS. Authentic brands for your kitchen. Fast delivery across Stockholm.`;
         }
 
-        // Add "On Sale" indicator and price to title/description if product is promotional
+        // Add "On Sale" indicator to title if product is promotional
         if (product.on_sale) {
-            const salePrice = product.sale_price || product.price;
-            const regPrice = product.regular_price;
-            const discount = regPrice && salePrice ? Math.round(((Number(regPrice) - Number(salePrice)) / Number(regPrice)) * 100) : 0;
-
-            customTitle = `SALE: ${product.name} only ${salePrice} kr | Ideal Indiska LIVS`;
-
-            if (discount > 0) {
-                customDescription = `Special Offer: Save ${discount}% on ${product.name}. Now only ${salePrice} kr (was ${regPrice} kr). ${customDescription}`;
-            } else {
-                customDescription = `Deal: ${product.name} now ${salePrice} kr at Ideal Indiska LIVS Stockholm. ${customDescription}`;
-            }
+            customTitle = `PROMO: ${customTitle}`;
         }
 
         return {

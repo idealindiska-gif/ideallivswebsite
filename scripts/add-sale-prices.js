@@ -36,13 +36,16 @@ async function wcApi(endpoint, method = 'GET', data = null) {
 }
 
 // Products to update with sale prices
+// Promotion Valid: Jan 13 - Jan 18, 2026
 const productsToUpdate = [
-    { id: 215, salePrice: '99', name: 'India Gate Sona Masoori Rice 5kg' },
-    { id: 204, salePrice: '99', name: 'India Gate Idli Rice 5kg' },
-    { id: 75, salePrice: '99', name: 'Aashirvaad Chakki Atta 5kg' },
-    { id: 73, salePrice: '99', name: 'Pillsbury Chakki Atta 5kg' },
-    { id: 4943, salePrice: '69', name: 'Annam Peanut Oil 1 Liter' },
-    { id: 80, salePrice: '240', name: 'Elephant Atta Medium 25kg' },
+    { id: 204, salePrice: '99', name: 'India Gate Idli Rice 5 kg' },
+    { id: 3666, salePrice: '139', name: 'Garima Gold Basmati Rice 5kg' },
+    { id: 75, salePrice: '99', name: 'Aashirvaad Chakki Atta 5 kg' },
+    { id: 658, salePrice: '65', name: 'Haldirams Gulab Jamun 1kg' },
+    { id: 659, salePrice: '65', name: 'Haldirams Rasgulla 1kg' },
+    { id: 465, salePrice: '22', name: 'Malik Foods Sago Seeds 400g' },
+    { id: 640, salePrice: '50', name: 'Alibaba Pesi Gur 1 Kg' },
+    // Note: Malik Foods Sago Seeds 1kg not found in store - only 400g variant exists
 ];
 
 async function addSalePrices() {

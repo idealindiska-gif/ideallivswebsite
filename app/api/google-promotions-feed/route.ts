@@ -28,12 +28,9 @@ export async function GET() {
         );
 
         const timestamp = new Date().toISOString();
-        const effectiveDateStart = new Date().toISOString().split('.')[0] + 'Z';
-        const endDate = new Date();
-        endDate.setMonth(endDate.getMonth() + 5); // Max 6 months allowed by Google
-        const effectiveDateEnd = endDate.toISOString().split('.')[0] + 'Z';
-
-        // Format: YYYY-MM-DDTHH:mm:ss/YYYY-MM-DDTHH:mm:ss
+        // Specific promotion dates for Jan 13 - Jan 18, 2026
+        const effectiveDateStart = "2026-01-13T00:00:00Z";
+        const effectiveDateEnd = "2026-01-18T23:59:59Z";
         const effectiveDates = `${effectiveDateStart}/${effectiveDateEnd}`;
 
         let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
