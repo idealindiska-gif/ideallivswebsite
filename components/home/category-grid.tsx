@@ -53,17 +53,18 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+                <div className="flex overflow-x-auto gap-4 pb-6 scrollbar-hide snap-x snap-mandatory -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8">
                     {categories.map((category, index) => (
                         <motion.div
                             key={category.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05, duration: 0.4 }}
+                            className="flex-none w-[160px] sm:w-[200px] md:w-[220px] snap-start"
                         >
                             <Link href={`/product-category/${category.slug}`} className="group block h-full">
-                                <div className="relative overflow-hidden rounded-2xl bg-muted/30 aspect-[4/5] border border-border/50 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1">
+                                <div className="relative overflow-hidden rounded-2xl bg-muted/30 aspect-[4/5] border border-border/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
 
                                     {/* Image Background or Colored Gradient */}
                                     <div className="absolute inset-0">
@@ -73,7 +74,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                                                 alt={category.image.alt || category.name}
                                                 fill
                                                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                                sizes="(max-width: 768px) 50vw, 16vw"
+                                                sizes="(max-width: 768px) 160px, 220px"
                                             />
                                         ) : (
                                             <div className={`w-full h-full flex items-center justify-center ${gradientBackgrounds[index % gradientBackgrounds.length]}`}>
@@ -89,13 +90,13 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
 
                                     {/* Content */}
                                     <div className="absolute bottom-0 left-0 p-4 w-full">
-                                        <h3 className="text-white font-heading font-bold text-lg leading-tight mb-1 group-hover:text-primary-foreground transition-colors">
+                                        <h3 className="text-white font-heading font-bold text-sm sm:text-base md:text-lg leading-tight mb-1 group-hover:text-amber-400 transition-colors truncate">
                                             {category.name}
                                         </h3>
-                                        <div className="flex items-center justify-between text-white/70 text-xs font-medium">
+                                        <div className="flex items-center justify-between text-white/70 text-[10px] sm:text-xs font-medium">
                                             <span>{category.count || 0} Items</span>
-                                            <div className="w-6 h-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <ArrowRight className="w-3 h-3 text-white" />
+                                            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center translate-x-2 group-hover:translate-x-0 transition-transform">
+                                                <ArrowRight className="w-2.5 h-2.5 sm:w-3 h-3 text-white" />
                                             </div>
                                         </div>
                                     </div>

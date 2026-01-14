@@ -1,4 +1,3 @@
-import { Hero } from "@/components/home/hero";
 import { CategoryGrid } from "@/components/home/category-grid";
 import { PromotionGrid } from "@/components/home/promotion-grid";
 import { BannerStrip } from "@/components/home/banner-strip";
@@ -75,54 +74,44 @@ export default async function HomePage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
-      {/* 1. Hero Section */}
-      <Hero
-        title="Authentic Indian & Pakistani Groceries in Stockholm"
-        subtitle="From aromatic spices to premium Basmati rice, halal meat to fresh produce - everything you need for authentic South Asian cooking. Delivered to your door in Stockholm."
-        badge="Free Delivery Over 500 SEK"
-      />
+      {/* 1. New Hero: Promotion/Deals Grid */}
+      <PromotionGrid promotionProducts={dealProducts} />
 
-      {/* 2. Features/Benefits Section (NEW) */}
-      <Features />
-
-      {/* 3. Top Categories */}
+      {/* 2. Top Categories */}
       <CategoryGrid categories={categories} />
 
-      {/* 4. Promotion/Deals Grid */}
-      <PromotionGrid />
-
-      {/* 5. Special Offers */}
+      {/* 3. Special Offers */}
       <ProductShowcase
         title="Special Offers on Indian & Pakistani Groceries"
         products={dealProducts}
         moreLink="/deals"
       />
 
-      {/* 6. Banner Strip */}
+      {/* 5. Banner Strip */}
       <BannerStrip />
 
-      {/* 7. Trending Products */}
+      {/* 6. Trending Products */}
       <ProductShowcase
         title="Customer Favorites - Most Popular Items"
         products={trendingProducts}
         moreLink="/shop?sort=bestsellers"
       />
 
-      {/* 8. Haldiram Section */}
+      {/* 7. Haldiram Section */}
       <ProductShowcase
         title="Haldiram's - Authentic Indian Snacks"
         products={haldiramProducts}
         moreLink="/brand/haldiram"
       />
 
-      {/* 9. New Arrivals */}
+      {/* 8. New Arrivals */}
       <ProductShowcase
         title="Fresh Arrivals - New Stock Just In"
         products={newProducts}
         moreLink="/shop?sort=new"
       />
 
-      {/* 10. Fresh Produce Section */}
+      {/* 9. Fresh Produce Section */}
       <ProductShowcase
         title="Fresh Produce - Fruits & Vegetables"
         products={freshProduceProducts}
@@ -131,6 +120,9 @@ export default async function HomePage() {
 
       {/* 11. SEO & Brand Content (NEW) */}
       <SeoContent />
+
+      {/* 12. Features/Benefits Section */}
+      <Features />
 
       {/* SEO Structured Data */}
       <SchemaScript
