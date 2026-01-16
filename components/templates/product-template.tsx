@@ -556,6 +556,16 @@ export function ProductTemplate({
 
               {/* Additional Product Info */}
               {additionalContent}
+
+              {/* Payment Methods Banner */}
+              <div className="border-t border-border pt-4 mt-4">
+                <p className="text-xs text-muted-foreground text-center mb-2">Secure Payment Methods</p>
+                <img
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
+                  alt="Payment Methods - Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay"
+                  className="h-6 w-auto object-contain mx-auto"
+                />
+              </div>
             </div>
           </div>
 

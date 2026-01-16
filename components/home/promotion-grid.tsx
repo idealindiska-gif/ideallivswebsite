@@ -79,7 +79,7 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                     {/* Card 3: Dynamic Promotion Slider */}
                     <div className="relative overflow-hidden rounded-2xl bg-[#FFF0F0] aspect-square text-gray-900 shadow-sm hover:shadow-xl transition-all border border-rose-100">
                         {sliderProducts.length > 0 ? (
-                            <div className="relative h-full flex flex-col p-4 sm:p-5 xl:p-8">
+                            <div className="relative h-full flex flex-col p-4 sm:p-5">
                                 <AnimatePresence mode="wait">
                                     <motion.div
                                         key={card2Index}
@@ -87,39 +87,41 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: -20 }}
                                         transition={{ duration: 0.5 }}
-                                        className="flex flex-col h-full"
+                                        className="flex flex-col h-full justify-between"
                                     >
-                                        <div className="flex justify-between items-start mb-2 sm:mb-4">
-                                            <span className="text-[8px] sm:text-[10px] font-bold uppercase px-1.5 py-0.5 sm:px-2 sm:py-1 bg-rose-200/50 text-rose-900 rounded-full">
+                                        {/* Top: Badges */}
+                                        <div className="flex justify-between items-start z-10">
+                                            <span className="text-[9px] sm:text-[10px] font-bold uppercase px-2 py-0.5 sm:px-2.5 sm:py-1 bg-rose-200/50 text-rose-900 rounded-full tracking-wide">
                                                 Deal
                                             </span>
                                             {sliderProducts[card2Index].regular_price && (
-                                                <span className="text-[8px] sm:text-[10px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 bg-green-100 text-green-700 rounded-lg shadow-sm">
+                                                <span className="text-[9px] sm:text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 bg-green-100 text-green-700 rounded-lg shadow-sm">
                                                     Save {getDiscountPercentage(sliderProducts[card2Index])}%
                                                 </span>
                                             )}
                                         </div>
 
-                                        <div className="flex flex-col gap-1 sm:gap-3 items-center flex-1 justify-center">
-                                            <div className="relative w-20 h-20 sm:w-28 xl:w-40 xl:h-40 flex-shrink-0 drop-shadow-xl">
+                                        {/* Center: Image & Info */}
+                                        <div className="flex flex-col items-center flex-1 justify-center min-h-0">
+                                            <div className="relative w-20 h-20 sm:w-24 sm:h-24 xl:w-32 xl:h-32 flex-shrink-0 drop-shadow-md mb-1 sm:mb-2">
                                                 <Image
                                                     src={sliderProducts[card2Index].images[0]?.src || "https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg"}
                                                     alt={sliderProducts[card2Index].name}
                                                     fill
-                                                    className="object-contain hover:scale-110 transition-transform duration-700"
+                                                    className="object-contain hover:scale-105 transition-transform duration-500"
                                                     priority
                                                 />
                                             </div>
-                                            <div className="space-y-0.5 sm:space-y-1 text-center">
-                                                <h3 className="text-[10px] sm:text-sm md:text-base lg:text-sm xl:text-base font-bold text-gray-900 leading-tight line-clamp-1 sm:line-clamp-2">
+                                            <div className="text-center w-full px-1">
+                                                <h3 className="text-[11px] sm:text-xs md:text-sm font-bold text-gray-900 leading-tight line-clamp-2 min-h-[2.4em] mb-0.5">
                                                     {sliderProducts[card2Index].name}
                                                 </h3>
-                                                <div className="flex flex-col items-center">
-                                                    <span className="text-xs sm:text-lg xl:text-2xl font-bold text-rose-600">
+                                                <div className="flex flex-col items-center justify-center -space-y-0.5">
+                                                    <span className="text-base sm:text-lg xl:text-xl font-black text-rose-600">
                                                         {sliderProducts[card2Index].price} kr
                                                     </span>
                                                     {sliderProducts[card2Index].regular_price && sliderProducts[card2Index].regular_price !== sliderProducts[card2Index].price && (
-                                                        <span className="text-[8px] sm:text-[10px] line-through text-gray-400">
+                                                        <span className="text-[9px] line-through text-gray-400 font-medium">
                                                             {sliderProducts[card2Index].regular_price} kr
                                                         </span>
                                                     )}
@@ -127,17 +129,18 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                             </div>
                                         </div>
 
-                                        <div className="mt-2 sm:mt-4 flex items-center justify-between">
+                                        {/* Bottom: Action */}
+                                        <div className="flex items-center justify-between pt-1">
                                             <Link href={`/product/${sliderProducts[card2Index].slug}`}>
-                                                <Button size="sm" className="h-7 sm:h-9 xl:h-10 text-[9px] sm:text-sm rounded-full bg-rose-600 text-white hover:bg-rose-700 font-bold px-3 sm:px-5 xl:px-8 shadow-sm border-none">
+                                                <Button size="sm" className="h-7 sm:h-8 text-[10px] sm:text-xs rounded-full bg-rose-600 text-white hover:bg-rose-700 font-bold px-3 sm:px-5 shadow-sm border-none transition-all hover:shadow-md">
                                                     Buy Now
                                                 </Button>
                                             </Link>
-                                            <div className="flex gap-1 xl:gap-2">
+                                            <div className="flex gap-1">
                                                 {sliderProducts.map((_, i) => (
                                                     <div
                                                         key={i}
-                                                        className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full transition-all ${card2Index === i ? "bg-rose-600 w-3 sm:w-4" : "bg-rose-200"}`}
+                                                        className={`h-1 rounded-full transition-all ${card2Index === i ? "bg-rose-600 w-3 sm:w-4" : "bg-rose-200 w-1"}`}
                                                     />
                                                 ))}
                                             </div>
@@ -162,7 +165,7 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                 </div>
                             </Link>
                         )}
-                        <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-rose-200/20 rounded-full blur-3xl"></div>
+                        <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-rose-200/20 rounded-full blur-3xl pointer-events-none"></div>
                     </div>
 
                     {/* Card 4: Dynamic Delivery Slider */}
@@ -176,37 +179,33 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: -20 }}
                                         transition={{ duration: 0.5 }}
-                                        className="p-4 sm:p-6 flex flex-col h-full justify-between items-center text-center"
+                                        className="p-4 sm:p-6 flex flex-col h-full justify-between items-center text-center pb-8"
                                     >
-                                        <div className="space-y-2 sm:space-y-4 w-full">
-                                            <div className="flex justify-center">
-                                                <div className="p-1 sm:p-2 bg-emerald-100 rounded-lg">
-                                                    <Truck className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
+                                        <div className="space-y-2 sm:space-y-4 w-full flex-1 flex flex-col justify-center">
+                                            <div className="flex justify-center mb-1">
+                                                <div className="p-2 bg-emerald-100 rounded-xl">
+                                                    <Truck className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-600" />
                                                 </div>
                                             </div>
-                                            <span className="text-[8px] sm:text-[10px] font-bold uppercase text-emerald-700 tracking-wider">Local Delivery</span>
+                                            <span className="text-[10px] font-bold uppercase text-emerald-700 tracking-wider">Local Delivery</span>
 
-                                            <div className="space-y-1 sm:space-y-3">
-                                                <h3 className="text-sm sm:text-lg md:text-xl xl:text-2xl font-bold leading-tight text-gray-900">
-                                                    Fast & Reliable <br className="hidden sm:block" />Local Service
+                                            <div className="space-y-2">
+                                                <h3 className="text-sm sm:text-lg md:text-xl font-bold leading-tight text-gray-900">
+                                                    Fast & Reliable <br />Local Service
                                                 </h3>
-                                                <div className="flex flex-col gap-1.5 items-center">
+                                                <div className="flex flex-col gap-2 items-center pt-1">
                                                     <div className="flex items-center gap-2">
-                                                        <span className="px-1.5 py-0.5 bg-emerald-600 text-white rounded text-[7px] sm:text-[9px] font-bold uppercase">Free</span>
-                                                        <span className="text-[8px] sm:text-[11px] font-semibold text-gray-700">Orders {'>'} 500 kr</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-700 border border-emerald-200 rounded text-[7px] sm:text-[9px] font-bold uppercase">30 kr</span>
-                                                        <span className="text-[8px] sm:text-[11px] font-medium text-gray-600">300 - 499 kr</span>
+                                                        <span className="px-2 py-0.5 bg-emerald-600 text-white rounded text-[10px] font-bold uppercase shadow-sm">Free</span>
+                                                        <span className="text-xs font-semibold text-gray-700">Orders {'>'} 500 kr</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="pt-2">
-                                            <Link href="/delivery-information">
-                                                <Button size="sm" className="h-7 sm:h-9 xl:h-10 text-[9px] sm:text-sm rounded-full bg-emerald-600 text-white hover:bg-emerald-700 font-bold px-4 sm:px-8 shadow-md border-none">
-                                                    Schedule
+                                        <div className="w-full">
+                                            <Link href="/delivery-information" className="block w-full">
+                                                <Button size="sm" className="w-full h-9 sm:h-10 text-xs sm:text-sm rounded-full bg-emerald-600 text-white hover:bg-emerald-700 font-bold shadow-md border-none">
+                                                    Schedule Now
                                                 </Button>
                                             </Link>
                                         </div>
@@ -218,38 +217,38 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: -20 }}
                                         transition={{ duration: 0.5 }}
-                                        className="p-4 sm:p-6 flex flex-col h-full justify-between items-center text-center"
+                                        className="p-4 sm:p-6 flex flex-col h-full justify-between items-center text-center pb-8"
                                     >
-                                        <div className="space-y-2 sm:space-y-4 w-full">
-                                            <div className="flex justify-center">
-                                                <div className="p-1 sm:p-2 bg-emerald-100 rounded-lg">
-                                                    <Globe className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
+                                        <div className="space-y-3 w-full flex-1 flex flex-col justify-center">
+                                            <div className="flex justify-center mb-1">
+                                                <div className="p-2 bg-emerald-100 rounded-xl">
+                                                    <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-600" />
                                                 </div>
                                             </div>
-                                            <span className="text-[8px] sm:text-[10px] font-bold uppercase text-emerald-700 tracking-wider">EU Shipping</span>
+                                            <span className="text-[10px] font-bold uppercase text-emerald-700 tracking-wider">EU Shipping</span>
 
-                                            <div className="space-y-1 sm:space-y-2">
-                                                <h3 className="text-sm sm:text-lg md:text-xl xl:text-2xl font-bold leading-tight text-gray-900">
-                                                    Authentic Tastes <br className="hidden sm:block" />Across Europe
+                                            <div className="space-y-2">
+                                                <h3 className="text-sm sm:text-lg md:text-xl font-bold leading-tight text-gray-900">
+                                                    Authentic Tastes <br />Across Europe
                                                 </h3>
-                                                <p className="text-[9px] sm:text-[11px] text-gray-600 leading-tight line-clamp-2 xl:line-clamp-none max-w-[200px] mx-auto">
+                                                <p className="text-xs text-gray-600 leading-relaxed max-w-[220px] mx-auto">
                                                     Bringing home to your doorstep, anywhere in the EU.
                                                 </p>
                                             </div>
 
-                                            <div className="flex flex-wrap justify-center gap-1 sm:gap-1.5 pt-0.5 sm:pt-1">
+                                            <div className="flex flex-wrap justify-center gap-2 pt-1">
                                                 {['Norway', 'Finland', 'Denmark'].map((country) => (
-                                                    <span key={country} className="px-1 py-0.5 bg-white text-gray-700 border border-emerald-100 rounded text-[7px] sm:text-[8px] font-bold uppercase">
+                                                    <span key={country} className="px-2 py-1 bg-white text-gray-700 border border-emerald-100 rounded-lg text-[9px] font-bold uppercase shadow-sm">
                                                         {country}
                                                     </span>
                                                 ))}
                                             </div>
                                         </div>
 
-                                        <div className="pt-2">
-                                            <Link href="/europe-delivery">
-                                                <Button size="sm" className="h-7 sm:h-9 xl:h-10 text-[9px] sm:text-sm rounded-full bg-emerald-600 text-white hover:bg-emerald-700 font-bold px-4 sm:px-8 shadow-md border-none">
-                                                    Shipping
+                                        <div className="w-full">
+                                            <Link href="/europe-delivery" className="block w-full">
+                                                <Button size="sm" className="w-full h-9 sm:h-10 text-xs sm:text-sm rounded-full bg-emerald-600 text-white hover:bg-emerald-700 font-bold shadow-md border-none">
+                                                    Check Shipping
                                                 </Button>
                                             </Link>
                                         </div>

@@ -31,6 +31,15 @@ export function CartDrawer() {
           <SheetTitle>Shopping Cart ({getTotalItems()} items)</SheetTitle>
         </SheetHeader>
 
+        {/* Payment Methods Banner */}
+        <div className="px-4 pt-3 pb-1">
+          <img
+            src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
+            alt="Payment Methods - Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay"
+            className="h-6 w-auto object-contain mx-auto"
+          />
+        </div>
+
         {/* Notification Banner */}
         {notification && (
           <div className="mx-4 mt-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-3">
