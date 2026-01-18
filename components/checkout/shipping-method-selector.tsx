@@ -171,6 +171,9 @@ export function ShippingMethodSelector({
               </span>
             </div>
             <Progress value={freeShippingProgress} className="h-2" />
+            <p className="text-xs text-green-700 dark:text-green-400">
+              *Available for Stockholm zones only
+            </p>
           </div>
         </Card>
       )}

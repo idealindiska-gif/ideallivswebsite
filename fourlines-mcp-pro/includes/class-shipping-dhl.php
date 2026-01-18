@@ -165,6 +165,7 @@ class Fourlines_MCP_Shipping_DHL {
             // Determine shipping zone
             $zone_name = 'Sweden';
             $zone_id = 0;
+            $matched_zone_obj = null;
 
             // Try to match shipping zone
             $shipping_zones = WC_Shipping_Zones::get_zones();
@@ -180,6 +181,7 @@ class Fourlines_MCP_Shipping_DHL {
                         if (preg_match('/^' . $pattern . '/', $postcode)) {
                             $zone_name = $zone_obj->get_zone_name();
                             $zone_id = $zone_obj->get_id();
+                            $matched_zone_obj = $zone_obj;
                             break 2;
                         }
                     }
@@ -200,23 +202,52 @@ class Fourlines_MCP_Shipping_DHL {
             // DEBUG: Log what we received from WooCommerce
             error_log('MCP Shipping Debug:');
             error_log('Cart Total: ' . $cart_total);
+            error_log('Zone ID: ' . $zone_id);
+            error_log('Zone Name: ' . $zone_name);
             error_log('Methods from WooCommerce: ' . print_r($available_methods, true));
             
+            // CRITICAL FIX: Check if zone actually offers free shipping
+            $zone_has_free_shipping = false;
+            if ($matched_zone_obj) {
+                $zone_methods = $matched_zone_obj->get_shipping_methods(true); // true = enabled only
+                foreach ($zone_methods as $method) {
+                    if ($method->id === 'free_shipping' && $method->enabled === 'yes') {
+                        $zone_has_free_shipping = true;
+                        error_log('Zone HAS free shipping enabled');
+                        break;
+                    }
+                }
+            }
+            
+            if (!$zone_has_free_shipping) {
+                error_log('Zone does NOT have free shipping enabled');
+            }
+            
             // GLOBAL FREE SHIPPING THRESHOLD (500 SEK)
-            // Hide free shipping if cart total is below 500 SEK, regardless of zone settings
+            // Free shipping is ONLY available if:
+            // 1. Cart total >= 500 SEK
+            // 2. Customer's zone has free shipping enabled
             $free_shipping_threshold = 500;
-            if ($cart_total < $free_shipping_threshold) {
+            
+            if ($cart_total < $free_shipping_threshold || !$zone_has_free_shipping) {
                 // Remove any free shipping methods
                 $available_methods = array_filter($available_methods, function($m) {
                     return $m['method_id'] !== 'free_shipping';
                 });
                 $available_methods = array_values($available_methods);
+                
+                if ($cart_total < $free_shipping_threshold) {
+                    error_log('Removed free shipping: cart total below threshold');
+                } else {
+                    error_log('Removed free shipping: zone does not offer it');
+                }
             } else {
-                // Cart qualifies – ensure any free shipping method has zero cost
+                // Cart qualifies AND zone offers free shipping – ensure zero cost
                 foreach ($available_methods as &$m) {
                     if ($m['method_id'] === 'free_shipping') {
                         $m['cost'] = 0;
                         $m['total_cost'] = 0;
+                        error_log('Free shipping available: cart qualifies and zone offers it');
                     }
                 }
             }
@@ -248,11 +279,12 @@ class Fourlines_MCP_Shipping_DHL {
                 'zone' => [
                     'id' => $zone_id,
                     'name' => $zone_name,
+                    'has_free_shipping' => $zone_has_free_shipping,
                 ],
                 'cart_total' => $cart_total,
                 'restricted_products' => $restricted_products,
                 'free_shipping_threshold' => $free_shipping_threshold,
-                'free_shipping_available' => $cart_total >= $free_shipping_threshold,
+                'free_shipping_available' => $cart_total >= $free_shipping_threshold && $zone_has_free_shipping,
                 'amount_to_free_shipping' => max(0, $free_shipping_threshold - $cart_total),
                 'debug' => $debug,
             ];
