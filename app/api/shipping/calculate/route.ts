@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const WP_API_BASE = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://crm.ideallivs.com/wp-json';
-const MCP_KEY = process.env.FOURLINES_MCP_KEY;
+// Check server-side first, then public fallback
+const MCP_KEY = process.env.FOURLINES_MCP_KEY || process.env.NEXT_PUBLIC_FOURLINES_MCP_KEY;
 
 // Fallback shipping methods when API is unavailable
 const FALLBACK_SHIPPING_METHODS = [

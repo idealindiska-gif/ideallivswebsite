@@ -1,0 +1,984 @@
+[
+  {
+    "id": 577,
+    "name": "Batters",
+    "slug": "batters",
+    "parent": 0,
+    "description": "Buy ready-to-use batters for dosas, idlis, and more at Ideal Indiska Livs, Stockholm. Fresh, convenient, and authentic South Asian taste.",
+    "count": 2,
+    "hasDescription": true,
+    "children": []
+  },
+  {
+    "id": 584,
+    "name": "Canned &amp; Jarred Goods",
+    "slug": "canned-jarred-goods",
+    "parent": 0,
+    "description": "Shop Canned &amp; Jarred Goods at ideal indiska , Stockholm. Explore mango pulp, fruit , canned food and canned fruits.",
+    "count": 3,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 585,
+        "name": "Fruit Pulps &amp; Canned Fruits",
+        "slug": "fruit-pulps-canned-fruits",
+        "parent": 584,
+        "description": "Find a delicious range of Fruit Pulps &amp; Canned Fruits at Ideal Indiska in Stockholm. Perfect for making authentic mango lassi, desserts, and curries. Shop top brands online!",
+        "count": 1,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 463,
+    "name": "Cooking Ingredients",
+    "slug": "cooking-ingredients",
+    "parent": 0,
+    "description": "Shop top cooking ingredients at Ideal Indiska Livs, Stockholm. Spices, oils, and essentials for authentic Indo-Pak cuisine.",
+    "count": 15,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 509,
+        "name": "Food Colours &amp; Essences",
+        "slug": "food-colours-essences",
+        "parent": 463,
+        "description": "<p data-start=\"596\" data-end=\"781\">Explore a wide range of edible food colours &amp; essence products for traditional sweets, baking, and festive cooking. Available at Ideal Indiska Livs – your Indian grocery in Stockholm.</p>",
+        "count": 10,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 561,
+    "name": "Curry Masala",
+    "slug": "curry-masala",
+    "parent": 0,
+    "description": "Shop curry masala blends for authentic Indian and Pakistani dishes at Ideal Indiska Livs, Stockholm. Enhance your curries with premium spices.",
+    "count": 2,
+    "hasDescription": true,
+    "children": []
+  },
+  {
+    "id": 324,
+    "name": "Dry Fruits &amp; Nuts",
+    "slug": "dry-fruits",
+    "parent": 0,
+    "description": "Dry Fruits &amp; Nuts",
+    "count": 18,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 578,
+        "name": "Nuts",
+        "slug": "nuts",
+        "parent": 324,
+        "description": "",
+        "count": 2,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 582,
+    "name": "Festival Special",
+    "slug": "festival-special",
+    "parent": 0,
+    "description": "",
+    "count": 9,
+    "hasDescription": false,
+    "children": [
+      {
+        "id": 583,
+        "name": "Diwali",
+        "slug": "diwali",
+        "parent": 582,
+        "description": "",
+        "count": 7,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 451,
+    "name": "Flours (Atta &amp; More)",
+    "slug": "flour",
+    "parent": 0,
+    "description": "Shop a wide range of top-quality flours including chapati flour, whole wheat atta, and more at Ideal Indiska Livs in Stockholm. Trusted brands at unbeatable prices.",
+    "count": 56,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 549,
+        "name": "Chakki Fresh",
+        "slug": "chakki-fresh",
+        "parent": 451,
+        "description": "",
+        "count": 5,
+        "hasDescription": false
+      },
+      {
+        "id": 486,
+        "name": "Chapati Flour",
+        "slug": "chapati-flour",
+        "parent": 451,
+        "description": "<p data-start=\"625\" data-end=\"812\">Find authentic whole wheat atta and chapati flour from top brands like Elephant, Aashirvaad, and Pilsbury at Ideal Indiska Livs, Stockholm’s trusted grocery store.</p>",
+        "count": 4,
+        "hasDescription": true
+      },
+      {
+        "id": 96,
+        "name": "Gram Flour (Besan)",
+        "slug": "gram-flour",
+        "parent": 451,
+        "description": "Discover fresh and finely milled besan (gram flour) perfect for pakoras, sweets, and more. Shop top brands at Ideal Indiska Livs – your desi grocery store in Stockholm.",
+        "count": 8,
+        "hasDescription": true
+      },
+      {
+        "id": 278,
+        "name": "Other Flours (Millet, Corn, Maida, etc.)",
+        "slug": "other-flours",
+        "parent": 451,
+        "description": "<p data-start=\"953\" data-end=\"1137\">Explore a variety of flours including besan, maida, rice flour, Millet and gluten-free options at Ideal Indiska Livs. Perfect for traditional and modern cooking needs.</p>",
+        "count": 28,
+        "hasDescription": true
+      },
+      {
+        "id": 248,
+        "name": "Whole Wheat Atta",
+        "slug": "whole-wheat-atta",
+        "parent": 451,
+        "description": "<p data-start=\"267\" data-end=\"462\">Shop premium whole wheat atta for soft chapatis and rotis. Find trusted brands like Elephant, Pilsbury &amp; more at Ideal Indiska Livs – Stockholm’s desi grocery destination.</p>",
+        "count": 10,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "name": "Fragrance",
+    "slug": "fragrance",
+    "parent": 0,
+    "description": "Fragrance",
+    "count": 33,
+    "hasDescription": true,
+    "children": []
+  },
+  {
+    "id": 294,
+    "name": "Fresh Produce",
+    "slug": "fresh-produce",
+    "parent": 0,
+    "description": "Shop fresh fruits and vegetables at Ideal Grocers Stockholm. Handpicked produce with authentic Indo-Pak flavors, delivered with care across Sweden and Europe.",
+    "count": 30,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 576,
+        "name": "Chicken",
+        "slug": "chicken",
+        "parent": 294,
+        "description": "",
+        "count": 0,
+        "hasDescription": false
+      },
+      {
+        "id": 466,
+        "name": "Fruits",
+        "slug": "fruits",
+        "parent": 294,
+        "description": "",
+        "count": 5,
+        "hasDescription": false
+      },
+      {
+        "id": 552,
+        "name": "Paneer",
+        "slug": "paneer-fresh-produce",
+        "parent": 294,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      },
+      {
+        "id": 310,
+        "name": "Vegetables",
+        "slug": "vegetables",
+        "parent": 294,
+        "description": "Fresh Vegetables, only for pickup.",
+        "count": 21,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 185,
+    "name": "Frozen Foods",
+    "slug": "frozen-foods",
+    "parent": 0,
+    "description": "Stock up on premium frozen foods at Ideal Indiska Livs in Stockholm. We offer a variety of South Asian and international frozen items including vegetables, meats, ready meals, pastries, and snacks. Perfect for quick and tasty meals at home.",
+    "count": 57,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 484,
+        "name": "Frozen BBQ",
+        "slug": "frozen-bbq",
+        "parent": 185,
+        "description": "",
+        "count": 3,
+        "hasDescription": false
+      },
+      {
+        "id": 184,
+        "name": "Frozen Parathas",
+        "slug": "frozen-parathas",
+        "parent": 185,
+        "description": "",
+        "count": 6,
+        "hasDescription": false
+      },
+      {
+        "id": 186,
+        "name": "Frozen Snacks",
+        "slug": "frozen-snacks",
+        "parent": 185,
+        "description": "Ideal Indiska Livs offers a delicious selection of frozen snacks perfect for every occasion. From Haldiram snacks to samosas and kebabs, find high-quality frozen snacks from trusted brands. Convenient and great tasting – shop in-store or online.",
+        "count": 24,
+        "hasDescription": true
+      },
+      {
+        "id": 519,
+        "name": "Paneer",
+        "slug": "paneer",
+        "parent": 185,
+        "description": "",
+        "count": 2,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 457,
+    "name": "Hair Oils",
+    "slug": "hair-oils",
+    "parent": 0,
+    "description": "",
+    "count": 19,
+    "hasDescription": false,
+    "children": [
+      {
+        "id": 514,
+        "name": "Almond Oil",
+        "slug": "almond-oil",
+        "parent": 457,
+        "description": "Discover premium almond oil at Ideal Indiska Livs, Stockholm. Perfect for cooking, skin, and hair care, sourced from trusted brands.",
+        "count": 0,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 462,
+    "name": "Henna &amp; Herbal",
+    "slug": "henna",
+    "parent": 0,
+    "description": "Shop Henna &amp; Herbal trusted brands like Neha, EcoByLife, Dabur &amp; Vatika at Ideal Indiska. Find authentic henna cones, herbal hair colours, amla hair oils, and more in Stockholm.",
+    "count": 9,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 603,
+        "name": "Herbs &amp; Roots",
+        "slug": "herbs-roots",
+        "parent": 462,
+        "description": " Explore Ideal Livs' selection of authentic Indian herbs &amp; roots. Discover Ayurvedic and traditional ingredients for wellness and cooking. Fast delivery across Europe from Stockholm.",
+        "count": 1,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 452,
+    "name": "Home Essentials",
+    "slug": "home-essentials",
+    "parent": 0,
+    "description": "Home Essentials",
+    "count": 41,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 542,
+        "name": "Agarbatti (Incense Sticks)",
+        "slug": "agarbatti",
+        "parent": 452,
+        "description": "Explore a wide range of authentic Agarbatti (incense sticks) at Ideal Indiska in Stockholm. Find calming Sandalwood, floral Rose, exotic Oudh &amp; more for pooja, meditation, and a peaceful home.",
+        "count": 28,
+        "hasDescription": true
+      },
+      {
+        "id": 501,
+        "name": "Electric",
+        "slug": "electric",
+        "parent": 452,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      },
+      {
+        "id": 338,
+        "name": "Kitchen accessories",
+        "slug": "kitchen-accessories",
+        "parent": 452,
+        "description": "Kitchen accessories\r\n",
+        "count": 3,
+        "hasDescription": true
+      },
+      {
+        "id": 581,
+        "name": "Pooja items",
+        "slug": "pooja-items",
+        "parent": 452,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      },
+      {
+        "id": 459,
+        "name": "Soaps",
+        "slug": "soaps",
+        "parent": 452,
+        "description": "",
+        "count": 5,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 480,
+    "name": "Instant Mix",
+    "slug": "instant-mix",
+    "parent": 0,
+    "description": "",
+    "count": 2,
+    "hasDescription": false,
+    "children": []
+  },
+  {
+    "id": 455,
+    "name": "Lentils, Beans &amp; Dals",
+    "slug": "lentils-beans-dals",
+    "parent": 0,
+    "description": "Discover a wide range of premium lentils, beans, and dals at Ideal Indiska Livs, Stockholm. Perfect for Indian, Pakistani, and vegetarian cooking—our selection includes toor dal, chana dal, red lentils, kidney beans, and more. Enjoy authentic flavors, great nutrition, and fast Stockholm delivery for all your pantry essentials.",
+    "count": 80,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 606,
+        "name": "Chana Dal",
+        "slug": "chana-dal",
+        "parent": 455,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      },
+      {
+        "id": 534,
+        "name": "Chickpeas",
+        "slug": "chick-peas",
+        "parent": 455,
+        "description": "Discover premium chickpeas (chana) at Ideal Indiska Livs. Perfect for curries, salads, and healthy snacks. Delivery available in Stockholm, all across Sweden, and Europe.",
+        "count": 27,
+        "hasDescription": true
+      },
+      {
+        "id": 599,
+        "name": "Masoor Dal",
+        "slug": "masoor-dal",
+        "parent": 455,
+        "description": "",
+        "count": 2,
+        "hasDescription": false
+      },
+      {
+        "id": 570,
+        "name": "Mong Dal",
+        "slug": "mong-dal",
+        "parent": 455,
+        "description": "",
+        "count": 3,
+        "hasDescription": false
+      },
+      {
+        "id": 513,
+        "name": "Toor Dal",
+        "slug": "toor-dal",
+        "parent": 455,
+        "description": "",
+        "count": 9,
+        "hasDescription": false
+      },
+      {
+        "id": 512,
+        "name": "Urid Dal",
+        "slug": "urid-dal",
+        "parent": 455,
+        "description": "",
+        "count": 6,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 482,
+    "name": "Meat Alternatives",
+    "slug": "meat-alternatives",
+    "parent": 0,
+    "description": "",
+    "count": 2,
+    "hasDescription": false,
+    "children": []
+  },
+  {
+    "id": 196,
+    "name": "Noodles &amp; Pasta",
+    "slug": "noodles-pasta",
+    "parent": 0,
+    "description": "Noodles &amp; Pasta",
+    "count": 9,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 491,
+        "name": "Instant Noodles",
+        "slug": "instant-noodles",
+        "parent": 196,
+        "description": "",
+        "count": 6,
+        "hasDescription": false
+      },
+      {
+        "id": 521,
+        "name": "Vermicelli",
+        "slug": "vermicelli",
+        "parent": 196,
+        "description": "",
+        "count": 2,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 453,
+    "name": "Oils &amp; Ghee",
+    "slug": "oils-ghee",
+    "parent": 0,
+    "description": "Oils &amp; Ghee",
+    "count": 18,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 125,
+        "name": "Cooking Oil",
+        "slug": "cooking-oil",
+        "parent": 453,
+        "description": "Cooking Oil",
+        "count": 7,
+        "hasDescription": true
+      },
+      {
+        "id": 511,
+        "name": "Ghee",
+        "slug": "ghee",
+        "parent": 453,
+        "description": "",
+        "count": 6,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 589,
+    "name": "Organic Groceries",
+    "slug": "organic-groceries",
+    "parent": 0,
+    "description": "",
+    "count": 1,
+    "hasDescription": false,
+    "children": []
+  },
+  {
+    "id": 311,
+    "name": "Others",
+    "slug": "others",
+    "parent": 0,
+    "description": "",
+    "count": 16,
+    "hasDescription": false,
+    "children": []
+  },
+  {
+    "id": 477,
+    "name": "Personal Care",
+    "slug": "personal-care",
+    "parent": 0,
+    "description": "Carefully selected products to help you look and feel your best – from natural hair color to daily hygiene essentials.",
+    "count": 17,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 481,
+        "name": "Beard Colour",
+        "slug": "beard-colour",
+        "parent": 477,
+        "description": "Explore beard colour products at Ideal Indiska Livs, Stockholm. Safe, long-lasting colour for a well-groomed look.",
+        "count": 4,
+        "hasDescription": true
+      },
+      {
+        "id": 478,
+        "name": "Hair Care",
+        "slug": "hair-care",
+        "parent": 477,
+        "description": "Nourish, color, and protect your hair with our range of herbal oils, shampoos, and natural henna products.",
+        "count": 5,
+        "hasDescription": true
+      },
+      {
+        "id": 487,
+        "name": "Tooth Paste",
+        "slug": "tooth-paste",
+        "parent": 477,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 148,
+    "name": "Pickles, Chutneys &amp; Pastes",
+    "slug": "pickles-chutneys-pastes",
+    "parent": 0,
+    "description": "Pickles, Chutneys &amp; Pastes",
+    "count": 72,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 146,
+        "name": "Cooking Pastes",
+        "slug": "cooking-pastes",
+        "parent": 148,
+        "description": "",
+        "count": 27,
+        "hasDescription": false
+      },
+      {
+        "id": 573,
+        "name": "Ginger Pastes",
+        "slug": "ginger-pastes",
+        "parent": 148,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      },
+      {
+        "id": 495,
+        "name": "Jam",
+        "slug": "jam",
+        "parent": 148,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      },
+      {
+        "id": 162,
+        "name": "Pickles",
+        "slug": "pickles",
+        "parent": 148,
+        "description": "Pickles at ideal indiska livs stockholm",
+        "count": 12,
+        "hasDescription": true
+      },
+      {
+        "id": 524,
+        "name": "Sauces",
+        "slug": "sauces",
+        "parent": 148,
+        "description": "Discover a wide range of Indian, Pakistani, and Asian sauces at Ideal Indiska Livs Stockholm. Maggi, National &amp; more. Shop in-store or online at ideallivs.com",
+        "count": 15,
+        "hasDescription": true
+      },
+      {
+        "id": 607,
+        "name": "Vinegar",
+        "slug": "vinegar",
+        "parent": 148,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 288,
+    "name": "Powdered",
+    "slug": "powdered",
+    "parent": 0,
+    "description": "Explore all products",
+    "count": 11,
+    "hasDescription": true,
+    "children": []
+  },
+  {
+    "id": 333,
+    "name": "Ready to Eat",
+    "slug": "ready-to-eat",
+    "parent": 0,
+    "description": "<p data-start=\"240\" data-end=\"443\">Discover delicious ready to eat meals at Ideal Grocers Stockholm. From Haldiram snacks to traditional curries, enjoy authentic Indo-Pak flavors delivered across Sweden &amp; Europe.</p>",
+    "count": 19,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 327,
+        "name": "Canned &amp; Cooked Beans/Lentils",
+        "slug": "cooked-boiled",
+        "parent": 333,
+        "description": "Shop canned and cooked beans, lentils, and dals at Ideal Indiska Livs. Ready-to-eat and easy to use for quick meals. Delivery available in Stockholm, all across Sweden, and Europe.",
+        "count": 4,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "name": "Rice &amp; Grains",
+    "slug": "rice-grains",
+    "parent": 0,
+    "description": "Explore a wide variety of premium Rice &amp; Grains at Ideal Indiska in Stockholm. Find authentic Basmati, Sona Masoori, Jasmine rice, and other essential grains for your kitchen.",
+    "count": 51,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 492,
+        "name": "Asian Rice",
+        "slug": "asian-rice",
+        "parent": 94,
+        "description": "Find authentic Jasmine rice (Jasminris) and other aromatic Asian rice varieties at Ideal Indiska in Stockholm. Perfect for Thai, Vietnamese, Chinese &amp; other Asian cuisines.",
+        "count": 6,
+        "hasDescription": true
+      },
+      {
+        "id": 95,
+        "name": "Basmati Rice",
+        "slug": "basmati-rice",
+        "parent": 94,
+        "description": "Discover the finest selection of aged, extra-long grain Basmati rice in Stockholm. Shop top brands like India Gate, Dawat &amp; Guard for perfect biryani, pulao, and other dishes.",
+        "count": 19,
+        "hasDescription": true
+      },
+      {
+        "id": 586,
+        "name": "Flakes",
+        "slug": "flakes",
+        "parent": 94,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      },
+      {
+        "id": 571,
+        "name": "Idly Rice",
+        "slug": "idly-rice",
+        "parent": 94,
+        "description": "",
+        "count": 2,
+        "hasDescription": false
+      },
+      {
+        "id": 479,
+        "name": "Other grains",
+        "slug": "other-grains",
+        "parent": 94,
+        "description": "",
+        "count": 9,
+        "hasDescription": false
+      },
+      {
+        "id": 507,
+        "name": "Sona Masoori Rice",
+        "slug": "sona-masoori",
+        "parent": 94,
+        "description": "Light, aromatic Sona Masoori rice perfect for daily meals. Order now from Ideal Indiska Livs – your go-to South Asian grocery store in Stockholm.",
+        "count": 6,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 568,
+    "name": "seeds",
+    "slug": "seeds",
+    "parent": 0,
+    "description": "",
+    "count": 1,
+    "hasDescription": false,
+    "children": []
+  },
+  {
+    "id": 460,
+    "name": "Skin Care",
+    "slug": "skin-care",
+    "parent": 0,
+    "description": "",
+    "count": 6,
+    "hasDescription": false,
+    "children": [
+      {
+        "id": 461,
+        "name": "Baby Care",
+        "slug": "baby-care",
+        "parent": 460,
+        "description": "Shop baby care essentials at Ideal Indiska Livs, Stockholm. Quality products for your baby's needs, from trusted brands, delivered to your door.",
+        "count": 5,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 170,
+    "name": "Snacks &amp; Savouries (Namkeen)",
+    "slug": "snacks",
+    "parent": 0,
+    "description": "Snacks &amp; Savouries (Namkeen)",
+    "count": 108,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 171,
+        "name": "Biscuits &amp; Cookies",
+        "slug": "biscuits-cookies",
+        "parent": 170,
+        "description": "Biscuits &amp; Cookies",
+        "count": 19,
+        "hasDescription": true
+      },
+      {
+        "id": 456,
+        "name": "Chips &amp; Crisps",
+        "slug": "chips-crisps",
+        "parent": 170,
+        "description": "Chips &amp; Crisps",
+        "count": 0,
+        "hasDescription": true
+      },
+      {
+        "id": 543,
+        "name": "Indian Snacks",
+        "slug": "indian-snacks",
+        "parent": 170,
+        "description": "",
+        "count": 12,
+        "hasDescription": false
+      },
+      {
+        "id": 173,
+        "name": "Rusk",
+        "slug": "rusk",
+        "parent": 170,
+        "description": "Rusk",
+        "count": 12,
+        "hasDescription": true
+      },
+      {
+        "id": 600,
+        "name": "Slanty",
+        "slug": "slanty",
+        "parent": 170,
+        "description": "",
+        "count": 3,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 164,
+    "name": "Spices &amp; Masalas",
+    "slug": "spices-masalas",
+    "parent": 0,
+    "description": "Spices &amp; Masalas",
+    "count": 226,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 587,
+        "name": "Chaat Ingredients",
+        "slug": "chaat-ingredients",
+        "parent": 164,
+        "description": "",
+        "count": 2,
+        "hasDescription": false
+      },
+      {
+        "id": 167,
+        "name": "Ground Spices (Pise Masale)",
+        "slug": "ground-spices",
+        "parent": 164,
+        "description": "Shop a wide range of authentic ground spices (Pise Masale) at Ideal Indiska in Stockholm. Find turmeric, chilli powder, coriander, cumin, and more for all your Indian &amp; Pakistani cooking needs.",
+        "count": 51,
+        "hasDescription": true
+      },
+      {
+        "id": 541,
+        "name": "Hing (Asafoetida)",
+        "slug": "hing",
+        "parent": 164,
+        "description": "Find high-quality Hing (Asafoetida) powder from top brands like L.G. &amp; Vandevi at Ideal Indiska in Stockholm. The essential pungent spice for authentic Indian dals, tempering &amp; vegetarian cooking.",
+        "count": 4,
+        "hasDescription": true
+      },
+      {
+        "id": 540,
+        "name": "Recipe Mixes",
+        "slug": "recipe-mixes",
+        "parent": 164,
+        "description": "",
+        "count": 3,
+        "hasDescription": false
+      },
+      {
+        "id": 494,
+        "name": "salt &amp; pepper",
+        "slug": "salt-pepper",
+        "parent": 164,
+        "description": "Choose from salt &amp; pepper, black salt, and whole peppercorns. Premium quality seasoning essentials for every kitchen.",
+        "count": 15,
+        "hasDescription": true
+      },
+      {
+        "id": 33,
+        "name": "Spice Blends",
+        "slug": "spice-blends",
+        "parent": 164,
+        "description": "<p class=\"ng-star-inserted\"><span class=\"inline-code ng-star-inserted\">Find authentic Indian &amp; Pakistani spice blends (masalas) at Ideal Indiska, Stockholm. Shop for Garam Masala, Biryani, Sambar, Chana Masala &amp; more from top brands.</span></p>",
+        "count": 59,
+        "hasDescription": true
+      },
+      {
+        "id": 166,
+        "name": "Whole Spices (Sabut Masale)",
+        "slug": "whole-spices",
+        "parent": 164,
+        "description": "Whole Spices (Sabut Masale)",
+        "count": 48,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 289,
+    "name": "Sweets",
+    "slug": "sweets",
+    "parent": 0,
+    "description": "",
+    "count": 53,
+    "hasDescription": false,
+    "children": [
+      {
+        "id": 285,
+        "name": "Dessert Mixes",
+        "slug": "dessert-mixes",
+        "parent": 289,
+        "description": "Dessert Mixes",
+        "count": 25,
+        "hasDescription": true
+      },
+      {
+        "id": 483,
+        "name": "Traditional Fried Sweets &amp; Snacks",
+        "slug": "tradional-sweets",
+        "parent": 289,
+        "description": "Traditional Fried Sweets &amp; Snacks",
+        "count": 3,
+        "hasDescription": true
+      }
+    ]
+  },
+  {
+    "id": 454,
+    "name": "Tea, Coffee &amp; Beverages",
+    "slug": "tea-coffee-beverages",
+    "parent": 0,
+    "description": "Tea, Coffee &amp; Beverages",
+    "count": 63,
+    "hasDescription": true,
+    "children": [
+      {
+        "id": 108,
+        "name": "Black Tea &amp; Chai Blends",
+        "slug": "tea",
+        "parent": 454,
+        "description": "Black Tea &amp; Chai Blends",
+        "count": 21,
+        "hasDescription": true
+      },
+      {
+        "id": 237,
+        "name": "Health Drinks &amp; Mixes",
+        "slug": "health-drinks-mixes",
+        "parent": 454,
+        "description": "Health Drinks &amp; Mixes",
+        "count": 15,
+        "hasDescription": true
+      },
+      {
+        "id": 601,
+        "name": "Instant Drink Mixes",
+        "slug": "instant-drink-mixes",
+        "parent": 454,
+        "description": "",
+        "count": 2,
+        "hasDescription": false
+      },
+      {
+        "id": 223,
+        "name": "Juices &amp; Soft Drinks",
+        "slug": "juices-soft-drinks",
+        "parent": 454,
+        "description": "Juices &amp; Soft Drinks",
+        "count": 23,
+        "hasDescription": true
+      },
+      {
+        "id": 602,
+        "name": "Soft Drinks",
+        "slug": "soft-drinks",
+        "parent": 454,
+        "description": "",
+        "count": 1,
+        "hasDescription": false
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Uncategorized",
+    "slug": "uncategorized",
+    "parent": 0,
+    "description": "",
+    "count": 0,
+    "hasDescription": false,
+    "children": []
+  },
+  {
+    "id": 503,
+    "name": "Vegan Food",
+    "slug": "vegan-food",
+    "parent": 0,
+    "description": "",
+    "count": 1,
+    "hasDescription": false,
+    "children": []
+  }
+]

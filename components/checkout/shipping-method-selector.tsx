@@ -179,7 +179,8 @@ export function ShippingMethodSelector({
       )}
 
       {/* Shipping achieved message */}
-      {subtotal >= freeShippingThreshold && (
+      {/* Check if free shipping is ACTUALLY available in the methods list provided by API */}
+      {subtotal >= freeShippingThreshold && availableShippingMethods.some(m => m.method_id === 'free_shipping') && (
         <Card className="border-green-200 bg-green-50 p-4 dark:border-green-900 dark:bg-green-950/20">
           <div className="flex items-center gap-2 text-green-800 dark:text-green-300">
             <Gift className="h-5 w-5" />

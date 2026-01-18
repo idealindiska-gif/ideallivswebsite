@@ -1,0 +1,1082 @@
+[
+  {
+    "id": 390,
+    "name": "A1",
+    "slug": "a1",
+    "description": "Shop A1 Sambar Powder, Curry Masala &amp; South Indian spices in Stockholm at Ideal Indiska Livs. Authentic taste, made easy.",
+    "count": 3,
+    "hasDescription": true
+  },
+  {
+    "id": 110,
+    "name": "Aashirvaad",
+    "slug": "aashirvaad",
+    "description": "Buy Aashirvaad atta, spices, and staples in Stockholm at Ideal Indiska Livs. Trusted Indian quality for your everyday meals.",
+    "count": 2,
+    "hasDescription": true
+  },
+  {
+    "id": 410,
+    "name": "Ahmed",
+    "slug": "ahmed",
+    "description": "Shop authentic Ahmed brand products at Ideal Indiska Livs, Stockholm. Explore our range of traditional Indian &amp; Pakistani foods, from spices to sweets. Order online today!",
+    "count": 6,
+    "hasDescription": true
+  },
+  {
+    "id": 550,
+    "name": "Al Baker",
+    "slug": "al-baker",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 339,
+    "name": "Alibaba",
+    "slug": "alibaba",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Find popular Alibaba brand groceries at Ideal Indiska Livs. Your destination for a wide variety of Indian &amp; Pakistani food items in Bandhagen, Stockholm. Shop now!</span></p>",
+    "count": 19,
+    "hasDescription": true
+  },
+  {
+    "id": 365,
+    "name": "Alwaid",
+    "slug": "alwaid",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Discover Alwaid brand food products at Ideal Indiska Livs, Stockholm. Your source for quality Indian and Pakistani groceries with a diverse selection. Visit us or order online!</span></p>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 375,
+    "name": "Amoy",
+    "slug": "amoy",
+    "description": "<span class=\"ng-star-inserted\">Explore Amoy brand sauces &amp; Asian cooking essentials at Ideal Indiska Livs in Stockholm. Perfect for adding authentic flavor to your meals. Browse our wide range!</span>",
+    "count": 2,
+    "hasDescription": true
+  },
+  {
+    "id": 352,
+    "name": "Anjappar",
+    "slug": "anjappar",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Bring home the authentic taste of Chettinad with Anjappar brand spices &amp; masalas from Ideal Indiska Livs, Stockholm. Explore unique South Indian flavors. Shop now!\"</span></p>",
+    "count": 1,
+    "hasDescription": true
+  },
+  {
+    "id": 429,
+    "name": "Anmol Sweets",
+    "slug": "anmol",
+    "description": "Explore Sweets &amp; bakery products from Stockholm's favorite sweet brand Anmol Sweets &amp; Restaurant.",
+    "count": 5,
+    "hasDescription": true
+  },
+  {
+    "id": 349,
+    "name": "Annam",
+    "slug": "annam",
+    "description": "Buy Annam rice, lentils, and South Indian groceries at Ideal Indiska Livs in Stockholm. Quality you can trust in every pack.",
+    "count": 13,
+    "hasDescription": true
+  },
+  {
+    "id": 406,
+    "name": "AQU",
+    "slug": "aqu",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Explore AQU brand products at Ideal Indiska Livs, Stockholm. Your local shop for diverse Indian &amp; Pakistani groceries. Visit us or order online today!</span></p>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 425,
+    "name": "Arvi",
+    "slug": "arvi",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 443,
+    "name": "Bigen",
+    "slug": "bigen",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Find Bigen hair dye at Ideal Indiska Livs in Stockholm. Wide range of shades for your hair care needs, alongside your favorite groceries. Shop online or in-store.</span></p>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 385,
+    "name": "Bikano",
+    "slug": "bikano",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Craving Bikano? Ideal Indiska Livs in Stockholm stocks your favorite Indian snacks &amp; sweets from Bikano. Order delicious treats online today!</span></p>",
+    "count": 6,
+    "hasDescription": true
+  },
+  {
+    "id": 388,
+    "name": "Bombay",
+    "slug": "bombay",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Shop Bombay brand items at Ideal Indiska Livs, Stockholm. Your source for authentic Indian food products. Explore our selection online or in Bandhagen!</span></p>",
+    "count": 7,
+    "hasDescription": true
+  },
+  {
+    "id": 391,
+    "name": "Bombaywala",
+    "slug": "bombaywala",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Discover delicious Bombaywala brand treats at Ideal Indiska Livs in Stockholm. Authentic Indian sweets &amp; snacks. Order your favorites online now!</span></p>",
+    "count": 5,
+    "hasDescription": true
+  },
+  {
+    "id": 431,
+    "name": "Bueno",
+    "slug": "bueno",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Get your Kinder Bueno fix! Ideal Indiska Livs in Stockholm stocks popular chocolates like Bueno, alongside your groceries. Your convenient treat stop. Shop now!</span></p>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 413,
+    "name": "Cadbury",
+    "slug": "cadbury",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Indulge in Cadbury chocolates at Ideal Indiska Livs, Stockholm. Find your favorite bars &amp; treats from this iconic brand. Shop in-store or online!</span></p>",
+    "count": 2,
+    "hasDescription": true
+  },
+  {
+    "id": 373,
+    "name": "Ching's",
+    "slug": "chings",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Spice up your meals with Ching's Secret! Ideal Indiska Livs stocks sauces, noodles &amp; masalas from this popular Indo-Chinese brand in Stockholm. Order today!</span></p>",
+    "count": 6,
+    "hasDescription": true
+  },
+  {
+    "id": 424,
+    "name": "Cluster",
+    "slug": "cluster",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Shop Cluster brand products at Ideal Indiska Livs in Stockholm. Explore a variety of items from our curated selection. Visit us or order online for convenience!</span></p>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 395,
+    "name": "Coca Cola",
+    "slug": "cola",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Get ice-cold Coca Cola at Ideal Indiska Livs in Stockholm! Stock up on your favorite classic cola. Available in-store &amp; online for your convenience.</span></p>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 387,
+    "name": "Crown",
+    "slug": "crown",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Shop delicious Crown brand kebabs, snacks &amp; more at Ideal Indiska Livs in Stockholm. Perfect for easy, flavorful meals. Order online or visit us in Bandhagen!</span></p>",
+    "count": 9,
+    "hasDescription": true
+  },
+  {
+    "id": 440,
+    "name": "D-VA",
+    "slug": "d-va",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Explore D-VA brand products at Ideal Indiska Livs, Stockholm. Your local source for a variety of Indian &amp; Pakistani essentials. Shop online for convenience!</span></p>",
+    "count": 1,
+    "hasDescription": true
+  },
+  {
+    "id": 414,
+    "name": "Dabur",
+    "slug": "dabur",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Find trusted Dabur products at Ideal Indiska Livs, Stockholm. From Chyawanprash &amp; Hajmola to Amla hair oil, shop authentic Indian health &amp; beauty essentials!</span></p>",
+    "count": 8,
+    "hasDescription": true
+  },
+  {
+    "id": 113,
+    "name": "Deepak",
+    "slug": "deepak",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Discover Deepak brand spices, flours &amp; more at Ideal Indiska Livs in Stockholm. Quality ingredients for your authentic Indian &amp; Pakistani cooking. Order today!</span></p>",
+    "count": 5,
+    "hasDescription": true
+  },
+  {
+    "id": 430,
+    "name": "Delta",
+    "slug": "delta",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Shop Delta brand items at Ideal Indiska Livs, Stockholm. Your destination for a diverse range of groceries &amp; household goods. Visit us or order online now!</span></p>",
+    "count": 10,
+    "hasDescription": true
+  },
+  {
+    "id": 592,
+    "name": "Deshi",
+    "slug": "deshi",
+    "description": "Bring the authentic taste of Bangladesh home with Deshi brand products from Ideal Indiska. We deliver a curated selection of Deshi's finest groceries across Stockholm, Sweden &amp; Europe.",
+    "count": 1,
+    "hasDescription": true
+  },
+  {
+    "id": 381,
+    "name": "Desi",
+    "slug": "desi",
+    "description": "<span class=\"ng-star-inserted\">Explore a wide range of authentic Desi products at Ideal Indiska Livs, Stockholm. Your one-stop shop for all Indian &amp; Pakistani groceries, spices &amp; fresh produce!</span>",
+    "count": 13,
+    "hasDescription": true
+  },
+  {
+    "id": 437,
+    "name": "Dettol",
+    "slug": "dettol",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Stock up on Dettol hygiene products at Ideal Indiska Livs in Stockholm. Antiseptic liquids, soaps &amp; more for a clean home. Shop now for your essentials!</span></p>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 442,
+    "name": "Eco",
+    "slug": "eco",
+    "description": "<span class=\"ng-star-inserted\">Find Eco brand products, including ECO by Life henna, at Ideal Indiska Livs, Stockholm. Quality choices for your beauty &amp; household needs. Order online!</span>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 432,
+    "name": "Electric",
+    "slug": "electric",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 111,
+    "name": "Elephant",
+    "slug": "elephant",
+    "description": "Shop Elephant Atta (chapati flour) at Ideal Indiska Livs, Stockholm. Perfect for soft rotis. Get your quality flour in-store or order online today!",
+    "count": 2,
+    "hasDescription": true
+  },
+  {
+    "id": 346,
+    "name": "Falak",
+    "slug": "falak",
+    "description": "Discover premium Falak Basmati Rice at Ideal Indiska Livs in Stockholm. Perfect for biryani &amp; pulao. Shop authentic Indian &amp; Pakistani groceries online!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 398,
+    "name": "Fanta",
+    "slug": "fanta",
+    "description": "Quench your thirst with Fanta! Ideal Indiska Livs in Stockholm stocks your favorite Fanta flavors. Shop refreshing soft drinks online or in-store.",
+    "count": 4,
+    "hasDescription": true
+  },
+  {
+    "id": 444,
+    "name": "Flute",
+    "slug": "flute",
+    "description": "Explore Flute brand products at Ideal Indiska Livs, Stockholm. Discover a selection of unique items. Shop online for Indian &amp; Pakistani groceries!",
+    "count": 15,
+    "hasDescription": true
+  },
+  {
+    "id": 115,
+    "name": "Fortune",
+    "slug": "fortune",
+    "description": "Find Fortune brand cooking oils at Ideal Indiska Livs, Stockholm. Quality oils for your everyday Indian &amp; Pakistani cooking. Order online or visit us!",
+    "count": 6,
+    "hasDescription": true
+  },
+  {
+    "id": 419,
+    "name": "Fresh",
+    "slug": "fresh",
+    "description": "",
+    "count": 10,
+    "hasDescription": false
+  },
+  {
+    "id": 418,
+    "name": "Fresh/F?rsk",
+    "slug": "fresh-frsk",
+    "description": "",
+    "count": 3,
+    "hasDescription": false
+  },
+  {
+    "id": 508,
+    "name": "Fruiti-O",
+    "slug": "fruiti-o",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 535,
+    "name": "Garimaa",
+    "slug": "garimaa",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 420,
+    "name": "Garlic-vitlök",
+    "slug": "garlic-vitlk",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 344,
+    "name": "Guard",
+    "slug": "guard",
+    "description": "Shop Guard brand products at Ideal Indiska Livs, Stockholm. Your source for various essentials alongside your groceries. Visit us or order online!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 427,
+    "name": "Gurka",
+    "slug": "gurka",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 598,
+    "name": "Hadeel Sweden",
+    "slug": "hadeel",
+    "description": "<p data-start=\"246\" data-end=\"604\"><strong data-start=\"246\" data-end=\"256\">Hadeel</strong> brings you the freshest and most affordable range of lentils and pulses in Sweden — including urid dal, masoor dal, chickpeas, red split lentils, and more. Carefully packed in Stockholm, Hadeel ensures top quality, freshness, and unbeatable value for every household. Enjoy the taste of home at prices you’ll love — only at <strong data-start=\"581\" data-end=\"603\">Ideal Indiska Livs</strong>.</p>",
+    "count": 9,
+    "hasDescription": true
+  },
+  {
+    "id": 428,
+    "name": "Hajmola",
+    "slug": "hajmola",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Get your favorite Dabur Hajmola digestive tablets at Ideal Indiska Livs in Stockholm! Tangy &amp; delicious for easy digestion. Shop authentic Indian products online!</span></p>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 377,
+    "name": "Haldiram",
+    "slug": "hr",
+    "description": "Find Haldiram’s snacks, sweets, and frozen foods at Ideal Indiska Livs in Stockholm. India’s #1 snack brand, now in your neighborhood.",
+    "count": 57,
+    "hasDescription": true
+  },
+  {
+    "id": 394,
+    "name": "Hamdard",
+    "slug": "hamdard",
+    "description": "Shop authentic Hamdard products like Rooh Afza &amp; more at Ideal Indiska Livs in Stockholm. Your source for traditional Unani medicines &amp; health supplements.",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 347,
+    "name": "Hasten",
+    "slug": "hasten",
+    "description": "Explore Hasten brand products at Ideal Indiska Livs, Stockholm. Discover a selection of quality items. Shop online for Indian &amp; Pakistani groceries!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 116,
+    "name": "Heera Foods",
+    "slug": "heera",
+    "description": "Established in 1970, Heera Foods Ltd is one of the largest independently owned Oriental and Asian food manufacturers and distributors operating in the ethnic markets of the UK and Europe.",
+    "count": 135,
+    "hasDescription": true
+  },
+  {
+    "id": 439,
+    "name": "Hemani",
+    "slug": "hemani",
+    "description": "Discover Hemani herbal products, oils &amp; teas at Ideal Indiska Livs in Stockholm. Natural wellness solutions from a trusted brand. Shop online or in-store!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 354,
+    "name": "Himaliya",
+    "slug": "himaliya",
+    "description": "Shop Himalaya Herbals skincare, haircare &amp; wellness products at Ideal Indiska Livs, Stockholm. Natural &amp; effective solutions for your daily routine. Order today!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 415,
+    "name": "Horlicks",
+    "slug": "horlicks",
+    "description": "<span class=\"ng-star-inserted\">Get your favorite Horlicks malted milk drink at Ideal Indiska Livs in Stockholm. A nutritious &amp; comforting classic. Shop now for your pantry essentials!</span>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 465,
+    "name": "Ideal Indiska",
+    "slug": "ideal-indiska",
+    "description": "Discover the best of Indian &amp; Pakistani groceries at Ideal Indiska Livs in Bandhagen, Stockholm! Fresh produce, spices, snacks &amp; more. Your ideal food stop!",
+    "count": 4,
+    "hasDescription": true
+  },
+  {
+    "id": 523,
+    "name": "Idhayam",
+    "slug": "idhayam",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 345,
+    "name": "India Gate",
+    "slug": "ig",
+    "description": "India Gate Foods is the most popular basmati rice brand in India and a growing brand in the healthy food space.",
+    "count": 16,
+    "hasDescription": true
+  },
+  {
+    "id": 448,
+    "name": "Indian",
+    "slug": "indian",
+    "description": "Your destination for authentic Indian groceries in Stockholm! Ideal Indiska Livs offers a vast range of Indian spices, foods, fresh produce &amp; popular brands. Shop online or visit us!",
+    "count": 3,
+    "hasDescription": true
+  },
+  {
+    "id": 593,
+    "name": "Jabsons",
+    "slug": "jabsons",
+    "description": "",
+    "count": 6,
+    "hasDescription": false
+  },
+  {
+    "id": 417,
+    "name": "Jalebi/Namak",
+    "slug": "jalebi-namak",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 351,
+    "name": "Jannat",
+    "slug": "jannat",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Shop Jannat brand products at Ideal Indiska Livs, Stockholm. Explore quality items for your Indian &amp; Pakistani cooking needs. Visit us or order online!</span></p>",
+    "count": 1,
+    "hasDescription": true
+  },
+  {
+    "id": 447,
+    "name": "Jethimadh",
+    "slug": "jethimadh",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 434,
+    "name": "Johnson &amp; Johnson",
+    "slug": "johnson-johnson",
+    "description": "Stock up on Johnson's baby care &amp; personal hygiene products at Ideal Indiska Livs, Stockholm. Gentle and trusted essentials. Shop online or in-store.",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 343,
+    "name": "Kaalar",
+    "slug": "kaalar",
+    "description": "Explore Kaalar brand products at Ideal Indiska Livs, Stockholm. Your source for a variety of Indian &amp; Pakistani groceries. Shop now for your kitchen needs!",
+    "count": 4,
+    "hasDescription": true
+  },
+  {
+    "id": 366,
+    "name": "Khanum",
+    "slug": "khanum",
+    "description": "Find Khanum brand pure butter ghee at Ideal Indiska Livs in Stockholm. Quality staples for authentic South Asian cooking. Order online today!",
+    "count": 3,
+    "hasDescription": true
+  },
+  {
+    "id": 374,
+    "name": "Kissan",
+    "slug": "kissan",
+    "description": "Shop delicious Kissan jams, ketchups &amp; squashes at Ideal Indiska Livs, Stockholm. Your favorite Indian condiments and spreads. Add flavor to your meals!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 364,
+    "name": "KTC",
+    "slug": "ktc",
+    "description": "Discover KTC brand cooking oils, canned goods &amp; essentials at Ideal Indiska Livs in Stockholm. Quality products for your everyday cooking needs. Shop now!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 383,
+    "name": "Kurkre",
+    "slug": "kurkre",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 380,
+    "name": "Kurkure",
+    "slug": "kurkure",
+    "description": "Craving crunchy Kurkure? Ideal Indiska Livs in Stockholm stocks your favorite flavors of this popular Indian snack! Order online for a taste of home.",
+    "count": 4,
+    "hasDescription": true
+  },
+  {
+    "id": 409,
+    "name": "Laziza",
+    "slug": "laziza",
+    "description": "Get authentic Laziza spice mixes &amp; dessert mixes at Ideal Indiska Livs, Stockholm. Perfect for flavorful Pakistani &amp; Indian meals. Order online",
+    "count": 11,
+    "hasDescription": true
+  },
+  {
+    "id": 371,
+    "name": "Lazzat",
+    "slug": "lazzat",
+    "description": "Shop Lazzat brand spice mixes &amp; food products at Ideal Indiska Livs in Stockholm. Your source for delicious and easy meal solutions. Explore our range!",
+    "count": 2,
+    "hasDescription": true
+  },
+  {
+    "id": 408,
+    "name": "LG",
+    "slug": "lg",
+    "description": "Find LG Compounded Asafoetida (Hing) at Ideal Indiska Livs, Stockholm. An essential spice for authentic Indian cooking. Shop quality ingredients online!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 378,
+    "name": "Lijjat",
+    "slug": "lijjat",
+    "description": "Stock up on authentic Lijjat Papad at Ideal Indiska Livs in Stockholm! Crispy &amp; delicious, a perfect accompaniment to any Indian meal. Order yours today!",
+    "count": 3,
+    "hasDescription": true
+  },
+  {
+    "id": 404,
+    "name": "Loka",
+    "slug": "loka",
+    "description": "Refresh with Loka! Ideal Indiska Livs in Stockholm stocks your favorite Swedish Loka sparkling water flavors. Shop beverages online or in-store.",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 368,
+    "name": "Maggi",
+    "slug": "maggi",
+    "description": "Shop Maggi noodles, ketchup, and masalas in Stockholm at Ideal Indiska Livs. Quick, tasty, and trusted by millions.",
+    "count": 8,
+    "hasDescription": true
+  },
+  {
+    "id": 348,
+    "name": "Mahmood",
+    "slug": "mahmood",
+    "description": "Discover Mahmood brand tea &amp; rice at Ideal Indiska Livs in Stockholm. Quality staples for your pantry. Enjoy authentic flavors. Order online today!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 342,
+    "name": "Malik foods",
+    "slug": "malik",
+    "description": "Shop Malik Foods in Stockholm at Ideal Indiska Livs. Explore a full range of authentic, pure Indian products. Tradition and taste in every pack.",
+    "count": 26,
+    "hasDescription": true
+  },
+  {
+    "id": 382,
+    "name": "Maliks",
+    "slug": "maliks",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 446,
+    "name": "MDH",
+    "slug": "mdh",
+    "description": "Shop MDH spices in Stockholm at Ideal Indiska Livs. Explore a full range of authentic, pure Indian spice blends including Garam Masala, Chana Masala, and more. Tradition and taste in every pack.",
+    "count": 21,
+    "hasDescription": true
+  },
+  {
+    "id": 405,
+    "name": "Mer",
+    "slug": "mer",
+    "description": "Shop refreshing Mer juices and fruit drinks at Ideal Indiska Livs in Stockholm. A popular Swedish favorite! Order online or visit our store in Bandhagen",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 445,
+    "name": "Metro",
+    "slug": "metro",
+    "description": "Explore Metro brand products at Ideal Indiska Livs, Stockholm. Your source for various groceries and essentials. Shop online for convenience or visit us!\"",
+    "count": 8,
+    "hasDescription": true
+  },
+  {
+    "id": 436,
+    "name": "Metromilan",
+    "slug": "metromilan",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 401,
+    "name": "Monster",
+    "slug": "monster",
+    "description": "Get your energy boost! Ideal Indiska Livs in Stockholm stocks Monster Energy drinks. Wide range of flavors available. Shop online or in-store.",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 393,
+    "name": "MTR Foods",
+    "slug": "mtr",
+    "description": "Enjoy authentic South Indian flavors with <a href=\"https://www.mtrfoods.com/\" target=\"_blank\" rel=\"nofollow noopener\">MTR Foods</a>! Ideal Indiska Livs in Stockholm stocks ready-to-eat meals, mixes &amp; spices from MTR. Order today.",
+    "count": 16,
+    "hasDescription": true
+  },
+  {
+    "id": 389,
+    "name": "Mughal",
+    "slug": "mughal",
+    "description": "Find Mughal brand basmati rice &amp; other quality food products at Ideal Indiska Livs in Stockholm. Perfect for your authentic Indian &amp; Pakistani dishes. Shop now!",
+    "count": 1,
+    "hasDescription": true
+  },
+  {
+    "id": 376,
+    "name": "Natco",
+    "slug": "natco",
+    "description": "Shop Natco spices, lentils, flours &amp; more at Ideal Indiska Livs, Stockholm. Your trusted brand for quality South Asian ingredients. Order online or visit us!",
+    "count": 2,
+    "hasDescription": true
+  },
+  {
+    "id": 114,
+    "name": "National",
+    "slug": "national",
+    "description": "Buy National masalas, pickles &amp; sauces in Stockholm at Ideal Indiska Livs. Authentic Pakistani flavors that bring taste and convenience to your kitchen.",
+    "count": 39,
+    "hasDescription": true
+  },
+  {
+    "id": 435,
+    "name": "Neha",
+    "slug": "neha",
+    "description": "Shop Neha Herbals Mehandi (henna) cones &amp; powders at Ideal Indiska Livs in Stockholm. Perfect for beautiful, natural hair color &amp; body art. Order online!",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 411,
+    "name": "Nestle",
+    "slug": "nestle",
+    "description": "Find your favorite Nestle products at Ideal Indiska Livs, Stockholm! From Maggi noodles &amp; Nescafe to Milkpak &amp; Everyday. Shop trusted brands online or in-store.",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 403,
+    "name": "Nocco",
+    "slug": "nocco",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 350,
+    "name": "Ocean",
+    "slug": "ocean",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 421,
+    "name": "Onion/Gul",
+    "slug": "onion-gul",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 562,
+    "name": "Pan Parag",
+    "slug": "pan-parag",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 441,
+    "name": "Parachute",
+    "slug": "parachute",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 386,
+    "name": "Parle",
+    "slug": "parle",
+    "description": "",
+    "count": 9,
+    "hasDescription": false
+  },
+  {
+    "id": 426,
+    "name": "Parwal",
+    "slug": "parwal",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 369,
+    "name": "Patak's",
+    "slug": "pataks",
+    "description": "Patak's UK top indian spice company. find all Patak's products at Ideal Indiska Sweden.",
+    "count": 18,
+    "hasDescription": true
+  },
+  {
+    "id": 367,
+    "name": "Patanjli",
+    "slug": "patanjli",
+    "description": "",
+    "count": 2,
+    "hasDescription": false
+  },
+  {
+    "id": 358,
+    "name": "PG",
+    "slug": "pg",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 379,
+    "name": "Phulki",
+    "slug": "phulki",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 109,
+    "name": "Pillsbury",
+    "slug": "pillsbury",
+    "description": "",
+    "count": 2,
+    "hasDescription": false
+  },
+  {
+    "id": 399,
+    "name": "Power",
+    "slug": "power",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 400,
+    "name": "Preema",
+    "slug": "preema",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 370,
+    "name": "Priya",
+    "slug": "priya",
+    "description": "",
+    "count": 10,
+    "hasDescription": false
+  },
+  {
+    "id": 362,
+    "name": "Qarshi",
+    "slug": "qarshi",
+    "description": "",
+    "count": 2,
+    "hasDescription": false
+  },
+  {
+    "id": 359,
+    "name": "Red",
+    "slug": "red",
+    "description": "",
+    "count": 4,
+    "hasDescription": false
+  },
+  {
+    "id": 384,
+    "name": "Regal",
+    "slug": "regal",
+    "description": "",
+    "count": 5,
+    "hasDescription": false
+  },
+  {
+    "id": 493,
+    "name": "SAI",
+    "slug": "sai",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 490,
+    "name": "Samyang",
+    "slug": "samyang",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 340,
+    "name": "Shan",
+    "slug": "shan",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Explore a wide range of authentic Pakistani spice mixes and desserts from Shan Foods at Ideal Indiska, Stockholm. Find everything from Biryani and Karahi masala to Vermicelli and Kheer mix.</span></p>",
+    "count": 43,
+    "hasDescription": true
+  },
+  {
+    "id": 605,
+    "name": "Shangrila",
+    "slug": "shangrila",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 396,
+    "name": "Shezan",
+    "slug": "shezan",
+    "description": "<strong class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Explore a range of authentic Pakistani products from Shezan at Ideal Indiska in Stockholm. Shop for delicious Shezan mango juice, pickles, chutneys, jams &amp; more.</span></strong>",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 422,
+    "name": "Small",
+    "slug": "small",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 515,
+    "name": "Spring Home",
+    "slug": "spring-home",
+    "description": "Discover the taste of Asia with Spring Home TYJ Spring Roll Pastry, a trusted brand from Singapore. Now available at Ideal Indiska Livs in Stockholm. Ideal for making traditional crispy spring rolls at home. Shop in-store or online at ideallivs.com.",
+    "count": 0,
+    "hasDescription": true
+  },
+  {
+    "id": 397,
+    "name": "Sprite",
+    "slug": "sprite",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 353,
+    "name": "Subhan",
+    "slug": "subhan",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 372,
+    "name": "Sun",
+    "slug": "sun",
+    "description": "",
+    "count": 2,
+    "hasDescription": false
+  },
+  {
+    "id": 450,
+    "name": "Supreme",
+    "slug": "supreme",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 553,
+    "name": "Swarna",
+    "slug": "swarna",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 610,
+    "name": "Swetha Teugu",
+    "slug": "swetha-teugu",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 520,
+    "name": "Taaza",
+    "slug": "taaza",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 357,
+    "name": "Taj",
+    "slug": "taj",
+    "description": "",
+    "count": 4,
+    "hasDescription": false
+  },
+  {
+    "id": 510,
+    "name": "Tang",
+    "slug": "tang",
+    "description": "",
+    "count": 2,
+    "hasDescription": false
+  },
+  {
+    "id": 356,
+    "name": "Tapal",
+    "slug": "tapal",
+    "description": "",
+    "count": 5,
+    "hasDescription": false
+  },
+  {
+    "id": 361,
+    "name": "Tata",
+    "slug": "tata",
+    "description": "",
+    "count": 5,
+    "hasDescription": false
+  },
+  {
+    "id": 412,
+    "name": "Telephone",
+    "slug": "telephone",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 355,
+    "name": "Tilda",
+    "slug": "tilda",
+    "description": "",
+    "count": 1,
+    "hasDescription": false
+  },
+  {
+    "id": 423,
+    "name": "Tindoora",
+    "slug": "tindoora",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 392,
+    "name": "TJY",
+    "slug": "tjy",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 341,
+    "name": "Toor",
+    "slug": "toor",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 449,
+    "name": "TOP",
+    "slug": "top",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 112,
+    "name": "TRS Foods",
+    "slug": "trs",
+    "description": "<p class=\"ng-star-inserted\"><span class=\"ng-star-inserted\">Shop a wide range of authentic TRS products at Ideal Indiska in Stockholm. Find quality spices, lentils, flours, beans &amp; more from this trusted Indian brand.</span></p>",
+    "count": 142,
+    "hasDescription": true
+  },
+  {
+    "id": 407,
+    "name": "Vandevi",
+    "slug": "vandevi",
+    "description": "",
+    "count": 3,
+    "hasDescription": false
+  },
+  {
+    "id": 438,
+    "name": "Vaseline",
+    "slug": "vaseline",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 433,
+    "name": "Vatika",
+    "slug": "vatika",
+    "description": "",
+    "count": 8,
+    "hasDescription": false
+  },
+  {
+    "id": 360,
+    "name": "WAGH",
+    "slug": "wagh",
+    "description": "",
+    "count": 0,
+    "hasDescription": false
+  },
+  {
+    "id": 402,
+    "name": "Zingo",
+    "slug": "zingo",
+    "description": "",
+    "count": 2,
+    "hasDescription": false
+  }
+]
