@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Container } from "@/components/craft";
 import { brandProfile } from "@/config/brand-profile";
 import { getAllProductBrands } from "@/lib/woocommerce/brands";
 import { Package, ArrowRight, TrendingUp } from "lucide-react";
@@ -46,7 +45,7 @@ export default async function ShopByBrandPage() {
         <main className="min-h-screen bg-background">
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/5 py-12 md:py-16 border-b border-border/50">
-                <Container>
+                <div className="px-[30px]">
                     <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
                         <div>
                             <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-[1.15] text-foreground tracking-tight mb-6">
@@ -66,12 +65,12 @@ export default async function ShopByBrandPage() {
                             </p>
                         </div>
                     </div>
-                </Container>
+                </div>
             </section>
 
             {/* Featured Brands Section */}
             <section className="py-12 md:py-16 border-b border-border/50 bg-muted/30">
-                <Container>
+                <div className="px-[30px]">
                     <div className="flex items-center gap-3 mb-8">
                         <TrendingUp className="w-6 h-6 text-primary" />
                         <h2 className="text-2xl md:text-3xl font-heading font-bold">
@@ -114,19 +113,19 @@ export default async function ShopByBrandPage() {
                             </Link>
                         ))}
                     </div>
-                </Container>
+                </div>
             </section>
 
             {/* All Brands Grid with Search & Filters */}
             <section className="py-16 md:py-24">
-                <Container>
+                <div className="px-[30px]">
                     <BrandsGrid brands={brands} />
-                </Container>
+                </div>
             </section>
 
             {/* SEO Content Section */}
             <section className="py-16 md:py-24 bg-muted/30">
-                <Container>
+                <div className="px-[30px]">
                     <div className="max-w-4xl mx-auto prose prose-lg">
                         <h2 className="text-3xl font-heading font-bold mb-6">
                             Why Shop by Brand at {brandProfile.name}?
@@ -164,7 +163,7 @@ export default async function ShopByBrandPage() {
                             </p>
                         </div>
                     </div>
-                </Container>
+                </div>
             </section>
 
             {/* Structured Data */}
