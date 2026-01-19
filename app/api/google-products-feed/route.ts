@@ -26,6 +26,8 @@ interface WooProduct {
   price: string;
   regular_price: string;
   sale_price: string;
+  date_on_sale_from: string | null;
+  date_on_sale_to: string | null;
   permalink: string;
   slug: string;
   images: Array<{ src: string }>;
@@ -169,6 +171,16 @@ function generateProductXML(product: WooProduct): string {
   if (product.sale_price && parseFloat(product.sale_price) > 0) {
     xml += `    <g:price>${product.regular_price} ${CURRENCY}</g:price>\n`;
     xml += `    <g:sale_price>${product.sale_price} ${CURRENCY}</g:sale_price>\n`;
+
+    // Add sale_price_effective_date if available
+    if (product.date_on_sale_from || product.date_on_sale_to) {
+      const from = product.date_on_sale_from ? new Date(product.date_on_sale_from).toISOString().split('T')[0] : '2026-01-19';
+      const to = product.date_on_sale_to ? new Date(product.date_on_sale_to).toISOString().split('T')[0] : '2026-01-25';
+      xml += `    <g:sale_price_effective_date>${from}T00:00:00/${to}T23:59:59</g:sale_price_effective_date>\n`;
+    } else {
+      // Fallback to current week if dates missing but item is on sale
+      xml += `    <g:sale_price_effective_date>2026-01-19T00:00:00/2026-01-25T23:59:59</g:sale_price_effective_date>\n`;
+    }
   } else {
     xml += `    <g:price>${product.price} ${CURRENCY}</g:price>\n`;
   }

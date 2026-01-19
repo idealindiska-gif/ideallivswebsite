@@ -28,9 +28,9 @@ export async function GET() {
         );
 
         const timestamp = new Date().toISOString();
-        // Specific promotion dates for Jan 13 - Jan 18, 2026
-        const effectiveDateStart = "2026-01-13T00:00:00Z";
-        const effectiveDateEnd = "2026-01-18T23:59:59Z";
+        // Promotion dates for the current week: Jan 19 - Jan 25, 2026
+        const effectiveDateStart = "2026-01-19T00:00:00Z";
+        const effectiveDateEnd = "2026-01-25T23:59:59Z";
         const effectiveDates = `${effectiveDateStart}/${effectiveDateEnd}`;
 
         let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;

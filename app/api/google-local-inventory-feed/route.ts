@@ -17,7 +17,10 @@ interface WooProduct {
   id: number;
   name: string;
   price: string;
+  regular_price: string;
   sale_price: string;
+  date_on_sale_from: string | null;
+  date_on_sale_to: string | null;
   stock_status: 'instock' | 'outofstock' | 'onbackorder';
   stock_quantity: number | null;
   manage_stock: boolean;
@@ -80,9 +83,6 @@ function generateLocalInventoryXML(product: WooProduct): string {
 
   const availability = getLocalAvailability(product);
   const availabilityDate = getAvailabilityDate(product, availability);
-  const finalPrice = product.sale_price && parseFloat(product.sale_price) > 0
-    ? product.sale_price
-    : product.price;
 
   let xml = `  <item>\n`;
   xml += `    <g:id>${product.id}</g:id>\n`;
@@ -94,7 +94,18 @@ function generateLocalInventoryXML(product: WooProduct): string {
     xml += `    <g:availability_date>${availabilityDate}</g:availability_date>\n`;
   }
 
-  xml += `    <g:price>${finalPrice} ${CURRENCY}</g:price>\n`;
+  // Price and sale price logic for local
+  if (product.sale_price && parseFloat(product.sale_price) > 0) {
+    xml += `    <g:price>${product.regular_price} ${CURRENCY}</g:price>\n`;
+    xml += `    <g:sale_price>${product.sale_price} ${CURRENCY}</g:sale_price>\n`;
+
+    // Effective dates for local deals
+    const from = product.date_on_sale_from ? new Date(product.date_on_sale_from).toISOString().split('T')[0] : '2026-01-19';
+    const to = product.date_on_sale_to ? new Date(product.date_on_sale_to).toISOString().split('T')[0] : '2026-01-25';
+    xml += `    <g:sale_price_effective_date>${from}T00:00:00/${to}T23:59:59</g:sale_price_effective_date>\n`;
+  } else {
+    xml += `    <g:price>${product.price} ${CURRENCY}</g:price>\n`;
+  }
 
   // Add quantity if stock is managed
   if (product.manage_stock && product.stock_quantity !== null && product.stock_quantity > 0) {
