@@ -64,7 +64,7 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                     </div>
 
                     {/* Card 2: Sona Masoori Special Promotion */}
-                    <Link href="/product/india-gate-sona-masoori-rice-5kg" className="group">
+                    <Link href="/product/ig-sona-masoori-rice-5kg-new-pack" className="group">
                         <div className="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-lg transition-all aspect-square border border-gray-100">
                             <Image
                                 src="https://crm.ideallivs.com/wp-content/uploads/2025/05/sona-masoori-speical-promotion-price-web.jpg"
@@ -92,12 +92,12 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                     >
                                         {/* Top: Premium Badges */}
                                         <div className="flex justify-between items-start gap-2">
-                                            <span className="text-[8px] sm:text-[10px] font-black uppercase px-2 py-1 sm:px-3 bg-rose-600 text-white rounded-full tracking-tighter sm:tracking-widest shadow-lg shadow-rose-200">
+                                            <span className="text-[10px] sm:text-[11px] font-black uppercase px-2 py-1 sm:px-4 bg-rose-600 text-white rounded-full tracking-tighter sm:tracking-widest shadow-lg shadow-rose-200">
                                                 Hot Deal
                                             </span>
                                             {sliderProducts[card2Index].regular_price && (
                                                 <div className="flex flex-col items-end">
-                                                    <span className="text-[9px] sm:text-[11px] font-bold px-2 py-0.5 sm:px-3 bg-white/80 backdrop-blur-md text-green-600 rounded-lg shadow-sm border border-green-50">
+                                                    <span className="text-[10px] sm:text-[12px] font-bold px-2 py-0.5 sm:px-3 bg-white/80 backdrop-blur-md text-green-600 rounded-lg shadow-sm border border-green-50">
                                                         -{getDiscountPercentage(sliderProducts[card2Index])}%
                                                     </span>
                                                 </div>
@@ -106,7 +106,7 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
 
                                         {/* Center: Hero Product Image & Info */}
                                         <div className="flex flex-col items-center flex-1 justify-center min-h-0 py-1 sm:py-2">
-                                            <div className="relative w-24 h-24 sm:w-32 sm:h-32 lg:w-36 lg:h-36 xl:w-44 xl:h-44 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-3 drop-shadow-2xl">
+                                            <div className="relative w-28 h-28 sm:w-40 sm:h-40 lg:w-44 lg:h-44 xl:w-56 xl:h-56 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-3 drop-shadow-2xl">
                                                 <Image
                                                     src={sliderProducts[card2Index].images[0]?.src || "https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg"}
                                                     alt={sliderProducts[card2Index].name}
@@ -115,16 +115,16 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                                     priority
                                                 />
                                             </div>
-                                            <div className="text-center w-full mt-1 sm:mt-2">
-                                                <h3 className="text-[10px] sm:text-xs md:text-sm lg:text-base font-black text-gray-900 leading-tight line-clamp-1 group-hover:text-rose-600 transition-colors">
+                                            <div className="text-center w-full mt-2 sm:mt-3">
+                                                <h3 className="text-xs sm:text-base lg:text-lg xl:text-xl font-black text-gray-900 leading-tight line-clamp-1 group-hover:text-rose-600 transition-colors">
                                                     {sliderProducts[card2Index].name}
                                                 </h3>
-                                                <div className="flex items-center justify-center gap-2 mt-0.5 sm:mt-1">
-                                                    <span className="text-sm sm:text-lg lg:text-xl xl:text-2xl font-black text-rose-600 tabular-nums">
-                                                        {sliderProducts[card2Index].price}<span className="text-[10px] sm:text-xs ml-0.5 font-bold">kr</span>
+                                                <div className="flex items-center justify-center gap-3 mt-1 sm:mt-2">
+                                                    <span className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-black text-rose-600 tabular-nums">
+                                                        {sliderProducts[card2Index].price}<span className="text-xs sm:text-lg ml-0.5 font-bold">kr</span>
                                                     </span>
                                                     {sliderProducts[card2Index].regular_price && sliderProducts[card2Index].regular_price !== sliderProducts[card2Index].price && (
-                                                        <span className="text-[8px] sm:text-[11px] line-through text-gray-400 font-bold decoration-rose-400/30">
+                                                        <span className="text-[10px] sm:text-sm lg:text-base line-through text-gray-400 font-bold decoration-rose-400/30">
                                                             {sliderProducts[card2Index].regular_price} kr
                                                         </span>
                                                     )}
