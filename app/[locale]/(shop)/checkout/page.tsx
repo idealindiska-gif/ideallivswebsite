@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Container, Section } from '@/components/craft';
@@ -60,6 +60,19 @@ export default function CheckoutPage() {
   const [pendingOrderId, setPendingOrderId] = useState<number | null>(null);
   const [stripeClientSecret, setStripeClientSecret] = useState<string | null>(null);
   const [isStripePayment, setIsStripePayment] = useState(false);
+  const [stripeError, setStripeError] = useState<string | null>(null);
+
+  // Memoize Stripe callbacks to prevent unnecessary re-renders of the Express Checkout button
+  const handleExpressSuccess = useCallback(async (result: any) => {
+    console.log('Express checkout success:', result);
+    // Payment was processed via Express Checkout
+    // The page will redirect to stripe-return for order creation
+  }, []);
+
+  const handleExpressError = useCallback((error: string) => {
+    console.error('Express checkout error:', error);
+    setError(`Express checkout failed: ${error}`);
+  }, []);
 
   // Track initiate checkout event on mount
   useEffect(() => {
@@ -573,15 +586,8 @@ export default function CheckoutPage() {
                     amount={getTotalPrice()}
                     currency="SEK"
                     showDebug={false}  /* Debug disabled - Express Checkout working with Link */
-                    onSuccess={async (result) => {
-                      console.log('Express checkout success:', result);
-                      // Payment was processed via Express Checkout
-                      // The page will redirect to stripe-return for order creation
-                    }}
-                    onError={(error) => {
-                      console.error('Express checkout error:', error);
-                      setError(`Express checkout failed: ${error}`);
-                    }}
+                    onSuccess={handleExpressSuccess}
+                    onError={handleExpressError}
                   />
 
                   <ShippingForm

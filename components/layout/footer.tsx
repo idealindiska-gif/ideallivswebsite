@@ -181,11 +181,15 @@ export async function Footer() {
           </p>
 
           {/* Payment Icons */}
-          <img
-            src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
-            alt="Payment Methods"
-            className="h-5 w-auto object-contain"
-          />
+          <div className="relative h-5 w-48">
+            <Image
+              src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
+              alt="Payment Methods"
+              fill
+              className="object-contain"
+              sizes="192px"
+            />
+          </div>
 
           {/* Credits */}
           <p className="flex items-center gap-1.5 text-white/60 tracking-wide font-sans">

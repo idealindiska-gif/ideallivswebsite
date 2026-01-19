@@ -33,11 +33,16 @@ export function CartDrawer() {
 
         {/* Payment Methods Banner */}
         <div className="px-4 pt-3 pb-1">
-          <img
-            src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
-            alt="Payment Methods - Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay"
-            className="h-6 w-auto object-contain mx-auto"
-          />
+          <div className="relative h-6 w-full">
+            <Image
+              src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
+              alt="Payment Methods - Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay"
+              fill
+              className="object-contain"
+              sizes="300px"
+              priority
+            />
+          </div>
         </div>
 
         {/* Notification Banner */}

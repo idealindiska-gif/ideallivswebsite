@@ -55,8 +55,9 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Fetch data in parallel
-  const [categoriesRes, trendingRes, newArrivalsRes, dealsRes, haldiramRes, freshProduceRes] = await Promise.all([
-    getProductCategories({ per_page: 6, orderby: 'count', order: 'desc', parent: 0 }),
+  // Fetch more categories to allow for manual filtering/ordering
+  const [categoriesResAll, trendingRes, newArrivalsRes, dealsRes, haldiramRes, freshProduceRes] = await Promise.all([
+    getProductCategories({ per_page: 12, orderby: 'count', order: 'desc', parent: 0 }),
     getProducts({ per_page: 8, orderby: 'popularity' }),
     getProducts({ per_page: 8, orderby: 'date' }),
     getProducts({ per_page: 8, on_sale: true }),
@@ -64,7 +65,17 @@ export default async function HomePage() {
     getProducts({ per_page: 8, category: 'fresh-produce' }),
   ]);
 
-  const categories = categoriesRes || [];
+  // Filter out fragrance and replace with fresh-produce if needed
+  let categories = (categoriesResAll || [])
+    .filter(c => c.slug !== 'fragrance')
+    .slice(0, 6);
+
+  // Ensure fresh-produce is in there (user specifically requested this)
+  const freshProduceCategory = (categoriesResAll || []).find(c => c.slug === 'fresh-produce');
+  if (freshProduceCategory && !categories.find(c => c.slug === 'fresh-produce')) {
+    categories[categories.length - 1] = freshProduceCategory;
+  }
+
   const trendingProducts = trendingRes.data || [];
   const newProducts = newArrivalsRes.data || [];
   const dealProducts = dealsRes.data || [];

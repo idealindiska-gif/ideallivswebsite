@@ -232,11 +232,12 @@ export function ProductVariationSelector({
                       title={option}
                     >
                       <div className="relative h-20 w-20 overflow-hidden rounded-md">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           src={imageMap[option] || '/placeholder.jpg'}
                           alt={option}
-                          className="h-full w-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="80px"
                         />
                         {!isAvailable && (
                           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">

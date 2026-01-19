@@ -97,7 +97,7 @@ function PaymentRequestButtonInner({
                 },
             });
         }
-    }, [stripe, amount, currency]);
+    }, [stripe, amount, currency, onSuccess, onError]);
 
     // Mount the button when ready
     useEffect(() => {
