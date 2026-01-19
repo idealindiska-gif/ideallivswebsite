@@ -299,8 +299,10 @@ export async function getProductById(id: number): Promise<Product | null> {
  */
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
-    const products = await fetchWooCommerceAPI<Product[]>(
-      WC_API_CONFIG.endpoints.productBySlug(slug)
+    const products = await fetchWooCommerceCached<Product[]>(
+      WC_API_CONFIG.endpoints.productBySlug(slug),
+      WC_API_CONFIG.cache.productDetail,
+      ['products', `product-slug-${slug}`]
     );
 
     if (!products || products.length === 0) {

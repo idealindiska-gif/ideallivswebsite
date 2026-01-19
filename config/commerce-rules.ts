@@ -27,7 +27,7 @@ export interface ShippingRestriction {
  * UPDATED: 2025-05-24 to match WordPress plugin
  */
 export const QUANTITY_LIMITS: QuantityLimit[] = [
-  { productId: 215, maxQuantity: 3 },   // India Gate Sona Masoori Rice (changed from 4 to 3)
+  // { productId: 215, maxQuantity: 3 },   // India Gate Sona Masoori Rice (PROMOTION ENDED)
   { productId: 193, maxQuantity: 2 },   // Product ID 193 (NEW)
   { productId: 4943, maxQuantity: 3 },  // Product ID 4943 (NEW)
 ];

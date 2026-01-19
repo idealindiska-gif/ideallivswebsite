@@ -24,7 +24,7 @@ define( 'IDEAL_ENABLE_SHIPPING_RULES', true );
  * Product quantity limits
  */
 define( 'IDEAL_PROMO_LIMITS', [
-    215 => 3,   // India Gate Sona Masoori Rice
+    // 215 => 3,   // India Gate Sona Masoori Rice - PROMOTION ENDED
     193 => 2,   // Product ID 193
     4943 => 3,  // Product ID 4943
 ] );
