@@ -140,13 +140,16 @@ export function validateCartQuantities(
  * (Use this if WordPress API doesn't expose restrictions yet)
  */
 export const HARDCODED_RESTRICTIONS: Record<number, QuantityRestriction> = {
-    /*
     215: {
         is_restricted: true,
         max_quantity: 3,
         message: '🚫 You can only purchase a maximum of 3 units of this promotional product.',
     },
-    */
+    204: {
+        is_restricted: true,
+        max_quantity: 3,
+        message: '🚫 You can only purchase a maximum of 3 units of this promotional product.',
+    },
     // Add more product IDs as needed
 };
 

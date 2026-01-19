@@ -37,7 +37,7 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                     <div className="relative overflow-hidden rounded-2xl bg-[#FFF9E5] aspect-square text-gray-900 shadow-sm hover:shadow-xl transition-all p-4 sm:p-5 xl:p-8 flex flex-col justify-center items-center text-center border border-amber-100">
                         <div className="space-y-2 sm:space-y-3 xl:space-y-6 relative z-10 w-full">
                             <span className="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-amber-200/50 text-amber-900 rounded-full text-[8px] sm:text-[9px] xl:text-[10px] font-bold uppercase tracking-wider">
-                                Free Delivery Over 500 SEK
+                                Weekly Deals: Jan 19 - Jan 25
                             </span>
 
                             <div className="space-y-1 sm:space-y-2">
@@ -63,15 +63,16 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                         <div className="absolute bottom-0 left-0 w-16 h-16 sm:w-24 sm:h-24 bg-amber-200/30 rounded-full blur-2xl"></div>
                     </div>
 
-                    {/* Card 2: Biryani Pre-Order Promotion */}
-                    <Link href="/prepared-meals" className="group">
+                    {/* Card 2: Sona Masoori Special Promotion */}
+                    <Link href="/product/india-gate-sona-masoori-rice-5kg" className="group">
                         <div className="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-lg transition-all aspect-square border border-gray-100">
                             <Image
-                                src="https://crm.ideallivs.com/wp-content/uploads/2026/01/biryani-at-ideal-indiska-stockholm.jpg"
-                                alt="Weekend Biryani Pre-Orders - Authentic Dum Biryani"
+                                src="https://crm.ideallivs.com/wp-content/uploads/2025/05/sona-masoori-speical-promotion-price-web.jpg"
+                                alt="India Gate Sona Masoori Rice 5kg - Special Promotion"
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                                 sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                                priority
                             />
                         </div>
                     </Link>
