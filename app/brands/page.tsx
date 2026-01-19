@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/craft";
 import { brandProfile } from "@/config/brand-profile";
-import { getProductBrands } from "@/lib/woocommerce/brands";
+import { getAllProductBrands } from "@/lib/woocommerce/brands";
 import { Package, ArrowRight, TrendingUp } from "lucide-react";
 import { BrandsGrid } from "@/components/brands-grid";
 
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function ShopByBrandPage() {
-    const brands = await getProductBrands({ hide_empty: true, per_page: 200 });
+    const brands = await getAllProductBrands();
 
     // Get top 10 most popular brands for featured section
     const featuredBrands = [...brands]

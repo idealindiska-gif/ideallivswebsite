@@ -96,16 +96,14 @@ export async function POST(request: NextRequest) {
       }
 
       // Transform response to match expected format
+      // The WordPress backend already filters free shipping based on:
+      // 1. Cart total >= 500 SEK
+      // 2. Zone has free shipping enabled
+      // 3. Stockholm postcode (100xx-199xx)
+      // So we trust the backend's response completely
       const apiCartTotal = data.cart_total || cartTotal;
-      const freeShippingThreshold = 500;
-      let availableMethods = data.available_methods || [];
-
-      // CRITICAL: Filter out free shipping if cart doesn't qualify
-      if (apiCartTotal < freeShippingThreshold) {
-        availableMethods = availableMethods.filter(
-          (method: any) => method.method_id !== 'free_shipping'
-        );
-      }
+      const freeShippingThreshold = data.free_shipping_threshold || 500;
+      const availableMethods = data.available_methods || [];
 
       return NextResponse.json({
         success: true,
@@ -113,7 +111,7 @@ export async function POST(request: NextRequest) {
         restricted_products: data.restricted_products || [],
         cart_subtotal: apiCartTotal,
         free_shipping_threshold: freeShippingThreshold,
-        amount_to_free_shipping: Math.max(0, freeShippingThreshold - apiCartTotal),
+        amount_to_free_shipping: data.amount_to_free_shipping || Math.max(0, freeShippingThreshold - apiCartTotal),
         minimum_order: 0,
         minimum_order_met: true,
       });
