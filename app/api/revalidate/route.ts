@@ -132,10 +132,13 @@ export async function POST(request: NextRequest) {
         revalidateTag("posts-page-1");
       } else if (contentType === "category") {
         revalidateTag("categories");
+        revalidateTag("woocommerce");
         if (contentId) {
           revalidateTag(`posts-category-${contentId}`);
           revalidateTag(`category-${contentId}`);
         }
+        revalidatePath("/", "page");
+        revalidatePath("/shop", "page");
       } else if (contentType === "tag") {
         revalidateTag("tags");
         if (contentId) {
@@ -170,6 +173,8 @@ export async function POST(request: NextRequest) {
         if (contentId && slug) {
           revalidatePath(`/product-category/${slug}`);
         }
+        revalidatePath("/", "page");
+        revalidatePath("/shop", "page");
       }
       // Bulk revalidation for promotions (revalidate all products)
       else if (contentType === "promotion" || contentType === "sale") {

@@ -699,8 +699,10 @@ export async function getProductCategoryById(id: number): Promise<ProductCategor
  */
 export async function getProductCategoryBySlug(slug: string): Promise<ProductCategoryFull | null> {
   try {
-    const categories = await fetchWooCommerceAPI<ProductCategoryFull[]>(
-      WC_API_CONFIG.endpoints.productCategoryBySlug(slug)
+    const categories = await fetchWooCommerceCached<ProductCategoryFull[]>(
+      WC_API_CONFIG.endpoints.productCategoryBySlug(slug),
+      WC_API_CONFIG.cache.categories,
+      ['categories', `category-slug-${slug}`]
     );
 
     if (!categories || categories.length === 0) {
