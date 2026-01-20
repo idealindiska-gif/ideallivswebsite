@@ -227,8 +227,51 @@ export interface ItemList {
   '@id'?: string;
   numberOfItems: number;
   itemListElement: unknown[];
+  itemListOrder?: 'ItemListOrderAscending' | 'ItemListOrderDescending' | 'ItemListUnordered';
   name?: string;
   description?: string;
+  [key: string]: unknown;
+}
+
+// OfferCatalog Schema - for deals/promotions pages
+export interface OfferCatalog {
+  '@context'?: 'https://schema.org';
+  '@type': 'OfferCatalog';
+  '@id'?: string;
+  name: string;
+  description?: string;
+  url?: string;
+  numberOfItems?: number;
+  itemListElement?: unknown[];
+  provider?: {
+    '@type': 'Organization';
+    '@id'?: string;
+    name: string;
+    url?: string;
+  };
+  [key: string]: unknown;
+}
+
+// Enhanced Brand Schema for brand directories
+export interface BrandDirectory {
+  '@context'?: 'https://schema.org';
+  '@type': 'ItemList';
+  '@id'?: string;
+  name: string;
+  description?: string;
+  numberOfItems: number;
+  itemListOrder?: 'ItemListOrderAscending' | 'ItemListOrderDescending' | 'ItemListUnordered';
+  itemListElement: {
+    '@type': 'ListItem';
+    position: number;
+    item: {
+      '@type': 'Brand';
+      name: string;
+      url?: string;
+      logo?: string;
+      description?: string;
+    };
+  }[];
   [key: string]: unknown;
 }
 

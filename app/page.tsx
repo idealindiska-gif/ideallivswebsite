@@ -8,20 +8,24 @@ import { getProducts, getProductCategories } from "@/lib/woocommerce";
 import type { Metadata } from "next";
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { idealIndiskaOrganizationSchemaFull } from "@/lib/schema/organization";
+import { idealIndiskaWebsiteSchema, webpageSchema, schemaGraph } from "@/lib/schema/website";
+import { enhancedItemListSchema } from "@/lib/schema/collection";
 
 // Revalidate page every hour
 export const revalidate = 3600;
+
+const BASE_URL = "https://www.ideallivs.com";
 
 export const metadata: Metadata = {
   title: "Ideal Indiska LIVS | Authentic Indian & Pakistani Groceries Stockholm",
   description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, aromatic spices, Halal meat, and fresh produce. Fast delivery in Stockholm & Europe-wide.",
   alternates: {
-    canonical: "https://www.ideallivs.com",
+    canonical: BASE_URL,
   },
   openGraph: {
     title: "Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm",
     description: "Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, premium Basmati rice, and halal meat delivered to your door.",
-    url: "https://www.ideallivs.com",
+    url: BASE_URL,
     siteName: "Ideal Indiska LIVS",
     images: [
       {
@@ -82,6 +86,21 @@ export default async function HomePage() {
   const haldiramProducts = haldiramRes?.data || [];
   const freshProduceProducts = freshProduceRes?.data || [];
 
+  // Generate product item lists for structured data
+  const generateProductItemList = (products: any[], name: string, description: string) => {
+    if (!products || products.length === 0) return null;
+    return enhancedItemListSchema({
+      name,
+      description,
+      url: BASE_URL,
+      items: products.slice(0, 8).map(p => ({
+        url: `${BASE_URL}/product/${p.slug}`,
+        name: p.name,
+        image: p.images?.[0]?.src,
+      })),
+      itemListOrder: 'ItemListUnordered',
+    });
+  };
 
   return (
     <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
@@ -135,11 +154,83 @@ export default async function HomePage() {
       {/* 12. Features/Benefits Section */}
       <Features />
 
-      {/* SEO Structured Data */}
+      {/* ========== SEO STRUCTURED DATA ========== */}
+
+      {/* 1. Organization Schema - Full business information */}
       <SchemaScript
         id="homepage-org-schema"
         schema={idealIndiskaOrganizationSchemaFull()}
       />
+
+      {/* 2. WebSite Schema - Enables Sitelinks Searchbox in Google */}
+      <SchemaScript
+        id="homepage-website-schema"
+        schema={idealIndiskaWebsiteSchema()}
+      />
+
+      {/* 3. WebPage Schema - Homepage context */}
+      <SchemaScript
+        id="homepage-webpage-schema"
+        schema={webpageSchema({
+          name: "Ideal Indiska LIVS - Home",
+          url: BASE_URL,
+          description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, aromatic spices, Halal meat, and fresh produce.",
+          websiteId: `${BASE_URL}/#website`,
+          language: "sv-SE",
+        })}
+      />
+
+      {/* 4. Featured Categories ItemList */}
+      <SchemaScript
+        id="homepage-categories-schema"
+        schema={enhancedItemListSchema({
+          name: "Popular Product Categories",
+          description: "Browse our most popular grocery categories",
+          url: BASE_URL,
+          items: categories.slice(0, 6).map(c => ({
+            url: `${BASE_URL}/shop/${c.slug}`,
+            name: c.name,
+            image: c.image?.src,
+          })),
+          itemListOrder: 'ItemListUnordered',
+        })}
+      />
+
+      {/* 5. Special Offers ItemList */}
+      {dealProducts.length > 0 && (
+        <SchemaScript
+          id="homepage-deals-schema"
+          schema={generateProductItemList(
+            dealProducts,
+            "Special Offers - Current Deals",
+            "Limited time discounts on Indian & Pakistani groceries"
+          )!}
+        />
+      )}
+
+      {/* 6. Trending Products ItemList */}
+      {trendingProducts.length > 0 && (
+        <SchemaScript
+          id="homepage-trending-schema"
+          schema={generateProductItemList(
+            trendingProducts,
+            "Customer Favorites - Best Sellers",
+            "Most popular products at Ideal Indiska LIVS"
+          )!}
+        />
+      )}
+
+      {/* 7. New Arrivals ItemList */}
+      {newProducts.length > 0 && (
+        <SchemaScript
+          id="homepage-new-schema"
+          schema={generateProductItemList(
+            newProducts,
+            "New Arrivals - Latest Products",
+            "Freshly stocked items at Ideal Indiska LIVS"
+          )!}
+        />
+      )}
     </main>
   );
 }

@@ -7,7 +7,7 @@ import { Loader2, Percent, TrendingDown } from 'lucide-react';
 
 import { brandProfile } from '@/config/brand-profile';
 import { SchemaScript } from "@/lib/schema/schema-script";
-import { collectionPageSchema } from "@/lib/schema/collection";
+import { collectionPageSchema, offerCatalogSchema } from "@/lib/schema/collection";
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
 
 export const metadata: Metadata = {
@@ -42,6 +42,26 @@ async function DealsContent() {
                         name: p.name,
                         image: p.images?.[0]?.src
                     }))
+                })}
+            />
+            {/* OfferCatalog Schema - signals promotional content to search engines */}
+            <SchemaScript
+                id="deals-offer-catalog"
+                schema={offerCatalogSchema({
+                    name: "Current Deals & Special Offers - Ideal Indiska LIVS",
+                    description: "Limited time promotional prices on Indian & Pakistani groceries in Stockholm.",
+                    url: "https://www.ideallivs.com/deals",
+                    items: saleProducts.slice(0, 30).map(p => ({
+                        name: p.name,
+                        url: `https://www.ideallivs.com/product/${p.slug}`,
+                        image: p.images?.[0]?.src,
+                        salePrice: p.sale_price || p.price,
+                        currency: "SEK"
+                    })),
+                    provider: {
+                        name: brandProfile.name,
+                        url: "https://www.ideallivs.com"
+                    }
                 })}
             />
 

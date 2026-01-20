@@ -111,3 +111,139 @@ export function productCategorySchema(
         totalItems: products.length,
     });
 }
+
+/**
+ * OfferCatalog Schema for Deals/Promotions Pages
+ * Signals to Google that this page contains special offers
+ */
+export interface OfferCatalogInput {
+    name: string;
+    description?: string;
+    url: string;
+    items: Array<{
+        name: string;
+        url: string;
+        image?: string;
+        price?: string | number;
+        salePrice?: string | number;
+        currency?: string;
+    }>;
+    provider?: {
+        name: string;
+        url: string;
+    };
+}
+
+export function offerCatalogSchema(config: OfferCatalogInput) {
+    const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'OfferCatalog',
+        '@id': generateSchemaId(config.url, 'offercatalog'),
+        name: config.name,
+        url: config.url,
+        ...(config.description && { description: config.description }),
+        numberOfItems: config.items.length,
+        itemListElement: config.items.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            item: {
+                '@type': 'Offer',
+                name: item.name,
+                url: item.url,
+                ...(item.image && { image: item.image }),
+                ...(item.salePrice && {
+                    price: item.salePrice,
+                    priceCurrency: item.currency || 'SEK',
+                }),
+                availability: 'https://schema.org/InStock',
+            },
+        })),
+        ...(config.provider && {
+            provider: {
+                '@type': 'Organization',
+                name: config.provider.name,
+                url: config.provider.url,
+            },
+        }),
+    };
+
+    return cleanSchema(schema);
+}
+
+/**
+ * Enhanced ItemList with ordering for any collection
+ */
+export interface EnhancedItemListInput {
+    name: string;
+    description?: string;
+    url: string;
+    items: CollectionItem[];
+    itemListOrder?: 'ItemListOrderAscending' | 'ItemListOrderDescending' | 'ItemListUnordered';
+}
+
+export function enhancedItemListSchema(config: EnhancedItemListInput) {
+    const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        '@id': generateSchemaId(config.url, 'itemlist'),
+        name: config.name,
+        ...(config.description && { description: config.description }),
+        numberOfItems: config.items.length,
+        itemListOrder: config.itemListOrder || 'ItemListUnordered',
+        itemListElement: config.items.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            url: item.url,
+            name: item.name,
+            ...(item.description && { description: item.description }),
+            ...(item.image && { image: item.image }),
+        })),
+    };
+
+    return cleanSchema(schema);
+}
+
+/**
+ * Brand Directory Schema for Brand Listing Pages
+ * Uses proper Brand typing for each entry
+ */
+export interface BrandDirectoryInput {
+    name: string;
+    description?: string;
+    url: string;
+    brands: Array<{
+        name: string;
+        slug: string;
+        image?: string;
+        description?: string;
+        productCount?: number;
+    }>;
+    baseUrl?: string;
+}
+
+export function brandDirectorySchema(config: BrandDirectoryInput) {
+    const baseUrl = config.baseUrl || 'https://www.ideallivs.com';
+
+    const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        '@id': generateSchemaId(config.url, 'branddirectory'),
+        name: config.name,
+        ...(config.description && { description: config.description }),
+        numberOfItems: config.brands.length,
+        itemListOrder: 'ItemListUnordered' as const,
+        itemListElement: config.brands.map((brand, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            item: {
+                '@type': 'Brand',
+                name: brand.name,
+                url: `${baseUrl}/brand/${brand.slug}`,
+                ...(brand.image && { logo: brand.image }),
+                ...(brand.description && { description: brand.description }),
+            },
+        })),
+    };
+
+    return cleanSchema(schema);
+}

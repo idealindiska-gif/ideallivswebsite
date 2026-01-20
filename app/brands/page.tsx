@@ -7,7 +7,7 @@ import { Package, ArrowRight, TrendingUp } from "lucide-react";
 import { BrandsGrid } from "@/components/brands-grid";
 
 import { SchemaScript } from "@/lib/schema/schema-script";
-import { collectionPageSchema } from "@/lib/schema/collection";
+import { collectionPageSchema, brandDirectorySchema } from "@/lib/schema/collection";
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
 
 export const metadata: Metadata = {
@@ -178,6 +178,23 @@ export default async function ShopByBrandPage() {
                         name: brand.name,
                         image: brand.image?.src || undefined
                     }))
+                })}
+            />
+
+            {/* Enhanced Brand Directory Schema - uses proper Brand typing */}
+            <SchemaScript
+                id="brands-directory-schema"
+                schema={brandDirectorySchema({
+                    name: "Shop by Brand - Premium Indian & Pakistani Grocery Brands",
+                    description: `Browse ${brands.length}+ trusted South Asian grocery brands at Ideal Indiska LIVS Stockholm.`,
+                    url: "https://www.ideallivs.com/brands",
+                    brands: brands.map(brand => ({
+                        name: brand.name,
+                        slug: brand.slug,
+                        image: brand.image?.src,
+                        productCount: brand.count
+                    })),
+                    baseUrl: "https://www.ideallivs.com"
                 })}
             />
 

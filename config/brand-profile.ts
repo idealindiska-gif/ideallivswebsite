@@ -58,6 +58,34 @@ export const brandProfile = {
         linkedin: "https://www.linkedin.com/in/ideal-indiska-596215378/",
     },
 
+    // Google Business Profile (GBP) / Google Maps
+    google: {
+        // Place ID - Unique identifier for Google Maps/Places
+        placeId: "ChIJz4lYe9B3X0YRY5bgk7p3Dt0", // Derived from CID
+        // CID (Customer ID) - Numeric identifier
+        cid: "15139028879935821411",
+        // Business Profile ID (internal GBP identifier)
+        businessProfileId: "7552822901352861493",
+        // Shop Code (for bulk uploads)
+        shopCode: "12397410391306859227",
+        // Knowledge Graph ID
+        kgmid: "/g/11l29jf48l",
+        // Maps URLs
+        mapsUrl: "https://www.google.com/maps/place/Ideal+Indiska+Livs+Bandhagen/@59.2700036,18.0486904,17z",
+        mapsShortUrl: "https://g.co/kgs/5e3Ufch",
+        // Direct CID link (most stable for linking)
+        mapsCidUrl: "https://www.google.com/maps?cid=15139028879935821411",
+        // Review URL (for customers to leave reviews)
+        reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJz4lYe9B3X0YRY5bgk7p3Dt0",
+        // Current rating (update manually from GBP)
+        rating: {
+            value: 4.8, // Update with your actual GBP rating
+            count: 45,  // Update with your actual review count
+            lastUpdated: "2026-01-21",
+        },
+    },
+
+
     // Delivery Information
     delivery: {
         stockholm: {

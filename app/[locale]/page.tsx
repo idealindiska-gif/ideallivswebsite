@@ -9,10 +9,14 @@ import { getProducts, getProductCategories } from "@/lib/woocommerce";
 import type { Metadata } from "next";
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { idealIndiskaOrganizationSchemaFull } from "@/lib/schema/organization";
+import { idealIndiskaWebsiteSchema, webpageSchema } from "@/lib/schema/website";
+import { enhancedItemListSchema } from "@/lib/schema/collection";
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 
 // ISR: Revalidate every 2 hours
 export const revalidate = 7200;
+
+const BASE_URL = "https://www.ideallivs.com";
 
 interface PageProps {
     params: Promise<{ locale: string }>;
@@ -95,6 +99,23 @@ export default async function LocaleHomePage({ params }: PageProps) {
 
     // Locale-aware links
     const linkPrefix = locale === 'sv' ? '/sv' : '';
+    const pageUrl = locale === 'sv' ? `${BASE_URL}/sv` : BASE_URL;
+
+    // Generate product item lists for structured data
+    const generateProductItemList = (products: any[], name: string, description: string) => {
+        if (!products || products.length === 0) return null;
+        return enhancedItemListSchema({
+            name,
+            description,
+            url: pageUrl,
+            items: products.slice(0, 8).map(p => ({
+                url: `${BASE_URL}/product/${p.slug}`,
+                name: p.name,
+                image: p.images?.[0]?.src,
+            })),
+            itemListOrder: 'ItemListUnordered',
+        });
+    };
 
     return (
         <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
@@ -155,11 +176,93 @@ export default async function LocaleHomePage({ params }: PageProps) {
             {/* 11. SEO & Brand Content */}
             <SeoContent />
 
-            {/* SEO Structured Data */}
+            {/* ========== SEO STRUCTURED DATA ========== */}
+
+            {/* 1. Organization Schema - Full business information */}
             <SchemaScript
                 id="homepage-org-schema"
                 schema={idealIndiskaOrganizationSchemaFull()}
             />
+
+            {/* 2. WebSite Schema - Enables Sitelinks Searchbox in Google */}
+            <SchemaScript
+                id="homepage-website-schema"
+                schema={idealIndiskaWebsiteSchema()}
+            />
+
+            {/* 3. WebPage Schema - Homepage context */}
+            <SchemaScript
+                id="homepage-webpage-schema"
+                schema={webpageSchema({
+                    name: locale === 'sv' ? "Ideal Indiska LIVS - Hem" : "Ideal Indiska LIVS - Home",
+                    url: pageUrl,
+                    description: locale === 'sv'
+                        ? "Stockholms bästa indiska & pakistanska livsmedelsbutik."
+                        : "Stockholm's best Indian & Pakistani grocery store.",
+                    websiteId: `${BASE_URL}/#website`,
+                    language: locale === 'sv' ? "sv-SE" : "en",
+                })}
+            />
+
+            {/* 4. Featured Categories ItemList */}
+            <SchemaScript
+                id="homepage-categories-schema"
+                schema={enhancedItemListSchema({
+                    name: locale === 'sv' ? "Populära produktkategorier" : "Popular Product Categories",
+                    description: locale === 'sv'
+                        ? "Utforska våra mest populära kategorier"
+                        : "Browse our most popular grocery categories",
+                    url: pageUrl,
+                    items: categories.slice(0, 6).map(c => ({
+                        url: `${BASE_URL}/shop/${c.slug}`,
+                        name: c.name,
+                        image: c.image?.src,
+                    })),
+                    itemListOrder: 'ItemListUnordered',
+                })}
+            />
+
+            {/* 5. Special Offers ItemList */}
+            {dealProducts.length > 0 && (
+                <SchemaScript
+                    id="homepage-deals-schema"
+                    schema={generateProductItemList(
+                        dealProducts,
+                        locale === 'sv' ? "Specialerbjudanden" : "Special Offers - Current Deals",
+                        locale === 'sv'
+                            ? "Rabatter på indiska och pakistanska matvaror"
+                            : "Limited time discounts on Indian & Pakistani groceries"
+                    )!}
+                />
+            )}
+
+            {/* 6. Trending Products ItemList */}
+            {trendingProducts.length > 0 && (
+                <SchemaScript
+                    id="homepage-trending-schema"
+                    schema={generateProductItemList(
+                        trendingProducts,
+                        locale === 'sv' ? "Kundfavoriter" : "Customer Favorites - Best Sellers",
+                        locale === 'sv'
+                            ? "Mest populära produkter"
+                            : "Most popular products at Ideal Indiska LIVS"
+                    )!}
+                />
+            )}
+
+            {/* 7. New Arrivals ItemList */}
+            {newProducts.length > 0 && (
+                <SchemaScript
+                    id="homepage-new-schema"
+                    schema={generateProductItemList(
+                        newProducts,
+                        locale === 'sv' ? "Nyheter" : "New Arrivals - Latest Products",
+                        locale === 'sv'
+                            ? "Senast inkomna produkter"
+                            : "Freshly stocked items at Ideal Indiska LIVS"
+                    )!}
+                />
+            )}
         </main>
     );
 }
