@@ -77,7 +77,12 @@ export const brandProfile = {
         mapsCidUrl: "https://www.google.com/maps?cid=15139028879935821411",
         // Review URL (for customers to leave reviews)
         reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJz4lYe9B3X0YRY5bgk7p3Dt0",
-        // Note: rating data will be added once you have real GBP reviews
+        // Real GBP rating - update periodically from your dashboard
+        rating: {
+            value: 4.7,
+            count: 17,
+            lastUpdated: "2026-01-21",
+        },
     },
 
 

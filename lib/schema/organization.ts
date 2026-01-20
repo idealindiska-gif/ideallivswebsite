@@ -428,7 +428,15 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       { '@type': 'LocationFeatureSpecification', name: 'Online Shopping', value: true },
     ],
 
-    // Note: aggregateRating will be added once real reviews exist on GBP
+    // Aggregate rating from Google Business Profile (real GBP reviews)
+    // Last updated: 2026-01-21 - Update periodically from your GBP dashboard
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: 4.7,
+      reviewCount: 17,
+      bestRating: 5,
+      worstRating: 1,
+    },
 
     // Direct link to Google Maps
     hasMap: 'https://www.google.com/maps?cid=15139028879935821411',
