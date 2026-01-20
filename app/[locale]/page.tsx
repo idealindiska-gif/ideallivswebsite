@@ -101,22 +101,6 @@ export default async function LocaleHomePage({ params }: PageProps) {
     const linkPrefix = locale === 'sv' ? '/sv' : '';
     const pageUrl = locale === 'sv' ? `${BASE_URL}/sv` : BASE_URL;
 
-    // Generate product item lists for structured data
-    const generateProductItemList = (products: any[], name: string, description: string) => {
-        if (!products || products.length === 0) return null;
-        return enhancedItemListSchema({
-            name,
-            description,
-            url: pageUrl,
-            items: products.slice(0, 8).map(p => ({
-                url: `${BASE_URL}/product/${p.slug}`,
-                name: p.name,
-                image: p.images?.[0]?.src,
-            })),
-            itemListOrder: 'ItemListUnordered',
-        });
-    };
-
     return (
         <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
             {/* 1. Hero Section */}
@@ -222,47 +206,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
                 })}
             />
 
-            {/* 5. Special Offers ItemList */}
-            {dealProducts.length > 0 && (
-                <SchemaScript
-                    id="homepage-deals-schema"
-                    schema={generateProductItemList(
-                        dealProducts,
-                        locale === 'sv' ? "Specialerbjudanden" : "Special Offers - Current Deals",
-                        locale === 'sv'
-                            ? "Rabatter på indiska och pakistanska matvaror"
-                            : "Limited time discounts on Indian & Pakistani groceries"
-                    )!}
-                />
-            )}
-
-            {/* 6. Trending Products ItemList */}
-            {trendingProducts.length > 0 && (
-                <SchemaScript
-                    id="homepage-trending-schema"
-                    schema={generateProductItemList(
-                        trendingProducts,
-                        locale === 'sv' ? "Kundfavoriter" : "Customer Favorites - Best Sellers",
-                        locale === 'sv'
-                            ? "Mest populära produkter"
-                            : "Most popular products at Ideal Indiska LIVS"
-                    )!}
-                />
-            )}
-
-            {/* 7. New Arrivals ItemList */}
-            {newProducts.length > 0 && (
-                <SchemaScript
-                    id="homepage-new-schema"
-                    schema={generateProductItemList(
-                        newProducts,
-                        locale === 'sv' ? "Nyheter" : "New Arrivals - Latest Products",
-                        locale === 'sv'
-                            ? "Senast inkomna produkter"
-                            : "Freshly stocked items at Ideal Indiska LIVS"
-                    )!}
-                />
-            )}
+            {/* Note: Product ItemList schemas removed to avoid Google carousel validation errors */}
         </main>
     );
 }

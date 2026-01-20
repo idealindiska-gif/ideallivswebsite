@@ -86,22 +86,6 @@ export default async function HomePage() {
   const haldiramProducts = haldiramRes?.data || [];
   const freshProduceProducts = freshProduceRes?.data || [];
 
-  // Generate product item lists for structured data
-  const generateProductItemList = (products: any[], name: string, description: string) => {
-    if (!products || products.length === 0) return null;
-    return enhancedItemListSchema({
-      name,
-      description,
-      url: BASE_URL,
-      items: products.slice(0, 8).map(p => ({
-        url: `${BASE_URL}/product/${p.slug}`,
-        name: p.name,
-        image: p.images?.[0]?.src,
-      })),
-      itemListOrder: 'ItemListUnordered',
-    });
-  };
-
   return (
     <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
       {/* 1. New Hero: Promotion/Deals Grid */}
@@ -196,41 +180,8 @@ export default async function HomePage() {
         })}
       />
 
-      {/* 5. Special Offers ItemList */}
-      {dealProducts.length > 0 && (
-        <SchemaScript
-          id="homepage-deals-schema"
-          schema={generateProductItemList(
-            dealProducts,
-            "Special Offers - Current Deals",
-            "Limited time discounts on Indian & Pakistani groceries"
-          )!}
-        />
-      )}
-
-      {/* 6. Trending Products ItemList */}
-      {trendingProducts.length > 0 && (
-        <SchemaScript
-          id="homepage-trending-schema"
-          schema={generateProductItemList(
-            trendingProducts,
-            "Customer Favorites - Best Sellers",
-            "Most popular products at Ideal Indiska LIVS"
-          )!}
-        />
-      )}
-
-      {/* 7. New Arrivals ItemList */}
-      {newProducts.length > 0 && (
-        <SchemaScript
-          id="homepage-new-schema"
-          schema={generateProductItemList(
-            newProducts,
-            "New Arrivals - Latest Products",
-            "Freshly stocked items at Ideal Indiska LIVS"
-          )!}
-        />
-      )}
+      {/* Note: Product ItemList schemas removed to avoid Google carousel validation errors 
+          Products are represented in individual product pages with proper Product schema */}
     </main>
   );
 }

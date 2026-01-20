@@ -156,23 +156,7 @@ export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.id
         value: '15139028879935821411',
       },
     ],
-    // Aggregate rating from Google Business Profile
-    // Update these values periodically from your GBP dashboard
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: 4.8, // Update with actual GBP rating
-      reviewCount: 45,  // Update with actual review count
-      bestRating: 5,
-      worstRating: 1,
-    },
-    // Review action - link to leave a review
-    potentialAction: [
-      {
-        '@type': 'ReviewAction',
-        target: 'https://search.google.com/local/writereview?placeid=ChIJz4lYe9B3X0YRY5bgk7p3Dt0',
-        name: 'Write a Review',
-      },
-    ],
+    // Note: aggregateRating and ReviewAction will be added once real reviews exist
   };
 }
 
@@ -444,15 +428,7 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       { '@type': 'LocationFeatureSpecification', name: 'Online Shopping', value: true },
     ],
 
-    // Aggregate rating from Google Business Profile
-    // Update these values periodically from your GBP dashboard
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: 4.8, // Update with actual GBP rating
-      reviewCount: 45,  // Update with actual review count
-      bestRating: 5,
-      worstRating: 1,
-    },
+    // Note: aggregateRating will be added once real reviews exist on GBP
 
     // Direct link to Google Maps
     hasMap: 'https://www.google.com/maps?cid=15139028879935821411',
@@ -471,22 +447,15 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       },
     ],
 
-    // Multiple potential actions
-    potentialAction: [
-      {
-        '@type': 'OrderAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: baseUrl + '/shop/',
-        },
-        name: 'Shop Online',
+    // Order action for shopping
+    potentialAction: {
+      '@type': 'OrderAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: baseUrl + '/shop/',
       },
-      {
-        '@type': 'ReviewAction',
-        target: 'https://search.google.com/local/writereview?placeid=ChIJz4lYe9B3X0YRY5bgk7p3Dt0',
-        name: 'Write a Review',
-      },
-    ],
+      name: 'Shop Online',
+    },
   };
 }
 

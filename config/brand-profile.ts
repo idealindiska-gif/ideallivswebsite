@@ -61,7 +61,7 @@ export const brandProfile = {
     // Google Business Profile (GBP) / Google Maps
     google: {
         // Place ID - Unique identifier for Google Maps/Places
-        placeId: "ChIJz4lYe9B3X0YRY5bgk7p3Dt0", // Derived from CID
+        placeId: "ChIJz4lYe9B3X0YRY5bgk7p3Dt0",
         // CID (Customer ID) - Numeric identifier
         cid: "15139028879935821411",
         // Business Profile ID (internal GBP identifier)
@@ -77,12 +77,7 @@ export const brandProfile = {
         mapsCidUrl: "https://www.google.com/maps?cid=15139028879935821411",
         // Review URL (for customers to leave reviews)
         reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJz4lYe9B3X0YRY5bgk7p3Dt0",
-        // Current rating (update manually from GBP)
-        rating: {
-            value: 4.8, // Update with your actual GBP rating
-            count: 45,  // Update with your actual review count
-            lastUpdated: "2026-01-21",
-        },
+        // Note: rating data will be added once you have real GBP reviews
     },
 
 
