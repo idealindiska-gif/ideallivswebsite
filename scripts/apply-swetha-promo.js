@@ -27,7 +27,7 @@ async function run() {
         const regPrice = parseFloat(p.regular_price);
         if (isNaN(regPrice)) continue;
 
-        const salePrice = Math.round(regPrice * 0.9); // 10% off
+        const salePrice = (regPrice * 0.9).toFixed(2); // Exact 10% off
 
         try {
             await fetch(`https://crm.ideallivs.com/wp-json/wc/v3/products/${p.id}`, {
