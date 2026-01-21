@@ -4,8 +4,6 @@ import { brandProfile } from "@/config/brand-profile";
 import { MapPin, Phone, Mail, Clock, MessageSquare, ExternalLink } from "lucide-react";
 import { ContactForm } from "@/components/forms/contact-form";
 import { GoogleMapCompact } from "@/components/shared/google-map";
-import { SchemaScript } from "@/lib/schema/schema-script";
-import { idealIndiskaOrganizationSchemaFull } from "@/lib/schema/organization";
 
 export const metadata: Metadata = {
   title: `Contact Us - Ideal Indiska LIVS | Grocery Store Bandhagen Stockholm`,
@@ -220,11 +218,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* SEO Structured Data */}
-      <SchemaScript
-        id="contact-org-schema"
-        schema={idealIndiskaOrganizationSchemaFull()}
-      />
+      {/* Note: Organization schema is in layout.tsx (global) - no need to duplicate */}
     </main>
   );
 }

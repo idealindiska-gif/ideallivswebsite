@@ -7,8 +7,7 @@ import { SeoContent } from "@/components/home/seo-content";
 import { getProducts, getProductCategories } from "@/lib/woocommerce";
 import type { Metadata } from "next";
 import { SchemaScript } from "@/lib/schema/schema-script";
-import { idealIndiskaOrganizationSchemaFull } from "@/lib/schema/organization";
-import { idealIndiskaWebsiteSchema, webpageSchema, schemaGraph } from "@/lib/schema/website";
+import { webpageSchema } from "@/lib/schema/website";
 import { enhancedItemListSchema } from "@/lib/schema/collection";
 
 // Revalidate page every hour
@@ -139,20 +138,9 @@ export default async function HomePage() {
       <Features />
 
       {/* ========== SEO STRUCTURED DATA ========== */}
+      {/* Note: Organization and WebSite schemas are in layout.tsx (global) */}
 
-      {/* 1. Organization Schema - Full business information */}
-      <SchemaScript
-        id="homepage-org-schema"
-        schema={idealIndiskaOrganizationSchemaFull()}
-      />
-
-      {/* 2. WebSite Schema - Enables Sitelinks Searchbox in Google */}
-      <SchemaScript
-        id="homepage-website-schema"
-        schema={idealIndiskaWebsiteSchema()}
-      />
-
-      {/* 3. WebPage Schema - Homepage context */}
+      {/* WebPage Schema - Homepage specific context */}
       <SchemaScript
         id="homepage-webpage-schema"
         schema={webpageSchema({
@@ -164,7 +152,7 @@ export default async function HomePage() {
         })}
       />
 
-      {/* 4. Featured Categories ItemList */}
+      {/* Featured Categories ItemList */}
       <SchemaScript
         id="homepage-categories-schema"
         schema={enhancedItemListSchema({
@@ -179,9 +167,6 @@ export default async function HomePage() {
           itemListOrder: 'ItemListUnordered',
         })}
       />
-
-      {/* Note: Product ItemList schemas removed to avoid Google carousel validation errors 
-          Products are represented in individual product pages with proper Product schema */}
     </main>
   );
 }
