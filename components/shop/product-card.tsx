@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { Product } from '@/types/woocommerce';
-import { formatPrice, getDiscountPercentage, getVariableProductPrice, hasVariations } from '@/lib/woocommerce';
+import { getDiscountPercentage, hasVariations } from '@/lib/woocommerce';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingBag, Star, Plus } from 'lucide-react';
 import { useCartStore } from '@/store/cart-store';
 import { cn, decodeHtmlEntities } from '@/lib/utils';
 import { WishlistToggle } from '@/components/wishlist/wishlist-button';
+import { CurrencyPrice, CurrencySalePrice } from '@/components/ui/currency-price';
 
 interface ProductCardProps {
   product: Product;
@@ -144,25 +145,20 @@ export function ProductCard({ product, className }: ProductCardProps) {
               {/* Price */}
               <div className="flex flex-col">
                 {product.on_sale && product.sale_price && product.sale_price !== '' ? (
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-lg font-bold text-primary">
-                      {formatPrice(product.sale_price, 'SEK')}
-                    </span>
-                    <span className="text-xs text-muted-foreground line-through">
-                      {formatPrice(product.regular_price, 'SEK')}
-                    </span>
-                  </div>
+                  <CurrencySalePrice
+                    salePrice={product.sale_price}
+                    regularPrice={product.regular_price}
+                  />
                 ) : (
                   <div className="flex items-baseline gap-1">
                     {hasVariations(product) && product.price && parseFloat(String(product.price)) > 0 && (
                       <span className="text-xs text-muted-foreground">From</span>
                     )}
-                    <span className="text-lg font-bold text-foreground">
-                      {(() => {
-                        const priceValue = product.price ? String(product.price) : '0';
-                        return formatPrice(priceValue, 'SEK');
-                      })()}
-                    </span>
+                    <CurrencyPrice
+                      price={product.price}
+                      size="lg"
+                      className="text-foreground"
+                    />
                   </div>
                 )}
               </div>
