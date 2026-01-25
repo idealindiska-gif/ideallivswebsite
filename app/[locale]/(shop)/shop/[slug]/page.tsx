@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     }
 
     const isNationalBrand = product.brands?.some(b => b.slug === 'national' || b.name.toLowerCase() === 'national');
+    const isShanBrand = product.brands?.some(b => b.slug === 'shan' || b.slug === 'shan-foods' || b.name.toLowerCase().includes('shan'));
 
     let title = `${product.name} | ${brandConfig.businessName}`;
     let description = product.short_description
@@ -34,6 +35,46 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     if (isNationalBrand) {
       title = `${product.name} - Authentic National Foods Pakistan | Ideal Indiska`;
       description = `Order ${product.name} from National Foods at Ideal Indiska LIVS. Authentic Pakistani taste delivered in Stockholm & Europe. Fast shipping, no customs duty in EU.`;
+    }
+
+    // Pakistani targeting for Shan Foods products
+    if (isShanBrand) {
+      title = `${product.name} - Authentic Shan Foods Pakistan | Ideal Indiska`;
+      description = `Shop ${product.name} by Shan Foods at Ideal Indiska LIVS Stockholm. The finest Pakistani spice mixes and recipe bases with fast EU delivery. Authentic taste guaranteed.`;
+    }
+
+    // HIGH PRIORITY: India Gate Sona Masoori Rice 5kg
+    // Targeting keywords: Sona Masoori Rice Stockholm, India Gate Rice 5kg Price, South Indian Rice Sweden
+    if (resolvedParams.slug === 'ig-sona-masoori-rice-5kg-new-pack' || product.name.toLowerCase().includes('sona masoori')) {
+      title = `India Gate Sona Masoori Rice 5kg | Best Price 99kr | Ideal Indiska Stockholm`;
+      description = `Get India Gate Sona Masoori Rice 5kg at the lowest price of 99kr (Regular 150kr). Premium aged South Indian rice, perfect for steaming & Pongal. Fast Stockholm & EU delivery. No customs duty.`;
+    }
+
+    // Generic Pakistani brand check
+    const pakistaniBrandNames = ['guard', 'falak', 'ahmed food', 'laziza', 'hamdard', 'qarshi', 'shezan', 'tapal'];
+    const pBrand = product.brands?.find(b => pakistaniBrandNames.some(name => b.name.toLowerCase().includes(name)));
+
+    // Generic Indian brand check
+    const indianBrandNames = ['india gate', 'mdh', 'trs', 'haldiram', 'annam', 'aashirvaad', 'vatika', 'dabur', 'idhayam', 'fortune'];
+    const iBrand = product.brands?.find(b => indianBrandNames.some(name => b.name.toLowerCase().includes(name)));
+
+    // Generic International/European brand check
+    const internationalBrandNames = ['colgate', 'nestle', 'coca-cola', 'coke', 'ali baba', 'patak', 'pillsbury', 'jabsons', 'johnson', 'vaseline'];
+    const intBrand = product.brands?.find(b => internationalBrandNames.some(name => b.name.toLowerCase().includes(name)));
+
+    if (pBrand && !isNationalBrand && !isShanBrand) {
+      title = `${product.name} - Authentic ${pBrand.name} Pakistan | Ideal Indiska`;
+      description = `Get ${product.name} by ${pBrand.name} at Ideal Indiska LIVS. Authentic Pakistani product delivered in Stockholm & Europe. Fast shipping, no customs duty.`;
+    }
+
+    if (iBrand) {
+      title = `${product.name} - Official ${iBrand.name} India | Ideal Indiska`;
+      description = `Buy ${product.name} by ${iBrand.name} at Ideal Indiska LIVS. Authentic Indian brand products delivered in Stockholm & Europe. Fresh stock, fast delivery.`;
+    }
+
+    if (intBrand && !iBrand && !pBrand) {
+      title = `${product.name} - ${intBrand.name} | Ideal Indiska Stockholm`;
+      description = `Shop ${product.name} by ${intBrand.name} at Ideal Indiska LIVS. Trusted brand quality delivered fast across Stockholm and Europe. No customs duty in EU.`;
     }
 
     const url = `${siteConfig.site_domain}/product/${product.slug}`;

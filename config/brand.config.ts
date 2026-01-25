@@ -76,7 +76,7 @@ export const brandConfig = {
     defaultTitle: "Ideal Indiska LIVS - Indian & Pakistani Groceries Stockholm",
     titleTemplate: "%s | Ideal Indiska LIVS",
     defaultDescription: "Shop Indian & Pakistani groceries in Stockholm. Premium Basmati rice, spices, halal products, frozen foods & more. Free delivery over 500kr.",
-    keywords: ["indian grocery", "pakistani groceries", "halal products", "basmati rice", "indian spices", "Stockholm", "Bandhagen", "online grocery", "asian supermarket", "pakistani food stockholm", "national foods sweden", "halal delivery europe"],
+    keywords: ["indian grocery", "pakistani groceries", "halal products", "basmati rice", "indian spices", "Stockholm", "Bandhagen", "online grocery", "asian supermarket", "pakistani food stockholm", "national foods sweden", "halal delivery europe", "shan foods stockholm", "shan recipe mixes sweden", "guard rice sweden", "falak rice stockholm", "ahmed foods sweden", "laziza desserts stockholm", "hamdard rooh afza sweden", "qarshi jam e shirin europe", "shezan juices stockholm", "tapal tea sweden", "india gate basmati stockholm", "mdh masala sweden", "haldiram snacks europe", "trs spices stockholm", "aashirvaad atta sweden", "dabur honey stockholm", "vatika hair oil sweden", "annam groceries europe", "idhayam oil stockholm", "fortune oil sweden", "sona masoori rice 5kg sweden", "india gate sona masoori price", "best sona masoori rice stockholm", "colgate toothpaste sweden", "nestle maggi stockholm", "coca-cola delivery europe", "ali baba lentils sweden", "pataks curry paste stockholm", "pillsbury atta europe", "jabsons snacks sweden", "johnsons baby care stockholm", "vaseline lotion europe"],
   },
 } as const;
 
