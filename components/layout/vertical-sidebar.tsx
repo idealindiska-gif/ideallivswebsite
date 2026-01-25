@@ -93,6 +93,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
       {/* Sidebar */}
       <aside
         id="mobile-sidebar"
+        aria-label="Side Navigation"
         className={cn(
           "fixed left-0 top-0 lg:top-[44px] h-screen lg:h-[calc(100vh-44px)] w-64 bg-background border-r border-border overflow-y-auto z-40 transition-transform duration-300",
           // Mobile: slide in/out
@@ -101,12 +102,12 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
         )}
       >
         <div className="flex flex-col p-3">
-          {/* Logo */}
-          <Link href="/" className="flex items-center justify-center group -mt-2.5 mb-[2px]">
+          {/* Logo with SEO enhancements */}
+          <Link href="/" className="flex items-center justify-center group -mt-2.5 mb-[2px]" aria-label="Ideal Indiska LIVS Home">
             <div className="relative h-20 w-full transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png"
-                alt="Ideal Livs"
+                alt="Ideal Indiska LIVS - Stockholm's Leading Indian & Pakistani Supermarket"
                 fill
                 className="object-contain"
                 priority
@@ -114,20 +115,8 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
             </div>
           </Link>
 
-          {/* Main Navigation Content */}
-          <div className="space-y-3">
-            {/* Search Bar - Visible on mobile sidebar primarily */}
-            <div className="relative lg:hidden">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent bg-background"
-              />
-            </div>
-
+          {/* Main Navigation Content - Wrapped in Nav for SEO */}
+          <nav className="space-y-6" aria-label="Sidebar categories and links">
             {/* Quick Actions */}
             <div className="space-y-2">
               <Link
@@ -197,40 +186,40 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
             </div>
 
             {/* Top Charts */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
+            <div className="pt-2">
+              <div className="flex items-center gap-2 mb-3 px-2">
                 <TrendingUp className="h-4 w-4 text-green-600" />
                 <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">Top Charts</h2>
               </div>
-              <div className="space-y-2 pl-2">
+              <div className="space-y-1 pl-2">
                 <Link
                   href="/shop?sort=bestsellers"
-                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-1"
+                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-2 px-2 hover:bg-muted rounded-lg"
                 >
-                  <div className="w-6 h-6 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center text-xs font-bold">1</div>
+                  <div className="w-6 h-6 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center text-xs font-bold flex-shrink-0">1</div>
                   <span className="font-medium">Best Sellers</span>
                 </Link>
                 <Link
                   href="/shop?sort=new"
-                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-1"
+                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-2 px-2 hover:bg-muted rounded-lg"
                 >
-                  <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold">2</div>
+                  <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0">2</div>
                   <span className="font-medium">New Arrivals</span>
                 </Link>
                 <Link
                   href="/shop?sort=trending"
-                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-1"
+                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-2 px-2 hover:bg-muted rounded-lg"
                 >
-                  <div className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold">3</div>
+                  <div className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold flex-shrink-0">3</div>
                   <span className="font-medium">Trending Now</span>
                 </Link>
               </div>
             </div>
 
             {/* Product Categories */}
-            <div>
-              <h2 className="text-sm font-bold text-foreground mb-3 uppercase tracking-wider">Categories</h2>
-              <div className="space-y-0">
+            <div className="pt-2">
+              <h2 className="text-sm font-bold text-foreground mb-3 px-2 uppercase tracking-wider">All Categories</h2>
+              <div className="space-y-0.5">
                 {categories.map((category) => {
                   const IconComponent = categoryIcons[category.name] || Package;
                   const isHovered = hoveredCategory === category.id;
@@ -241,7 +230,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                       key={category.id}
                       href={`/product-category/${category.slug}`}
                       className={cn(
-                        "flex items-center gap-2 py-1.5 px-2 rounded-lg transition-all duration-200 group border border-transparent",
+                        "flex items-center gap-3 py-2 px-2 rounded-lg transition-all duration-200 group border border-transparent",
                         isHovered ? "bg-green-50 dark:bg-green-950/20 border-green-100 dark:border-green-900" : "hover:bg-muted"
                       )}
                       onMouseEnter={() => setHoveredCategory(category.id)}
@@ -262,7 +251,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                         {decodedName}
                       </span>
                       {category.count > 0 && (
-                        <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-muted group-hover:bg-white dark:group-hover:bg-black/20 text-muted-foreground">
+                        <span className="ml-auto text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-muted group-hover:bg-white dark:group-hover:bg-black/20 text-muted-foreground">
                           {category.count}
                         </span>
                       )}
@@ -273,17 +262,17 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
             </div>
 
             {/* User Actions */}
-            <div className="pt-4 border-t border-border space-y-2">
+            <div className="pt-4 border-t border-border space-y-1">
               <Link
                 href="/my-account"
-                className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
               >
                 <User className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm">My Account</span>
               </Link>
               <Link
                 href="/wishlist"
-                className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
               >
                 <Heart className="h-4 w-4 text-red-500" />
                 <span className="text-sm">Wishlist</span>
@@ -293,12 +282,12 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
               </Link>
               <Link
                 href="/my-account?tab=orders"
-                className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
               >
                 <Package className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm">My Orders</span>
               </Link>
-              <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors">
+              <div className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors cursor-pointer">
                 <ShoppingCart className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm">Cart</span>
                 <div className="ml-auto">
@@ -306,7 +295,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                 </div>
               </div>
             </div>
-          </div>
+          </nav>
         </div>
       </aside>
     </>

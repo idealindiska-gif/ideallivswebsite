@@ -19,7 +19,7 @@ export async function Footer() {
               <div className="relative h-12 w-24">
                 <Image
                   src="https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-white.png"
-                  alt={brandProfile.name}
+                  alt={`${brandProfile.name} - Stockholm's Best Indian & Pakistani Grocery Store`}
                   fill
                   className="object-contain"
                   sizes="96px"

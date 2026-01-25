@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useSidebar } from "./mobile-sidebar-toggle";
 import { CartIcon } from "@/components/cart/cart-icon";
 import { UserNav } from "@/components/layout/user-nav";
+import { DeliveryLocationSelector } from "@/components/ui/delivery-location-selector";
 
 export function ContentHeader() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,10 +46,9 @@ export function ContentHeader() {
         {/* Login/Signup & Cart - Right */}
         <div className="flex items-center gap-6 ml-4 shrink-0">
 
-          {/* Language / Location (Optional implementation) */}
-          <div className="hidden xl:flex flex-col items-end text-sm text-muted-foreground">
-            <span className="flex items-center gap-1 font-medium text-foreground"><span className="w-2 h-2 rounded-full bg-primary/80"></span> Deliver to</span>
-            <span className="text-xs">Select Location</span>
+          {/* Delivery Location & Currency Selector */}
+          <div className="hidden xl:block">
+            <DeliveryLocationSelector variant="header" />
           </div>
 
           <div className="h-8 w-px bg-border mx-2" />

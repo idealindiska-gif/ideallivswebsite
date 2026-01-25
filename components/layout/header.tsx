@@ -64,19 +64,22 @@ export function Header({ className, categories = [] }: HeaderProps) {
                 </button>
               </div>
 
-              {/* Left Navigation - Spread Out */}
-              <div className="col-span-4 flex justify-between items-center px-2">
-                <NavLink href="/shop">Shop</NavLink>
-                <NavLink href="/brands">Brands</NavLink>
-              </div>
+              {/* Left Navigation - Semantic Nav for SEO */}
+              <nav className="col-span-4 flex justify-between items-center px-4" aria-label="Primary Navigation Left">
+                <NavLink href="/shop">Shop All</NavLink>
+                <NavLink href="/brands">Top Brands</NavLink>
+                <Link href="/product-category/new-arrivals" className="text-[0.70rem] xl:text-xs font-medium uppercase tracking-wider text-primary hover:opacity-80 transition-opacity">
+                  New Arrivals
+                </Link>
+              </nav>
 
-              {/* Center: Logo */}
+              {/* Center: Logo with SEO Alt Text */}
               <div className="col-span-2 flex flex-col items-center justify-center">
-                <Link href="/" className="group">
+                <Link href="/" className="group" aria-label="Ideal Indiska LIVS Home">
                   <div className="relative h-24 w-40 transition-transform duration-500 group-hover:scale-105">
                     <Image
                       src={logoUrl}
-                      alt="Ideal Indiska LIVS - Stockholm Grocery Store"
+                      alt="Ideal Indiska LIVS - Leading Indian & Pakistani Grocery Store Stockholm"
                       fill
                       className="object-contain"
                       sizes="160px"
@@ -86,14 +89,13 @@ export function Header({ className, categories = [] }: HeaderProps) {
                 </Link>
               </div>
 
-              {/* Right Navigation - Spread Out */}
-              <div className="col-span-4 flex justify-between items-center px-2">
-                <NavLink href="/shop">Shop</NavLink>
-                <NavLink href="/blog">Blog</NavLink>
-                <NavLink href="/about">About</NavLink>
-                <NavLink href="/contact">Contact</NavLink>
+              {/* Right Navigation - Semantic Nav for SEO */}
+              <nav className="col-span-4 flex justify-between items-center px-2" aria-label="Primary Navigation Right">
+                <NavLink href="/blog">Food Blog</NavLink>
+                <NavLink href="/about">Our Story</NavLink>
+                <NavLink href="/contact">Visit Us</NavLink>
                 <NavLink href="/bookings">Reservations</NavLink>
-              </div>
+              </nav>
 
               {/* Extreme Right: Shop/Cart */}
               <div className="col-span-1 flex justify-end items-center gap-3">
