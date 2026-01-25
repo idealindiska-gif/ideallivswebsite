@@ -19,11 +19,12 @@ import { ProductRecommendations } from '@/components/ai/product-recommendations'
 import { StripeExpressCheckout } from '@/components/checkout/stripe-express-checkout';
 import { WishlistButton } from '@/components/wishlist/wishlist-button';
 import { WhatsAppOrderButton } from '@/components/whatsapp/whatsapp-order-button';
-import { formatPrice, getDiscountPercentage } from '@/lib/woocommerce';
+import { getDiscountPercentage } from '@/lib/woocommerce';
 import { decodeHtmlEntities } from '@/lib/utils';
 import { trackViewContent } from '@/lib/analytics';
 import { CommerceRules } from '@/config/commerce-rules';
 import { useCartStore } from '@/store/cart-store';
+import { CurrencyPrice, CurrencySalePrice } from '@/components/ui/currency-price';
 import type { Product, ProductReview, ProductVariation } from '@/types/woocommerce';
 
 interface ProductTemplateProps {
@@ -132,17 +133,13 @@ export function ProductTemplate({
                             </h4>
                             <div className="mt-1">
                               {relatedProduct.on_sale && relatedProduct.sale_price && relatedProduct.sale_price !== '' ? (
-                                <div className="flex items-baseline gap-1.5">
-                                  <span style={{ fontSize: '14.31px', fontWeight: 600, lineHeight: 1.57, letterSpacing: '0.03em' }} className="text-primary">
-                                    {formatPrice(relatedProduct.sale_price, 'SEK')}
-                                  </span>
-                                  <span style={{ fontSize: '12.8px', fontWeight: 300, lineHeight: 1.57, letterSpacing: '0.03em' }} className="text-muted-foreground line-through">
-                                    {formatPrice(relatedProduct.regular_price, 'SEK')}
-                                  </span>
-                                </div>
+                                <CurrencySalePrice
+                                  salePrice={relatedProduct.sale_price}
+                                  regularPrice={relatedProduct.regular_price}
+                                />
                               ) : (
                                 <span style={{ fontSize: '14.31px', fontWeight: 600, lineHeight: 1.57, letterSpacing: '0.03em' }} className="text-primary">
-                                  {formatPrice(relatedProduct.price, 'SEK')}
+                                  <CurrencyPrice price={relatedProduct.price} />
                                 </span>
                               )}
                             </div>
@@ -208,17 +205,13 @@ export function ProductTemplate({
                             </h4>
                             <div>
                               {relatedProduct.on_sale && relatedProduct.sale_price && relatedProduct.sale_price !== '' ? (
-                                <div className="flex items-baseline gap-1">
-                                  <span className="text-sm font-semibold text-primary">
-                                    {formatPrice(relatedProduct.sale_price, 'SEK')}
-                                  </span>
-                                  <span className="text-xs text-muted-foreground line-through">
-                                    {formatPrice(relatedProduct.regular_price, 'SEK')}
-                                  </span>
-                                </div>
+                                <CurrencySalePrice
+                                  salePrice={relatedProduct.sale_price}
+                                  regularPrice={relatedProduct.regular_price}
+                                />
                               ) : (
                                 <span className="text-sm font-semibold text-primary">
-                                  {formatPrice(relatedProduct.price, 'SEK')}
+                                  <CurrencyPrice price={relatedProduct.price} />
                                 </span>
                               )}
                             </div>
@@ -395,15 +388,15 @@ export function ProductTemplate({
                   return isOnSale ? (
                     <>
                       <span className="font-heading text-primary text-2xl md:text-[27px] font-extrabold leading-tight">
-                        {formatPrice(displaySalePrice, 'SEK')}
+                        <CurrencyPrice price={displaySalePrice} size="lg" />
                       </span>
                       <span className="text-muted-foreground line-through text-lg md:text-2xl font-semibold">
-                        {formatPrice(displayRegularPrice, 'SEK')}
+                        <CurrencyPrice price={displayRegularPrice} size="md" />
                       </span>
                     </>
                   ) : (
                     <span className="font-heading text-primary text-2xl md:text-[27px] font-extrabold leading-tight">
-                      {formatPrice(priceStr, 'SEK')}
+                      <CurrencyPrice price={priceStr} size="lg" />
                     </span>
                   );
                 })()}

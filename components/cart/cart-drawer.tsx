@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useCartStore } from '@/store/cart-store';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from '@/components/ui/sheet';
-import { formatPrice } from '@/lib/woocommerce';
+import { CurrencyPrice } from '@/components/ui/currency-price';
 import { Minus, Plus, X, AlertCircle } from 'lucide-react';
 import { CartThresholdMessages } from './cart-threshold-messages';
 import { WhatsAppOrderButton } from '@/components/whatsapp/whatsapp-order-button';
@@ -121,7 +121,7 @@ export function CartDrawer() {
                             {item.product.name}
                           </h3>
                           <p className="mt-1 text-sm text-muted-foreground">
-                            {formatPrice(item.price, 'SEK')}
+                            <CurrencyPrice price={item.price} size="sm" />
                           </p>
                         </div>
                         <Button
@@ -154,7 +154,7 @@ export function CartDrawer() {
                           <Plus className="h-3 w-3" />
                         </Button>
                         <span className="ml-auto text-sm font-semibold">
-                          {formatPrice(item.price * item.quantity, 'SEK')}
+                          <CurrencyPrice price={item.price * item.quantity} size="sm" />
                         </span>
                       </div>
                     </div>
@@ -172,7 +172,7 @@ export function CartDrawer() {
             <SheetFooter className="flex-col gap-3">
               <div className="flex justify-between border-t pt-4 text-base font-bold">
                 <span>Total:</span>
-                <span>{formatPrice(getTotalPrice(), 'SEK')}</span>
+                <span><CurrencyPrice price={getTotalPrice()} size="lg" /></span>
               </div>
 
               <div className="grid grid-cols-2 gap-3">

@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Product } from "@/types/woocommerce";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { getDiscountPercentage, formatPrice } from "@/lib/woocommerce/products";
+import { getDiscountPercentage } from "@/lib/woocommerce/products";
+import { CurrencyPrice, CurrencySalePrice } from "@/components/ui/currency-price";
 
 interface PromotionGridProps {
     promotionProducts?: Product[];
@@ -121,11 +122,11 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                                 </h3>
                                                 <div className="flex items-center justify-center gap-3 mt-1 sm:mt-2">
                                                     <span className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-black text-rose-600 tabular-nums">
-                                                        {sliderProducts[card2Index].price}<span className="text-xs sm:text-lg ml-0.5 font-bold">kr</span>
+                                                        <CurrencyPrice price={sliderProducts[card2Index].price} size="lg" className="text-rose-600" />
                                                     </span>
                                                     {sliderProducts[card2Index].regular_price && sliderProducts[card2Index].regular_price !== sliderProducts[card2Index].price && (
                                                         <span className="text-[10px] sm:text-sm lg:text-base line-through text-gray-400 font-bold decoration-rose-400/30">
-                                                            {sliderProducts[card2Index].regular_price} kr
+                                                            <CurrencyPrice price={sliderProducts[card2Index].regular_price} size="sm" className="text-gray-400" />
                                                         </span>
                                                     )}
                                                 </div>
