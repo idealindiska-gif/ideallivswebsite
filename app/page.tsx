@@ -16,8 +16,8 @@ export const revalidate = 3600;
 const BASE_URL = "https://www.ideallivs.com";
 
 export const metadata: Metadata = {
-  title: "Ideal Indiska LIVS | Authentic Indian & Pakistani Groceries Stockholm",
-  description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, aromatic spices, Halal meat, and fresh produce. Fast delivery in Stockholm & Europe-wide.",
+  title: "Indian & Pakistani Groceries Stockholm | Ideal Indiska LIVS",
+  description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, spices, Halal meat & fresh produce. Fast delivery Europe-wide.",
   alternates: {
     canonical: BASE_URL,
   },

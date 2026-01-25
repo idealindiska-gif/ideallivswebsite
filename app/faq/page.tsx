@@ -12,7 +12,7 @@ import { idealIndiskaFAQSchema } from "@/lib/schema/faq";
 
 export const metadata: Metadata = {
     title: 'Frequently Asked Questions | Ideal Indiska LIVS',
-    description: 'Get answers to common questions about ordering Indian and Pakistani groceries in Stockholm, delivery options across Sweden and Europe, payment methods, and our products.',
+    description: 'Get answers to common questions about ordering Indian & Pakistani groceries in Stockholm, delivery across Sweden & Europe, payments, and our products.',
     alternates: {
         canonical: '/faq',
     },

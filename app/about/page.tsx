@@ -9,8 +9,8 @@ import { GoogleMapCompact } from "@/components/shared/google-map";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: `About ${brandProfile.name} - Stockholm's Best Indian & Pakistani Grocery`,
-  description: `Discover the story of ${brandProfile.name}. Since 2020, we have been Stockholm's most trusted source for authentic Indian and Pakistani groceries, premium Basmati rice, and Halal meat.`,
+  title: `About Ideal Indiska LIVS | Indian & Pakistani Groceries`,
+  description: `Discover Ideal Indiska LIVS. Since 2020, Stockholm's trusted source for Indian & Pakistani groceries, premium Basmati rice & Halal meat.`,
   alternates: {
     canonical: '/about',
   },

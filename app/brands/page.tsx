@@ -11,8 +11,8 @@ import { collectionPageSchema, brandDirectorySchema } from "@/lib/schema/collect
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
 
 export const metadata: Metadata = {
-    title: `135+ Indian & Pakistani Grocery Brands Stockholm | ${brandProfile.name}`,
-    description: `Browse 135+ authentic Indian & Pakistani grocery brands in Stockholm. Shop Shan, MDH, Haldiram, National, MTR, TRS, Tilda, Aashirvaad & more at Ideal Indiska Livs. Fast delivery across Sweden.`,
+    title: `135+ Indian & Pakistani Grocery Brands | ${brandProfile.name}`,
+    description: `Browse 135+ authentic Indian & Pakistani grocery brands. Shop Shan, MDH, Haldiram, MTR & more at Ideal Indiska Livs. Fast delivery across Sweden.`,
     alternates: {
         canonical: "https://www.ideallivs.com/brands",
     },

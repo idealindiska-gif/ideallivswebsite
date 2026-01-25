@@ -75,7 +75,7 @@ export const brandConfig = {
   seo: {
     defaultTitle: "Ideal Indiska LIVS - Indian & Pakistani Groceries Stockholm",
     titleTemplate: "%s | Ideal Indiska LIVS",
-    defaultDescription: "Shop authentic Indian & Pakistani groceries online in Stockholm. Premium Basmati rice, spices, halal products, frozen foods & more. Free delivery from 500kr.",
+    defaultDescription: "Shop Indian & Pakistani groceries in Stockholm. Premium Basmati rice, spices, halal products, frozen foods & more. Free delivery over 500kr.",
     keywords: ["indian grocery", "pakistani groceries", "halal products", "basmati rice", "indian spices", "Stockholm", "Bandhagen", "online grocery", "asian supermarket"],
   },
 } as const;

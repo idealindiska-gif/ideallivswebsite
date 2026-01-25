@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
     const title = `${product.name} | ${brandConfig.businessName}`;
     const description = product.short_description
-      ? product.short_description.replace(/<[^>]*>/g, '').substring(0, 160)
+      ? product.short_description.replace(/<[^>]*>/g, '').substring(0, 150)
       : brandConfig.seo.defaultDescription;
     const url = `${siteConfig.site_domain}/product/${product.slug}`;
     const images = product.images.map((img) => ({

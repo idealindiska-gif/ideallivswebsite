@@ -6,8 +6,8 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { GoogleMapCompact } from "@/components/shared/google-map";
 
 export const metadata: Metadata = {
-  title: `Contact Us - Ideal Indiska LIVS | Grocery Store Bandhagen Stockholm`,
-  description: `Visit our store in Bandhagen Centrum, call us, or message on WhatsApp. We provide authentic Indian & Pakistani groceries with local delivery across Stockholm.`,
+  title: "Contact Ideal Indiska LIVS | Indian Grocery Stockholm",
+  description: "Visit Ideal Indiska LIVS in Bandhagen, Stockholm. Shop authentic Indian & Pakistani groceries with local delivery and WhatsApp support.",
   alternates: {
     canonical: '/contact',
   },

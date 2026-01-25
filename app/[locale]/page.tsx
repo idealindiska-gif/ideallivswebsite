@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (locale === 'sv') {
         return {
-            title: "Ideal Indiska LIVS | Indiska & Pakistanska Matvaror Stockholm",
-            description: "Stockholms bästa indiska & pakistanska livsmedelsbutik. Handla premium Basmati-ris, aromatiska kryddor, halaltkött och färska produkter. Snabb leverans i Stockholm & Europa.",
+            title: "Indiska & Pakistanska Matvaror Stockholm | Ideal Indiska LIVS",
+            description: "Stockholms bästa indiska & pakistanska livsmedelsbutik. Handla premium Basmati-ris, kryddor, halaltkött & färska produkter. Snabb leverans i hela Europa.",
             alternates: {
                 canonical: "https://www.ideallivs.com/sv",
                 languages: {
@@ -48,8 +48,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     // English (default)
     return {
-        title: "Ideal Indiska LIVS | Authentic Indian & Pakistani Groceries Stockholm",
-        description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, aromatic spices, Halal meat, and fresh produce. Fast delivery in Stockholm & Europe-wide.",
+        title: "Indian & Pakistani Groceries Stockholm | Ideal Indiska LIVS",
+        description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, spices, Halal meat & fresh produce. Fast delivery Europe-wide.",
         alternates: {
             canonical: "https://www.ideallivs.com",
             languages: {

@@ -44,15 +44,15 @@ export async function generateMetadata({ params }: ProductCategoryPageProps): Pr
 
         const cleanDescription = category.description?.replace(/\<[^>]*>/g, '').trim();
         const metaDescription = cleanDescription
-            ? cleanDescription.substring(0, 150) + " | Authentic Indian & Pakistani groceries at Ideal Indiska LIVS. Same-day delivery in Stockholm."
-            : `Shop ${category.name} at Ideal Indiska LIVS. Your trusted source for authentic Indian and Pakistani groceries in Stockholm. High-quality products at great prices.`;
+            ? `${cleanDescription.substring(0, 95)} | Ideal Indiska LIVS Stockholm.`
+            : `Shop ${category.name} at Ideal Indiska LIVS Stockholm. Authentic Indian and Pakistani groceries with fast delivery.`;
 
         return {
             title: `${category.name} | Ideal Indiska LIVS`,
-            description: metaDescription.substring(0, 160),
+            description: metaDescription.substring(0, 150),
             openGraph: {
                 title: `${category.name} | Ideal Indiska LIVS`,
-                description: metaDescription.substring(0, 160),
+                description: metaDescription.substring(0, 150),
                 images: category.image
                     ? [{
                         url: category.image.src,

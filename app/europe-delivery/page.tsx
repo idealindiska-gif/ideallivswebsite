@@ -7,8 +7,8 @@ import { europeDeliveryServiceSchema } from '@/lib/schema';
 import { GoogleMapCompact } from "@/components/shared/google-map";
 
 export const metadata: Metadata = {
-    title: 'Indian Grocery Delivery Europe | Ideal Indiska LIVS',
-    description: 'Authentic Indian & Pakistani groceries delivered across Europe via DHL. Fast shipping from Sweden with NO customs duty within the EU. Shop over 1500+ products.',
+    title: 'Indian Grocery Delivery Europe | No Customs Duty | Ideal Indiska',
+    description: 'Order Indian & Pakistani groceries across Europe with NO customs duty. Fast DHL shipping from Sweden to Germany, Netherlands, France & more. Shop 1500+ items.',
     alternates: {
         canonical: '/europe-delivery',
     },
@@ -27,7 +27,7 @@ export default function EuropeDeliveryPage() {
                             lineHeight: 1.47,
                             letterSpacing: '0.02em'
                         }} className="mb-4">
-                            Europe Delivery
+                            Indian Grocery Delivery Europe (No Customs)
                         </h1>
                         <p className="text-muted-foreground" style={{
                             fontSize: '16px',
@@ -35,7 +35,7 @@ export default function EuropeDeliveryPage() {
                             lineHeight: 1.52,
                             letterSpacing: '0.03em'
                         }}>
-                            Authentic Indian & Pakistani Groceries, Delivered Across Europe. Fast and reliable shipping from Stockholm to your doorstep.
+                            Enjoy authentic Indian & Pakistani groceries with <strong>zero customs duties</strong> within the EU. We ship fast from our Stockholm hub to your doorstep via DHL.
                         </p>
                     </div>
                 </div>
@@ -70,12 +70,12 @@ export default function EuropeDeliveryPage() {
                                 </h2>
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     <div className="p-6 rounded-xl border bg-card/50">
-                                        <h3 style={{ fontSize: '18px', fontWeight: 600 }} className="mb-2">No Minimum Order</h3>
-                                        <p style={{ fontSize: '15.13px' }} className="text-muted-foreground">Order exactly what you need. There is no minimum purchase requirement for European shipping.</p>
+                                        <h3 style={{ fontSize: '18px', fontWeight: 600 }} className="mb-2 text-primary">No Customs Duties</h3>
+                                        <p style={{ fontSize: '15.13px' }} className="text-muted-foreground">Since we ship from Sweden (EU), there are no hidden customs fees or import taxes for any EU destination.</p>
                                     </div>
                                     <div className="p-6 rounded-xl border bg-card/50">
-                                        <h3 style={{ fontSize: '18px', fontWeight: 600 }} className="mb-2">Calculated Rates</h3>
-                                        <p style={{ fontSize: '15.13px' }} className="text-muted-foreground">Shipping fees are calculated automatically at checkout based on your location and the weight of your order.</p>
+                                        <h3 style={{ fontSize: '18px', fontWeight: 600 }} className="mb-2">Fast DHL Shipping</h3>
+                                        <p style={{ fontSize: '15.13px' }} className="text-muted-foreground">We use DHL Parcel Connect to ensure your groceries arrive safely within 2-7 working days across Europe.</p>
                                     </div>
                                 </div>
                             </section>

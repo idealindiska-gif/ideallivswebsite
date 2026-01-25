@@ -7,8 +7,8 @@ import { stockholmDeliveryServiceSchema, deliveryFAQSchema } from "@/lib/schema"
 import { GoogleMapCompact } from "@/components/shared/google-map";
 
 export const metadata: Metadata = {
-    title: "Free Grocery Delivery Stockholm & All Sweden | Ideal Indiska Livs",
-    description: "Authentic Indian & Pakistani groceries with FAST delivery. Free in Stockholm on orders over 500 SEK. Same-day evening delivery in Bandhagen & southern suburbs.",
+    title: "Grocery Delivery Stockholm & Sweden | Ideal Indiska Livs",
+    description: "Get authentic Indian & Pakistani groceries with fast delivery. Free in Stockholm on orders over 500 SEK. Same-day delivery in southern suburbs.",
     alternates: {
         canonical: '/delivery-information',
     },

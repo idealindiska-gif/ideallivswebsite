@@ -131,7 +131,7 @@ export default async function IndianFikaPage() {
 
                                 <h2 className="text-3xl mt-16 mb-8 tracking-tight">1. The Golden Samosa: The King of Tea-Time</h2>
                                 <p>
-                                    If the Kanelbulle is the king of Swedish fika, the Samosa is his Indian counterpart. These triangular pastries, filled with spiced potatoes and peas (or savory meats), offer a satisfying crunch followed by a warm, aromatic interior.
+                                    If the Kanelbulle is the king of Swedish fika, the Samosa is his Indian counterpart. These triangular pastries, filled with spiced potatoes and peas (or savory meats), offer a satisfying crunch followed by a warm, aromatic interior. We recommend brands like <strong>Haldiram&apos;s</strong> or <strong>A1</strong> for that authentic flavor.
                                 </p>
                                 <div className="bg-primary/5 p-8 rounded-[2rem] border border-primary/10 my-10 shadow-sm relative overflow-hidden group">
                                     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -147,12 +147,12 @@ export default async function IndianFikaPage() {
 
                                 <h2 className="text-3xl mt-16 mb-8 tracking-tight">2. Spicy Namkeen: The Ultimate Crunch</h2>
                                 <p>
-                                    Looking for something lighter? <em>Namkeen</em> (Savory snacks) like Aloo Bhujia, Moong Dal, or spicy Murukku are perfect for mindless munching during a quick office break. They provide a spicy, salty kick that perfectly balances the sweetness of a Swedish latte or a traditional cup of tea.
+                                    Looking for something lighter? <em>Namkeen</em> (Savory snacks) like <strong>Aloo Bhujia</strong>, <strong>Moong Dal</strong>, or spicy <strong>Murukku</strong> are perfect for mindless munching during a quick office break. Popular choices in Stockholm include the classic Haldiram&apos;s range and spicy Bhujia mixes which provide a salty kick that perfectly balances the sweetness of a Swedish latte or a traditional cup of tea.
                                 </p>
 
                                 <h2 className="text-3xl mt-16 mb-8 tracking-tight">3. Masala Chai: The Swedish Oatly&apos;s Best Friend</h2>
                                 <p>
-                                    While traditional fika centers on brewed coffee, Masala Chai brings a complex profile of cardamom, cinnamon, and cloves. Interestingly, many our customers in Stockholm love brewing their chai with local Swedish oat milk for a creamier, eco-friendly twist that perfectly bridges two cultures.
+                                    While traditional fika centers on brewed coffee, Masala Chai brings a complex profile of cardamom, cinnamon, and cloves. Using premium loose tea from brands like <strong>Wagh Bakri</strong> or <strong>Tapal Danedar</strong> makes all the difference. Interestingly, many our customers in Stockholm love brewing their chai with local Swedish oat milk for a creamier, eco-friendly twist that perfectly bridges two cultures.
                                 </p>
 
                                 <h2 className="text-3xl mt-16 mb-8 tracking-tight">4. Parle-G: The Nostalgia Biscuit</h2>
