@@ -23,10 +23,19 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       };
     }
 
-    const title = `${product.name} | ${brandConfig.businessName}`;
-    const description = product.short_description
+    const isNationalBrand = product.brands?.some(b => b.slug === 'national' || b.name.toLowerCase() === 'national');
+
+    let title = `${product.name} | ${brandConfig.businessName}`;
+    let description = product.short_description
       ? product.short_description.replace(/<[^>]*>/g, '').substring(0, 150)
       : brandConfig.seo.defaultDescription;
+
+    // Pakistani targeting for National Foods products
+    if (isNationalBrand) {
+      title = `${product.name} - Authentic National Foods Pakistan | Ideal Indiska`;
+      description = `Order ${product.name} from National Foods at Ideal Indiska LIVS. Authentic Pakistani taste delivered in Stockholm & Europe. Fast shipping, no customs duty in EU.`;
+    }
+
     const url = `${siteConfig.site_domain}/product/${product.slug}`;
     const images = product.images.map((img) => ({
       url: img.src,

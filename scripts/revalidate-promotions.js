@@ -3,8 +3,10 @@
  * Run: node scripts/revalidate-promotions.js
  */
 
+require('dotenv').config({ path: '.env.local' });
+
 const SITE_URL = 'https://www.ideallivs.com';
-const WEBHOOK_SECRET = 'test-secret-key';
+const WEBHOOK_SECRET = process.env.WORDPRESS_WEBHOOK_SECRET || 'test-secret-key';
 
 async function revalidate() {
     console.log('🔄 Triggering cache revalidation for promotions...\n');

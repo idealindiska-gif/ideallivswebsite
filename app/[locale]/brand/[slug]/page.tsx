@@ -4,6 +4,7 @@ import { getBrandBySlug, getProductBrands } from '@/lib/woocommerce/brands';
 import { getProducts, getProductCategories } from '@/lib/woocommerce';
 import { ArchiveTemplate } from '@/components/templates';
 import { ShopTopBar } from '@/components/shop/shop-top-bar';
+import { ProductCard } from '@/components/shop/product-card';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { decodeHtmlEntities } from '@/lib/utils';
@@ -41,10 +42,16 @@ export async function generateMetadata({ params }: BrandArchivePageProps): Promi
         };
     }
 
-    const title = `${brand.name} | Authentic Products at Ideal Indiska LIVS`;
-    const description = brand.description
+    let title = `${brand.name} | Authentic Products at Ideal Indiska LIVS`;
+    let description = brand.description
         ? brand.description.replace(/\<[^>]*>/g, '').substring(0, 150) + " | Shop authentic products at Ideal Indiska LIVS Stockholm."
         : `Shop all ${brand.name} products at Ideal Indiska LIVS. Your trusted source for authentic Indian and Pakistani groceries in Stockholm. High-quality products from top brands.`;
+
+    // Pakistani targeting for National Foods
+    if (resolvedParams.slug === 'national') {
+        title = `National Foods Pakistan Store Stockholm | Shop Authentic Masalas & Pickles`;
+        description = `Buy authentic National Foods Pakistan products in Stockholm & Europe. Wide range of masalas, pickles, and desserts with NO customs duty in EU. The first choice for Pakistani families in Sweden.`;
+    }
 
     return {
         title,
@@ -184,31 +191,84 @@ export default async function BrandArchivePage({ params, searchParams }: BrandAr
 
     return (
         <div className="min-h-screen bg-background">
-            {/* Products Grid with Filter Bar via ArchiveTemplate */}
-            <ArchiveTemplate
-                title={`${brand.name}`}
-                description={brand.description || `Browse all products from ${brand.name}`}
-                breadcrumbs={[
-                    { label: 'Shop', href: '/shop' },
-                    { label: 'Brands', href: '/brands' },
-                    { label: brand.name }
-                ]}
-                products={paginatedProducts}
-                totalProducts={total}
-                currentPage={page}
-                totalPages={totalPages}
-                basePath={`/brand/${brand.slug}`}
-                gridColumns={5}
-                filterBar={
-                    <Suspense fallback={<Skeleton className="h-16 w-full" />}>
-                        <ShopTopBar
-                            categories={categories}
-                            brands={brandsData}
-                            totalProducts={total}
-                        />
-                    </Suspense>
-                }
-            />
+            {/* Categorized Products for National Foods */}
+            {brand.slug === 'national' ? (
+                <div className="container mx-auto px-4 py-8">
+                    <div className="bg-primary/5 p-8 rounded-3xl border border-primary/10 mb-12 text-center">
+                        <h2 className="text-3xl font-heading font-bold text-primary mb-4">Authentic Pakistani Kitchen Essentials</h2>
+                        <p className="text-muted-foreground max-w-2xl mx-auto">
+                            The choice of Pakistani families in Sweden and Europe. Explore the full range of National Foods, from traditional achars to aromatic biryani masalas.
+                            <strong> Fast EU Shipping | No Customs Duty.</strong>
+                        </p>
+                    </div>
+
+                    {/* Group by category slugs known to National Foods */}
+                    {['pickles-chutneys-pastes', 'curry-masala', 'desserts', 'sauces'].map(catSlug => {
+                        const productsInCategory = brandProducts.filter(p => p.categories.some(c => c.slug === catSlug));
+                        if (productsInCategory.length === 0) return null;
+
+                        const categoryName = productsInCategory[0].categories.find(c => c.slug === catSlug)?.name || catSlug;
+
+                        return (
+                            <section key={catSlug} className="mb-16">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <h3 className="text-2xl font-bold font-heading">{categoryName}</h3>
+                                    <div className="h-px flex-1 bg-border" />
+                                </div>
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                                    {productsInCategory.map(product => (
+                                        <ProductCard key={product.id} product={product} />
+                                    ))}
+                                </div>
+                            </section>
+                        );
+                    })}
+
+                    {/* Other products */}
+                    {(() => {
+                        const otherProducts = brandProducts.filter(p => !p.categories.some(c => ['pickles-chutneys-pastes', 'curry-masala', 'desserts', 'sauces'].includes(c.slug)));
+                        if (otherProducts.length === 0) return null;
+                        return (
+                            <section className="mb-16">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <h3 className="text-2xl font-bold font-heading">More from National</h3>
+                                    <div className="h-px flex-1 bg-border" />
+                                </div>
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                                    {otherProducts.map(product => (
+                                        <ProductCard key={product.id} product={product} />
+                                    ))}
+                                </div>
+                            </section>
+                        );
+                    })()}
+                </div>
+            ) : (
+                <ArchiveTemplate
+                    title={`${brand.name}`}
+                    description={brand.description || `Browse all products from ${brand.name}`}
+                    breadcrumbs={[
+                        { label: 'Shop', href: '/shop' },
+                        { label: 'Brands', href: '/brands' },
+                        { label: brand.name }
+                    ]}
+                    products={paginatedProducts}
+                    totalProducts={total}
+                    currentPage={page}
+                    totalPages={totalPages}
+                    basePath={`/brand/${brand.slug}`}
+                    gridColumns={5}
+                    filterBar={
+                        <Suspense fallback={<Skeleton className="h-16 w-full" />}>
+                            <ShopTopBar
+                                categories={categories}
+                                brands={brandsData}
+                                totalProducts={total}
+                            />
+                        </Suspense>
+                    }
+                />
+            )}
 
             {/* SEO Structured Data */}
             <script

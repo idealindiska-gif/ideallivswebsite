@@ -14,8 +14,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { validateSwedishPostcode, formatSwedishPostcode } from '@/lib/shipping-service';
+import { useCountries } from '@/hooks/use-countries';
 
 export function ShippingCalculator({ className }: { className?: string }) {
+  const { countries } = useCountries();
   const { shippingAddress, setShippingAddress } = useCartStore();
 
   const [postcode, setPostcode] = useState(shippingAddress?.postcode || '');
@@ -89,10 +91,11 @@ export function ShippingCalculator({ className }: { className?: string }) {
                 <SelectValue placeholder="Select country" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="SE">Sweden</SelectItem>
-                <SelectItem value="NO">Norway</SelectItem>
-                <SelectItem value="DK">Denmark</SelectItem>
-                <SelectItem value="FI">Finland</SelectItem>
+                {countries.map((country) => (
+                  <SelectItem key={country.code} value={country.code}>
+                    {country.name}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

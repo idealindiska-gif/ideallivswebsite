@@ -13,6 +13,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { useCountries } from '@/hooks/use-countries';
 
 const billingSchema = z.object({
     first_name: z.string().min(1, 'First name is required'),
@@ -37,6 +38,8 @@ interface BillingFormProps {
 }
 
 export function BillingForm({ onSubmit, defaultValues, className }: BillingFormProps) {
+    const { countries } = useCountries();
+
     const {
         register,
         handleSubmit,
@@ -110,13 +113,11 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
                             <SelectValue placeholder="Select country" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="SE">Sweden</SelectItem>
-                            <SelectItem value="NO">Norway</SelectItem>
-                            <SelectItem value="DK">Denmark</SelectItem>
-                            <SelectItem value="FI">Finland</SelectItem>
-                            <SelectItem value="DE">Germany</SelectItem>
-                            <SelectItem value="GB">United Kingdom</SelectItem>
-                            <SelectItem value="US">United States</SelectItem>
+                            {countries.map((country) => (
+                                <SelectItem key={country.code} value={country.code}>
+                                    {country.name}
+                                </SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                     {errors.country && (

@@ -57,10 +57,16 @@ export async function getWooCommerceSettings() {
         const currencySetting = settings.find((s: any) => s.id === 'woocommerce_currency');
         const currency = currencySetting?.value || 'SEK';
 
+        // Get allowed countries
+        const allowedCountriesType = settings.find((s: any) => s.id === 'woocommerce_allowed_countries')?.value;
+        const specificCountries = settings.find((s: any) => s.id === 'woocommerce_specific_allowed_countries')?.value || [];
+
         return {
             success: true,
             data: {
                 currency,
+                allowedCountriesType,
+                specificCountries,
                 settings,
             },
         };
@@ -70,6 +76,72 @@ export async function getWooCommerceSettings() {
             success: false,
             error: error.message || 'Failed to fetch settings',
         };
+    }
+}
+
+/**
+ * Get all available countries from WooCommerce (all countries data)
+ */
+export async function getAllCountries() {
+    try {
+        const response = await fetch(getWooCommerceUrl('/data/countries'), {
+            headers: {
+                'Authorization': getWooCommerceAuthHeader(),
+            },
+            next: { revalidate: 86400 }, // Cache for 24 hours
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch countries data');
+        }
+
+        const countries = await parseJsonResponse(response);
+        return { success: true, data: countries };
+    } catch (error: any) {
+        console.error('Error fetching countries data:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+/**
+ * Get selling countries (filtered based on WooCommerce settings)
+ */
+export async function getSellingCountriesAction() {
+    try {
+        const settingsResult = await getWooCommerceSettings();
+        if (!settingsResult.success) throw new Error(settingsResult.error);
+
+        const { allowedCountriesType, specificCountries } = settingsResult.data!;
+
+        // Fetch all countries to get names
+        const countriesResult = await getAllCountries();
+        if (!countriesResult.success) throw new Error(countriesResult.error);
+
+        const allCountries = countriesResult.data;
+
+        let filteredCountries = [];
+
+        if (allowedCountriesType === 'specific') {
+            // Only specific countries allowed
+            filteredCountries = allCountries.filter((c: any) => specificCountries.includes(c.code));
+        } else if (allowedCountriesType === 'all_except') {
+            // All except some (specificCountries currently holds the excluded list in this mode usually, 
+            // but setting IDs might differ. For simplicity, we assume 'specific' is what user uses)
+            filteredCountries = allCountries.filter((c: any) => !specificCountries.includes(c.code));
+        } else {
+            // All countries
+            filteredCountries = allCountries;
+        }
+
+        // If no countries filtered (e.g. settings empty), return Sweden as default
+        if (filteredCountries.length === 0) {
+            filteredCountries = allCountries.filter((c: any) => c.code === 'SE');
+        }
+
+        return { success: true, data: filteredCountries };
+    } catch (error: any) {
+        console.error('Error getting selling countries:', error);
+        return { success: false, error: error.message };
     }
 }
 
