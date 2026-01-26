@@ -100,18 +100,14 @@ export function ShopTopBar({ categories, brands = [], totalProducts, className }
 
     // Handle Category Click
     const handleCategoryClick = (slug: string) => {
-        const params = new URLSearchParams(searchParams?.toString() || '');
-        params.set('category', slug);
-        params.delete('page');
-        router.push(`?${params.toString()}`);
+        // Navigate to the dedicated category page instead of filtering with query params
+        router.push(`/product-category/${slug}`);
     };
 
     // Handle Brand Click
     const handleBrandClick = (slug: string) => {
-        const params = new URLSearchParams(searchParams?.toString() || '');
-        params.set('brand', slug);
-        params.delete('page');
-        router.push(`?${params.toString()}`);
+        // Navigate to the dedicated brand page instead of filtering with query params
+        router.push(`/brand/${slug}`);
     };
 
     // Organize Categories
