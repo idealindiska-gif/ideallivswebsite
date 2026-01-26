@@ -78,10 +78,10 @@ export const WC_API_CONFIG = {
   // Cache configuration (in seconds)
   // Optimized for Vercel cost reduction - prices rarely change
   cache: {
-    // Product caching - aggressive since prices rarely change
-    products: 7200, // 2 hours (was 30 min)
-    productDetail: 7200, // 2 hours (was 1 hour)
-    productVariations: 7200, // 2 hours (was 30 min)
+    // Product caching - reduced for faster promotion updates
+    products: 300, // 5 minutes (was 2 hours)
+    productDetail: 300, // 5 minutes (was 2 hours)
+    productVariations: 300, // 5 minutes (was 2 hours)
 
     // Category/Tag caching - very stable data
     categories: 86400, // 24 hours (was 1 hour)
