@@ -119,24 +119,17 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                         <DropdownMenuItem
                             key={country.code}
                             onClick={() => handleCountryChange(country)}
-                            className="cursor-pointer px-3 py-2"
+                            className="cursor-pointer px-3 py-1.5 focus:bg-accent focus:text-accent-foreground"
                         >
-                            <div className="flex items-center justify-between w-full">
-                                <div className="flex items-center gap-2.5">
-                                    <span className="text-lg">{country.flag}</span>
-                                    <div>
-                                        <p className="font-medium text-sm">{country.name}</p>
-                                        <p className="text-[10px] text-muted-foreground">
-                                            {CURRENCIES[country.currency].name}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-xs text-muted-foreground">
+                            <div className="flex items-center w-full gap-2">
+                                <span className="text-base leading-none">{country.flag}</span>
+                                <span className="text-sm font-semibold">{country.code}</span>
+                                <div className="ml-auto flex items-center gap-2">
+                                    <span className="text-xs text-muted-foreground font-medium min-w-[20px] text-right">
                                         {CURRENCIES[country.currency].symbol}
                                     </span>
                                     {selectedCountry.code === country.code && (
-                                        <Check className="h-4 w-4 text-primary" />
+                                        <Check className="h-3.5 w-3.5 text-primary" />
                                     )}
                                 </div>
                             </div>
@@ -153,24 +146,17 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                         <DropdownMenuItem
                             key={country.code}
                             onClick={() => handleCountryChange(country)}
-                            className="cursor-pointer px-3 py-2"
+                            className="cursor-pointer px-3 py-1.5 focus:bg-accent focus:text-accent-foreground"
                         >
-                            <div className="flex items-center justify-between w-full">
-                                <div className="flex items-center gap-2.5">
-                                    <span className="text-lg">{country.flag}</span>
-                                    <div>
-                                        <p className="font-medium text-sm">{country.name}</p>
-                                        <p className="text-[10px] text-muted-foreground">
-                                            {CURRENCIES[country.currency].name}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-xs text-muted-foreground">
+                            <div className="flex items-center w-full gap-2">
+                                <span className="text-base leading-none">{country.flag}</span>
+                                <span className="text-sm font-semibold">{country.code}</span>
+                                <div className="ml-auto flex items-center gap-2">
+                                    <span className="text-xs text-muted-foreground font-medium min-w-[20px] text-right">
                                         {CURRENCIES[country.currency].symbol}
                                     </span>
                                     {selectedCountry.code === country.code && (
-                                        <Check className="h-4 w-4 text-primary" />
+                                        <Check className="h-3.5 w-3.5 text-primary" />
                                     )}
                                 </div>
                             </div>

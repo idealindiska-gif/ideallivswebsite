@@ -24,6 +24,7 @@ interface ShopPageProps {
     featured?: string;
     search?: string;
     brand?: string;
+    sort?: string;
   }>;
 }
 
@@ -38,12 +39,47 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     getProductBrands({ hide_empty: true })
   ]);
 
+  // Determine sort order
+  let orderby = params.orderby || 'popularity';
+  let order = (params.order as 'asc' | 'desc') || 'desc';
+
+  // Map 'sort' param (from Sidebar/Top Charts) to WooCommerce API params
+  // sort=new -> orderby=date, order=desc
+  // sort=bestsellers -> orderby=total_sales, order=desc
+  // sort=trending -> orderby=popularity, order=desc
+  // sort=price_asc -> orderby=price, order=asc
+  // sort=price_desc -> orderby=price, order=desc
+  if (params['sort']) {
+    switch (params['sort']) {
+      case 'new':
+        orderby = 'date';
+        order = 'desc';
+        break;
+      case 'bestsellers':
+        orderby = 'total_sales';
+        order = 'desc';
+        break;
+      case 'trending':
+        orderby = 'popularity';
+        order = 'desc';
+        break;
+      case 'price_asc':
+        orderby = 'price';
+        order = 'asc';
+        break;
+      case 'price_desc':
+        orderby = 'price';
+        order = 'desc';
+        break;
+    }
+  }
+
   // Build query params (without brand filter for API)
   const queryParams: any = {
     page: params.brand ? 1 : page, // Always fetch page 1 if filtering by brand (client-side)
     per_page: params.brand ? 100 : perPage, // Fetch more if brand filtering (client-side)
-    orderby: params.orderby || 'popularity',
-    order: (params.order as 'asc' | 'desc') || 'desc',
+    orderby: orderby,
+    order: order,
   };
 
   // Apply filters (excluding brand since we'll handle it client-side)

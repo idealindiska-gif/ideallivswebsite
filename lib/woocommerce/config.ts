@@ -112,6 +112,16 @@ export const WC_API_CONFIG = {
   },
 } as const;
 
+// Log configuration on load to debug environment issues
+if (process.env.NODE_ENV === 'development') {
+  console.log('🔌 WooCommerce API Config Loaded:');
+  console.log('   Base URL:', process.env.NEXT_PUBLIC_WORDPRESS_URL);
+  console.log('   API Endpoint:', WC_API_CONFIG.baseUrl);
+  console.log('   Consumer Key set:', !!process.env.WORDPRESS_CONSUMER_KEY);
+  console.log('   Consumer Secret set:', !!process.env.WORDPRESS_CONSUMER_KEY);
+}
+
+
 /**
  * Get the full API URL for a given endpoint
  */

@@ -187,8 +187,22 @@ export async function fetchWooCommerceAPI<T>(
       }
 
       // Parse and return JSON
-      const data = await response.json();
-      return data as T;
+      const text = await response.text();
+      let data: T;
+
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.error(`Failed to parse API response from ${url}:`, text.substring(0, 1000));
+        throw new WooCommerceAPIError(
+          500,
+          `Invalid JSON response: ${text.substring(0, 100)}...`,
+          'invalid_json',
+          { url, responseText: text.substring(0, 500) }
+        );
+      }
+
+      return data;
 
     } catch (error) {
       // Re-throw WooCommerceAPIError
@@ -319,10 +333,23 @@ export async function fetchWooCommercePaginated<T>(
       const total = parseInt(response.headers.get('x-wp-total') || '0', 10);
       const totalPages = parseInt(response.headers.get('x-wp-totalpages') || '1', 10);
 
-      const data = await response.json();
+      const text = await response.text();
+      let data: T[];
+
+      try {
+        data = JSON.parse(text) as T[];
+      } catch (e) {
+        console.error(`Failed to parse paginated API response from ${url}:`, text.substring(0, 1000));
+        throw new WooCommerceAPIError(
+          500,
+          `Invalid JSON response (Paginated): ${text.substring(0, 100)}...`,
+          'invalid_json',
+          { url, responseText: text.substring(0, 500) }
+        );
+      }
 
       return {
-        data: data as T[],
+        data,
         total,
         totalPages,
         currentPage: params.page || 1,
