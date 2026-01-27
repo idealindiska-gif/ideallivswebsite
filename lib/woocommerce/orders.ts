@@ -80,6 +80,68 @@ export async function createOrder(orderData: CreateOrderData): Promise<Order> {
 }
 
 /**
+ * Update order status in WooCommerce
+ * Used by Stripe webhook to update order after payment confirmation
+ */
+export async function updateOrderStatus(
+    orderId: number,
+    status: 'pending' | 'processing' | 'on-hold' | 'completed' | 'cancelled' | 'refunded' | 'failed',
+    additionalData?: {
+        set_paid?: boolean;
+        transaction_id?: string;
+    }
+): Promise<Order> {
+    const updateData: any = { status };
+
+    if (additionalData?.set_paid) {
+        updateData.set_paid = true;
+    }
+    if (additionalData?.transaction_id) {
+        updateData.transaction_id = additionalData.transaction_id;
+    }
+
+    const response = await fetch(getWooCommerceUrl(`/orders/${orderId}`), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': getWooCommerceAuthHeader(),
+        },
+        body: JSON.stringify(updateData),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to update order status');
+    }
+
+    return parseJsonResponse(response);
+}
+
+/**
+ * Add a note to an order (visible in WooCommerce admin)
+ */
+export async function addOrderNote(orderId: number, note: string, customerNote: boolean = false): Promise<any> {
+    const response = await fetch(getWooCommerceUrl(`/orders/${orderId}/notes`), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': getWooCommerceAuthHeader(),
+        },
+        body: JSON.stringify({
+            note,
+            customer_note: customerNote,
+        }),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to add order note');
+    }
+
+    return parseJsonResponse(response);
+}
+
+/**
  * Get order by ID
  */
 export async function getOrder(orderId: number): Promise<Order> {

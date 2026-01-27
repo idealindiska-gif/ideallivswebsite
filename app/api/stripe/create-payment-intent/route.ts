@@ -13,7 +13,8 @@ export async function POST(request: NextRequest) {
       customerName,
       billingAddress,
       shippingAddress,
-      metadata
+      metadata,
+      wcOrderId, // WooCommerce order ID to link payment
     } = await request.json();
 
     // Validate inputs
@@ -45,13 +46,18 @@ export async function POST(request: NextRequest) {
       },
 
       receipt_email: customerEmail || undefined,
-      description: `Order from ${customerName || customerEmail || 'Customer'}`,
+      description: wcOrderId
+        ? `Order #${wcOrderId} from ${customerName || customerEmail || 'Customer'}`
+        : `Order from ${customerName || customerEmail || 'Customer'}`,
 
       metadata: {
         integration: 'headless-woocommerce',
         source: 'nextjs-frontend',
         customer_name: customerName || '',
         customer_email: customerEmail || '',
+        // CRITICAL: This links the PaymentIntent to the WooCommerce order
+        // The webhook uses this to update the correct order on payment success/failure
+        wc_order_id: wcOrderId?.toString() || '',
         ...metadata,
       },
     };

@@ -172,10 +172,11 @@ export default function CheckoutPage() {
     setCurrentStep('shipping-payment');
   };
 
-  // Handler for successful Stripe payment - creates WooCommerce order
+  // Handler for successful Stripe payment - order is already created, just redirect
+  // The Stripe webhook will handle updating the order status to 'processing'
   const handleStripeSuccess = async (paymentIntentId: string) => {
-    if (!shippingData || !billingData || !shippingMethod) {
-      setError('Missing order information');
+    if (!pendingOrderId) {
+      setError('Order information not found');
       return;
     }
 
@@ -184,60 +185,23 @@ export default function CheckoutPage() {
 
     try {
       if (process.env.NODE_ENV === 'development') {
-        console.log('✅ Payment successful! Creating WooCommerce order...');
+        console.log(`✅ Payment successful for order #${pendingOrderId}!`);
+        console.log('🎯 Webhook will update order status to processing');
       }
 
-      // Build customer note
-      let customerNote = orderNotes || '';
-
-      // Only pass customer_id if it's a real WooCommerce customer (not a temporary profile)
-      // Temporary profiles have _meta.is_temporary = true (created when WC fetch fails)
-      const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
-
-      // Create WooCommerce order with payment details
-      const result = await createOrderAction({
-        customer_id: isRealCustomer ? user.id : undefined, // Only link if real WC customer
-        billing: billingData,
-        shipping: shippingData,
-        line_items: items.map((item) => ({
-          product_id: item.productId,
-          variation_id: item.variationId,
-          quantity: item.quantity,
-          tax_class: item.variation?.tax_class || item.product.tax_class, // Include tax class for Swedish rates (25% standard, 12% reduced)
-        })),
-        shipping_lines: [
-          {
-            method_id: shippingMethod.method_id,
-            method_title: shippingMethod.label,
-            total: shippingCost.toString(),
-          },
-        ],
-        payment_method: paymentMethod,
-        payment_method_title: getPaymentMethodTitle(paymentMethod),
-        customer_note: customerNote || undefined,
-        coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
-        set_paid: true, // Mark as paid since Stripe payment succeeded
-        transaction_id: paymentIntentId, // Store Stripe PaymentIntent ID
-      });
-
-      if (!result.success || !result.data) {
-        throw new Error(result.error || 'Failed to create order');
-      }
-
-      if (process.env.NODE_ENV === 'development') {
-        console.log('✅ WooCommerce order created:', result.data.id);
-      }
-
-      // Clear cart and redirect to success page
+      // Clear sessionStorage and cart
+      sessionStorage.removeItem('pendingCheckoutData');
       clearCart();
-      router.push(`/checkout/success?order=${result.data.id}&payment_intent=${paymentIntentId}`);
+
+      // Redirect to success page
+      // The order is already created and webhook will update status
+      router.push(`/checkout/success?order=${pendingOrderId}&payment_intent=${paymentIntentId}`);
     } catch (err) {
-      console.error('Order creation after payment failed:', err);
-      setError(
-        'Payment succeeded but order creation failed. Please contact support with payment ID: ' +
-        paymentIntentId
-      );
-      setIsProcessing(false);
+      console.error('Redirect after payment failed:', err);
+      // Still show success since payment went through
+      // Webhook will update order status
+      clearCart();
+      router.push(`/checkout/success?order=${pendingOrderId}&payment_intent=${paymentIntentId}`);
     }
   };
 
@@ -292,16 +256,57 @@ export default function CheckoutPage() {
         return;
       }
 
-      // For Stripe payments, create PaymentIntent FIRST (before WooCommerce order)
+      // For Stripe payments, create WooCommerce order FIRST (with pending status)
+      // Then create PaymentIntent with order ID in metadata
+      // This ensures orders are never lost - webhook updates order on payment success/failure
       if (isStripe) {
         try {
           const totalAmount = getTotalPrice() + shippingCost - calculateDiscount();
 
           if (process.env.NODE_ENV === 'development') {
+            console.log('📦 Creating WooCommerce order with pending status...');
+          }
+
+          // Only pass customer_id if it's a real WooCommerce customer
+          const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
+
+          // STEP 1: Create WooCommerce order first with pending status
+          const orderResult = await createOrderAction({
+            customer_id: isRealCustomer ? user.id : undefined,
+            billing: billingData,
+            shipping: shippingData,
+            line_items: items.map((item) => ({
+              product_id: item.productId,
+              variation_id: item.variationId,
+              quantity: item.quantity,
+              tax_class: item.variation?.tax_class || item.product.tax_class,
+            })),
+            shipping_lines: [
+              {
+                method_id: shippingMethod.method_id,
+                method_title: shippingMethod.label,
+                total: shippingCost.toString(),
+              },
+            ],
+            payment_method: paymentMethod,
+            payment_method_title: getPaymentMethodTitle(paymentMethod),
+            customer_note: orderNotes || undefined,
+            coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
+            set_paid: false, // Order starts as pending payment
+          });
+
+          if (!orderResult.success || !orderResult.data) {
+            throw new Error(orderResult.error || 'Failed to create order');
+          }
+
+          const wcOrderId = orderResult.data.id;
+
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`✅ WooCommerce order #${wcOrderId} created with pending status`);
             console.log('💳 Creating Stripe PaymentIntent...');
           }
 
-          // Create PaymentIntent via Next.js API route
+          // STEP 2: Create PaymentIntent with WooCommerce order ID in metadata
           const response = await fetch('/api/stripe/create-payment-intent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -310,6 +315,7 @@ export default function CheckoutPage() {
               currency: 'sek',
               customerEmail: billingData.email,
               customerName: `${billingData.first_name} ${billingData.last_name}`,
+              wcOrderId: wcOrderId, // CRITICAL: Links payment to order for webhook
               billingAddress: {
                 line1: billingData.address_1,
                 line2: billingData.address_2,
@@ -331,7 +337,6 @@ export default function CheckoutPage() {
                 customer_name: `${billingData.first_name} ${billingData.last_name}`,
                 customer_email: billingData.email,
                 item_count: items.length.toString(),
-                // Note: Full items stored in sessionStorage for order creation
               },
             }),
           });
@@ -347,9 +352,10 @@ export default function CheckoutPage() {
             throw new Error('Failed to get payment client secret');
           }
 
-          // Store checkout data in sessionStorage for redirect-based payments (Klarna, etc.)
-          // This data will be retrieved on the stripe-return page to create the WooCommerce order
+          // Store checkout data including the WooCommerce order ID
+          // This is used by stripe-return page for redirect-based payments (Klarna, etc.)
           const checkoutData = {
+            wcOrderId: wcOrderId, // Include order ID for reference
             billing: billingData,
             shipping: shippingData,
             shippingMethod: {
@@ -362,7 +368,7 @@ export default function CheckoutPage() {
               product_id: item.productId,
               variation_id: item.variationId,
               quantity: item.quantity,
-              tax_class: item.variation?.tax_class || item.product.tax_class, // Include tax class for Swedish rates (25% standard, 12% reduced)
+              tax_class: item.variation?.tax_class || item.product.tax_class,
             })),
             orderNotes: orderNotes,
             coupon: coupon ? { code: coupon.code } : null,
@@ -370,22 +376,24 @@ export default function CheckoutPage() {
           };
           sessionStorage.setItem('pendingCheckoutData', JSON.stringify(checkoutData));
 
-          // Store paymentIntentId for later order creation
-          setPendingOrderId(0); // Temporary flag to indicate we're in Stripe flow
+          // Store order ID for UI reference
+          setPendingOrderId(wcOrderId);
           setStripeClientSecret(clientSecret);
           setIsProcessing(false);
 
           if (process.env.NODE_ENV === 'development') {
-            console.log('✅ Stripe PaymentIntent created:', paymentIntentId);
+            console.log(`✅ Stripe PaymentIntent created: ${paymentIntentId}`);
+            console.log(`🔗 Linked to WooCommerce order #${wcOrderId}`);
             console.log('📦 Checkout data saved to sessionStorage for redirect recovery');
+            console.log('🎯 Webhook will update order status on payment success/failure');
           }
 
           // The Stripe payment form will now be shown
-          // Order will be created in handleStripeSuccess after payment succeeds
+          // Webhook handles order status update after payment
           return;
 
         } catch (stripeError) {
-          console.error('Stripe initialization failed:', stripeError);
+          console.error('Order/Stripe initialization failed:', stripeError);
           setError(
             stripeError instanceof Error
               ? stripeError.message
