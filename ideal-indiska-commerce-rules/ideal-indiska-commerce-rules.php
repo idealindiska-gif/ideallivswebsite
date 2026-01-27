@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Ideal Indiska – Commerce Rules
- * Description: Quantity limits, bulk pricing, and conditional shipping rules.
- * Version: 1.1.0
+ * Description: Quantity limits, bulk pricing, conditional shipping rules, and headless optimizations.
+ * Version: 1.2.0
  * Author: Ideal Indiska
  */
 
@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 define( 'IDEAL_ENABLE_QTY_LIMITS', true );
 define( 'IDEAL_ENABLE_BULK_PRICING', true );
 define( 'IDEAL_ENABLE_SHIPPING_RULES', true );
+define( 'IDEAL_ENABLE_HEADLESS_OPTIMIZATIONS', true ); // Disable unnecessary WP scheduled tasks for headless
 
 
 /* ============================================================
@@ -204,4 +205,71 @@ If you believe you’re in the wrong zone, please contact us via the chat button
         return $rates;
 
     }, 100, 2 );
+}
+
+
+/* ============================================================
+   4️⃣ HEADLESS OPTIMIZATIONS
+   Disables unnecessary WordPress scheduled tasks for headless setup
+   (Next.js frontend handles Stripe directly, WP doesn't need to cache)
+============================================================ */
+if ( IDEAL_ENABLE_HEADLESS_OPTIMIZATIONS ) {
+
+    /**
+     * Disable Stripe scheduled cache sync
+     * These actions pile up because the headless frontend handles Stripe directly
+     */
+    add_filter( 'woocommerce_stripe_should_schedule_cache_refresh', '__return_false' );
+    
+    /**
+     * Prevent Stripe from scheduling database cache prefetch
+     */
+    add_filter( 'wc_stripe_schedule_database_cache', '__return_false' );
+    
+    /**
+     * Clean up existing pending Stripe actions on admin init
+     * Runs once per admin session to clear accumulated actions
+     */
+    add_action( 'admin_init', function() {
+        // Only run cleanup once per day (use transient to throttle)
+        $cleanup_key = 'ideal_stripe_actions_cleanup';
+        if ( get_transient( $cleanup_key ) ) {
+            return;
+        }
+        
+        // Check if Action Scheduler is available
+        if ( ! function_exists( 'as_unschedule_all_actions' ) ) {
+            return;
+        }
+        
+        // Unschedule all pending Stripe cache prefetch actions
+        $hooks_to_clear = [
+            'wc_stripe_database_cache_prefetch_a_sync',
+            'wc_stripe_update_payment_method_config',
+        ];
+        
+        foreach ( $hooks_to_clear as $hook ) {
+            as_unschedule_all_actions( $hook );
+        }
+        
+        // Set transient to prevent running again for 24 hours
+        set_transient( $cleanup_key, true, DAY_IN_SECONDS );
+        
+        // Log cleanup (only in debug mode)
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( '[Ideal Commerce Rules] Cleaned up Stripe scheduled actions for headless optimization' );
+        }
+    }, 5 );
+    
+    /**
+     * Immediate cleanup on plugin activation
+     */
+    register_activation_hook( __FILE__, function() {
+        if ( function_exists( 'as_unschedule_all_actions' ) ) {
+            as_unschedule_all_actions( 'wc_stripe_database_cache_prefetch_a_sync' );
+            as_unschedule_all_actions( 'wc_stripe_update_payment_method_config' );
+        }
+        // Clear the throttle transient so cleanup runs on next admin visit
+        delete_transient( 'ideal_stripe_actions_cleanup' );
+    });
 }
