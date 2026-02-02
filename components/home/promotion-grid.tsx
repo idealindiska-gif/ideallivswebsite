@@ -64,17 +64,29 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                         <div className="absolute bottom-0 left-0 w-16 h-16 sm:w-24 sm:h-24 bg-amber-200/30 rounded-full blur-2xl"></div>
                     </div>
 
-                    {/* Card 2: Sona Masoori Special Promotion */}
-                    <Link href="/product/ig-sona-masoori-rice-5kg-new-pack" className="group">
-                        <div className="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-lg transition-all aspect-square border border-gray-100">
+                    {/* Card 2: Annam Peanut Oil Special Promotion */}
+                    <Link href="/product/annam-peanut-oil-1-liter" className="group">
+                        <div className="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-lg transition-all aspect-square border border-gray-100 bg-white">
+                            <div className="absolute top-3 right-3 z-10">
+                                <span className="px-3 py-1 bg-rose-600 text-white text-xs font-black uppercase rounded-full shadow-md">
+                                    Save 16 kr
+                                </span>
+                            </div>
                             <Image
-                                src="https://crm.ideallivs.com/wp-content/uploads/2025/05/sona-masoori-speical-promotion-price-web.jpg"
-                                alt="India Gate Sona Masoori Rice 5kg - Special Promotion"
+                                src="https://crm.ideallivs.com/wp-content/uploads/2025/12/annam-peanut-oil-e1765817632858.png"
+                                alt="Annam Peanut Oil 1 Liter - Special Promotion"
                                 fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="object-contain p-8 group-hover:scale-110 transition-transform duration-500"
                                 sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
                                 priority
                             />
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 sm:p-5 flex flex-col justify-end min-h-[40%]">
+                                <h3 className="text-white font-bold text-base sm:text-lg leading-tight mb-1">Annam Peanut Oil</h3>
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-yellow-400 text-2xl sm:text-3xl font-black">69 kr</span>
+                                    <span className="text-gray-300 text-sm line-through decoration-rose-500">85 kr</span>
+                                </div>
+                            </div>
                         </div>
                     </Link>
 
