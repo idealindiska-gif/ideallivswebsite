@@ -65,28 +65,16 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                     </div>
 
                     {/* Card 2: India Gate Idli Rice Special Promotion */}
-                    <Link href="/product/india-gate-idli-rice" className="group">
+                    <Link href="/product/ig-idli-rice-5-kg" className="group">
                         <div className="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-lg transition-all aspect-square border border-gray-100 bg-white">
-                            <div className="absolute top-3 right-3 z-10">
-                                <span className="px-3 py-1 bg-rose-600 text-white text-xs font-black uppercase rounded-full shadow-md">
-                                    Save 30 kr
-                                </span>
-                            </div>
                             <Image
                                 src="https://crm.ideallivs.com/wp-content/uploads/2026/02/india-gate-idly-rice-offer.png"
                                 alt="India Gate Idli Rice - Special Promotion"
                                 fill
-                                className="object-contain p-8 group-hover:scale-110 transition-transform duration-500"
+                                className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                                 sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
                                 priority
                             />
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 sm:p-5 flex flex-col justify-end min-h-[40%]">
-                                <h3 className="text-white font-bold text-base sm:text-lg leading-tight mb-1">India Gate Idli Rice</h3>
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-yellow-400 text-2xl sm:text-3xl font-black">169 kr</span>
-                                    <span className="text-gray-300 text-sm line-through decoration-rose-500">199 kr</span>
-                                </div>
-                            </div>
                         </div>
                     </Link>
 
