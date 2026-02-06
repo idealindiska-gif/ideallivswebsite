@@ -25,7 +25,7 @@ export function ContentHeader() {
   return (
     <header className="sticky top-0 lg:top-[10px] z-30 w-full bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
       {/* Desktop Header */}
-      <div className="hidden lg:flex items-center justify-between px-6 h-14 gap-4 bg-white/70 backdrop-blur-md">
+      <div className="hidden lg:flex items-center justify-between px-6 h-14 gap-4 bg-background/70 backdrop-blur-md">
 
         {/* Search Bar - Center - Dominant */}
         <div className="flex-1 max-w-2xl mx-auto w-full">
@@ -35,7 +35,7 @@ export function ContentHeader() {
               placeholder="Search for fresh produce, groceries, and more..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-6 pr-14 py-2 text-sm border border-border rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-white/80 hover:bg-white transition-all font-medium placeholder:text-muted-foreground/70"
+              className="w-full pl-6 pr-14 py-2 text-sm border border-border rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-card/80 hover:bg-card transition-all font-medium placeholder:text-muted-foreground/70"
             />
             <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-primary rounded-md text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm">
               <Search className="h-5 w-5" />

@@ -100,7 +100,7 @@ export function SearchModal() {
             <div className="w-full flex justify-center">
                 <Button
                     variant="outline"
-                    className="relative h-10 w-full max-w-md justify-start text-sm text-muted-foreground sm:pr-12 bg-background border border-border hover:bg-muted hover:border-primary/30 transition-all duration-300 rounded-full shadow-sm"
+                    className="relative h-10 w-full max-w-md justify-start text-sm text-muted-foreground sm:pr-12 bg-card border border-border hover:bg-muted hover:border-primary/30 transition-all duration-300 rounded-full shadow-sm"
                     onClick={() => setIsOpen(true)}
                 >
                     <Search className="mr-2 h-4 w-4 text-primary" />

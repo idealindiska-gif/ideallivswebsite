@@ -1,0 +1,454 @@
+/**
+ * Theme Variables CSS
+ *
+ * Generated from Fresh Grocery theme config.
+ * Forest green + vibrant red for fresh grocery aesthetic.
+ *
+ * To regenerate: npm run theme:generate
+ */
+
+:root {
+   /* Primary Colors - Forest Green */
+   --primary: 142 64% 24%;
+   --primary-foreground: 210 40% 98%;
+   --primary-50: 138 76% 97%;
+   --primary-100: 141 84% 93%;
+   --primary-200: 141 79% 85%;
+   --primary-300: 142 77% 73%;
+   --primary-400: 142 69% 58%;
+   --primary-500: 142 64% 24%;
+   --primary-600: 142 76% 36%;
+   --primary-700: 142 64% 24%;
+   --primary-800: 143 64% 20%;
+   --primary-900: 144 61% 15%;
+   --primary-950: 145 80% 8%;
+
+   /* Secondary Colors - Vibrant Red */
+   --secondary: 0 84% 60%;
+   --secondary-foreground: 210 40% 98%;
+   --secondary-50: 0 86% 97%;
+   --secondary-100: 0 93% 94%;
+   --secondary-200: 0 96% 89%;
+   --secondary-300: 0 94% 82%;
+   --secondary-400: 0 91% 71%;
+   --secondary-500: 0 84% 60%;
+   --secondary-600: 0 72% 51%;
+   --secondary-700: 0 74% 42%;
+   --secondary-800: 0 70% 35%;
+   --secondary-900: 0 63% 31%;
+   --secondary-950: 0 75% 15%;
+
+   /* Neutral Colors - Slate */
+   --neutral-50: 210 40% 98%;
+   --neutral-100: 210 40% 96%;
+   --neutral-200: 214 32% 91%;
+   --neutral-300: 213 27% 84%;
+   --neutral-400: 215 20% 65%;
+   --neutral-500: 215 16% 47%;
+   --neutral-600: 215 19% 35%;
+   --neutral-700: 215 25% 27%;
+   --neutral-800: 217 33% 17%;
+   --neutral-900: 222 47% 11%;
+   --neutral-950: 229 84% 5%;
+
+   /* Semantic Colors */
+   --success: 160 84% 39%;
+   --warning: 38 92% 50%;
+   --error: 0 84% 60%;
+   --destructive: 0 84% 60%;
+   --destructive-foreground: 210 40% 98%;
+   --info: 217 91% 60%;
+
+   /* Background & Foreground - Light Mint Green */
+   --background: 127 50% 97%;
+   --foreground: 222 47% 11%;
+
+   /* Muted */
+   --muted: 210 40% 96%;
+   --muted-foreground: 215 16% 47%;
+
+   /* UI Elements */
+   --border: 214 32% 91%;
+   --input: 214 32% 91%;
+   --ring: 142 64% 24%;
+
+   /* Card - Soft Mint Green */
+   --card: 130 52% 93%;
+   --card-foreground: 222 47% 11%;
+
+   /* Popover */
+   --popover: 0 0% 100%;
+   --popover-foreground: 18 14% 11%;
+
+   /* Accent */
+   --accent: 40 18% 96%;
+   --accent-foreground: 18 14% 11%;
+
+   /* Border Radius */
+   --radius: 0.5rem;
+   --radius-sm: 0.25rem;
+   --radius-md: 0.375rem;
+   --radius-lg: 0.5rem;
+   --radius-xl: 0.75rem;
+   --radius-2xl: 1rem;
+   --radius-full: 9999px;
+
+   /* Shadows */
+   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+   /* Transitions */
+   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+   /* =============================================
+     FLUID SPACING SYSTEM
+     Base: 4px (0.25rem)
+     Range: 320px (20rem) to 1440px (90rem)
+     ============================================= */
+
+   /* Base spacing scale (static) */
+   --space-0: 0;
+   --space-px: 1px;
+   --space-0-5: 0.125rem;
+   /* 2px */
+   --space-1: 0.25rem;
+   /* 4px */
+   --space-1-5: 0.375rem;
+   /* 6px */
+   --space-2: 0.5rem;
+   /* 8px */
+   --space-2-5: 0.625rem;
+   /* 10px */
+   --space-3: 0.75rem;
+   /* 12px */
+   --space-3-5: 0.875rem;
+   /* 14px */
+   --space-4: 1rem;
+   /* 16px */
+   --space-5: 1.25rem;
+   /* 20px */
+   --space-6: 1.5rem;
+   /* 24px */
+   --space-7: 1.75rem;
+   /* 28px */
+   --space-8: 2rem;
+   /* 32px */
+   --space-9: 2.25rem;
+   /* 36px */
+   --space-10: 2.5rem;
+   /* 40px */
+   --space-11: 2.75rem;
+   /* 44px */
+   --space-12: 3rem;
+   /* 48px */
+   --space-14: 3.5rem;
+   /* 56px */
+   --space-16: 4rem;
+   /* 64px */
+   --space-20: 5rem;
+   /* 80px */
+   --space-24: 6rem;
+   /* 96px */
+   --space-28: 7rem;
+   /* 112px */
+   --space-32: 8rem;
+   /* 128px */
+
+   /* =============================================
+     FLUID LAYOUT SPACING
+     Responsive spacing that scales with viewport
+     ============================================= */
+
+   /* Container */
+   --container-max-width: 1440px;
+   --container-padding: clamp(1rem, 0.5rem + 2vw, 3rem);
+
+   /* Page - Top level page padding */
+   --page-padding-x: clamp(1rem, 0.5rem + 2vw, 3rem);
+   --page-padding-y: clamp(1.5rem, 1rem + 2vw, 3rem);
+
+   /* Section - Major page sections */
+   --section-padding-y: clamp(2.5rem, 2rem + 2.5vw, 5rem);
+   --section-padding-x: clamp(1rem, 0.5rem + 2vw, 3rem);
+   --section-gap: clamp(2rem, 1.5rem + 2vw, 4rem);
+
+   /* Section variants */
+   --section-padding-y-sm: clamp(1.5rem, 1rem + 1.5vw, 3rem);
+   --section-padding-y-lg: clamp(3rem, 2.5rem + 3vw, 6rem);
+
+   /* Content - Within sections */
+   --content-padding: clamp(1rem, 0.75rem + 1vw, 2rem);
+   --content-gap: clamp(1.5rem, 1rem + 1.5vw, 3rem);
+
+   /* Card spacing */
+   --card-padding: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+   --card-padding-sm: clamp(0.75rem, 0.5rem + 0.75vw, 1rem);
+   --card-padding-lg: clamp(1.25rem, 1rem + 1vw, 2rem);
+   --card-gap: clamp(0.75rem, 0.5rem + 0.5vw, 1rem);
+
+   /* Grid gaps */
+   --grid-gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+   --grid-gap-sm: clamp(0.75rem, 0.5rem + 0.5vw, 1rem);
+   --grid-gap-lg: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+
+   /* Stack spacing (vertical rhythm) */
+   --stack-gap: clamp(1rem, 0.75rem + 0.75vw, 1.5rem);
+   --stack-gap-sm: clamp(0.5rem, 0.375rem + 0.375vw, 0.75rem);
+   --stack-gap-lg: clamp(1.5rem, 1.25rem + 1vw, 2.5rem);
+
+   /* Inline spacing (horizontal) */
+   --inline-gap: clamp(0.5rem, 0.375rem + 0.375vw, 0.75rem);
+   --inline-gap-sm: clamp(0.25rem, 0.2rem + 0.2vw, 0.5rem);
+   --inline-gap-lg: clamp(0.75rem, 0.5rem + 0.5vw, 1rem);
+
+   /* Header/Footer spacing */
+   --header-height: clamp(3.5rem, 3rem + 1.5vw, 5rem);
+   --header-padding-x: clamp(1rem, 0.5rem + 2vw, 3rem);
+   --footer-padding-y: clamp(2rem, 1.5rem + 2vw, 4rem);
+
+   /* Sidebar */
+   --sidebar-width: 16rem;
+   /* 256px - fixed for consistency */
+   --sidebar-padding: clamp(1rem, 0.75rem + 0.75vw, 1.5rem);
+
+   /* Form elements */
+   --input-padding-x: clamp(0.75rem, 0.625rem + 0.375vw, 1rem);
+   --input-padding-y: clamp(0.5rem, 0.4rem + 0.25vw, 0.75rem);
+   --input-gap: clamp(0.5rem, 0.375rem + 0.375vw, 0.75rem);
+
+   /* Button spacing */
+   --button-padding-x: clamp(1rem, 0.875rem + 0.5vw, 1.5rem);
+   --button-padding-y: clamp(0.5rem, 0.4rem + 0.25vw, 0.75rem);
+   --button-padding-x-sm: clamp(0.75rem, 0.625rem + 0.375vw, 1rem);
+   --button-padding-y-sm: clamp(0.375rem, 0.3rem + 0.2vw, 0.5rem);
+   --button-padding-x-lg: clamp(1.5rem, 1.25rem + 0.75vw, 2rem);
+   --button-padding-y-lg: clamp(0.75rem, 0.625rem + 0.375vw, 1rem);
+   --button-gap: clamp(0.375rem, 0.3rem + 0.2vw, 0.5rem);
+
+   /* Badge/Tag spacing */
+   --badge-padding-x: clamp(0.5rem, 0.4rem + 0.25vw, 0.75rem);
+   --badge-padding-y: clamp(0.125rem, 0.1rem + 0.1vw, 0.25rem);
+
+   /* Modal/Dialog */
+   --modal-padding: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+   --modal-gap: clamp(1rem, 0.75rem + 0.75vw, 1.5rem);
+
+   /* Product grid specific */
+   --product-card-gap: clamp(0.75rem, 0.5rem + 0.75vw, 1.25rem);
+   --product-image-gap: clamp(0.5rem, 0.375rem + 0.375vw, 0.75rem);
+
+   /* Navigation */
+   --nav-item-padding-x: clamp(0.75rem, 0.5rem + 0.5vw, 1rem);
+   --nav-item-padding-y: clamp(0.5rem, 0.375rem + 0.375vw, 0.75rem);
+   --nav-gap: clamp(0.25rem, 0.2rem + 0.15vw, 0.5rem);
+
+   /* Icon spacing */
+   --icon-gap: clamp(0.375rem, 0.3rem + 0.2vw, 0.5rem);
+   --icon-size-sm: 1rem;
+   /* 16px */
+   --icon-size: 1.25rem;
+   /* 20px */
+   --icon-size-lg: 1.5rem;
+   /* 24px */
+   --icon-size-xl: 2rem;
+   /* 32px */
+
+   /* Divider spacing */
+   --divider-margin: clamp(1rem, 0.75rem + 0.75vw, 1.5rem);
+
+   /* =============================================
+     CONTAINER WIDTHS
+     Standardized content width constraints
+     ============================================= */
+
+   /* Container variants for page layouts */
+   --container-prose: 65ch;
+   /* Text-heavy content, forms */
+   --container-compact: 58rem;
+   /* 928px - Checkout, cart */
+   --container-standard: 75rem;
+   /* 1200px - Default for most pages */
+   --container-wide: 87.5rem;
+   /* 1400px - Product grids, archives */
+   --container-full: 100%;
+   /* Full width */
+
+   /* Legacy max-width scale (for fine-tuned control) */
+   --max-width-xs: 20rem;
+   /* 320px */
+   --max-width-sm: 24rem;
+   /* 384px */
+   --max-width-md: 28rem;
+   /* 448px */
+   --max-width-lg: 32rem;
+   /* 512px */
+   --max-width-xl: 36rem;
+   /* 576px */
+   --max-width-2xl: 42rem;
+   /* 672px */
+   --max-width-3xl: 48rem;
+   /* 768px */
+   --max-width-4xl: 56rem;
+   /* 896px */
+   --max-width-5xl: 64rem;
+   /* 1024px */
+   --max-width-6xl: 72rem;
+   /* 1152px */
+   --max-width-7xl: 80rem;
+   /* 1280px */
+   --max-width-prose: 65ch;
+   /* Optimal reading width */
+
+   /* =============================================
+     FLUID TYPOGRAPHY SYSTEM
+     Scale: Major Third (1.25)
+     Range: 320px (20rem) to 1440px (90rem)
+     ============================================= */
+
+   /* Display - Hero headlines */
+   --font-size-display: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+   --line-height-display: 1.1;
+   --letter-spacing-display: -0.03em;
+   --font-weight-display: 800;
+
+   /* H1 - Page titles */
+   --font-size-h1: clamp(2rem, 1.6rem + 2vw, 3rem);
+   --line-height-h1: 1.15;
+   --letter-spacing-h1: -0.025em;
+   --font-weight-h1: 700;
+
+   /* H2 - Section titles */
+   --font-size-h2: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
+   --line-height-h2: 1.2;
+   --letter-spacing-h2: -0.02em;
+   --font-weight-h2: 700;
+
+   /* H3 - Subsection titles */
+   --font-size-h3: clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem);
+   --line-height-h3: 1.25;
+   --letter-spacing-h3: -0.015em;
+   --font-weight-h3: 600;
+
+   /* H4 - Card titles, minor headings */
+   --font-size-h4: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+   --line-height-h4: 1.3;
+   --letter-spacing-h4: -0.01em;
+   --font-weight-h4: 600;
+
+   /* H5 - Small headings */
+   --font-size-h5: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+   --line-height-h5: 1.4;
+   --letter-spacing-h5: 0;
+   --font-weight-h5: 600;
+
+   /* H6 - Smallest headings */
+   --font-size-h6: clamp(0.875rem, 0.85rem + 0.125vw, 1rem);
+   --line-height-h6: 1.4;
+   --letter-spacing-h6: 0.01em;
+   --font-weight-h6: 600;
+
+   /* Body Large - Lead paragraphs, important text */
+   --font-size-body-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+   --line-height-body-lg: 1.6;
+   --letter-spacing-body-lg: 0;
+   --font-weight-body-lg: 400;
+
+   /* Body - Default text */
+   --font-size-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+   --line-height-body: 1.65;
+   --letter-spacing-body: 0.01em;
+   --font-weight-body: 400;
+
+   /* Body Small - Secondary text, descriptions */
+   --font-size-body-sm: clamp(0.875rem, 0.85rem + 0.125vw, 0.9375rem);
+   --line-height-body-sm: 1.6;
+   --letter-spacing-body-sm: 0.015em;
+   --font-weight-body-sm: 400;
+
+   /* Caption - Labels, metadata, helper text */
+   --font-size-caption: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+   --line-height-caption: 1.5;
+   --letter-spacing-caption: 0.02em;
+   --font-weight-caption: 400;
+
+   /* Caption Small - Fine print, timestamps */
+   --font-size-caption-sm: clamp(0.75rem, 0.73rem + 0.1vw, 0.8125rem);
+   --line-height-caption-sm: 1.5;
+   --letter-spacing-caption-sm: 0.025em;
+   --font-weight-caption-sm: 400;
+
+   /* Overline - Labels, categories, tags */
+   --font-size-overline: clamp(0.6875rem, 0.67rem + 0.1vw, 0.75rem);
+   --line-height-overline: 1.5;
+   --letter-spacing-overline: 0.1em;
+   --font-weight-overline: 600;
+
+   /* Button text */
+   --font-size-button: clamp(0.875rem, 0.85rem + 0.125vw, 0.9375rem);
+   --line-height-button: 1.25;
+   --letter-spacing-button: 0.02em;
+   --font-weight-button: 500;
+
+   /* Button Small */
+   --font-size-button-sm: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+   --line-height-button-sm: 1.25;
+   --letter-spacing-button-sm: 0.025em;
+   --font-weight-button-sm: 500;
+
+   /* Price - Product prices */
+   --font-size-price: clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem);
+   --line-height-price: 1.2;
+   --letter-spacing-price: -0.01em;
+   --font-weight-price: 700;
+
+   /* Price Small - Inline prices, was-price */
+   --font-size-price-sm: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+   --line-height-price-sm: 1.25;
+   --letter-spacing-price-sm: 0;
+   --font-weight-price-sm: 600;
+}
+
+/* Dark Mode Overrides */
+.dark {
+   /* Background & Foreground */
+   --background: 229 84% 5%;
+   --foreground: 210 40% 98%;
+
+   /* Card */
+   --card: 222 47% 11%;
+   --card-foreground: 210 40% 98%;
+
+   /* Popover */
+   --popover: 222 47% 11%;
+   --popover-foreground: 210 40% 98%;
+
+   /* Primary - Brighter green for dark mode */
+   --primary: 142 69% 58%;
+   --primary-foreground: 222 47% 11%;
+
+   /* Secondary */
+   --secondary: 0 63% 31%;
+   --secondary-foreground: 210 40% 98%;
+
+   /* Muted */
+   --muted: 217 33% 17%;
+   --muted-foreground: 215 20% 65%;
+
+   /* Accent */
+   --accent: 217 33% 17%;
+   --accent-foreground: 210 40% 98%;
+
+   /* Destructive */
+   --destructive: 0 63% 31%;
+   --destructive-foreground: 210 40% 98%;
+
+   /* UI Elements */
+   --border: 217 33% 17%;
+   --input: 217 33% 17%;
+   --ring: 142 69% 58%;
+}

@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import type { Product } from '@/types/woocommerce';
 import { getDiscountPercentage, hasVariations } from '@/lib/woocommerce';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ShoppingBag, Star, Plus } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShoppingBag, Star, Plus, Check, Eye, AlertCircle } from 'lucide-react';
 import { useCartStore } from '@/store/cart-store';
 import { cn, decodeHtmlEntities } from '@/lib/utils';
 import { WishlistToggle } from '@/components/wishlist/wishlist-button';
@@ -17,13 +17,26 @@ import { CurrencyPrice, CurrencySalePrice } from '@/components/ui/currency-price
 interface ProductCardProps {
   product: Product;
   className?: string;
+  priority?: boolean;
 }
 
-export function ProductCard({ product, className }: ProductCardProps) {
+export function ProductCard({ product, className, priority = false }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const discount = getDiscountPercentage(product);
-  const { addItem, openCart } = useCartStore();
-  const [isAdding, setIsAdding] = useState(false);
+  const { addItem } = useCartStore();
+  const [addState, setAddState] = useState<'idle' | 'adding' | 'added'>('idle');
+
+  // Check stock status
+  const isOutOfStock = product.stock_status === 'outofstock';
+  const isLowStock = product.stock_quantity !== null &&
+                     product.stock_quantity > 0 &&
+                     product.stock_quantity <= 5;
+  const stockQuantity = product.stock_quantity;
+
+  // Rating
+  const hasRating = product.average_rating && parseFloat(product.average_rating) > 0;
+  const rating = hasRating ? parseFloat(product.average_rating) : 0;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -35,43 +48,63 @@ export function ProductCard({ product, className }: ProductCardProps) {
       return;
     }
 
-    setIsAdding(true);
+    if (addState !== 'idle') return;
 
-    // Add item to cart without opening the cart sidebar
-    // Cart will only open when user clicks the cart icon in header
+    setAddState('adding');
     addItem(product);
 
-    setTimeout(() => setIsAdding(false), 1000);
+    setTimeout(() => {
+      setAddState('added');
+      setTimeout(() => setAddState('idle'), 1500);
+    }, 400);
   };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4 }}
       className={cn("group relative h-full", className)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/product/${product.slug}`} className="block h-full">
-        <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-card shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+        <article className={cn(
+          "relative flex h-full flex-col overflow-hidden rounded-xl bg-card border border-border/50",
+          "transition-all duration-300 ease-out",
+          "hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 hover:-translate-y-1"
+        )}>
 
           {/* Image Container */}
-          <div className="relative aspect-square overflow-hidden bg-muted/20">
+          <div className="relative aspect-square overflow-hidden bg-muted/10">
             {product.images && product.images.length > 0 && !imageError ? (
-              <Image
-                src={product.images[0].src}
-                alt={`${product.images[0].alt || product.name} | Ideal Indiska LIVS`}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                loading="lazy"
-                onError={() => setImageError(true)}
-              />
+              <>
+                <Image
+                  src={product.images[0].src}
+                  alt={`${product.images[0].alt || product.name} | Ideal Indiska LIVS`}
+                  fill
+                  className={cn(
+                    "object-cover transition-transform duration-500 ease-out",
+                    isHovered && "scale-110"
+                  )}
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                  loading={priority ? "eager" : "lazy"}
+                  priority={priority}
+                  onError={() => setImageError(true)}
+                />
+                {/* Hover Overlay */}
+                <div className={cn(
+                  "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent",
+                  "opacity-0 transition-opacity duration-300",
+                  isHovered && "opacity-100"
+                )} />
+              </>
             ) : (
-              <div className="flex h-full items-center justify-center bg-muted/30">
+              <div className="flex h-full items-center justify-center bg-muted/20">
                 <div className="text-center">
-                  <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <ShoppingBag className="h-8 w-8 opacity-50" />
+                  <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <ShoppingBag className="h-6 w-6 opacity-50" />
                   </div>
                   <span className="text-xs font-medium text-muted-foreground">No Image</span>
                 </div>
@@ -79,109 +112,206 @@ export function ProductCard({ product, className }: ProductCardProps) {
             )}
 
             {/* Wishlist Toggle - Top Right */}
-            <div className="absolute top-3 right-3 z-10">
+            <div className={cn(
+              "absolute top-2 right-2 z-10 transition-all duration-300",
+              !isHovered && "opacity-0 translate-y-1",
+              isHovered && "opacity-100 translate-y-0"
+            )}>
               <WishlistToggle product={product} />
             </div>
 
-            {/* Quick Add Button (Desktop: Hover) - Clean & Minimal */}
-            <div className="absolute bottom-3 right-3 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 z-10">
+            {/* Quick Actions - Bottom */}
+            <div className={cn(
+              "absolute bottom-0 left-0 right-0 p-3 z-10",
+              "flex items-center justify-between gap-2",
+              "translate-y-full opacity-0 transition-all duration-300",
+              isHovered && "translate-y-0 opacity-100"
+            )}>
+              {/* Quick View Button */}
               <Button
-                size="icon"
-                className="h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:scale-105 transition-all"
-                onClick={handleAddToCart}
-                disabled={product.stock_status === 'outofstock' || isAdding}
+                size="sm"
+                variant="secondary"
+                className="h-9 flex-1 bg-white/90 backdrop-blur-sm text-foreground hover:bg-white text-xs font-medium shadow-sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.location.href = `/product/${product.slug}`;
+                }}
               >
-                {isAdding ? (
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                ) : (
-                  <Plus className="h-5 w-5" />
+                <Eye className="h-3.5 w-3.5 mr-1.5" />
+                Quick View
+              </Button>
+
+              {/* Add to Cart Button */}
+              <Button
+                size="sm"
+                className={cn(
+                  "h-9 flex-1 shadow-sm text-xs font-medium transition-all",
+                  addState === 'added'
+                    ? "bg-green-500 hover:bg-green-500 text-white"
+                    : "bg-primary hover:bg-primary/90 text-primary-foreground"
                 )}
-                <span className="sr-only">Add to cart</span>
+                onClick={handleAddToCart}
+                disabled={isOutOfStock || addState === 'adding'}
+              >
+                <AnimatePresence mode="wait">
+                  {addState === 'adding' ? (
+                    <motion.span
+                      key="adding"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center"
+                    >
+                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    </motion.span>
+                  ) : addState === 'added' ? (
+                    <motion.span
+                      key="added"
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center"
+                    >
+                      <Check className="h-4 w-4 mr-1" />
+                      Added!
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="idle"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center"
+                    >
+                      <Plus className="h-3.5 w-3.5 mr-1" />
+                      {hasVariations(product) ? 'Options' : 'Add'}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </Button>
             </div>
 
-            {/* Badges - Clean tags */}
-            <div className="absolute left-3 top-3 flex flex-col gap-2 z-10">
-              {product.featured && (
-                <Badge className="bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-sm border-0">
-                  <Star className="mr-1 h-3 w-3 fill-current" /> Featured
-                </Badge>
-              )}
+            {/* Badges - Top Left */}
+            <div className="absolute left-2 top-2 flex flex-col gap-1.5 z-10">
               {product.on_sale && discount > 0 && (
-                <Badge className="bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm border-0">
-                  -{discount}%
+                <Badge className="bg-secondary text-secondary-foreground hover:bg-secondary shadow-sm border-0 text-[10px] font-bold px-2 py-0.5">
+                  -{discount}% OFF
                 </Badge>
               )}
-              {product.stock_status === 'outofstock' && (
-                <Badge variant="outline" className="bg-muted text-muted-foreground border-border">
+              {product.featured && (
+                <Badge className="bg-yellow-500 text-white hover:bg-yellow-500 shadow-sm border-0 text-[10px] font-bold px-2 py-0.5">
+                  <Star className="mr-0.5 h-2.5 w-2.5 fill-current" /> Featured
+                </Badge>
+              )}
+              {isOutOfStock && (
+                <Badge variant="secondary" className="bg-neutral-800 text-white border-0 text-[10px] font-medium px-2 py-0.5">
                   Sold Out
+                </Badge>
+              )}
+              {isLowStock && !isOutOfStock && (
+                <Badge className="bg-orange-500 text-white hover:bg-orange-500 shadow-sm border-0 text-[10px] font-bold px-2 py-0.5">
+                  <AlertCircle className="mr-0.5 h-2.5 w-2.5" /> Only {stockQuantity} left
                 </Badge>
               )}
             </div>
           </div>
 
-          {/* Product Info - Minimalist White & Clean */}
-          <div className="flex flex-1 flex-col p-4 bg-card">
-            {/* Category */}
-            {product.categories && product.categories.length > 0 && (
-              <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground group-hover:text-primary transition-colors">
-                {decodeHtmlEntities(product.categories[0].name)}
-              </p>
-            )}
+          {/* Product Info */}
+          <div className="flex flex-1 flex-col p-3 sm:p-4">
+            {/* Category & Rating Row */}
+            <div className="flex items-center justify-between gap-2 mb-1.5">
+              {product.categories && product.categories.length > 0 && (
+                <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wide text-muted-foreground truncate">
+                  {decodeHtmlEntities(product.categories[0].name)}
+                </p>
+              )}
+              {hasRating && (
+                <div className="flex items-center gap-0.5 shrink-0">
+                  <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                  <span className="text-[10px] sm:text-xs font-semibold text-foreground">{rating.toFixed(1)}</span>
+                  {product.rating_count > 0 && (
+                    <span className="text-[10px] text-muted-foreground">({product.rating_count})</span>
+                  )}
+                </div>
+              )}
+            </div>
 
             {/* Name */}
-            <h3 className="mb-2 line-clamp-2 font-heading text-base font-bold leading-tight text-foreground transition-colors group-hover:text-primary">
+            <h3 className="mb-2 line-clamp-2 text-sm sm:text-base font-semibold leading-tight text-foreground transition-colors group-hover:text-primary">
               {decodeHtmlEntities(product.name)}
             </h3>
 
-            {/* Description (Optional) */}
-            {product.short_description && (
-              <p className="mb-4 line-clamp-2 text-sm text-muted-foreground leading-relaxed">
-                {decodeHtmlEntities(product.short_description.replace(/<[^>]*>/g, ''))}
-              </p>
-            )}
+            {/* Price Section */}
+            <div className="mt-auto pt-2 border-t border-border/30">
+              <div className="flex items-end justify-between gap-2">
+                {/* Price */}
+                <div className="flex flex-col">
+                  {product.on_sale && product.sale_price && product.sale_price !== '' ? (
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-lg sm:text-xl font-bold text-primary">
+                        <CurrencyPrice price={product.sale_price} />
+                      </span>
+                      <span className="text-xs text-muted-foreground line-through">
+                        <CurrencyPrice price={product.regular_price} />
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex items-baseline gap-1">
+                      {hasVariations(product) && product.price && parseFloat(String(product.price)) > 0 && (
+                        <span className="text-[10px] text-muted-foreground">From</span>
+                      )}
+                      <span className="text-lg sm:text-xl font-bold text-foreground">
+                        <CurrencyPrice price={product.price} />
+                      </span>
+                    </div>
+                  )}
+                </div>
 
-            <div className="mt-auto flex items-center justify-between gap-3 pt-3 border-t border-border/50">
-              {/* Price */}
-              <div className="flex flex-col">
-                {product.on_sale && product.sale_price && product.sale_price !== '' ? (
-                  <CurrencySalePrice
-                    salePrice={product.sale_price}
-                    regularPrice={product.regular_price}
-                  />
-                ) : (
-                  <div className="flex items-baseline gap-1">
-                    {hasVariations(product) && product.price && parseFloat(String(product.price)) > 0 && (
-                      <span className="text-xs text-muted-foreground">From</span>
+                {/* Mobile Add Button (always visible) */}
+                <Button
+                  size="icon"
+                  className={cn(
+                    "h-8 w-8 sm:h-9 sm:w-9 rounded-full shrink-0 md:hidden transition-all",
+                    addState === 'added'
+                      ? "bg-green-500 hover:bg-green-500 text-white"
+                      : "bg-primary hover:bg-primary/90 text-primary-foreground"
+                  )}
+                  onClick={handleAddToCart}
+                  disabled={isOutOfStock || addState === 'adding'}
+                >
+                  <AnimatePresence mode="wait">
+                    {addState === 'adding' ? (
+                      <motion.span
+                        key="adding"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white border-t-transparent block" />
+                      </motion.span>
+                    ) : addState === 'added' ? (
+                      <motion.span
+                        key="added"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <Check className="h-4 w-4" />
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="idle"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </motion.span>
                     )}
-                    <CurrencyPrice
-                      price={product.price}
-                      size="lg"
-                      className="text-foreground"
-                    />
-                  </div>
-                )}
+                  </AnimatePresence>
+                </Button>
               </div>
-
-              {/* Add to Cart Button */}
-              <Button
-                size="sm"
-                className="shrink-0 h-8 px-3 text-xs bg-primary text-primary-foreground hover:bg-primary/90"
-                onClick={handleAddToCart}
-                disabled={product.stock_status === 'outofstock' || isAdding}
-              >
-                {isAdding ? (
-                  <>
-                    <span className="h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                    <span className="ml-1.5">Adding...</span>
-                  </>
-                ) : (
-                  <>
-                    <ShoppingBag className="h-3.5 w-3.5" />
-                    <span className="ml-1.5">{hasVariations(product) ? 'Select' : 'Add'}</span>
-                  </>
-                )}
-              </Button>
             </div>
           </div>
         </article>

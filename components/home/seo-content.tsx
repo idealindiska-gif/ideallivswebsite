@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 export function SeoContent() {
     return (
         <section className="w-full py-16 border-t border-border/50">
-            <div className="container mx-auto px-4 sm:px-6 md:px-8">
+            <div className="container-wide mx-auto px-[var(--container-padding)]">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}

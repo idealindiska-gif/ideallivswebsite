@@ -74,7 +74,7 @@ export function Header({ className, categories = [] }: HeaderProps) {
               </nav>
 
               {/* Center: Logo with SEO Alt Text */}
-              <div className="col-span-2 flex flex-col items-center justify-center">
+              <div className="col-span-2 flex flex-col items-center justify-center mb-[5px]">
                 <Link href="/" className="group" aria-label="Ideal Indiska LIVS Home">
                   <div className="relative h-24 w-40 transition-transform duration-500 group-hover:scale-105">
                     <Image
@@ -106,7 +106,7 @@ export function Header({ className, categories = [] }: HeaderProps) {
             </div>
 
             {/* Search Bar Row */}
-            <div className="pb-3">
+            <div className="pb-3 bg-background">
               <div className="max-w-2xl mx-auto">
                 <SearchModal />
               </div>
@@ -151,7 +151,7 @@ export function Header({ className, categories = [] }: HeaderProps) {
             </div>
 
             {/* Mobile Search Bar */}
-            <div className="pb-3">
+            <div className="pb-3 bg-background">
               <SearchModal />
             </div>
           </div>

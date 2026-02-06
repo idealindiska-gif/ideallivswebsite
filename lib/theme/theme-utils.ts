@@ -8,44 +8,140 @@
 import type { ThemeConfig } from '@/config/theme.config';
 
 /**
- * Convert theme config to CSS custom properties
+ * Convert hex color to HSL values (without hsl() wrapper)
+ * Returns format: "h s% l%" for CSS variable use with hsl()
+ */
+export function hexToHSL(hex: string): string | null {
+  const rgb = hexToRGB(hex);
+  if (!rgb) return null;
+
+  const r = rgb.r / 255;
+  const g = rgb.g / 255;
+  const b = rgb.b / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+    switch (max) {
+      case r:
+        h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+        break;
+      case g:
+        h = ((b - r) / d + 2) / 6;
+        break;
+      case b:
+        h = ((r - g) / d + 4) / 6;
+        break;
+    }
+  }
+
+  // Return HSL values without the hsl() wrapper for CSS variable compatibility
+  return `${Math.round(h * 360)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`;
+}
+
+/**
+ * Convert theme config to Tailwind-compatible CSS custom properties
+ * Outputs HSL values without wrapper for use with hsl(var(--color))
  */
 export function themeToCSSVariables(theme: ThemeConfig): Record<string, string> {
   const cssVars: Record<string, string> = {};
 
-  // Colors
+  // Primary colors - full scale for Tailwind
   Object.entries(theme.colors.primary).forEach(([key, value]) => {
-    cssVars[`--color-primary-${key}`] = value;
+    const hsl = hexToHSL(value);
+    if (hsl) {
+      cssVars[`--primary-${key}`] = hsl;
+    }
   });
+  // Main primary color (500) as --primary for Tailwind DEFAULT
+  const primaryHsl = hexToHSL(theme.colors.primary[500]);
+  if (primaryHsl) {
+    cssVars['--primary'] = primaryHsl;
+  }
 
+  // Secondary colors - full scale
   Object.entries(theme.colors.secondary).forEach(([key, value]) => {
-    cssVars[`--color-secondary-${key}`] = value;
+    const hsl = hexToHSL(value);
+    if (hsl) {
+      cssVars[`--secondary-${key}`] = hsl;
+    }
   });
+  // Main secondary color (500) as --secondary for Tailwind DEFAULT
+  const secondaryHsl = hexToHSL(theme.colors.secondary[500]);
+  if (secondaryHsl) {
+    cssVars['--secondary'] = secondaryHsl;
+  }
 
+  // Neutral colors - full scale
   Object.entries(theme.colors.neutral).forEach(([key, value]) => {
-    cssVars[`--color-neutral-${key}`] = value;
+    const hsl = hexToHSL(value);
+    if (hsl) {
+      cssVars[`--neutral-${key}`] = hsl;
+    }
   });
 
   // Semantic colors
-  cssVars['--color-success'] = theme.colors.success;
-  cssVars['--color-warning'] = theme.colors.warning;
-  cssVars['--color-error'] = theme.colors.error;
-  cssVars['--color-info'] = theme.colors.info;
+  const successHsl = hexToHSL(theme.colors.success);
+  const warningHsl = hexToHSL(theme.colors.warning);
+  const errorHsl = hexToHSL(theme.colors.error);
+  const infoHsl = hexToHSL(theme.colors.info);
 
-  // Background colors
-  cssVars['--color-background'] = theme.colors.background;
-  cssVars['--color-foreground'] = theme.colors.foreground;
-  cssVars['--color-muted'] = theme.colors.muted;
-  cssVars['--color-muted-foreground'] = theme.colors.mutedForeground;
+  if (successHsl) cssVars['--success'] = successHsl;
+  if (warningHsl) cssVars['--warning'] = warningHsl;
+  if (errorHsl) {
+    cssVars['--error'] = errorHsl;
+    cssVars['--destructive'] = errorHsl; // Alias for shadcn/ui
+  }
+  if (infoHsl) cssVars['--info'] = infoHsl;
+
+  // Background colors - Tailwind compatible
+  const bgHsl = hexToHSL(theme.colors.background);
+  const fgHsl = hexToHSL(theme.colors.foreground);
+  const mutedHsl = hexToHSL(theme.colors.muted);
+  const mutedFgHsl = hexToHSL(theme.colors.mutedForeground);
+
+  if (bgHsl) cssVars['--background'] = bgHsl;
+  if (fgHsl) cssVars['--foreground'] = fgHsl;
+  if (mutedHsl) cssVars['--muted'] = mutedHsl;
+  if (mutedFgHsl) cssVars['--muted-foreground'] = mutedFgHsl;
+
+  // Primary/Secondary foregrounds (light text for dark backgrounds)
+  const primaryFgHsl = hexToHSL('#f8fafc'); // Light foreground
+  const secondaryFgHsl = hexToHSL('#f8fafc');
+  if (primaryFgHsl) cssVars['--primary-foreground'] = primaryFgHsl;
+  if (secondaryFgHsl) cssVars['--secondary-foreground'] = secondaryFgHsl;
+  if (primaryFgHsl) cssVars['--destructive-foreground'] = primaryFgHsl;
 
   // UI colors
-  cssVars['--color-border'] = theme.colors.border;
-  cssVars['--color-input'] = theme.colors.input;
-  cssVars['--color-ring'] = theme.colors.ring;
+  const borderHsl = hexToHSL(theme.colors.border);
+  const inputHsl = hexToHSL(theme.colors.input);
+  const ringHsl = hexToHSL(theme.colors.ring);
+
+  if (borderHsl) cssVars['--border'] = borderHsl;
+  if (inputHsl) cssVars['--input'] = inputHsl;
+  if (ringHsl) cssVars['--ring'] = ringHsl;
 
   // Card colors
-  cssVars['--color-card'] = theme.colors.card;
-  cssVars['--color-card-foreground'] = theme.colors.cardForeground;
+  const cardHsl = hexToHSL(theme.colors.card);
+  const cardFgHsl = hexToHSL(theme.colors.cardForeground);
+
+  if (cardHsl) cssVars['--card'] = cardHsl;
+  if (cardFgHsl) cssVars['--card-foreground'] = cardFgHsl;
+
+  // Popover (same as card by default)
+  if (cardHsl) cssVars['--popover'] = cardHsl;
+  if (cardFgHsl) cssVars['--popover-foreground'] = cardFgHsl;
+
+  // Accent (use muted by default)
+  if (mutedHsl) cssVars['--accent'] = mutedHsl;
+  if (fgHsl) cssVars['--accent-foreground'] = fgHsl;
 
   // Typography
   cssVars['--font-sans'] = theme.typography.fontFamily.sans.join(', ');
@@ -73,6 +169,7 @@ export function themeToCSSVariables(theme: ThemeConfig): Record<string, string> 
   cssVars['--section-padding-y-desktop'] = theme.spacing.section.paddingY.desktop;
 
   // Border radius
+  cssVars['--radius'] = theme.borderRadius.lg; // Base radius for shadcn/ui
   Object.entries(theme.borderRadius).forEach(([key, value]) => {
     cssVars[`--radius-${key}`] = value;
   });
@@ -103,19 +200,44 @@ export function generateThemeCSS(theme: ThemeConfig, selector: string = ':root')
 }
 
 /**
- * Generate dark mode variants
+ * Generate dark mode variants with Tailwind-compatible HSL values
  */
 export function generateDarkModeCSS(theme: ThemeConfig): string {
-  const darkColors = {
-    '--color-background': theme.colors.neutral[950],
-    '--color-foreground': theme.colors.neutral[50],
-    '--color-muted': theme.colors.neutral[900],
-    '--color-muted-foreground': theme.colors.neutral[400],
-    '--color-border': theme.colors.neutral[800],
-    '--color-input': theme.colors.neutral[800],
-    '--color-card': theme.colors.neutral[900],
-    '--color-card-foreground': theme.colors.neutral[50],
-  };
+  const darkColors: Record<string, string> = {};
+
+  // Convert dark mode hex colors to HSL
+  const bgHsl = hexToHSL(theme.colors.neutral[950]);
+  const fgHsl = hexToHSL(theme.colors.neutral[50]);
+  const mutedHsl = hexToHSL(theme.colors.neutral[900]);
+  const mutedFgHsl = hexToHSL(theme.colors.neutral[400]);
+  const borderHsl = hexToHSL(theme.colors.neutral[800]);
+  const cardHsl = hexToHSL(theme.colors.neutral[900]);
+  const cardFgHsl = hexToHSL(theme.colors.neutral[50]);
+
+  // Primary adjustments for dark mode (brighter)
+  const primaryDarkHsl = hexToHSL(theme.colors.primary[400]);
+  const primaryFgDarkHsl = hexToHSL(theme.colors.neutral[950]);
+
+  if (bgHsl) darkColors['--background'] = bgHsl;
+  if (fgHsl) darkColors['--foreground'] = fgHsl;
+  if (mutedHsl) darkColors['--muted'] = mutedHsl;
+  if (mutedFgHsl) darkColors['--muted-foreground'] = mutedFgHsl;
+  if (borderHsl) {
+    darkColors['--border'] = borderHsl;
+    darkColors['--input'] = borderHsl;
+  }
+  if (cardHsl) {
+    darkColors['--card'] = cardHsl;
+    darkColors['--popover'] = cardHsl;
+    darkColors['--accent'] = cardHsl;
+  }
+  if (cardFgHsl) {
+    darkColors['--card-foreground'] = cardFgHsl;
+    darkColors['--popover-foreground'] = cardFgHsl;
+    darkColors['--accent-foreground'] = cardFgHsl;
+  }
+  if (primaryDarkHsl) darkColors['--primary'] = primaryDarkHsl;
+  if (primaryFgDarkHsl) darkColors['--primary-foreground'] = primaryFgDarkHsl;
 
   const lines = Object.entries(darkColors).map(
     ([key, value]) => `  ${key}: ${value};`

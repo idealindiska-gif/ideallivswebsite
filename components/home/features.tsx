@@ -29,7 +29,7 @@ const features = [
 export function Features() {
     return (
         <section className="w-full py-12 bg-muted/30">
-            <div className="container mx-auto px-4 sm:px-6 md:px-8">
+            <div className="container-wide mx-auto px-[var(--container-padding)]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {features.map((feature, index) => (
                         <motion.div

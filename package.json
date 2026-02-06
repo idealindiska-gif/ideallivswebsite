@@ -14,7 +14,8 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "theme:generate": "npx tsx scripts/generate-theme-css.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

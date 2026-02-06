@@ -1,236 +1,202 @@
+/* Import theme variables (generated from theme config) */
+@import './theme-variables.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  :root {
-
-    /* Grocery Template - Professional Minimalist Theme */
-
-    /* Base Background: Greyish White */
-    --background: 210 20% 98%;
-    /* #f8f9fa - Cool greyish white */
-
-    /* Text: Deep Charcoal */
-    --foreground: 222 47% 11%;
-    /* #0f172a - Readability focus */
-
-    /* Card: Pure White for contrast against greyish bg */
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-
-    /* Popover: White */
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-
-    /* Primary: Deep Forest Green */
-    --primary: 142 72% 29%;
-    /* #15803d - Professional Deep Green */
-    --primary-foreground: 210 40% 98%;
-
-    /* Secondary: Vibrant Red (Badges/Sales) */
-    --secondary: 0 84% 60%;
-    /* #ef4444 */
-    --secondary-foreground: 210 40% 98%;
-
-    /* Muted: Neutral Gray */
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    /* Accent: Subtle Green/Gray */
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222 47% 11%;
-
-    /* Destructive: Red */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    /* Border: Subtle Gray */
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 142 72% 29%;
-
-    --radius: 0.5rem;
-    /* 8px - Cleaner, sharper look */
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 142 70% 45%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 0 62.8% 30.6%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 142 70% 45%;
-  }
-}
 
 @layer base {
   * {
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground relative;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
-
   html {
     overflow-x: hidden;
     max-width: 100vw;
+    /* Smooth font rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  /* ==========================================
-     TYPOGRAPHY SYSTEM - Approved Scale
-     Based on Inter font with precise sizing
-     ========================================== */
+  body {
+    @apply bg-background text-foreground relative;
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-body);
+    font-weight: var(--font-weight-body);
+    font-feature-settings: "rlig" 1, "calt" 1, "kern" 1;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
 
-  /* Display Styles */
-  h1,
+  /* =============================================
+     FLUID TYPOGRAPHY SYSTEM
+     Professional scale with responsive sizing
+     ============================================= */
+
+  /* Display - Hero headlines, major announcements */
+  .display,
   .display-large {
-    font-size: 39.06px;
-    font-weight: 800;
-    line-height: 1.47;
-    letter-spacing: 0.015em;
-    @apply mb-6;
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-display);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-display);
+    font-weight: var(--font-weight-display);
+    @apply text-foreground;
   }
 
-  .display-medium {
-    font-size: 34.94px;
-    font-weight: 800;
-    line-height: 1.47;
-    letter-spacing: 0.015em;
-  }
-
-  /* Heading Styles */
+  /* H1 - Page titles */
   h1,
   .h1 {
-    font-size: 31.25px;
-    font-weight: 700;
-    line-height: 1.47;
-    letter-spacing: 0.02em;
-    @apply mb-6;
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    letter-spacing: var(--letter-spacing-h1);
+    font-weight: var(--font-weight-h1);
+    @apply text-foreground mb-6;
   }
 
+  /* H2 - Section titles */
   h2,
   .h2 {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.47;
-    letter-spacing: 0.02em;
-    @apply mb-4;
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    letter-spacing: var(--letter-spacing-h2);
+    font-weight: var(--font-weight-h2);
+    @apply text-foreground mb-4;
   }
 
+  /* H3 - Subsection titles */
   h3,
   .h3 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.52;
-    letter-spacing: 0;
-    @apply mb-3;
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    letter-spacing: var(--letter-spacing-h3);
+    font-weight: var(--font-weight-h3);
+    @apply text-foreground mb-3;
   }
 
+  /* H4 - Card titles, minor headings */
   h4,
   .h4 {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.52;
-    letter-spacing: 0.025em;
-    @apply mb-2;
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h4);
+    letter-spacing: var(--letter-spacing-h4);
+    font-weight: var(--font-weight-h4);
+    @apply text-foreground mb-2;
   }
 
+  /* H5 - Small headings */
   h5,
   .h5 {
-    font-size: 18.91px;
-    font-weight: 500;
-    line-height: 1.52;
-    letter-spacing: 0.03em;
-    @apply mb-2;
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-h5);
+    line-height: var(--line-height-h5);
+    letter-spacing: var(--letter-spacing-h5);
+    font-weight: var(--font-weight-h5);
+    @apply text-foreground mb-2;
   }
 
+  /* H6 - Smallest headings */
   h6,
   .h6 {
-    font-size: 17.89px;
-    font-weight: 500;
-    line-height: 1.52;
-    letter-spacing: 0.03em;
-    @apply mb-1;
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-h6);
+    line-height: var(--line-height-h6);
+    letter-spacing: var(--letter-spacing-h6);
+    font-weight: var(--font-weight-h6);
+    @apply text-foreground mb-1;
   }
 
-  /* Body Styles */
-  .body-xl {
-    font-size: 16.92px;
-    font-weight: 400;
-    line-height: 1.52;
-    letter-spacing: 0.03em;
+  /* Body Large - Lead paragraphs, important text */
+  .body-lg,
+  .body-large,
+  .lead {
+    font-size: var(--font-size-body-lg);
+    line-height: var(--line-height-body-lg);
+    letter-spacing: var(--letter-spacing-body-lg);
+    font-weight: var(--font-weight-body-lg);
   }
 
+  /* Body - Default paragraph text */
   p,
   .body {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.52;
-    letter-spacing: 0.03em;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-body);
+    font-weight: var(--font-weight-body);
     @apply text-muted-foreground mb-4;
   }
 
+  /* Body Small - Secondary text, descriptions */
+  .body-sm,
   .body-small {
-    font-size: 15.13px;
-    font-weight: 400;
-    line-height: 1.57;
-    letter-spacing: 0.03em;
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+    letter-spacing: var(--letter-spacing-body-sm);
+    font-weight: var(--font-weight-body-sm);
   }
 
-  /* Caption Styles */
-  .caption-large {
-    font-size: 14.31px;
-    font-weight: 400;
-    line-height: 1.57;
-    letter-spacing: 0.03em;
-  }
-
+  /* Caption - Labels, metadata, helper text */
   .caption {
-    font-size: 13.53px;
-    font-weight: 400;
-    line-height: 1.57;
-    letter-spacing: 0.03em;
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+    letter-spacing: var(--letter-spacing-caption);
+    font-weight: var(--font-weight-caption);
+    @apply text-muted-foreground;
   }
 
+  /* Caption Small - Fine print, timestamps */
+  .caption-sm,
   .caption-small {
-    font-size: 12.8px;
-    font-weight: 300;
-    line-height: 1.57;
-    letter-spacing: 0.03em;
+    font-size: var(--font-size-caption-sm);
+    line-height: var(--line-height-caption-sm);
+    letter-spacing: var(--letter-spacing-caption-sm);
+    font-weight: var(--font-weight-caption-sm);
+    @apply text-muted-foreground;
   }
 
+  /* Overline - Labels, categories, tags */
   .overline {
-    font-size: 12.11px;
-    font-weight: 500;
-    line-height: 1.57;
-    letter-spacing: 0.03em;
+    font-size: var(--font-size-overline);
+    line-height: var(--line-height-overline);
+    letter-spacing: var(--letter-spacing-overline);
+    font-weight: var(--font-weight-overline);
     text-transform: uppercase;
+    @apply text-muted-foreground;
+  }
+
+  /* Price styles */
+  .price {
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-price);
+    line-height: var(--line-height-price);
+    letter-spacing: var(--letter-spacing-price);
+    font-weight: var(--font-weight-price);
+    @apply text-primary;
+  }
+
+  .price-sm,
+  .price-small {
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: var(--font-size-price-sm);
+    line-height: var(--line-height-price-sm);
+    letter-spacing: var(--letter-spacing-price-sm);
+    font-weight: var(--font-weight-price-sm);
+    @apply text-primary;
+  }
+
+  /* Strikethrough price (was-price) */
+  .price-was {
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+    font-weight: 400;
+    @apply text-muted-foreground line-through;
   }
 
   /* Utilities for special text */
@@ -348,6 +314,29 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Vertical Sidebar Scrollbar - Theme Colors */
+  #mobile-sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary)) hsl(var(--background));
+  }
+
+  #mobile-sidebar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #mobile-sidebar::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  #mobile-sidebar::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--primary));
+    border-radius: 4px;
+  }
+
+  #mobile-sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--primary) / 0.8);
+  }
 }
 
 /* ============================================
@@ -357,86 +346,220 @@
 
 @layer components {
   /* ===========================================
+     LAYOUT CONTAINERS
+     Standardized container system for consistent widths
+     =========================================== */
+
+  /* Base container styles */
+  .container-base {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* Prose container - for text-heavy content, articles, forms */
+  .container-prose {
+    width: 100%;
+    max-width: var(--container-prose);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* Compact container - for checkout, cart, login */
+  .container-compact {
+    width: 100%;
+    max-width: var(--container-compact);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* Standard container - default for most pages */
+  .container-standard {
+    width: 100%;
+    max-width: var(--container-standard);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* Wide container - for product grids, archives */
+  .container-wide {
+    width: 100%;
+    max-width: var(--container-wide);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* Full container - edge to edge with padding */
+  .container-full {
+    width: 100%;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* Main container (alias for standard) */
+  .container-main {
+    width: 100%;
+    max-width: var(--container-standard);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* ===========================================
      SECTION STYLES
-     Consistent section spacing and structure
+     Using fluid spacing system
      =========================================== */
 
   .page-section {
-    @apply py-8 md:py-12;
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
   }
 
-  .page-section-tight {
-    @apply py-6 md:py-8;
+  .page-section-sm {
+    padding-top: var(--section-padding-y-sm);
+    padding-bottom: var(--section-padding-y-sm);
   }
 
-  .page-section-spacious {
-    @apply py-12 md:py-16;
+  .page-section-lg {
+    padding-top: var(--section-padding-y-lg);
+    padding-bottom: var(--section-padding-y-lg);
+  }
+
+  /* Section with horizontal padding */
+  .page-section-padded {
+    padding: var(--section-padding-y) var(--section-padding-x);
+  }
+
+  /* Section header with consistent gap */
+  .section-header {
+    margin-bottom: var(--content-gap);
+  }
+
+  /* ===========================================
+     STACK & FLOW UTILITIES
+     Vertical rhythm spacing
+     =========================================== */
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap);
+  }
+
+  .stack-sm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap-sm);
+  }
+
+  .stack-lg {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap-lg);
+  }
+
+  /* Inline flow (horizontal) */
+  .inline-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--inline-gap);
+  }
+
+  .inline-flow-sm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--inline-gap-sm);
+  }
+
+  .inline-flow-lg {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--inline-gap-lg);
   }
 
   /* ===========================================
      STATIC PAGE TYPOGRAPHY
-     Consistent heading styles for static pages
+     Using fluid typography system
      =========================================== */
 
   /* Page Title - H1 for static pages */
   .page-title {
-    @apply font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground tracking-tight;
+    @apply font-heading text-h1 text-foreground;
+    margin-bottom: var(--content-gap);
   }
 
   /* Section Title - H2 for static pages */
   .section-title {
-    @apply font-heading text-xl md:text-2xl font-bold text-foreground;
+    @apply font-heading text-h2 text-foreground;
+    margin-bottom: var(--stack-gap);
   }
 
   /* Subsection Title - H3 for static pages */
   .subsection-title {
-    @apply font-heading text-lg md:text-xl font-semibold text-foreground;
+    @apply font-heading text-h3 text-foreground;
+    margin-bottom: var(--stack-gap-sm);
   }
 
   /* Card Title - H4 level */
   .card-title {
-    @apply font-heading text-base md:text-lg font-bold text-foreground;
+    @apply font-heading text-h4 text-foreground;
+    margin-bottom: var(--stack-gap-sm);
   }
 
   /* Section Subtitle/Description */
   .section-subtitle {
-    @apply text-sm md:text-base text-muted-foreground max-w-2xl;
+    @apply text-body-sm text-muted-foreground;
+    max-width: var(--max-width-2xl);
   }
 
   /* Small Labels */
   .label-text {
-    @apply text-[11px] uppercase tracking-wider text-muted-foreground font-medium;
+    @apply text-overline uppercase text-muted-foreground;
   }
 
   /* ===========================================
      BODY TEXT SYSTEM
-     Standardized text sizes for consistency
+     Using fluid typography system
      =========================================== */
 
-  /* Main Body Text - 16px for primary descriptions */
+  /* Main Body Text */
   .body-text {
-    @apply text-base text-muted-foreground leading-relaxed;
+    @apply text-body text-muted-foreground;
   }
 
-  /* Small Body Text - 14px for cards, secondary info */
+  /* Small Body Text */
   .body-text-sm {
-    @apply text-sm text-muted-foreground leading-relaxed;
+    @apply text-body-sm text-muted-foreground;
   }
 
-  /* Extra Small Text - 13px for tertiary info */
+  /* Caption Text */
   .body-text-xs {
-    @apply text-[13px] text-muted-foreground leading-relaxed;
+    @apply text-caption text-muted-foreground;
   }
 
   /* ===========================================
      CARD STYLES
-     Consistent card styling for all components
-     Cards use same background color as page, separated only by shadows
+     Using fluid spacing system
      =========================================== */
 
-  /* Standard Card - Same background, shadow separation */
+  /* Standard Card */
   .card-base {
     @apply bg-card rounded-lg shadow-sm transition-all duration-200;
+    padding: var(--card-padding);
   }
 
   .card-base:hover {
@@ -446,6 +569,7 @@
   /* Card with Highlight - For featured items */
   .card-highlight {
     @apply bg-card rounded-lg shadow-sm transition-all duration-200;
+    padding: var(--card-padding);
   }
 
   .card-highlight:hover {
@@ -455,56 +579,81 @@
   /* Interactive Card - With hover lift */
   .card-interactive {
     @apply bg-card rounded-lg shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+    padding: var(--card-padding);
   }
 
-  /* Compact Card Padding */
+  /* Card Padding variants */
   .card-padding {
-    @apply p-4 md:p-5;
+    padding: var(--card-padding);
   }
 
   .card-padding-sm {
-    @apply p-3 md:p-4;
+    padding: var(--card-padding-sm);
   }
 
   .card-padding-lg {
-    @apply p-5 md:p-6;
+    padding: var(--card-padding-lg);
+  }
+
+  /* Card content gap */
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
   }
 
   /* ===========================================
      LIST STYLES
-     Consistent list styling
+     Using fluid spacing
      =========================================== */
 
   /* List Item - Standard */
   .list-item {
-    @apply py-1 border-b border-dashed border-border/30 last:border-0;
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    @apply border-b border-dashed border-border/30 last:border-0;
   }
 
   .list-item-tight {
-    @apply py-0.5 border-b border-dashed border-border/30 last:border-0;
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    @apply border-b border-dashed border-border/30 last:border-0;
   }
 
   /* Feature Item with Icon */
   .feature-item {
-    @apply flex items-start gap-2.5 p-3 rounded-lg bg-card shadow-sm transition-all duration-200 hover:shadow-md;
+    @apply flex items-start rounded-lg bg-card shadow-sm transition-all duration-200 hover:shadow-md;
+    gap: var(--inline-gap-lg);
+    padding: var(--card-padding-sm);
   }
 
   /* Icon Container - Standard */
   .icon-box {
-    @apply flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-md bg-primary/10 text-primary;
+    @apply flex-shrink-0 flex items-center justify-center rounded-md bg-primary/10 text-primary;
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+  }
+
+  .icon-box-sm {
+    @apply flex-shrink-0 flex items-center justify-center rounded bg-primary/10 text-primary;
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
   }
 
   .icon-box-lg {
-    @apply flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary;
+    @apply flex-shrink-0 flex items-center justify-center rounded-lg bg-primary/10 text-primary;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   /* ===========================================
      BADGE STYLES
-     Consistent badge styling
+     Using fluid spacing
      =========================================== */
 
   .badge-base {
-    @apply inline-flex items-center px-3 py-1 text-xs font-medium rounded-full;
+    @apply inline-flex items-center text-caption-sm font-medium rounded-full;
+    padding: var(--badge-padding-y) var(--badge-padding-x);
   }
 
   .badge-muted {
@@ -521,24 +670,35 @@
 
   /* ===========================================
      DIVIDER STYLES
-     Consistent dividers and underlines
+     Using fluid spacing
      =========================================== */
 
   .section-divider {
     @apply h-0.5 w-12 rounded-full bg-primary/60;
+    margin-top: var(--divider-margin);
+    margin-bottom: var(--divider-margin);
   }
 
   .section-divider-lg {
     @apply h-1 w-16 rounded-full bg-primary;
+    margin-top: var(--divider-margin);
+    margin-bottom: var(--divider-margin);
   }
 
   /* ===========================================
      HORIZONTAL SCROLL CONTAINER
-     For scrollable card sections
+     Using fluid spacing
      =========================================== */
 
   .scroll-container {
-    @apply flex gap-4 overflow-x-auto pb-4 -mx-4 px-4;
+    display: flex;
+    gap: var(--grid-gap);
+    overflow-x: auto;
+    padding-bottom: var(--space-4);
+    margin-left: calc(var(--page-padding-x) * -1);
+    margin-right: calc(var(--page-padding-x) * -1);
+    padding-left: var(--page-padding-x);
+    padding-right: var(--page-padding-x);
     scrollbar-width: thin;
   }
 
@@ -557,57 +717,240 @@
 
   /* ===========================================
      PRICE DISPLAY
-     Consistent price styling
+     Using fluid typography system
      =========================================== */
 
   .price-large {
-    @apply text-3xl md:text-4xl font-bold text-primary;
+    @apply font-heading text-display text-primary;
   }
 
   .price-medium {
-    @apply text-2xl font-bold text-primary;
+    @apply font-heading text-price text-primary;
   }
 
   .price-small {
-    @apply text-lg font-bold text-primary;
+    @apply font-heading text-price-sm text-primary;
   }
 
   /* ===========================================
      GRID LAYOUTS
-     Consistent grid structures
+     Using fluid spacing system
      =========================================== */
 
   .grid-2 {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: var(--grid-gap);
+  }
+
+  @media (min-width: 768px) {
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .grid-3 {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: var(--grid-gap);
+  }
+
+  @media (min-width: 768px) {
+    .grid-3 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   .grid-4 {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: var(--grid-gap);
+  }
+
+  @media (min-width: 640px) {
+    .grid-4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-4 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  /* Product grid - optimized for product cards */
+  .grid-products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--product-card-gap);
+  }
+
+  @media (min-width: 640px) {
+    .grid-products {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-products {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .grid-products {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
   }
 
   /* ===========================================
      SPACING UTILITIES
-     Consistent margin/padding
+     Using fluid spacing system
      =========================================== */
 
   .section-gap {
-    @apply mb-8 md:mb-12;
+    margin-bottom: var(--section-gap);
   }
 
   .section-header-gap {
-    @apply mb-4 md:mb-6;
+    margin-bottom: var(--content-gap);
   }
 
   .content-gap {
-    @apply mb-6;
+    margin-bottom: var(--stack-gap);
   }
 
   .item-gap {
-    @apply gap-2 md:gap-3;
+    gap: var(--inline-gap);
+  }
+
+  /* Margin utilities using spacing scale */
+  .mt-section {
+    margin-top: var(--section-padding-y);
+  }
+
+  .mb-section {
+    margin-bottom: var(--section-padding-y);
+  }
+
+  .my-section {
+    margin-top: var(--section-padding-y);
+    margin-bottom: var(--section-padding-y);
+  }
+
+  .mt-content {
+    margin-top: var(--content-gap);
+  }
+
+  .mb-content {
+    margin-bottom: var(--content-gap);
+  }
+
+  .my-content {
+    margin-top: var(--content-gap);
+    margin-bottom: var(--content-gap);
+  }
+
+  .mt-stack {
+    margin-top: var(--stack-gap);
+  }
+
+  .mb-stack {
+    margin-bottom: var(--stack-gap);
+  }
+
+  .my-stack {
+    margin-top: var(--stack-gap);
+    margin-bottom: var(--stack-gap);
+  }
+
+  /* Padding utilities using spacing scale */
+  .p-card {
+    padding: var(--card-padding);
+  }
+
+  .p-card-sm {
+    padding: var(--card-padding-sm);
+  }
+
+  .p-card-lg {
+    padding: var(--card-padding-lg);
+  }
+
+  .p-section {
+    padding: var(--section-padding-y) var(--section-padding-x);
+  }
+
+  .py-section {
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+  }
+
+  .px-section {
+    padding-left: var(--section-padding-x);
+    padding-right: var(--section-padding-x);
+  }
+
+  .p-content {
+    padding: var(--content-padding);
+  }
+
+  .p-page {
+    padding: var(--page-padding-y) var(--page-padding-x);
+  }
+
+  /* Gap utilities */
+  .gap-grid {
+    gap: var(--grid-gap);
+  }
+
+  .gap-grid-sm {
+    gap: var(--grid-gap-sm);
+  }
+
+  .gap-grid-lg {
+    gap: var(--grid-gap-lg);
+  }
+
+  .gap-stack {
+    gap: var(--stack-gap);
+  }
+
+  .gap-stack-sm {
+    gap: var(--stack-gap-sm);
+  }
+
+  .gap-stack-lg {
+    gap: var(--stack-gap-lg);
+  }
+
+  .gap-inline {
+    gap: var(--inline-gap);
+  }
+
+  .gap-inline-sm {
+    gap: var(--inline-gap-sm);
+  }
+
+  .gap-inline-lg {
+    gap: var(--inline-gap-lg);
+  }
+
+  .gap-card {
+    gap: var(--card-gap);
   }
 }
 

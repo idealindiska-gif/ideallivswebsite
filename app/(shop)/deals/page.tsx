@@ -69,7 +69,7 @@ async function DealsContent() {
             <div className="relative overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-red-950/20 dark:via-orange-950/20 dark:to-yellow-950/20">
                 <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25" />
 
-                <div className="relative w-full px-5 max-w-[1400px] mx-auto py-16">
+                <div className="relative container-wide mx-auto page-section-sm">
                     <div className="flex flex-col items-center text-center space-y-6">
                         {/* Icon */}
                         <div className="relative">
@@ -110,7 +110,7 @@ async function DealsContent() {
 
             {/* In-depth SEO Description Section */}
             <section className="w-full bg-muted/30 py-12 border-y border-border/50">
-                <div className="container mx-auto px-5 max-w-[1400px]">
+                <div className="container-wide mx-auto px-[var(--container-padding)]">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-4">
                             <h2 className="text-3xl font-heading font-bold text-foreground">
@@ -153,7 +153,7 @@ async function DealsContent() {
             </section>
 
             {/* Products Grid */}
-            <div className="w-full px-5 max-w-[1400px] mx-auto py-12">
+            <div className="container-wide mx-auto page-section">
                 {saleProducts.length > 0 ? (
                     <>
                         <div className="mb-8">

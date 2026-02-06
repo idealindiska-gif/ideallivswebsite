@@ -180,10 +180,21 @@ const styles = {
   layout: {
     spacing: "[&>*+*]:mt-6",
     article: "max-w-prose",
-    container: "max-w-5xl mx-auto p-6 sm:p-8",
-    section: "py-8 md:py-12",
+    section: "page-section", // Uses fluid spacing from globals.css
+    // Container variants using CSS variables from theme
+    container: {
+      base: "w-full mx-auto px-[var(--container-padding)]",
+      prose: "max-w-[var(--container-prose)]",
+      compact: "max-w-[var(--container-compact)]",
+      standard: "max-w-[var(--container-standard)]",
+      wide: "max-w-[var(--container-wide)]",
+      full: "max-w-full",
+    },
   },
 };
+
+// Container variant type
+export type ContainerVariant = "prose" | "compact" | "standard" | "wide" | "full";
 
 // Combine all typography styles
 const baseTypographyStyles = [
@@ -218,14 +229,39 @@ export const Main = ({ children, className, id }: BaseProps) => (
   </main>
 );
 
-export const Section = ({ children, className, id }: BaseProps) => (
-  <section className={cn(styles.layout.section, className)} id={id}>
-    {children}
-  </section>
-);
+// Section props with size variant
+export interface SectionProps extends BaseProps {
+  size?: "sm" | "default" | "lg";
+}
 
-export const Container = ({ children, className, id }: BaseProps) => (
-  <div className={cn(styles.layout.container, className)} id={id}>
+export const Section = ({ children, className, id, size = "default" }: SectionProps) => {
+  const sizeClasses = {
+    sm: "page-section-sm",
+    default: "page-section",
+    lg: "page-section-lg",
+  };
+
+  return (
+    <section className={cn(sizeClasses[size], className)} id={id}>
+      {children}
+    </section>
+  );
+};
+
+// Container props with variant
+export interface ContainerProps extends BaseProps {
+  variant?: ContainerVariant;
+}
+
+export const Container = ({ children, className, id, variant = "standard" }: ContainerProps) => (
+  <div
+    className={cn(
+      styles.layout.container.base,
+      styles.layout.container[variant],
+      className
+    )}
+    id={id}
+  >
     {children}
   </div>
 );

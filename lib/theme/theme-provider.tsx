@@ -1,39 +1,49 @@
 'use client';
 
 /**
- * Theme Provider
+ * Unified Theme Provider
  *
- * React context provider for theme management with dynamic theme switching,
- * persistence, and CSS variable injection.
+ * Combines next-themes (light/dark mode) with color theme switching.
+ * This provider manages both:
+ * 1. Light/Dark mode via next-themes (attribute="class")
+ * 2. Color theme presets (freshGrocery, marketFresh, etc.)
  */
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { defaultTheme, themes, type ThemeName, type ThemeConfig } from '@/config/theme.config';
+import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from 'next-themes';
+import { ThemeProviderProps as NextThemesProviderProps } from 'next-themes';
+import { themes, type ThemeName, type ThemeConfig } from '@/config/theme.config';
 import { applyTheme, loadGoogleFonts, getThemeFonts } from './theme-utils';
 
-interface ThemeContextType {
-  theme: ThemeConfig;
-  themeName: ThemeName;
-  setTheme: (name: ThemeName) => void;
+// Color theme context for managing theme presets
+interface ColorThemeContextType {
+  colorTheme: ThemeConfig;
+  colorThemeName: ThemeName;
+  setColorTheme: (name: ThemeName) => void;
   customTheme: ThemeConfig | null;
   setCustomTheme: (theme: ThemeConfig) => void;
-  resetTheme: () => void;
+  resetColorTheme: () => void;
+  availableThemes: typeof themes;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ColorThemeContext = createContext<ColorThemeContextType | undefined>(undefined);
 
-interface ThemeProviderProps {
+interface ColorThemeProviderProps {
   children: ReactNode;
-  defaultThemeName?: ThemeName;
+  defaultTheme?: ThemeName;
   storageKey?: string;
 }
 
-export function ThemeProvider({
+/**
+ * Color Theme Provider
+ * Manages color theme presets separate from light/dark mode
+ */
+function ColorThemeProvider({
   children,
-  defaultThemeName = 'default',
-  storageKey = 'site-theme',
-}: ThemeProviderProps) {
-  const [themeName, setThemeName] = useState<ThemeName>(defaultThemeName);
+  defaultTheme = 'freshGrocery',
+  storageKey = 'color-theme',
+}: ColorThemeProviderProps) {
+  const [themeName, setThemeName] = useState<ThemeName>(defaultTheme);
   const [customTheme, setCustomTheme] = useState<ThemeConfig | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -41,9 +51,9 @@ export function ThemeProvider({
   useEffect(() => {
     setMounted(true);
 
-    const stored = localStorage.getItem(storageKey);
-    if (stored) {
-      try {
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored) {
         const data = JSON.parse(stored);
         if (data.themeName && themes[data.themeName as ThemeName]) {
           setThemeName(data.themeName as ThemeName);
@@ -51,14 +61,14 @@ export function ThemeProvider({
         if (data.customTheme) {
           setCustomTheme(data.customTheme);
         }
-      } catch {
-        // Invalid storage data, use default
       }
+    } catch {
+      // Invalid storage data, use default
     }
   }, [storageKey]);
 
   // Get current active theme
-  const activeTheme = customTheme || themes[themeName] || defaultTheme;
+  const activeTheme = customTheme || themes[themeName] || themes.freshGrocery;
 
   // Apply theme when it changes
   useEffect(() => {
@@ -67,7 +77,7 @@ export function ThemeProvider({
     // Apply theme CSS variables
     applyTheme(activeTheme);
 
-    // Load Google Fonts
+    // Load Google Fonts if needed
     const fonts = getThemeFonts(activeTheme);
     if (fonts.length > 0) {
       loadGoogleFonts(fonts);
@@ -85,7 +95,7 @@ export function ThemeProvider({
 
   const handleSetTheme = (name: ThemeName) => {
     setThemeName(name);
-    setCustomTheme(null); // Clear custom theme when selecting preset
+    setCustomTheme(null);
   };
 
   const handleSetCustomTheme = (theme: ThemeConfig) => {
@@ -93,36 +103,124 @@ export function ThemeProvider({
   };
 
   const handleResetTheme = () => {
-    setThemeName('default');
+    setThemeName('freshGrocery');
     setCustomTheme(null);
     localStorage.removeItem(storageKey);
   };
 
-  // Prevent flash of unstyled content
-  if (!mounted) {
-    return null;
-  }
-
   return (
-    <ThemeContext.Provider
+    <ColorThemeContext.Provider
       value={{
-        theme: activeTheme,
-        themeName,
-        setTheme: handleSetTheme,
+        colorTheme: activeTheme,
+        colorThemeName: themeName,
+        setColorTheme: handleSetTheme,
         customTheme,
         setCustomTheme: handleSetCustomTheme,
-        resetTheme: handleResetTheme,
+        resetColorTheme: handleResetTheme,
+        availableThemes: themes,
       }}
     >
       {children}
-    </ThemeContext.Provider>
+    </ColorThemeContext.Provider>
   );
 }
 
-export function useTheme() {
-  const context = useContext(ThemeContext);
+/**
+ * Hook to access color theme context
+ */
+export function useColorTheme() {
+  const context = useContext(ColorThemeContext);
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error('useColorTheme must be used within a ThemeProvider');
   }
   return context;
+}
+
+/**
+ * Combined hook for both light/dark mode and color themes
+ */
+export function useTheme() {
+  const nextTheme = useNextTheme();
+  const colorTheme = useContext(ColorThemeContext);
+
+  // If color theme context is not available, return just next-themes
+  if (colorTheme === undefined) {
+    return {
+      // Light/dark mode from next-themes
+      theme: nextTheme.theme,
+      setTheme: nextTheme.setTheme,
+      resolvedTheme: nextTheme.resolvedTheme,
+      systemTheme: nextTheme.systemTheme,
+      themes: nextTheme.themes,
+      // Color theme defaults (when used outside ColorThemeProvider)
+      colorTheme: themes.freshGrocery,
+      colorThemeName: 'freshGrocery' as ThemeName,
+      setColorTheme: () => {},
+      customTheme: null,
+      setCustomTheme: () => {},
+      resetColorTheme: () => {},
+      availableThemes: themes,
+    };
+  }
+
+  return {
+    // Light/dark mode from next-themes
+    theme: nextTheme.theme,
+    setTheme: nextTheme.setTheme,
+    resolvedTheme: nextTheme.resolvedTheme,
+    systemTheme: nextTheme.systemTheme,
+    themes: nextTheme.themes,
+    // Color theme
+    colorTheme: colorTheme.colorTheme,
+    colorThemeName: colorTheme.colorThemeName,
+    setColorTheme: colorTheme.setColorTheme,
+    customTheme: colorTheme.customTheme,
+    setCustomTheme: colorTheme.setCustomTheme,
+    resetColorTheme: colorTheme.resetColorTheme,
+    availableThemes: colorTheme.availableThemes,
+  };
+}
+
+/**
+ * Props for the unified ThemeProvider
+ */
+interface ThemeProviderProps extends Omit<NextThemesProviderProps, 'children'> {
+  children: ReactNode;
+  defaultColorTheme?: ThemeName;
+  colorThemeStorageKey?: string;
+}
+
+/**
+ * Unified Theme Provider
+ *
+ * Combines next-themes for light/dark mode with color theme switching.
+ *
+ * Usage:
+ * ```tsx
+ * <ThemeProvider
+ *   attribute="class"
+ *   defaultTheme="system"
+ *   enableSystem
+ *   defaultColorTheme="freshGrocery"
+ * >
+ *   {children}
+ * </ThemeProvider>
+ * ```
+ */
+export function ThemeProvider({
+  children,
+  defaultColorTheme = 'freshGrocery',
+  colorThemeStorageKey = 'color-theme',
+  ...nextThemeProps
+}: ThemeProviderProps) {
+  return (
+    <NextThemesProvider {...nextThemeProps}>
+      <ColorThemeProvider
+        defaultTheme={defaultColorTheme}
+        storageKey={colorThemeStorageKey}
+      >
+        {children}
+      </ColorThemeProvider>
+    </NextThemesProvider>
+  );
 }

@@ -4,7 +4,7 @@
  * Centralized exports for theme management.
  */
 
-export { ThemeProvider, useTheme } from './theme-provider';
+export { ThemeProvider, useTheme, useColorTheme } from './theme-provider';
 export {
   themeToCSSVariables,
   generateThemeCSS,
@@ -14,9 +14,11 @@ export {
   getThemeFonts,
   isValidHexColor,
   hexToRGB,
+  hexToHSL,
   getContrastRatio,
   meetsWCAGAA,
   meetsWCAGAAA,
   exportTheme,
   importTheme,
 } from './theme-utils';
+export { useThemeColors, useThemeTypography } from './hooks';

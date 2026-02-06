@@ -3,7 +3,7 @@ import "./globals.css";
 import { Inter as FontSans, Montserrat as FontHeading } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { ThemeProvider } from "@/components/theme/theme-provider";
+import { ThemeProvider } from "@/lib/theme";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TopInfoBar } from "@/components/layout/top-info-bar";
@@ -183,6 +183,7 @@ export default async function RootLayout({
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
+            defaultColorTheme="freshGrocery"
           >
           {/* Top Green Info Bar - Desktop only */}
           <TopInfoBar />

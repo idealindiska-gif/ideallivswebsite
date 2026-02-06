@@ -514,7 +514,276 @@ export const royalHeritageTheme: ThemeConfig = {
   },
 };
 
+/**
+ * Fresh Grocery Theme - Default for this project
+ *
+ * Features:
+ * - Forest green primary (#15803d) for fresh, natural appeal
+ * - Vibrant red secondary (#ef4444) for sales badges and CTAs
+ * - Clean, trustworthy, fresh produce aisle aesthetic
+ * - Matches current globals.css color scheme
+ */
+export const freshGroceryTheme: ThemeConfig = {
+  ...defaultTheme,
+  name: 'Fresh Grocery',
+
+  colors: {
+    ...defaultTheme.colors,
+
+    // Primary: Deep Forest Green - Fresh, natural, trustworthy
+    primary: {
+      50: '#f0fdf4',
+      100: '#dcfce7',
+      200: '#bbf7d0',
+      300: '#86efac',
+      400: '#4ade80',
+      500: '#15803d', // Main - matches current --primary
+      600: '#16a34a',
+      700: '#15803d',
+      800: '#166534',
+      900: '#14532d',
+      950: '#052e16',
+    },
+
+    // Secondary: Vibrant Red - Sales, urgency, appetite appeal
+    secondary: {
+      50: '#fef2f2',
+      100: '#fee2e2',
+      200: '#fecaca',
+      300: '#fca5a5',
+      400: '#f87171',
+      500: '#ef4444', // Main - matches current --secondary
+      600: '#dc2626',
+      700: '#b91c1c',
+      800: '#991b1b',
+      900: '#7f1d1d',
+      950: '#450a0a',
+    },
+
+    // Neutral: Slate - Clean, modern
+    neutral: {
+      50: '#f8fafc',
+      100: '#f1f5f9',
+      200: '#e2e8f0',
+      300: '#cbd5e1',
+      400: '#94a3b8',
+      500: '#64748b',
+      600: '#475569',
+      700: '#334155',
+      800: '#1e293b',
+      900: '#0f172a',
+      950: '#020617',
+    },
+
+    // Semantic colors
+    success: '#10b981',
+    warning: '#f59e0b',
+    error: '#ef4444',
+    info: '#3b82f6',
+
+    // Background: Light mint green
+    background: '#f2fbf3',
+    foreground: '#0f172a',
+    muted: '#f1f5f9',
+    mutedForeground: '#64748b',
+
+    // UI elements
+    border: '#e2e8f0',
+    input: '#e2e8f0',
+    ring: '#15803d',
+
+    // Card: Soft mint green
+    card: '#e1f7e4',
+    cardForeground: '#0f172a',
+  },
+};
+
+/**
+ * Market Fresh Theme - Artisanal, farmers market aesthetic
+ *
+ * Features:
+ * - Terracotta orange for warmth and handcrafted feel
+ * - Olive green for organic, natural appeal
+ * - Warm tones evoke farmers market experience
+ */
+export const marketFreshTheme: ThemeConfig = {
+  ...defaultTheme,
+  name: 'Market Fresh',
+
+  colors: {
+    ...defaultTheme.colors,
+
+    // Primary: Terracotta - Warm, artisanal, handcrafted
+    primary: {
+      50: '#fffbeb',
+      100: '#fef3c7',
+      200: '#fde68a',
+      300: '#fcd34d',
+      400: '#fbbf24',
+      500: '#b45309', // Main terracotta
+      600: '#92400e',
+      700: '#78350f',
+      800: '#451a03',
+      900: '#422006',
+      950: '#1c0a00',
+    },
+
+    // Secondary: Olive Green - Organic, natural
+    secondary: {
+      50: '#f7fee7',
+      100: '#ecfccb',
+      200: '#d9f99d',
+      300: '#bef264',
+      400: '#a3e635',
+      500: '#4d7c0f', // Main olive
+      600: '#3f6212',
+      700: '#365314',
+      800: '#1a2e05',
+      900: '#14532d',
+      950: '#052e16',
+    },
+
+    // Neutral: Warm Stone
+    neutral: {
+      50: '#fafaf9',
+      100: '#f5f5f4',
+      200: '#e7e5e4',
+      300: '#d6d3d1',
+      400: '#a8a29e',
+      500: '#78716c',
+      600: '#57534e',
+      700: '#44403c',
+      800: '#292524',
+      900: '#1c1917',
+      950: '#0c0a09',
+    },
+
+    // Semantic colors
+    success: '#059669',
+    warning: '#d97706',
+    error: '#dc2626',
+    info: '#0891b2',
+
+    // Background: Warm off-white
+    background: '#faf9f7',
+    foreground: '#1c1917',
+    muted: '#f5f5f4',
+    mutedForeground: '#57534e',
+
+    // UI elements
+    border: '#e7e5e4',
+    input: '#e7e5e4',
+    ring: '#b45309',
+
+    // Card
+    card: '#ffffff',
+    cardForeground: '#1c1917',
+  },
+
+  typography: {
+    ...defaultTheme.typography,
+    fontFamily: {
+      ...defaultTheme.typography.fontFamily,
+      heading: ['DM Serif Display', 'Georgia', 'serif'],
+    },
+  },
+};
+
+/**
+ * Premium Natural Theme - Upscale organic, whole foods aesthetic
+ *
+ * Features:
+ * - Deep teal for sophistication and trust
+ * - Soft gold for premium, luxury feel
+ * - Elegant typography with Playfair Display
+ */
+export const premiumNaturalTheme: ThemeConfig = {
+  ...defaultTheme,
+  name: 'Premium Natural',
+
+  colors: {
+    ...defaultTheme.colors,
+
+    // Primary: Deep Teal - Sophisticated, trustworthy, premium
+    primary: {
+      50: '#f0fdfa',
+      100: '#ccfbf1',
+      200: '#99f6e4',
+      300: '#5eead4',
+      400: '#2dd4bf',
+      500: '#0d9488', // Main teal
+      600: '#0f766e',
+      700: '#115e59',
+      800: '#134e4a',
+      900: '#042f2e',
+      950: '#021a19',
+    },
+
+    // Secondary: Soft Gold - Premium, luxury
+    secondary: {
+      50: '#fefce8',
+      100: '#fef9c3',
+      200: '#fef08a',
+      300: '#fde047',
+      400: '#facc15',
+      500: '#ca8a04', // Main gold
+      600: '#a16207',
+      700: '#854d0e',
+      800: '#713f12',
+      900: '#422006',
+      950: '#1c0a00',
+    },
+
+    // Neutral: Warm Grays
+    neutral: {
+      50: '#faf9f7',
+      100: '#f5f5f4',
+      200: '#e7e5e4',
+      300: '#d6d3d1',
+      400: '#a8a29e',
+      500: '#78716c',
+      600: '#57534e',
+      700: '#44403c',
+      800: '#292524',
+      900: '#1c1917',
+      950: '#0c0a09',
+    },
+
+    // Semantic colors
+    success: '#059669',
+    warning: '#d97706',
+    error: '#dc2626',
+    info: '#0891b2',
+
+    // Background: Warm off-white
+    background: '#faf9f7',
+    foreground: '#1c1917',
+    muted: '#f5f5f4',
+    mutedForeground: '#57534e',
+
+    // UI elements
+    border: '#e7e5e4',
+    input: '#e7e5e4',
+    ring: '#0d9488',
+
+    // Card
+    card: '#ffffff',
+    cardForeground: '#1c1917',
+  },
+
+  typography: {
+    ...defaultTheme.typography,
+    fontFamily: {
+      ...defaultTheme.typography.fontFamily,
+      heading: ['Playfair Display', 'Georgia', 'serif'],
+    },
+  },
+};
+
 export const themes = {
+  freshGrocery: freshGroceryTheme,
+  marketFresh: marketFreshTheme,
+  premiumNatural: premiumNaturalTheme,
   default: defaultTheme,
   restaurant: restaurantTheme,
   minimalist: minimalistTheme,
