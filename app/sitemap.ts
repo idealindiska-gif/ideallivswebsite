@@ -94,8 +94,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             { path: '/shop?on_sale=true', priority: 0.9 },
             { path: '/shop?stock_status=instock', priority: 0.7 },
             { path: '/shop?featured=true', priority: 0.8 },
-            { path: '/shop?orderby=price&order=asc', priority: 0.6 },
-            { path: '/shop?orderby=date&order=desc', priority: 0.7 },
+            { path: '/shop?orderby=price&amp;order=asc', priority: 0.6 },
+            { path: '/shop?orderby=date&amp;order=desc', priority: 0.7 },
         ];
 
         shopFilters.forEach(({ path, priority }) => {
