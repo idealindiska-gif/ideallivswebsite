@@ -107,15 +107,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             });
         });
 
-        // Fetch products (limit to recent/popular ones for sitemap)
-        const { data: products } = await getProducts({
-            per_page: 100,
-            orderby: 'popularity',
-            order: 'desc',
-        });
+        // Fetch ALL products in batches (you have 1200+ products)
+        const allProducts = [];
+        let currentPage = 1;
+        let hasMoreProducts = true;
 
-        // Add product pages
-        products.forEach((product) => {
+        while (hasMoreProducts) {
+            try {
+                const { data: products, totalPages } = await getProducts({
+                    per_page: 100,
+                    page: currentPage,
+                    orderby: 'date',
+                    order: 'desc',
+                });
+
+                allProducts.push(...products);
+
+                if (currentPage >= totalPages) {
+                    hasMoreProducts = false;
+                } else {
+                    currentPage++;
+                }
+            } catch (error) {
+                console.error(`Error fetching products page ${currentPage}:`, error);
+                hasMoreProducts = false;
+            }
+        }
+
+        console.log(`Sitemap: Fetched ${allProducts.length} total products`);
+
+        // Add all product pages
+        allProducts.forEach((product) => {
             sitemap.push({
                 url: `${SITE_URL}/product/${product.slug}`,
                 lastModified: new Date(product.date_modified || product.date_created),
