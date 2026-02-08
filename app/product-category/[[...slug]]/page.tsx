@@ -21,8 +21,9 @@ interface ProductCategoryPageProps {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export async function generateMetadata({ params }: ProductCategoryPageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: ProductCategoryPageProps): Promise<Metadata> {
     const resolvedParams = await params;
+    const resolvedSearchParams = await searchParams;
     const slug = resolvedParams.slug?.[resolvedParams.slug.length - 1] || '';
 
     try {
@@ -34,6 +35,28 @@ export async function generateMetadata({ params }: ProductCategoryPageProps): Pr
             };
         }
 
+        // Build filter suffix for title and description
+        const filterParts: string[] = [];
+        if (resolvedSearchParams.on_sale === 'true') {
+            filterParts.push('On Sale');
+        }
+        if (resolvedSearchParams.stock_status === 'instock') {
+            filterParts.push('In Stock');
+        }
+        if (resolvedSearchParams.featured === 'true') {
+            filterParts.push('Featured');
+        }
+        if (resolvedSearchParams.brand) {
+            // Capitalize brand name from slug
+            const brandName = (resolvedSearchParams.brand as string)
+                .split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+            filterParts.push(brandName);
+        }
+
+        const filterSuffix = filterParts.length > 0 ? ` - ${filterParts.join(', ')}` : '';
+
         // Default fallback image if category has no image
         const defaultImage = {
             url: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg',
@@ -43,16 +66,23 @@ export async function generateMetadata({ params }: ProductCategoryPageProps): Pr
         };
 
         const cleanDescription = category.description?.replace(/\<[^>]*>/g, '').trim();
-        const metaDescription = cleanDescription
+        let metaDescription = cleanDescription
             ? `${cleanDescription.substring(0, 95)} | Ideal Indiska LIVS Stockholm.`
             : `Shop ${category.name} at Ideal Indiska LIVS Stockholm. Authentic Indian and Pakistani groceries with fast delivery.`;
 
+        // Add filter context to description
+        if (filterParts.length > 0) {
+            metaDescription = `${filterParts.join(', ')} ${category.name} at Ideal Indiska LIVS Stockholm. ${cleanDescription || 'Authentic Indian and Pakistani groceries with fast delivery.'}`;
+        }
+
+        const pageTitle = `${category.name}${filterSuffix} | Ideal Indiska LIVS`;
+
         return {
-            title: `${category.name} | Ideal Indiska LIVS`,
-            description: metaDescription.substring(0, 150),
+            title: pageTitle,
+            description: metaDescription.substring(0, 160),
             openGraph: {
-                title: `${category.name} | Ideal Indiska LIVS`,
-                description: metaDescription.substring(0, 150),
+                title: pageTitle,
+                description: metaDescription.substring(0, 160),
                 images: category.image
                     ? [{
                         url: category.image.src,

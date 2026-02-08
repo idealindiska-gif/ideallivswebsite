@@ -31,8 +31,9 @@ interface BrandArchivePageProps {
     }>;
 }
 
-export async function generateMetadata({ params }: BrandArchivePageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: BrandArchivePageProps): Promise<Metadata> {
     const resolvedParams = await params;
+    const resolvedSearchParams = await searchParams;
     const brand = await getBrandBySlug(resolvedParams.slug);
 
     if (!brand) {
@@ -41,10 +42,37 @@ export async function generateMetadata({ params }: BrandArchivePageProps): Promi
         };
     }
 
-    const title = `${brand.name} | Authentic Products at Ideal Indiska LIVS`;
-    const description = brand.description
+    // Build filter suffix for title and description
+    const filterParts: string[] = [];
+    if (resolvedSearchParams.on_sale === 'true') {
+        filterParts.push('On Sale');
+    }
+    if (resolvedSearchParams.stock_status === 'instock') {
+        filterParts.push('In Stock');
+    }
+    if (resolvedSearchParams.featured === 'true') {
+        filterParts.push('Featured');
+    }
+    if (resolvedSearchParams.category) {
+        // Capitalize category name from slug
+        const categoryName = (resolvedSearchParams.category as string)
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        filterParts.push(categoryName);
+    }
+
+    const filterSuffix = filterParts.length > 0 ? ` - ${filterParts.join(', ')}` : '';
+
+    const title = `${brand.name}${filterSuffix} | Authentic Products at Ideal Indiska LIVS`;
+    let description = brand.description
         ? brand.description.replace(/\<[^>]*>/g, '').substring(0, 150) + " | Shop authentic products at Ideal Indiska LIVS Stockholm."
         : `Shop all ${brand.name} products at Ideal Indiska LIVS. Your trusted source for authentic Indian and Pakistani groceries in Stockholm. High-quality products from top brands.`;
+
+    // Add filter context to description
+    if (filterParts.length > 0) {
+        description = `${filterParts.join(', ')} ${brand.name} products at Ideal Indiska LIVS Stockholm. ${brand.description?.replace(/\<[^>]*>/g, '') || 'Authentic Indian and Pakistani groceries with fast delivery.'}`;
+    }
 
     return {
         title,
