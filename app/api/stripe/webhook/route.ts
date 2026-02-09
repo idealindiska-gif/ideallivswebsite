@@ -33,6 +33,11 @@ export async function POST(request: NextRequest) {
 
     console.log(`📩 Stripe webhook received: ${event.type}`);
 
+    // Log payment method details for debugging Klarna and other payment methods
+    if (event.data.object && 'payment_method_types' in event.data.object) {
+        console.log(`💳 Payment method types:`, (event.data.object as any).payment_method_types);
+    }
+
     try {
         switch (event.type) {
             case 'payment_intent.succeeded': {
@@ -56,6 +61,23 @@ export async function POST(request: NextRequest) {
             case 'payment_intent.processing': {
                 const paymentIntent = event.data.object as Stripe.PaymentIntent;
                 await handlePaymentProcessing(paymentIntent);
+                break;
+            }
+
+            // Handle charge.succeeded for payment methods that may not trigger payment_intent.succeeded
+            // This can happen with some redirect-based payment methods like Klarna
+            case 'charge.succeeded': {
+                const charge = event.data.object as Stripe.Charge;
+                console.log(`💰 Charge succeeded: ${charge.id}`);
+
+                // Extract payment_intent from charge and handle it
+                if (charge.payment_intent && typeof charge.payment_intent === 'string') {
+                    console.log(`🔗 Retrieving PaymentIntent: ${charge.payment_intent}`);
+                    const paymentIntent = await stripe.paymentIntents.retrieve(charge.payment_intent);
+                    await handlePaymentSucceeded(paymentIntent);
+                } else {
+                    console.warn('⚠️ charge.succeeded event without payment_intent');
+                }
                 break;
             }
 

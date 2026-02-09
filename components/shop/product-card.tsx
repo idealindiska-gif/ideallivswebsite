@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -30,8 +30,8 @@ export function ProductCard({ product, className, priority = false }: ProductCar
   // Check stock status
   const isOutOfStock = product.stock_status === 'outofstock';
   const isLowStock = product.stock_quantity !== null &&
-                     product.stock_quantity > 0 &&
-                     product.stock_quantity <= 5;
+    product.stock_quantity > 0 &&
+    product.stock_quantity <= 5;
   const stockQuantity = product.stock_quantity;
 
   // Rating
@@ -80,7 +80,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
           <div className="relative aspect-square overflow-hidden bg-muted/10">
             {product.images && product.images.length > 0 && !imageError ? (
               <>
-                <Image
+                <OptimizedImage
                   src={product.images[0].src}
                   alt={`${product.images[0].alt || product.name} | Ideal Indiska LIVS`}
                   fill
@@ -91,6 +91,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                   loading={priority ? "eager" : "lazy"}
                   priority={priority}
+                  quality={80}
                   onError={() => setImageError(true)}
                 />
                 {/* Hover Overlay */}

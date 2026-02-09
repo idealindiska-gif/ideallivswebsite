@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, X, ZoomIn, Maximize2 } from 'lucide-react';
@@ -53,7 +53,7 @@ export function ProductImageGallery({
                 className="relative h-full w-full cursor-zoom-in transition-transform duration-300 hover:scale-105"
                 onClick={handleImageClick}
               >
-                <Image
+                <OptimizedImage
                   src={currentImage.src}
                   alt={`${currentImage.alt || productName} | Ideal Indiska LIVS`}
                   fill
@@ -143,7 +143,7 @@ export function ProductImageGallery({
                     : 'border-border'
                 )}
               >
-                <Image
+                <OptimizedImage
                   src={image.src}
                   alt={`${image.alt || productName} - Image ${index + 1} | Ideal Indiska LIVS`}
                   fill
@@ -173,7 +173,7 @@ export function ProductImageGallery({
 
             {/* Main Lightbox Image */}
             <div className="relative aspect-square w-full md:aspect-video">
-              <Image
+              <OptimizedImage
                 src={currentImage.src}
                 alt={`${currentImage.alt || productName} | Ideal Indiska LIVS`}
                 fill
@@ -228,12 +228,13 @@ export function ProductImageGallery({
                           : 'border-white/30 hover:border-white/60'
                       )}
                     >
-                      <Image
+                      <OptimizedImage
                         src={image.src}
                         alt={`${image.alt || productName} - Thumbnail ${index + 1} | Ideal Indiska LIVS`}
                         fill
                         className="object-cover"
                         sizes="80px"
+                        quality={60}
                       />
                     </button>
                   ))}

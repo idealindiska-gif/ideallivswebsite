@@ -712,7 +712,13 @@ export default function CheckoutPage() {
                     <Button
                       size="lg"
                       className="rounded-full"
-                      onClick={() => setCurrentStep('review')}
+                      onClick={() => {
+                        if (!shippingMethod) {
+                          setError('Please select a shipping method before continuing');
+                          return;
+                        }
+                        setCurrentStep('review');
+                      }}
                       disabled={!shippingMethod}
                     >
                       Review Order
@@ -802,6 +808,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
+
                   {/* Order Notes Display */}
                   {orderNotes && (
                     <div className="rounded-lg border p-4">
@@ -810,6 +817,16 @@ export default function CheckoutPage() {
                         {orderNotes}
                       </p>
                     </div>
+                  )}
+
+                  {/* Shipping Method Missing Alert */}
+                  {!shippingMethod && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        <strong>No shipping method selected.</strong> Please go back to the previous step and select a shipping method before placing your order.
+                      </AlertDescription>
+                    </Alert>
                   )}
 
                   {/* Navigation Buttons */}
@@ -825,7 +842,7 @@ export default function CheckoutPage() {
                       size="lg"
                       className="rounded-full"
                       onClick={handlePlaceOrder}
-                      disabled={isProcessing}
+                      disabled={isProcessing || !shippingMethod}
                     >
                       {isProcessing ? (
                         <>
