@@ -1,32 +1,34 @@
-/**
- * Force Revalidate Deals Page Cache
- * Run: node scripts/revalidate-deals.js
- */
-
 require('dotenv').config({ path: '.env.local' });
 
 async function revalidateDeals() {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ideallivs.com';
-    const revalidateSecret = process.env.REVALIDATE_SECRET || 'your-secret-key';
+    console.log('🔄 Triggering cache revalidation for deals and promotions...\n');
 
-    console.log('🔄 Revalidating deals page cache...\n');
+    // Check if we have the site URL, default to localhost for development or prod URL
+    const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ideallivs.com';
+    const WEBHOOK_SECRET = process.env.WORDPRESS_WEBHOOK_SECRET || 'test-secret-key';
+
+    console.log(`Target: ${SITE_URL}`);
 
     try {
-        const response = await fetch(`${baseUrl}/api/revalidate?secret=${revalidateSecret}&path=/deals`, {
-            method: 'GET',
+        const response = await fetch(`${SITE_URL}/api/revalidate`, {
+            method: 'POST',
+            headers: {
+                'x-webhook-secret': WEBHOOK_SECRET,
+                'Content-Type': 'application/json',
+            },
+            // Using 'promotion' content type which we just updated to revalidate /deals
+            body: JSON.stringify({ contentType: 'promotion' }),
         });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log('✅ Deals page cache revalidated successfully!');
-            console.log('Response:', data);
-        } else {
-            console.error('❌ Failed to revalidate:', response.status, response.statusText);
-            const text = await response.text();
-            console.error('Response:', text);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        const data = await response.json();
+        console.log('✅ Success:', data);
     } catch (error) {
         console.error('❌ Error:', error.message);
+        if (error.cause) console.error('Cause:', error.cause);
     }
 }
 

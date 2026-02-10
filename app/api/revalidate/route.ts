@@ -182,6 +182,7 @@ export async function POST(request: NextRequest) {
         revalidateTag("products");
         revalidatePath("/shop", "page");
         revalidatePath("/", "page");
+        revalidatePath("/deals", "page");
       }
       // Order updates (may affect stock)
       else if (contentType === "order") {

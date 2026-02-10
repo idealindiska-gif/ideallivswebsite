@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
@@ -11,8 +12,8 @@ import { collectionPageSchema, offerCatalogSchema } from "@/lib/schema/collectio
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
 
 export const metadata: Metadata = {
-    title: `January Grocery Deals Stockholm: Basmati, Idli Rice, Atta & Sweets | ${brandProfile.name}`,
-    description: `Don't miss our January 13-18 Flash Sale! Exclusive deals in Stockholm on Aashirvaad Atta (99 kr), India Gate Idli Rice (99 kr), Basmati (139 kr), and Haldirams Sweets. Order online for same-day delivery.`,
+    title: `Ramadan Mega Savings Stockholm: Dates, Rice, Rooh Afza & More | ${brandProfile.name}`,
+    description: `Huge Ramadan savings on authentic Indian and Pakistani groceries in Stockholm. Exclusive deals on Dates, Basmati rice, Rooh Afza, and Halal meat for Iftar & Suhoor. Order online!`,
     alternates: {
         canonical: 'https://www.ideallivs.com/deals',
     },
@@ -28,14 +29,14 @@ async function DealsContent() {
                 id="deals-breadcrumb"
                 schema={breadcrumbSchema([
                     { name: 'Home', url: '/' },
-                    { name: 'Deals & Offers', url: '/deals' },
+                    { name: 'Ramadan Deals', url: '/deals' },
                 ])}
             />
             <SchemaScript
                 id="deals-collection"
                 schema={collectionPageSchema({
-                    name: "Special Offers on Indian & Pakistani Groceries",
-                    description: "Weekly discounts and promotions on authentic South Asian products in Stockholm.",
+                    name: "Ramadan Mega Savings on Indian & Pakistani Groceries",
+                    description: "Exclusive Ramadan discounts and promotions on authentic South Asian products in Stockholm.",
                     url: "https://www.ideallivs.com/deals",
                     items: saleProducts.slice(0, 20).map(p => ({
                         url: `https://www.ideallivs.com/product/${p.slug}`,
@@ -48,8 +49,8 @@ async function DealsContent() {
             <SchemaScript
                 id="deals-offer-catalog"
                 schema={offerCatalogSchema({
-                    name: "Current Deals & Special Offers - Ideal Indiska LIVS",
-                    description: "Limited time promotional prices on Indian & Pakistani groceries in Stockholm.",
+                    name: "Ramadan Mega Savings - Ideal Indiska LIVS",
+                    description: "Limited time Ramadan promotional prices on Indian & Pakistani groceries in Stockholm.",
                     url: "https://www.ideallivs.com/deals",
                     items: saleProducts.slice(0, 30).map(p => ({
                         name: p.name,
@@ -66,44 +67,60 @@ async function DealsContent() {
             />
 
             {/* Hero Section */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-red-950/20 dark:via-orange-950/20 dark:to-yellow-950/20">
-                <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25" />
+            <div className="relative w-full overflow-hidden bg-emerald-950 min-h-[500px] flex items-center">
+                {/* Background Image */}
+                <div className="absolute inset-0 w-full h-full">
+                    <Image
+                        src="https://crm.ideallivs.com/wp-content/uploads/2026/02/Ideal-Ramadan-Savings-e1770765144207.jpg"
+                        alt="Ramadan Mega Savings"
+                        fill
+                        className="object-cover object-center"
+                        priority
+                    />
+                    {/* Gradient Overlay for Text Readability - Stronger on the left */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-950/60 to-transparent" />
+                </div>
 
-                <div className="relative container-wide mx-auto page-section-sm">
-                    <div className="flex flex-col items-center text-center space-y-6">
-                        {/* Icon */}
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-red-400 blur-3xl opacity-30 rounded-full" />
-                            <div className="relative p-6 bg-gradient-to-br from-red-500 to-orange-600 rounded-2xl shadow-2xl">
-                                <Percent className="h-12 w-12 text-white" />
+                <div className="relative container-wide mx-auto page-section-sm w-full">
+                    <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left">
+
+                        {/* Text Content - Left Side */}
+                        <div className="w-full md:w-1/2 space-y-8 z-10">
+                            {/* Icon */}
+                            <div className="inline-flex p-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl">
+                                <Percent className="h-8 w-8 text-emerald-300" />
+                            </div>
+
+                            {/* Title */}
+                            <div className="space-y-4">
+                                <h1 className="font-heading text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white drop-shadow-sm leading-tight">
+                                    Ramadan <br />
+                                    <span className="text-emerald-300">Mega Savings</span>
+                                </h1>
+                                <p className="text-lg md:text-xl text-emerald-100/90 font-medium leading-relaxed max-w-lg mx-auto md:mx-0">
+                                    Prepare for a blessed month with Stockholm&apos;s best prices on dates, rice, and Iftar essentials.
+                                </p>
+                            </div>
+
+                            {/* Stats */}
+                            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
+                                <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-950/60 backdrop-blur-md border border-emerald-500/30 text-emerald-50 shadow-sm">
+                                    <TrendingDown className="h-5 w-5 text-emerald-400" />
+                                    <span className="text-base font-semibold">
+                                        {saleProducts.length} Exclusive Deals
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-emerald-900 shadow-lg shadow-black/10">
+                                    <Percent className="h-5 w-5" />
+                                    <span className="text-base font-bold">
+                                        Limited Time Only
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Title */}
-                        <div className="space-y-3">
-                            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent">
-                                Indian Grocery Deals & Offers
-                            </h1>
-                            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto italic font-medium">
-                                Stockholm&apos;s best prices on South Asian cooking essentials.
-                            </p>
-                        </div>
-
-                        {/* Stats */}
-                        <div className="flex items-center gap-8 pt-4">
-                            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black/20 backdrop-blur-sm border border-border">
-                                <TrendingDown className="h-5 w-5 text-red-600" />
-                                <span className="text-sm font-semibold text-foreground">
-                                    {saleProducts.length} Flash Deals Active
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-500 to-orange-600 text-white">
-                                <Percent className="h-4 w-4" />
-                                <span className="text-sm font-bold">
-                                    Stockholm Delivery
-                                </span>
-                            </div>
-                        </div>
+                        {/* Right Side - Empty spacer to show the image */}
+                        <div className="hidden md:block w-1/2" />
                     </div>
                 </div>
             </div>
