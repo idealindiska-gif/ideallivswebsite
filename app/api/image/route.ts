@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
             .toBuffer();
 
         // Return WebP image with proper headers
-        return new NextResponse(webpBuffer, {
+        return new NextResponse(webpBuffer as any, {
             headers: {
                 'Content-Type': 'image/webp',
                 'Cache-Control': 'public, max-age=31536000, immutable',
