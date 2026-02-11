@@ -15,6 +15,7 @@ import { ProductReviews } from '@/components/shop/product-reviews';
 import { ProductSchema } from '@/components/shop/product-schema';
 import { StockIndicator } from '@/components/shop/stock-indicator';
 import { QuantitySelector } from '@/components/shop/quantity-selector';
+import { AiQuickSummary } from '@/components/product/ai-quick-summary';
 import { ProductRecommendations } from '@/components/ai/product-recommendations';
 import { StripeExpressCheckout } from '@/components/checkout/stripe-express-checkout';
 import { WishlistButton } from '@/components/wishlist/wishlist-button';
@@ -407,6 +408,9 @@ export function ProductTemplate({
                 product={selectedVariation || product}
                 variant="detailed"
               />
+
+              {/* AI Quick Summary (New) */}
+              <AiQuickSummary product={product} />
 
               {/* Short Description */}
               {product.short_description && (

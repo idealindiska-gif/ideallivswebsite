@@ -114,7 +114,34 @@ export interface Product {
   review?: unknown[];
   category?: string;
   url?: string;
+  nutrition?: NutritionInformation;
+  countryOfOrigin?: Country;
+  hasMeasurement?: QuantitativeValue;
   [key: string]: unknown;
+}
+
+export interface NutritionInformation {
+  '@type': 'NutritionInformation';
+  calories?: string;
+  fatContent?: string;
+  saturatedFatContent?: string;
+  carbohydrateContent?: string;
+  sugarContent?: string;
+  fiberContent?: string;
+  proteinContent?: string;
+  sodiumContent?: string;
+  servingSize?: string;
+}
+
+export interface Country {
+  '@type': 'Country';
+  name: string;
+}
+
+export interface QuantitativeValue {
+  '@type': 'QuantitativeValue';
+  value: number;
+  unitCode: string; // e.g., KGM, GRM, LTR
 }
 
 // Category/CollectionPage Schema
@@ -361,6 +388,22 @@ export interface ProductInput {
   weight?: string | number;
   seller?: string;
   condition?: 'NewCondition' | 'UsedCondition' | 'RefurbishedCondition';
+  nutrition?: {
+    calories?: string;
+    fat?: string;
+    saturatedFat?: string;
+    carbs?: string;
+    sugar?: string;
+    protein?: string;
+    salt?: string;
+    servingSize?: string;
+  };
+  ingredients?: string;
+  countryOfOrigin?: string;
+  measurement?: {
+    value: number;
+    unit: string;
+  };
 }
 
 export interface BreadcrumbInput {
