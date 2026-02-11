@@ -138,7 +138,7 @@ export default async function RootLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="sv-SE" suppressHydrationWarning>
       <head>
         {/* Critical preconnects - Most important first */}
         <link rel="preconnect" href="https://crm.ideallivs.com" crossOrigin="anonymous" />

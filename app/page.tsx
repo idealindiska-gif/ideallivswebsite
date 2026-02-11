@@ -16,7 +16,7 @@ export const revalidate = 3600;
 const BASE_URL = "https://www.ideallivs.com";
 
 export const metadata: Metadata = {
-  title: "Indian & Pakistani Groceries Stockholm | Ideal Indiska LIVS",
+  title: "Ideal Indiska LIVS - Indian & Pakistani Groceries Stockholm",
   description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, spices, Halal meat & fresh produce. Fast delivery Europe-wide.",
   alternates: {
     canonical: BASE_URL,
@@ -87,6 +87,9 @@ export default async function HomePage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
+      {/* Hidden H1 for SEO - Describes the main topic of the page */}
+      <h1 className="sr-only">Ideal Indiska LIVS - Indian & Pakistani Grocery Store Stockholm</h1>
+
       {/* 1. New Hero: Promotion/Deals Grid */}
       <PromotionGrid promotionProducts={dealProducts} />
 

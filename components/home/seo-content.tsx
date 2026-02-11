@@ -15,13 +15,13 @@ export function SeoContent() {
                         className="space-y-6"
                     >
                         <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
-                            Your Premier Destination for <span className="text-primary">Indian & Pakistani Groceries</span> in Stockholm
+                            Din Premier Destination för <span className="text-primary">Indiska & Pakistanska Livsmedel</span> i Stockholm
                         </h2>
                         <p className="text-muted-foreground leading-relaxed">
-                            Based in the heart of Bandhagen, <strong>Ideal Indiska LIVS</strong> is more than just a grocery store – we are a bridge to the rich culinary traditions of South Asia. Since our founding, we have been dedicated to providing the Stockholm community with the most authentic, high-quality ingredients available.
+                            Based in the heart of Bandhagen, <strong>Ideal Indiska LIVS</strong> is Stockholm&apos;s most authentic source for South Asian groceries. Vi erbjuder ett brett sortiment av <strong>Indiska kryddor</strong>, premium <strong>Basmatiris</strong>, och färskt <strong>Halal kött</strong>.
                         </p>
                         <p className="text-muted-foreground leading-relaxed">
-                            Whether you are looking for premium <strong>Basmati Rice</strong>, aromatic <strong>Garam Masala</strong>, or specialty <strong>Halal Meat</strong>, our shelves are stocked with the brands you know and trust. From <em>Shan</em> and <em>National Foods</em> to <em>Haldiram&apos;s</em> and <em>Ashoka</em>, we bring the taste of home to Sweden.
+                            Looking for authentic brands? We stock <em>Shan</em>, <em>National Foods</em>, <em>Haldiram&apos;s</em>, and <em>Ashoka</em>. Oavsett om du bor i Stockholm eller beställer online, we bring the true taste of India and Pakistan to your kitchen.
                         </p>
                     </motion.div>
 

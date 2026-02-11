@@ -10,16 +10,10 @@ interface HreflangTagsProps {
 export function HreflangTags({ canonicalUrl }: HreflangTagsProps) {
   return (
     <>
-      {/* Swedish version (main) */}
+      {/* Swedish version (main target) */}
       <link rel="alternate" hrefLang="sv-SE" href={canonicalUrl} />
 
-      {/* Swedish language (general) */}
-      <link rel="alternate" hrefLang="sv" href={canonicalUrl} />
-
-      {/* English for Swedish market (secondary) */}
-      <link rel="alternate" hrefLang="en-SE" href={canonicalUrl} />
-
-      {/* Default/fallback */}
+      {/* Default/fallback for other regions */}
       <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
     </>
   );
