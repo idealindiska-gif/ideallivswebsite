@@ -520,9 +520,11 @@ export default function CheckoutPage() {
 
           {/* Payment Methods Banner */}
           <div className="mt-4 flex justify-center">
-            <img
+            <Image
               src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
               alt="Payment Methods - Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay"
+              width={400}
+              height={50}
               className="h-6 w-auto object-contain"
             />
           </div>

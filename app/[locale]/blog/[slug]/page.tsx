@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar, Facebook, Twitter, Linkedin, Mail, MessageCircle, MapPin } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { getPostBySlug, getAllPosts } from '@/lib/wordpress';
 import { getProducts } from '@/lib/woocommerce/products-direct';
 import { brandProfile } from '@/config/brand-profile';
