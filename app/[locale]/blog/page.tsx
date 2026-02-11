@@ -102,7 +102,7 @@ export default async function BlogPage() {
                 Get ready for Ramadan with our curated list of Suhoor power-foods and Iftar essentials. Discover special deals on Atta, Rice, Dates, and more.
               </p>
               <Button asChild className="rounded-full px-8">
-                <Link href="/blog/ramadan-grocery-checklist-2026">View Checklist</Link>
+                <Link href="/blog/ramadan-2026">View Checklist</Link>
               </Button>
             </div>
           </div>

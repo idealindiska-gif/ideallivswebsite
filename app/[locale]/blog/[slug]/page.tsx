@@ -329,10 +329,27 @@ export default async function BlogPostPage({ params }: Props) {
                 `
               }} />
 
-              <div
-                className="page-content prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: post.content.rendered }}
-              />
+              {post.content.rendered ? (
+                <div
+                  className="page-content prose prose-lg max-w-none"
+                  dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+                />
+              ) : (
+                <div className="page-content prose prose-lg max-w-none">
+                  <div
+                    className="lead text-xl mb-8 font-medium text-foreground/80 italic border-l-4 border-primary pl-6"
+                    dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+                  />
+                  <div className="bg-muted/30 p-8 rounded-2xl border border-border/50 text-center">
+                    <p className="text-lg text-muted-foreground mb-6">
+                      This article is a summary. For the full experience and more details, please visit our store or contact us directly.
+                    </p>
+                    <Button asChild className="rounded-full px-8">
+                      <Link href="/contact">Contact Us</Link>
+                    </Button>
+                  </div>
+                </div>
+              )}
             </article>
 
             {/* Sidebar */}
