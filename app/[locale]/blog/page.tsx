@@ -79,32 +79,60 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      {/* Featured Static Post (Internal) */}
       <section className="py-12 bg-muted/30 border-b">
-        <div className="container px-4 md:px-6">
+        <div className="container px-4 md:px-6 space-y-8">
+
+          {/* Featured Static Post 1 (Ramadan) */}
           <div className="flex flex-col md:flex-row gap-8 items-center bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6">
             <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
               <Image
-                src="/images/blog/indian-fika-hero.png"
-                alt="The Indian Fika"
+                src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
+                alt="Ramadan 2026 Grocery Guide"
                 fill
                 className="object-cover"
               />
               <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Staff Pick
+                New Guide
               </div>
             </div>
             <div className="flex-1 space-y-4">
-              <div className="text-sm font-medium text-primary uppercase tracking-widest">Culture & Cooking</div>
-              <h2 className="text-2xl md:text-3xl font-bold font-heading">The Indian Fika: 5 Savory Snacks to Pair with Your Tea</h2>
+              <div className="text-sm font-medium text-primary uppercase tracking-widest">Seasonal Guide</div>
+              <h2 className="text-2xl md:text-3xl font-bold font-heading">Ramadan 2026: Essential Grocery Checklist</h2>
               <p className="text-muted-foreground line-clamp-3">
-                Experience the perfect blend of Swedish tradition and South Asian spice. Discover the best samosas, namkeen, and biscuits that turn every coffee break into a flavor adventure.
+                Get ready for Ramadan with our curated list of Suhoor power-foods and Iftar essentials. Discover special deals on Atta, Rice, Dates, and more.
               </p>
               <Button asChild className="rounded-full px-8">
-                <Link href="/blog/the-indian-fika">Read the Guide</Link>
+                <Link href="/blog/ramadan-grocery-checklist-2026">View Checklist</Link>
               </Button>
             </div>
           </div>
+
+          {/* Featured Static Post 2 (Indian Fika) */}
+          <div className="flex flex-col md:flex-row gap-8 items-center bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 opacity-90 hover:opacity-100 transition-opacity">
+            <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
+              {/* Note: Placeholder image logic might need update if path invalid */}
+              <div className="absolute inset-0 bg-orange-100 flex items-center justify-center text-orange-400 font-bold text-2xl">
+                ☕
+              </div>
+              <Image
+                src="/images/blog/indian-fika-hero.png" // Kept original, verify if exists
+                alt="The Indian Fika"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="flex-1 space-y-4">
+              <div className="text-sm font-medium text-primary uppercase tracking-widest">Culture & Cooking</div>
+              <h2 className="text-2xl md:text-3xl font-bold font-heading">The Indian Fika: 5 Savory Snacks</h2>
+              <p className="text-muted-foreground line-clamp-3">
+                Experience the perfect blend of Swedish tradition and South Asian spice.
+              </p>
+              <Button asChild variant="outline" className="rounded-full px-8">
+                <Link href="/blog/the-indian-fika">Read Article</Link>
+              </Button>
+            </div>
+          </div>
+
         </div>
       </section>
 
