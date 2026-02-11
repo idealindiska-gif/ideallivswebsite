@@ -33,6 +33,11 @@ async function searchProducts(searchTerm) {
         id: p.id,
         name: p.name,
         regular_price: p.regular_price,
+        sale_price: p.sale_price,
+        date_on_sale_from: p.date_on_sale_from,
+        date_on_sale_to: p.date_on_sale_to,
+        status: p.status,
+        on_sale: p.on_sale,
     }));
 }
 
@@ -62,7 +67,11 @@ async function main() {
                 console.log('   ❌ No products found');
             } else {
                 results.forEach(p => {
-                    console.log(`   ID: ${p.id} | ${p.name} | Regular: ${p.regular_price} kr`);
+                    console.log(`   ID: ${p.id} | ${p.name}`);
+                    console.log(`      Regular: ${p.regular_price} | Sale: ${p.sale_price}`);
+                    if (p.date_on_sale_from) console.log(`      Sale Start: ${p.date_on_sale_from}`);
+                    if (p.date_on_sale_to) console.log(`      Sale End: ${p.date_on_sale_to}`);
+                    console.log(`      Status: ${p.status} | On Sale: ${p.on_sale}`);
                 });
             }
         } catch (err) {

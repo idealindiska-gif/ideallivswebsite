@@ -42,54 +42,69 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
             <div className="container-wide mx-auto px-[var(--container-padding)]">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
 
-                    {/* Card 1: Hero/Welcome */}
-                    <div className="relative aspect-square overflow-hidden rounded-xl md:rounded-2xl group">
-                        {/* Background Image */}
-                        <Image
-                            src="https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg"
-                            alt="Indian & Pakistani Groceries"
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 50vw, 25vw"
-                            priority
-                        />
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+                    {/* Card 1: Hero/Welcome - Reversed Colors */}
+                    <Link href="/shop" className="group">
+                        <div className="relative aspect-square overflow-hidden rounded-xl md:rounded-2xl bg-gradient-to-br from-amber-500 via-yellow-500 to-orange-500 border border-yellow-400/50">
+                            {/* Decorative Elements */}
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-white/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
+                            <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-600/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-                        {/* Content */}
-                        <div className="absolute inset-0 p-3 sm:p-4 md:p-5 flex flex-col justify-between">
-                            <span className="inline-flex items-center gap-1 self-start px-2 py-0.5 md:px-2.5 md:py-1 bg-primary text-primary-foreground rounded-full text-[9px] sm:text-[10px] md:text-xs font-bold uppercase">
-                                <Sparkles className="h-2.5 w-2.5 md:h-3 md:w-3" />
-                                Fresh Deals
-                            </span>
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay" />
 
-                            <div className="space-y-2 md:space-y-3">
-                                <h2 className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-bold leading-tight">
-                                    Indian & Pakistani Groceries
-                                </h2>
-                                <p className="text-white/80 text-[10px] sm:text-xs md:text-sm leading-snug line-clamp-2">
-                                    Premium spices, Basmati rice & Halal meat
-                                </p>
-                                <Link href="/shop">
-                                    <Button size="sm" className="h-7 md:h-8 lg:h-9 text-[10px] sm:text-xs md:text-sm rounded-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-3 md:px-4">
-                                        Shop Now <ArrowRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
+                            <div className="absolute inset-0 p-3 sm:p-4 md:p-6 flex flex-col justify-between items-center text-center z-10">
+                                <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
+                                    <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-yellow-100/90 border border-yellow-600/20 text-emerald-900 text-[9px] md:text-xs font-bold uppercase tracking-wider shadow-sm">
+                                        <Sparkles className="inline-block w-2.5 h-2.5 md:w-3 md:h-3 mr-1 -mt-0.5 text-emerald-700" />
+                                        Premium Quality
+                                    </span>
+                                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-emerald-950 drop-shadow-sm leading-tight tracking-tight">
+                                        Indian & <br />Pakistani
+                                    </h2>
+                                    <p className="text-emerald-900/80 text-xs sm:text-sm md:text-lg font-bold uppercase tracking-widest">
+                                        Groceries
+                                    </p>
+                                </div>
+
+                                <div className="space-y-1 md:space-y-2 mb-1 md:mb-2 w-full px-1">
+                                    <p className="text-emerald-950/70 text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed line-clamp-2 md:line-clamp-none">
+                                        Authentic Basmati Rice, Spices & Halal Meat
+                                    </p>
+                                    <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-emerald-900 hover:bg-emerald-800 text-yellow-50 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-emerald-900/20 transition-all hover:scale-105">
+                                        Shop Now <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5 text-yellow-400" />
                                     </Button>
-                                </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
 
-                    {/* Card 2: Featured Product Promo */}
-                    <Link href="/product/ig-idli-rice-5-kg" className="group">
-                        <div className="relative aspect-square overflow-hidden rounded-xl md:rounded-2xl bg-white border border-border">
-                            <Image
-                                src="https://crm.ideallivs.com/wp-content/uploads/2026/02/india-gate-idly-rice-offer.png"
-                                alt="India Gate Idli Rice - Special Promotion"
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                sizes="(max-width: 768px) 50vw, 25vw"
-                                priority
-                            />
+                    {/* Card 2: Ramadan Mega Savings Promo */}
+                    <Link href="/deals" className="group">
+                        <div className="relative aspect-square overflow-hidden rounded-xl md:rounded-2xl bg-gradient-to-br from-green-950 via-emerald-900 to-teal-950 border border-emerald-800/30">
+                            {/* Decorative Elements */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-400/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" />
+
+                            <div className="absolute inset-0 p-3 sm:p-4 md:p-6 flex flex-col justify-between items-center text-center z-10">
+                                <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
+                                    <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-emerald-900/50 border border-emerald-500/30 text-emerald-200 text-[9px] md:text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
+                                        Ramadan Special
+                                    </span>
+                                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 drop-shadow-sm leading-tight">
+                                        Mega<br />Savings
+                                    </h2>
+                                </div>
+
+                                <div className="space-y-1.5 md:space-y-4 mb-1 md:mb-2 w-full px-1">
+                                    <p className="text-emerald-100/80 text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed line-clamp-2 md:line-clamp-none">
+                                        Exclusive discounts on Dates, Rice, Spices & More
+                                    </p>
+                                    <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-yellow-400 hover:bg-yellow-500 text-green-950 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-yellow-400/20 transition-all hover:scale-105">
+                                        View All Deals <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5" />
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                     </Link>
 
