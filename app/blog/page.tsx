@@ -81,7 +81,33 @@ export default async function BlogPage() {
 
       {/* Featured Posts (Internal) */}
       <section className="py-12 bg-muted/30 border-b">
-        <div className="container px-4 md:px-6">
+        <div className="container px-4 md:px-6 space-y-8">
+
+          {/* Featured: Ramadan 2026 */}
+          <div className="flex flex-col md:flex-row gap-8 items-center bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6">
+            <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
+              <Image
+                src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
+                alt="Ramadan 2026 Grocery Guide"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                New Guide
+              </div>
+            </div>
+            <div className="flex-1 space-y-4">
+              <div className="text-sm font-medium text-primary uppercase tracking-widest">Seasonal Guide</div>
+              <h2 className="text-2xl md:text-3xl font-bold font-heading">Ramadan 2026: Essential Grocery Checklist</h2>
+              <p className="text-muted-foreground line-clamp-3">
+                Get ready for Ramadan with our curated list of Suhoor power-foods and Iftar essentials. Discover special deals on Atta, Rice, Dates, and more.
+              </p>
+              <Button asChild className="rounded-full px-8">
+                <Link href="/blog/ramadan-2026">View Checklist</Link>
+              </Button>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8">
             {/* Indian Fika */}
             <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
@@ -133,6 +159,7 @@ export default async function BlogPage() {
               </div>
             </div>
           </div>
+
         </div>
       </section>
 

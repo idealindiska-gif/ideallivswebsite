@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Calendar, Facebook, Twitter, Linkedin, Mail, MessageCircle, MapPin } from 'lucide-react';
+import { Calendar, Facebook, Twitter, Linkedin, Mail, MessageCircle, MapPin, ShoppingBag } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { getPostBySlug, getAllPosts } from '@/lib/wordpress';
 import { getProducts } from '@/lib/woocommerce/products-direct';
 import { brandProfile } from '@/config/brand-profile';
@@ -329,10 +330,40 @@ export default async function BlogPostPage({ params }: Props) {
                 `
               }} />
 
-              <div
-                className="page-content prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: post.content.rendered }}
-              />
+              {post.content.rendered ? (
+                <div
+                  className="page-content prose prose-lg max-w-none"
+                  dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+                />
+              ) : (
+                <div className="prose prose-lg max-w-none">
+                  {/* Show excerpt as main content when full content is empty */}
+                  {post.excerpt?.rendered && (
+                    <div
+                      className="text-xl text-foreground/80 leading-relaxed mb-8 border-l-4 border-primary pl-6 italic"
+                      dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+                    />
+                  )}
+
+                  <div className="bg-card border border-border rounded-2xl p-8 text-center">
+                    <ShoppingBag className="h-12 w-12 text-primary mx-auto mb-4" />
+                    <h2 className="text-2xl font-heading font-bold text-foreground mb-3">
+                      Explore This Topic in Our Store
+                    </h2>
+                    <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+                      Discover all the products and ingredients mentioned in this article. Visit our store or browse our online shop.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <Button asChild className="rounded-full px-8">
+                        <Link href="/shop">Browse Shop</Link>
+                      </Button>
+                      <Button asChild variant="outline" className="rounded-full px-8">
+                        <Link href="/contact">Contact Us</Link>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </article>
 
             {/* Sidebar */}
