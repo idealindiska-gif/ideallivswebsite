@@ -231,7 +231,7 @@ export async function getPostById(id: number): Promise<Post> {
 }
 
 export async function getPostBySlug(slug: string): Promise<Post> {
-  return wordpressFetch<Post[]>("/wp-json/wp/v2/posts", { slug }).then(
+  return wordpressFetch<Post[]>("/wp-json/wp/v2/posts", { slug, _embed: true }).then(
     (posts) => posts[0]
   );
 }

@@ -145,7 +145,7 @@ export default async function BlogPage() {
             </div>
           ) : posts.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-neutral-600 dark:text-neutral-400 text-lg">
+              <p className="text-muted-foreground text-lg">
                 No blog posts found. Check back soon for new content!
               </p>
             </div>
@@ -160,7 +160,7 @@ export default async function BlogPage() {
                 return (
                   <article
                     key={post.id}
-                    className="group bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200 dark:border-neutral-800"
+                    className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-border"
                   >
                     {/* Featured Image */}
                     <Link href={`/blog/${post.slug}`} className="block relative h-56 overflow-hidden">
@@ -175,7 +175,7 @@ export default async function BlogPage() {
                           {categories.slice(0, 2).map((category) => (
                             <span
                               key={category}
-                              className="px-3 py-1 bg-secondary-500 text-white text-xs font-medium rounded-full"
+                              className="px-3 py-1 bg-secondary text-secondary-foreground text-xs font-medium rounded-full"
                             >
                               {category}
                             </span>
@@ -187,7 +187,7 @@ export default async function BlogPage() {
                     {/* Content */}
                     <div className="p-6">
                       {/* Meta Information */}
-                      <div className="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
                           <span>{formatDate(post.date)}</span>
@@ -200,20 +200,20 @@ export default async function BlogPage() {
 
                       {/* Title */}
                       <Link href={`/blog/${post.slug}`}>
-                        <h2 className="text-xl font-heading font-bold text-primary-900 dark:text-primary-50 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
+                        <h2 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
                           {post.title.rendered}
                         </h2>
                       </Link>
 
                       {/* Excerpt */}
-                      <p className="text-neutral-600 dark:text-neutral-300 mb-4 line-clamp-3">
+                      <p className="text-muted-foreground mb-4 line-clamp-3">
                         {excerpt}
                       </p>
 
                       {/* Read More Link */}
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+                        className="inline-flex items-center text-primary font-medium hover:text-primary/80 transition-colors"
                       >
                         Read More
                         <svg

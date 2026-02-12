@@ -146,6 +146,50 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             });
         });
 
+        // Add Blog Posts
+        try {
+            const { getPostsPaginated } = await import('@/lib/wordpress');
+            let blogPage = 1;
+            let hasMorePosts = true;
+
+            while (hasMorePosts) {
+                const response = await getPostsPaginated(blogPage, 100);
+                const posts = response.data;
+
+                if (posts.length === 0) {
+                    hasMorePosts = false;
+                } else {
+                    posts.forEach((post) => {
+                        sitemap.push({
+                            url: `${SITE_URL}/blog/${post.slug}`,
+                            lastModified: new Date(post.modified || post.date),
+                            changeFrequency: 'monthly',
+                            priority: 0.7,
+                        });
+                    });
+
+                    if (blogPage >= response.headers.totalPages) {
+                        hasMorePosts = false;
+                    } else {
+                        blogPage++;
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching blog posts for sitemap:', error);
+        }
+
+        // Add static blog posts
+        const staticBlogSlugs = ['ramadan-2026', 'the-indian-fika', 'no-customs-indian-grocery-europe'];
+        staticBlogSlugs.forEach((slug) => {
+            sitemap.push({
+                url: `${SITE_URL}/blog/${slug}`,
+                lastModified: new Date(),
+                changeFrequency: 'monthly',
+                priority: 0.7,
+            });
+        });
+
     } catch (error) {
         console.error('Error generating sitemap:', error);
     }
