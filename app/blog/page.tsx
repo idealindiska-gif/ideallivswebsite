@@ -87,7 +87,7 @@ export default async function BlogPage() {
           <div className="flex flex-col md:flex-row gap-8 items-center bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6">
             <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
               <Image
-                src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
+                src="https://crm.ideallivs.com/wp-content/uploads/2026/02/Ramadan-insta-post-e1770940659874.png"
                 alt="Ramadan 2026 Grocery Guide"
                 fill
                 className="object-cover"
