@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TopInfoBar } from "@/components/layout/top-info-bar";
 import { SchemaScript } from "@/lib/schema/schema-script";
-import { idealIndiskaWebsiteSchema, schemaGraph, idealIndiskaOrganizationSchemaFull, idealLivsLocalBusinessSchema } from "@/lib/schema";
+import { idealIndiskaWebsiteSchema, schemaGraph, idealIndiskaOrganizationSchemaFull, idealLivsLocalBusinessSchema, siteNavigationSchema } from "@/lib/schema";
 import { GoogleTagManager, GoogleTagManagerNoScript, FacebookPixel } from "@/components/analytics";
 import { VerticalSidebar } from "@/components/layout/vertical-sidebar";
 import { ContentHeader } from "@/components/layout/content-header";
@@ -57,9 +57,11 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
-    shortcut: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
-    apple: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+    icon: [
+      { url: "/icon.png", sizes: "any", type: "image/png" },
+    ],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
   verification: {
     google: "JHCIpEz_IWYNdnNQGCkUKVQ8tiUre1hcCOqcSNhKlmQ",
@@ -220,7 +222,8 @@ export default async function RootLayout({
           schema={schemaGraph(
             idealIndiskaWebsiteSchema(siteConfig.site_domain),
             idealIndiskaOrganizationSchemaFull(siteConfig.site_domain),
-            idealLivsLocalBusinessSchema()
+            idealLivsLocalBusinessSchema(),
+            siteNavigationSchema(siteConfig.site_domain)
           )}
         />
       </body>

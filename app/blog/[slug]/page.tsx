@@ -51,7 +51,16 @@ function getCategories(post: any): Array<{ id: number; name: string; slug: strin
 }
 
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, '').substring(0, 160);
+  let text = html
+    .replace(/<[^>]*>/g, '')
+    .replace(/\[?\s*(?:Read more|Continue reading|Läs mer|\.\.\.)\s*\]?\.?$/i, '')
+    .replace(/\[\u2026\]|\u2026$/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (text.length <= 155) return text;
+  const truncated = text.substring(0, 155);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > 80 ? truncated.substring(0, lastSpace) : truncated).trim() + '...';
 }
 
 // Generate metadata
