@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
-import { getProductBySlug, getRelatedProducts } from '@/lib/woocommerce';
+import { getProductBySlug, getRelatedProducts, getProductsByIds } from '@/lib/woocommerce';
 import { ProductTemplate } from '@/components/templates';
+import { getBundlesForProduct, getBundleProductIds } from '@/config/bundles.config';
 import { brandConfig } from '@/config/brand.config';
 import { siteConfig } from '@/site.config';
 import type { Metadata } from 'next';
@@ -98,6 +99,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const relatedProducts = await getRelatedProducts(product.id);
 
+  // Fetch bundle offers for this product
+  const bundles = getBundlesForProduct(product.id);
+  const bundleProductIds = getBundleProductIds(bundles);
+  const bundleProducts = bundleProductIds.length > 0
+    ? await getProductsByIds(bundleProductIds)
+    : [];
+
   // Build breadcrumbs
   const breadcrumbs = [
     { label: 'Shop', href: '/shop' },
@@ -112,6 +120,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
       product={product}
       breadcrumbs={breadcrumbs}
       relatedProducts={relatedProducts}
+      bundles={bundles}
+      bundleProducts={bundleProducts}
     />
   );
 }

@@ -26,6 +26,8 @@ import { trackViewContent } from '@/lib/analytics';
 import { CommerceRules } from '@/config/commerce-rules';
 import { useCartStore } from '@/store/cart-store';
 import { CurrencyPrice, CurrencySalePrice } from '@/components/ui/currency-price';
+import { BundleOffers } from '@/components/shop/bundle-offer';
+import type { BundleOffer as BundleOfferType } from '@/config/bundles.config';
 import type { Product, ProductReview, ProductVariation } from '@/types/woocommerce';
 
 interface ProductTemplateProps {
@@ -34,6 +36,8 @@ interface ProductTemplateProps {
   relatedProducts?: Product[];
   reviews?: ProductReview[];
   additionalContent?: ReactNode;
+  bundles?: BundleOfferType[];
+  bundleProducts?: Product[];
 }
 
 export function ProductTemplate({
@@ -42,6 +46,8 @@ export function ProductTemplate({
   relatedProducts = [],
   reviews = [],
   additionalContent,
+  bundles = [],
+  bundleProducts = [],
 }: ProductTemplateProps) {
   const discount = getDiscountPercentage(product);
   const hasVariations = product.type === 'variable' && product.variations.length > 0;
@@ -536,6 +542,11 @@ export function ProductTemplate({
                   </p>
                 </div>
               </div>
+
+              {/* Bundle Offers */}
+              {bundles.length > 0 && bundleProducts.length > 0 && (
+                <BundleOffers bundles={bundles} products={bundleProducts} />
+              )}
 
               {/* Product Meta */}
               {product.tags && product.tags.length > 0 && (
