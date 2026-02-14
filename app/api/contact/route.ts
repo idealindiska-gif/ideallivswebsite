@@ -63,9 +63,9 @@ export async function POST(request: NextRequest) {
               <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5;">
                 <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
                   <tr>
-                    <td style="background: linear-gradient(135deg, #8B1538 0%, #5A0F25 100%); padding: 40px 30px; text-align: center;">
+                    <td style="background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%); padding: 40px 30px; text-align: center;">
                       <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">New Contact Form Submission</h1>
-                      <p style="color: #f3d7a0; margin: 10px 0 0 0; font-size: 14px;">Anmol Sweets & Restaurant</p>
+                      <p style="color: #b7e4c7; margin: 10px 0 0 0; font-size: 14px;">Ideal Indiska LIVS</p>
                     </td>
                   </tr>
                   <tr>
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
                       <table width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td style="padding-bottom: 30px;">
-                            <h2 style="color: #8B1538; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; border-bottom: 2px solid #f3d7a0; padding-bottom: 10px;">Contact Information</h2>
+                            <h2 style="color: #2d6a4f; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; border-bottom: 2px solid #b7e4c7; padding-bottom: 10px;">Contact Information</h2>
 
                             <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 15px;">
                               <tr>
@@ -82,12 +82,12 @@ export async function POST(request: NextRequest) {
                               </tr>
                               <tr>
                                 <td style="padding: 8px 0; font-size: 14px; color: #666666; font-weight: 600;">Email:</td>
-                                <td style="padding: 8px 0; font-size: 14px;"><a href="mailto:${email}" style="color: #8B1538; text-decoration: none;">${email}</a></td>
+                                <td style="padding: 8px 0; font-size: 14px;"><a href="mailto:${email}" style="color: #2d6a4f; text-decoration: none;">${email}</a></td>
                               </tr>
                               ${phone ? `
                               <tr>
                                 <td style="padding: 8px 0; font-size: 14px; color: #666666; font-weight: 600;">Phone:</td>
-                                <td style="padding: 8px 0; font-size: 14px;"><a href="tel:${phone.replace(/\s/g, '')}" style="color: #8B1538; text-decoration: none;">${phone}</a></td>
+                                <td style="padding: 8px 0; font-size: 14px;"><a href="tel:${phone.replace(/\s/g, '')}" style="color: #2d6a4f; text-decoration: none;">${phone}</a></td>
                               </tr>
                               ` : ''}
                               <tr>
@@ -99,8 +99,8 @@ export async function POST(request: NextRequest) {
                         </tr>
                         <tr>
                           <td style="padding-bottom: 30px;">
-                            <h2 style="color: #8B1538; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; border-bottom: 2px solid #f3d7a0; padding-bottom: 10px;">Message</h2>
-                            <div style="background-color: #f9f9f9; border-left: 4px solid #f3d7a0; padding: 15px; margin-top: 15px;">
+                            <h2 style="color: #2d6a4f; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; border-bottom: 2px solid #b7e4c7; padding-bottom: 10px;">Message</h2>
+                            <div style="background-color: #f9f9f9; border-left: 4px solid #b7e4c7; padding: 15px; margin-top: 15px;">
                               <p style="margin: 0; color: #333333; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${message}</p>
                             </div>
                           </td>
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
                         <tr>
                           <td style="padding-top: 20px; border-top: 1px solid #e0e0e0;">
                             <p style="margin: 0; color: #999999; font-size: 12px; text-align: center;">
-                              This email was sent from the contact form at <a href="https://ideallivs.com" style="color: #8B1538; text-decoration: none;">ideallivs.com</a>
+                              This email was sent from the contact form at <a href="https://ideallivs.com" style="color: #2d6a4f; text-decoration: none;">ideallivs.com</a>
                             </p>
                             <p style="margin: 10px 0 0 0; color: #999999; font-size: 12px; text-align: center;">
                               Received on ${new Date().toLocaleString('en-US', {
@@ -126,9 +126,9 @@ export async function POST(request: NextRequest) {
                     </td>
                   </tr>
                   <tr>
-                    <td style="background-color: #8B1538; padding: 20px 30px; text-align: center;">
-                      <p style="margin: 0; color: #f3d7a0; font-size: 12px;">
-                        © ${new Date().getFullYear()} Anmol Sweets & Restaurant. All rights reserved.
+                    <td style="background-color: #2d6a4f; padding: 20px 30px; text-align: center;">
+                      <p style="margin: 0; color: #b7e4c7; font-size: 12px;">
+                        © ${new Date().getFullYear()} Ideal Indiska LIVS. All rights reserved.
                       </p>
                     </td>
                   </tr>

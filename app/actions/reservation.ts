@@ -60,8 +60,8 @@ export async function submitReservation(data: ReservationFormData) {
                         content: `
               <table width="100%" cellpadding="0" cellspacing="0">
                 ${createInfoRow('Name', name)}
-                ${createInfoRow('Email', `<a href="mailto:${email}" style="color: #8B1538; text-decoration: none;">${email}</a>`)}
-                ${createInfoRow('Phone', `<a href="tel:${phone.replace(/\s/g, '')}" style="color: #8B1538; text-decoration: none;">${phone}</a>`)}
+                ${createInfoRow('Email', `<a href="mailto:${email}" style="color: #2d6a4f; text-decoration: none;">${email}</a>`)}
+                ${createInfoRow('Phone', `<a href="tel:${phone.replace(/\s/g, '')}" style="color: #2d6a4f; text-decoration: none;">${phone}</a>`)}
               </table>
             `
                     },
@@ -74,7 +74,7 @@ export async function submitReservation(data: ReservationFormData) {
 
             // Try to send admin notification
             await transporter.sendMail({
-                from: `"Royal Sweets Reservations" <${fromEmail}>`,
+                from: `"Ideal Indiska LIVS Reservations" <${fromEmail}>`,
                 to: recipients,
                 subject: `New Reservation: ${name} - ${date} @ ${time}`,
                 html: adminEmailHtml,
@@ -112,9 +112,9 @@ export async function submitReservation(data: ReservationFormData) {
 
             // Try to send customer confirmation
             await transporter.sendMail({
-                from: `"Royal Sweets & Restaurant" <${fromEmail}>`,
+                from: `"Ideal Indiska LIVS" <${fromEmail}>`,
                 to: email,
-                subject: 'Reservation Request Received - Royal Sweets',
+                subject: 'Reservation Request Received - Ideal Indiska LIVS',
                 html: customerEmailHtml,
             });
 

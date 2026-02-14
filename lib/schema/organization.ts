@@ -467,14 +467,3 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
   };
 }
 
-// Keep legacy exports for backward compatibility
-export { anmolOrganizationSchema, anmolOrganizationSchemaFull };
-
-// Legacy function - kept for backward compatibility but updated to use Ideal Indiska
-function anmolOrganizationSchema(baseUrl: string = 'https://www.ideallivs.com'): Organization {
-  return idealIndiskaOrganizationSchema(baseUrl);
-}
-
-function anmolOrganizationSchemaFull(baseUrl: string = 'https://www.ideallivs.com'): Organization {
-  return idealIndiskaOrganizationSchemaFull(baseUrl);
-}

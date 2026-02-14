@@ -10,42 +10,42 @@ import { Button } from '@/components/ui/button';
 const socialPosts = [
     {
         id: 1,
-        image: 'https://anmolsweets.se/wp-content/uploads/2025/09/lunch-buffet-web.jpg',
+        image: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg',
         likes: 124,
         comments: 12,
         caption: 'Delicious lunch buffet spread! 🍛',
     },
     {
         id: 2,
-        image: 'https://anmolsweets.se/wp-content/uploads/2025/04/anmol-breakfast-swedish.jpg',
+        image: 'https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png',
         likes: 89,
         comments: 5,
         caption: 'Traditional breakfast favorites! 🍳',
     },
     {
         id: 3,
-        image: 'https://anmolsweets.se/wp-content/uploads/2024/09/pakistani-snacks-samosa.jpg',
+        image: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg',
         likes: 245,
         comments: 34,
         caption: 'Crispy samosas fresh from the kitchen! 🥟',
     },
     {
         id: 4,
-        image: 'https://anmolsweets.se/wp-content/uploads/2024/09/pakistani-bread-naan.jpg',
+        image: 'https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png',
         likes: 156,
         comments: 8,
         caption: 'Freshly baked naan bread! 🫓',
     },
     {
         id: 5,
-        image: 'https://anmolsweets.se/wp-content/uploads/2024/09/pakistani-dessert-sweets.jpg',
+        image: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg',
         likes: 198,
         comments: 15,
         caption: 'Traditional sweets made with love ❤️',
     },
     {
         id: 6,
-        image: 'https://anmolsweets.se/wp-content/uploads/2024/09/pakistani-chicken-curry.jpg',
+        image: 'https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png',
         likes: 210,
         comments: 18,
         caption: 'Our signature curry dishes! 🍛',
@@ -65,7 +65,7 @@ export function SocialFeed() {
                 <div className="flex flex-col items-center text-center space-y-4">
                     <div className="flex items-center gap-2 text-secondary-500 font-medium">
                         <Instagram className="h-5 w-5" />
-                        <span>@anmolsweetsstockholm</span>
+                        <span>@ideal_indiska_livs</span>
                     </div>
                     <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-950 dark:text-primary-50">
                         Our Instagram Reels
@@ -171,7 +171,7 @@ export function SocialFeed() {
 
             <div className="mt-12 text-center container px-4 md:px-6">
                 <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-none" asChild>
-                    <Link href="https://www.instagram.com/anmolsweetsstockholm/reels/" target="_blank">
+                    <Link href="https://www.instagram.com/ideal_indiska_livs/reels/" target="_blank">
                         <Instagram className="mr-2 h-5 w-5" />
                         Watch More Reels
                     </Link>

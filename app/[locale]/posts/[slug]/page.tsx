@@ -93,7 +93,7 @@ export default async function Page({
     } catch (e) {
       console.warn(`Failed to fetch author ${post.author} for post ${slug}`, e);
       // Fallback author
-      author = { id: 0, name: 'Anmol Sweets', slug: 'anmol-sweets', url: '', description: '', link: '', avatar_urls: {} } as any;
+      author = { id: 0, name: 'Ideal Indiska LIVS', slug: 'ideal-indiska-livs', url: '', description: '', link: '', avatar_urls: {} } as any;
     }
   }
 

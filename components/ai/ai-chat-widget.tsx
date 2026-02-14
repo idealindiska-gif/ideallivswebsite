@@ -17,8 +17,8 @@ interface Message {
     timestamp: Date;
 }
 
-// Anmol logo URL
-const LOGO_URL = 'https://anmolsweets.se/wp-content/uploads/2021/01/logo.png';
+// Ideal LIVS logo URL
+const LOGO_URL = 'https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png';
 
 // Main export component that handles state and rendering
 export function AiChatWidget() {
@@ -143,13 +143,13 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                     <div className="relative h-8 w-8 shrink-0 rounded-full overflow-hidden bg-white border-2 border-white/50">
                         <Image
                             src={LOGO_URL}
-                            alt="Anmol"
+                            alt="Ideal LIVS"
                             fill
                             className="object-contain p-0.5"
                         />
                     </div>
                     <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <h3 className="font-semibold text-sm text-primary-foreground truncate mb-0">Anmol Assistant</h3>
+                        <h3 className="font-semibold text-sm text-primary-foreground truncate mb-0">Ideal Assistant</h3>
                         {!isMinimized && <p className="text-[12px] text-primary-foreground/80 leading-none">Always here to help</p>}
                     </div>
                     <div className="flex items-center shrink-0">

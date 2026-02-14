@@ -34,7 +34,7 @@ const TransparentNavLink = ({ href, children, isTransparent }: { href: string; c
 
 export function TransparentHeader({ categories, className }: TransparentHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const logoUrl = 'https://anmolsweets.se/wp-content/uploads/2021/01/logo.png';
+  const logoUrl = 'https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png';
 
   // Chat functionality
   const { openChat, ChatWidget } = useAIChat();
@@ -110,7 +110,7 @@ export function TransparentHeader({ categories, className }: TransparentHeaderPr
                   <div className="relative h-12 w-12 mb-1 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
                     <Image
                       src={logoUrl}
-                      alt="Anmol Sweets"
+                      alt="Ideal Indiska LIVS"
                       fill
                       className="object-contain"
                     />
@@ -120,13 +120,13 @@ export function TransparentHeader({ categories, className }: TransparentHeaderPr
                       "font-heading text-lg font-bold uppercase tracking-[0.15em] leading-none transition-colors group-hover:text-primary",
                       isTransparent ? "text-white" : "text-foreground"
                     )}>
-                      Anmol Sweets
+                      Ideal Indiska
                     </span>
                     <span className={cn(
                       "font-heading text-[0.65rem] uppercase tracking-[0.37em] leading-tight mt-1 transition-colors",
                       isTransparent ? "text-white/90" : "text-primary"
                     )}>
-                      & Restaurant
+                      LIVS
                     </span>
                   </div>
                 </Link>
@@ -181,8 +181,8 @@ export function TransparentHeader({ categories, className }: TransparentHeaderPr
                       ? "text-amber-100 hover:text-primary hover:bg-white/10"
                       : "text-foreground hover:text-primary hover:bg-primary/5"
                   )}
-                  aria-label="AI Anmol Assistant"
-                  title="AI Anmol Assistant"
+                  aria-label="AI Assistant"
+                  title="AI Assistant"
                 >
                   <MessageCircle className="h-5 w-5" />
                 </button>
@@ -193,7 +193,7 @@ export function TransparentHeader({ categories, className }: TransparentHeaderPr
                 <div className="relative h-12 w-12 transition-transform duration-300 active:scale-95">
                   <Image
                     src={logoUrl}
-                    alt="Anmol Sweets"
+                    alt="Ideal Indiska LIVS"
                     fill
                     className="object-contain"
                   />

@@ -46,8 +46,8 @@ export function WeekendBrunch() {
           >
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted shadow-sm">
               <Image
-                src="https://anmolsweets.se/wp-content/uploads/2025/04/anmol-breakfast-swedish.jpg"
-                alt="Weekend Brunch Buffet featuring traditional Pakistani breakfast Halwa Puri at Anmol Sweets & Restaurant Stockholm"
+                src="https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png"
+                alt="Weekend Brunch Buffet featuring traditional Pakistani breakfast Halwa Puri at Ideal Indiska LIVS Stockholm"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700"
               />

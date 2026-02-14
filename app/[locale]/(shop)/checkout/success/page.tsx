@@ -11,7 +11,7 @@ import { OrderSuccessTracking } from '@/components/checkout/order-success-tracki
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Order Confirmed - Anmol Sweets',
+    title: 'Order Confirmed - Ideal Indiska LIVS',
     description: 'Your order has been successfully placed',
 };
 

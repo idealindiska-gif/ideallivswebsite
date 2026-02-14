@@ -47,7 +47,7 @@ export const contentConfig = {
       cta: 'View All Products',
     },
     callToAction: {
-      title: `Ready to Experience ${brandConfig.businessName.replace('Royal Sweets & Restaurant', 'Royal Flavors')}?`,
+      title: `Ready to Experience ${brandConfig.businessName}?`,
       description: `Order now and enjoy authentic ${brandConfig.cuisineDescription} delivered to your home, or reserve a table for a memorable dining experience.`,
       buttons: {
         primary: 'Order Now',
@@ -177,7 +177,7 @@ export const contentConfig = {
       title: `Bookings at ${brandConfig.businessName}`,
       description: `Planning a visit to enjoy our authentic Indo-Pak cuisine? Book your table now and ensure a seamless dining experience! Whether it's a family gathering, a special celebration, or a casual meal, we're here to make your time with us memorable.`,
     },
-    title: 'Bookings at Anmol Sweets & Restaurant',
+    title: 'Bookings at Ideal Indiska LIVS',
     description: `Planning a visit to enjoy our authentic Indo-Pak cuisine? Book your table now and ensure a seamless dining experience! Whether it's a family gathering, a special celebration, or a casual meal, we're here to make your time with us memorable.`,
     benefits: {
       title: 'Why Book with Us?',

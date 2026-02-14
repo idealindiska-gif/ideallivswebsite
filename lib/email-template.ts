@@ -27,11 +27,11 @@ export function generateEmailTemplate(options: EmailTemplateOptions): string {
         <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
           <!-- Header with gradient and logo -->
           <tr>
-            <td style="background: linear-gradient(135deg, #8B1538 0%, #5A0F25 100%); padding: 40px 30px; text-align: center;">
+            <td style="background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%); padding: 40px 30px; text-align: center;">
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">
-                Royal Sweets & Restaurant
+                Ideal Indiska LIVS
               </h1>
-              <p style="color: #f3d7a0; margin: 8px 0 0 0; font-size: 14px; font-weight: 500;">
+              <p style="color: #b7e4c7; margin: 8px 0 0 0; font-size: 14px; font-weight: 500;">
                 ${brandConfig.tagline}
               </p>
             </td>
@@ -39,8 +39,8 @@ export function generateEmailTemplate(options: EmailTemplateOptions): string {
 
           <!-- Main heading -->
           <tr>
-            <td style="background-color: #fff5e6; padding: 25px 30px; border-bottom: 3px solid #f3d7a0;">
-              <h2 style="color: #8B1538; margin: 0; font-size: 22px; font-weight: 600; text-align: center;">
+            <td style="background-color: #f0faf4; padding: 25px 30px; border-bottom: 3px solid #b7e4c7;">
+              <h2 style="color: #2d6a4f; margin: 0; font-size: 22px; font-weight: 600; text-align: center;">
                 ${heading}
               </h2>
             </td>
@@ -53,7 +53,7 @@ export function generateEmailTemplate(options: EmailTemplateOptions): string {
                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
                   <tr>
                     <td>
-                      <h3 style="color: #8B1538; margin: 0 0 15px 0; font-size: 18px; font-weight: 600; border-bottom: 2px solid #f3d7a0; padding-bottom: 10px;">
+                      <h3 style="color: #2d6a4f; margin: 0 0 15px 0; font-size: 18px; font-weight: 600; border-bottom: 2px solid #b7e4c7; padding-bottom: 10px;">
                         ${section.title}
                       </h3>
                       <div style="margin-top: 15px;">
@@ -72,17 +72,17 @@ export function generateEmailTemplate(options: EmailTemplateOptions): string {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="text-align: center; padding-bottom: 20px;">
-                    <h3 style="color: #8B1538; margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">
+                    <h3 style="color: #2d6a4f; margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">
                       Contact Us
                     </h3>
                     <p style="margin: 5px 0; color: #666666; font-size: 13px;">
                       📍 ${brandConfig.contact.address}
                     </p>
                     <p style="margin: 5px 0; color: #666666; font-size: 13px;">
-                      📞 <a href="tel:${brandConfig.contact.phone.replace(/\s/g, '')}" style="color: #8B1538; text-decoration: none;">${brandConfig.contact.phone}</a>
+                      📞 <a href="tel:${brandConfig.contact.phone.replace(/\s/g, '')}" style="color: #2d6a4f; text-decoration: none;">${brandConfig.contact.phone}</a>
                     </p>
                     <p style="margin: 5px 0; color: #666666; font-size: 13px;">
-                      ✉️ <a href="mailto:${brandConfig.contact.email}" style="color: #8B1538; text-decoration: none;">${brandConfig.contact.email}</a>
+                      ✉️ <a href="mailto:${brandConfig.contact.email}" style="color: #2d6a4f; text-decoration: none;">${brandConfig.contact.email}</a>
                     </p>
                   </td>
                 </tr>
@@ -93,22 +93,22 @@ export function generateEmailTemplate(options: EmailTemplateOptions): string {
                     </p>
                     <div style="margin-top: 10px;">
                       ${brandConfig.social.facebook ? `
-                        <a href="${brandConfig.social.facebook}" style="display: inline-block; margin: 0 8px; color: #8B1538; text-decoration: none; font-size: 12px;">
+                        <a href="${brandConfig.social.facebook}" style="display: inline-block; margin: 0 8px; color: #2d6a4f; text-decoration: none; font-size: 12px;">
                           📘 Facebook
                         </a>
                       ` : ''}
                       ${brandConfig.social.instagram ? `
-                        <a href="${brandConfig.social.instagram}" style="display: inline-block; margin: 0 8px; color: #8B1538; text-decoration: none; font-size: 12px;">
+                        <a href="${brandConfig.social.instagram}" style="display: inline-block; margin: 0 8px; color: #2d6a4f; text-decoration: none; font-size: 12px;">
                           📷 Instagram
                         </a>
                       ` : ''}
                       ${brandConfig.social.youtube ? `
-                        <a href="${brandConfig.social.youtube}" style="display: inline-block; margin: 0 8px; color: #8B1538; text-decoration: none; font-size: 12px;">
+                        <a href="${brandConfig.social.youtube}" style="display: inline-block; margin: 0 8px; color: #2d6a4f; text-decoration: none; font-size: 12px;">
                           ▶️ YouTube
                         </a>
                       ` : ''}
                       ${brandConfig.social.tiktok ? `
-                        <a href="${brandConfig.social.tiktok}" style="display: inline-block; margin: 0 8px; color: #8B1538; text-decoration: none; font-size: 12px;">
+                        <a href="${brandConfig.social.tiktok}" style="display: inline-block; margin: 0 8px; color: #2d6a4f; text-decoration: none; font-size: 12px;">
                           🎵 TikTok
                         </a>
                       ` : ''}
@@ -121,11 +121,11 @@ export function generateEmailTemplate(options: EmailTemplateOptions): string {
 
           <!-- Bottom bar -->
           <tr>
-            <td style="background-color: #8B1538; padding: 20px 30px; text-align: center;">
-              <p style="margin: 0; color: #f3d7a0; font-size: 12px;">
-                © ${new Date().getFullYear()} Royal Sweets & Restaurant. All rights reserved.
+            <td style="background-color: #2d6a4f; padding: 20px 30px; text-align: center;">
+              <p style="margin: 0; color: #b7e4c7; font-size: 12px;">
+                © ${new Date().getFullYear()} Ideal Indiska LIVS. All rights reserved.
               </p>
-              <p style="margin: 8px 0 0 0; color: #f3d7a0; font-size: 11px; opacity: 0.8;">
+              <p style="margin: 8px 0 0 0; color: #b7e4c7; font-size: 11px; opacity: 0.8;">
                 Sent on ${new Date().toLocaleString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -164,7 +164,7 @@ export function createInfoRow(label: string, value: string): string {
  */
 export function createInfoBox(content: string): string {
   return `
-    <div style="background-color: #fff5e6; border-left: 4px solid #f3d7a0; padding: 15px; margin-top: 10px; border-radius: 4px;">
+    <div style="background-color: #f0faf4; border-left: 4px solid #b7e4c7; padding: 15px; margin-top: 10px; border-radius: 4px;">
       <p style="margin: 0; color: #333333; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">
         ${content}
       </p>

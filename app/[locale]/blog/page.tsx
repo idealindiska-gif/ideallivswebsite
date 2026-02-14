@@ -34,7 +34,7 @@ function getFeaturedImageUrl(post: any): string {
     return post._embedded['wp:featuredmedia'][0].source_url;
   }
   // Fallback to placeholder
-  return 'https://anmolsweets.se/wp-content/uploads/2025/09/lunch-buffet-web.jpg';
+  return 'https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg';
 }
 
 // Helper function to get author name

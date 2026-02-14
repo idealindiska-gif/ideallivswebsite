@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Product Categories',
-  description: 'Browse all product categories at Anmol Sweets & Restaurant',
+  description: 'Browse all product categories at Ideal Indiska LIVS',
 };
 
 export default async function CategoriesPage() {
