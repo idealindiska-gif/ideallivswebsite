@@ -48,10 +48,33 @@ export function BundleOfferCard({ bundle, products }: BundleOfferProps) {
     if (!allAvailable || state === 'adding') return;
     setState('adding');
 
-    for (const item of bundle.items) {
+    // Calculate per-item bundle prices proportionally, adjusting last item for rounding
+    const ratio = originalTotal > 0 ? bundlePrice / originalTotal : 1;
+    let allocated = 0;
+
+    for (let i = 0; i < bundle.items.length; i++) {
+      const item = bundle.items[i];
       const product = productMap.get(item.productId);
       if (!product) continue;
-      addItem(product, item.quantity);
+
+      const originalUnitPrice = parseFloat(product.regular_price || product.price) || 0;
+      let unitPrice: number;
+
+      if (i === bundle.items.length - 1) {
+        // Last item absorbs rounding difference
+        unitPrice = Math.round(((bundlePrice - allocated) / item.quantity) * 100) / 100;
+      } else {
+        unitPrice = Math.round(originalUnitPrice * ratio * 100) / 100;
+        allocated += unitPrice * item.quantity;
+      }
+
+      const bundledProduct = {
+        ...product,
+        price: unitPrice.toFixed(2),
+        sale_price: unitPrice.toFixed(2),
+        on_sale: true,
+      };
+      addItem(bundledProduct, item.quantity);
     }
 
     setState('added');
