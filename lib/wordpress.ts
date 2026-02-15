@@ -47,7 +47,7 @@ async function wordpressFetch<T>(
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}${path}${query ? `?${querystring.stringify(query)}` : ""
     }`;
-  const userAgent = "Next.js WordPress Client";
+  const userAgent = "Mozilla/5.0 (compatible; IdealLivs/1.0; +https://www.ideallivs.com)";
 
   const response = await fetch(url, {
     headers: {
@@ -78,7 +78,7 @@ async function wordpressFetchWithPagination<T>(
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}${path}${query ? `?${querystring.stringify(query)}` : ""
     }`;
-  const userAgent = "Next.js WordPress Client";
+  const userAgent = "Mozilla/5.0 (compatible; IdealLivs/1.0; +https://www.ideallivs.com)";
 
   const response = await fetch(url, {
     headers: {
@@ -151,7 +151,7 @@ export async function getPostsPaginated(
 
   const url = `${getBaseUrl()}/wp-json/wp/v2/posts${query ? `?${querystring.stringify(query)}` : ""
     }`;
-  const userAgent = "Next.js WordPress Client";
+  const userAgent = "Mozilla/5.0 (compatible; IdealLivs/1.0; +https://www.ideallivs.com)";
 
   const response = await fetch(url, {
     headers: {

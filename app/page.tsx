@@ -57,9 +57,9 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  // Fetch data in parallel
-  // Fetch more categories to allow for manual filtering/ordering
-  const [categoriesResAll, trendingRes, newArrivalsRes, dealsRes, haldiramRes, freshProduceRes] = await Promise.all([
+  // Fetch data in parallel with graceful fallbacks
+  // Using Promise.allSettled so one failed API call doesn't break the entire page
+  const [categoriesResult, trendingResult, newArrivalsResult, dealsResult, haldiramResult, freshProduceResult] = await Promise.allSettled([
     getProductCategories({ per_page: 12, orderby: 'count', order: 'desc', parent: 0 }),
     getProducts({ per_page: 8, orderby: 'popularity' }),
     getProducts({ per_page: 8, orderby: 'date' }),
@@ -67,6 +67,13 @@ export default async function HomePage() {
     getProducts({ per_page: 8, brand: 'haldiram' }),
     getProducts({ per_page: 8, category: 'fresh-produce' }),
   ]);
+
+  const categoriesResAll = categoriesResult.status === 'fulfilled' ? categoriesResult.value : [];
+  const trendingRes = trendingResult.status === 'fulfilled' ? trendingResult.value : { data: [] };
+  const newArrivalsRes = newArrivalsResult.status === 'fulfilled' ? newArrivalsResult.value : { data: [] };
+  const dealsRes = dealsResult.status === 'fulfilled' ? dealsResult.value : { data: [] };
+  const haldiramRes = haldiramResult.status === 'fulfilled' ? haldiramResult.value : { data: [] };
+  const freshProduceRes = freshProduceResult.status === 'fulfilled' ? freshProduceResult.value : { data: [] };
 
   // Filter out fragrance and replace with fresh-produce if needed
   let categories = (categoriesResAll || [])

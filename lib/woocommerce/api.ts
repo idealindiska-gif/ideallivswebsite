@@ -145,7 +145,7 @@ export async function fetchWooCommerceAPI<T>(
       const headers: HeadersInit = {
         'Content-Type': 'application/json',
         'Authorization': authHeader,
-        'User-Agent': 'IdealLivs-Frontend/1.0',
+        'User-Agent': 'Mozilla/5.0 (compatible; IdealLivs/1.0; +https://www.ideallivs.com)',
         ...options.headers,
       };
 
@@ -236,7 +236,7 @@ export async function fetchWooCommerceAPI<T>(
         'unknown_error'
       );
     }
-  }, 5, 2000); // Retry up to 5 times with 2s initial delay
+  }, 2, 1000); // Retry up to 2 times with 1s initial delay (reduced to avoid triggering bot protection)
 }
 
 /**
@@ -300,7 +300,7 @@ export async function fetchWooCommercePaginated<T>(
         headers: {
           'Content-Type': 'application/json',
           'Authorization': authHeader,
-          'User-Agent': 'IdealLivs-Frontend/1.0',
+          'User-Agent': 'Mozilla/5.0 (compatible; IdealLivs/1.0; +https://www.ideallivs.com)',
         },
       };
 
@@ -376,7 +376,7 @@ export async function fetchWooCommercePaginated<T>(
         'pagination_error'
       );
     }
-  }, 5, 2000); // Retry up to 5 times with 2s initial delay
+  }, 2, 1000); // Retry up to 2 times with 1s initial delay (reduced to avoid triggering bot protection)
 }
 
 /**
