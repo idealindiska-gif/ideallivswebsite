@@ -468,5 +468,73 @@
     "totalProducts": "Totalt Produkter",
     "indianBrands": "Indiska Varumärken",
     "clearFilters": "Rensa Filter"
+  },
+  "cart": {
+    "title": "Kundvagn",
+    "items": "{count} artiklar",
+    "empty": "Din kundvagn är tom",
+    "total": "Totalt:",
+    "noImage": "Ingen bild"
+  },
+  "bundle": {
+    "deal": "Paketerbj udande",
+    "save": "Spara {percent}%",
+    "regularTotal": "Ordinarie totalt",
+    "bundlePrice": "Paketpris",
+    "youSave": "Du sparar",
+    "addToCart": "Lägg Paketet i Varukorgen",
+    "addedToCart": "Tillagd i Varukorgen",
+    "adding": "Lägger till...",
+    "someUnavailable": "Vissa artiklar otillgängliga",
+    "outOfStock": "Slut i lager"
+  },
+  "deliverySelector": {
+    "deliverTo": "Leverera till",
+    "loading": "Laddar...",
+    "selectCountry": "Välj Leveransland",
+    "currencyUpdate": "Valutan uppdateras automatiskt",
+    "scandinavia": "Skandinavien",
+    "europe": "Europa",
+    "rates": "Kurser: {date}",
+    "loadingRates": "Laddar kurser...",
+    "refreshRates": "Uppdatera växelkurser",
+    "ratesUpdated": "Växelkurser uppdaterade: {date}"
+  },
+  "shippingForm": {
+    "title": "Leveransinformation",
+    "email": "E-postadress",
+    "phone": "Telefon",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "company": "Företag (valfritt)",
+    "country": "Land",
+    "selectCountry": "Välj land",
+    "streetAddress": "Gatuadress",
+    "addressPlaceholder": "Husnummer och gatunamn",
+    "apartment": "Lägenhet, svit, etc. (valfritt)",
+    "city": "Stad",
+    "state": "Län/region (valfritt)",
+    "postalCode": "Postnummer",
+    "required": "*",
+    "errors": {
+      "firstNameRequired": "Förnamn krävs",
+      "lastNameRequired": "Efternamn krävs",
+      "addressRequired": "Adress krävs",
+      "cityRequired": "Stad krävs",
+      "postalCodeRequired": "Postnummer krävs",
+      "countryRequired": "Land krävs",
+      "phoneRequired": "Telefonnummer krävs",
+      "emailRequired": "Giltig e-postadress krävs"
+    }
+  },
+  "productCard": {
+    "noImage": "Ingen Bild",
+    "quickView": "Snabbvy",
+    "add": "Lägg till",
+    "added": "Tillagd!",
+    "options": "Alternativ",
+    "soldOut": "Slutsåld",
+    "onlyLeft": "Endast {count} kvar",
+    "from": "Från"
   }
 }

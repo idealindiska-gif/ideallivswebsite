@@ -13,6 +13,7 @@ import { useCartStore } from '@/store/cart-store';
 import { cn, decodeHtmlEntities } from '@/lib/utils';
 import { WishlistToggle } from '@/components/wishlist/wishlist-button';
 import { CurrencyPrice, CurrencySalePrice } from '@/components/ui/currency-price';
+import { useTranslations } from 'next-intl';
 
 interface ProductCardProps {
   product: Product;
@@ -26,6 +27,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
   const discount = getDiscountPercentage(product);
   const { addItem } = useCartStore();
   const [addState, setAddState] = useState<'idle' | 'adding' | 'added'>('idle');
+  const t = useTranslations('productCard');
 
   // Check stock status
   const isOutOfStock = product.stock_status === 'outofstock';
@@ -107,7 +109,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                   <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <ShoppingBag className="h-6 w-6 opacity-50" />
                   </div>
-                  <span className="text-xs font-medium text-muted-foreground">No Image</span>
+                  <span className="text-xs font-medium text-muted-foreground">{t('noImage')}</span>
                 </div>
               </div>
             )}
@@ -140,7 +142,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                 }}
               >
                 <Eye className="h-3.5 w-3.5 mr-1.5" />
-                Quick View
+                {t('quickView')}
               </Button>
 
               {/* Add to Cart Button */}
@@ -175,7 +177,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                       className="flex items-center"
                     >
                       <Check className="h-4 w-4 mr-1" />
-                      Added!
+                      {t('added')}
                     </motion.span>
                   ) : (
                     <motion.span
@@ -186,7 +188,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                       className="flex items-center"
                     >
                       <Plus className="h-3.5 w-3.5 mr-1" />
-                      {hasVariations(product) ? 'Options' : 'Add'}
+                      {hasVariations(product) ? t('options') : t('add')}
                     </motion.span>
                   )}
                 </AnimatePresence>
@@ -207,12 +209,12 @@ export function ProductCard({ product, className, priority = false }: ProductCar
               )}
               {isOutOfStock && (
                 <Badge variant="secondary" className="bg-neutral-800 text-white border-0 text-[10px] font-medium px-2 py-0.5">
-                  Sold Out
+                  {t('soldOut')}
                 </Badge>
               )}
               {isLowStock && !isOutOfStock && (
                 <Badge className="bg-orange-500 text-white hover:bg-orange-500 shadow-sm border-0 text-[10px] font-bold px-2 py-0.5">
-                  <AlertCircle className="mr-0.5 h-2.5 w-2.5" /> Only {stockQuantity} left
+                  <AlertCircle className="mr-0.5 h-2.5 w-2.5" /> {t('onlyLeft', { count: stockQuantity || 0 })}
                 </Badge>
               )}
             </div>
@@ -260,7 +262,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                   ) : (
                     <div className="flex items-baseline gap-1">
                       {hasVariations(product) && product.price && parseFloat(String(product.price)) > 0 && (
-                        <span className="text-[10px] text-muted-foreground">From</span>
+                        <span className="text-[10px] text-muted-foreground">{t('from')}</span>
                       )}
                       <span className="text-lg sm:text-xl font-bold text-foreground">
                         <CurrencyPrice price={product.price} />

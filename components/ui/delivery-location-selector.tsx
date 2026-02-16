@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useCurrencyStore, DELIVERY_COUNTRIES, CURRENCIES, type DeliveryCountry } from '@/store/currency-store';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 interface DeliveryLocationSelectorProps {
     variant?: 'default' | 'compact' | 'header';
@@ -31,6 +32,7 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
 
     const [open, setOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const t = useTranslations('deliverySelector');
 
     // Handle hydration mismatch
     useEffect(() => {
@@ -75,9 +77,9 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
         return (
             <div className={cn("flex flex-col items-start text-sm", className)}>
                 <span className="flex items-center gap-1 font-medium text-foreground">
-                    <span className="w-2 h-2 rounded-full bg-primary/80"></span> Deliver to
+                    <span className="w-2 h-2 rounded-full bg-primary/80"></span> {t('deliverTo')}
                 </span>
-                <span className="text-xs text-muted-foreground">Loading...</span>
+                <span className="text-xs text-muted-foreground">{t('loading')}</span>
             </div>
         );
     }
@@ -95,7 +97,7 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                     >
                         <span className="flex items-center gap-1 font-medium text-foreground">
                             <span className="w-2 h-2 rounded-full bg-primary/80 animate-pulse"></span>
-                            Deliver to
+                            {t('deliverTo')}
                         </span>
                         <span className="text-xs text-muted-foreground flex items-center gap-1">
                             <span>{selectedCountry.flag}</span>
@@ -107,13 +109,13 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-[280px] max-h-[400px] overflow-y-auto">
                     <div className="px-3 py-2 border-b border-border">
-                        <p className="text-xs font-semibold text-foreground">Select Delivery Country</p>
-                        <p className="text-[10px] text-muted-foreground">Currency will update automatically</p>
+                        <p className="text-xs font-semibold text-foreground">{t('selectCountry')}</p>
+                        <p className="text-[10px] text-muted-foreground">{t('currencyUpdate')}</p>
                     </div>
 
                     {/* Scandinavia Section */}
                     <DropdownMenuLabel className="text-xs text-muted-foreground font-normal px-3 py-1.5 bg-muted/30">
-                        🌍 Scandinavia
+                        🌍 {t('scandinavia')}
                     </DropdownMenuLabel>
                     {scandinavianCountries.map((country) => (
                         <DropdownMenuItem
@@ -140,7 +142,7 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
 
                     {/* Europe Section */}
                     <DropdownMenuLabel className="text-xs text-muted-foreground font-normal px-3 py-1.5 bg-muted/30">
-                        🇪🇺 Europe
+                        🇪🇺 {t('europe')}
                     </DropdownMenuLabel>
                     {europeanCountries.map((country) => (
                         <DropdownMenuItem
@@ -168,13 +170,13 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                     {/* Footer with rate info */}
                     <div className="px-3 py-2 flex items-center justify-between bg-muted/20">
                         <div className="text-[10px] text-muted-foreground">
-                            {lastUpdated ? `Rates: ${lastUpdated}` : 'Loading rates...'}
+                            {lastUpdated ? t('rates', { date: lastUpdated }) : t('loadingRates')}
                         </div>
                         <button
                             onClick={handleRefreshRates}
                             disabled={isLoading}
                             className="p-1 hover:bg-muted rounded transition-colors disabled:opacity-50"
-                            title="Refresh exchange rates"
+                            title={t('refreshRates')}
                         >
                             <RefreshCw className={cn('h-3 w-3 text-muted-foreground', isLoading && 'animate-spin')} />
                         </button>
@@ -200,7 +202,7 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-[240px] max-h-[350px] overflow-y-auto">
-                    <DropdownMenuLabel className="text-xs">Scandinavia</DropdownMenuLabel>
+                    <DropdownMenuLabel className="text-xs">{t('scandinavia')}</DropdownMenuLabel>
                     {scandinavianCountries.map((country) => (
                         <DropdownMenuItem
                             key={country.code}
@@ -222,7 +224,7 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                         </DropdownMenuItem>
                     ))}
                     <DropdownMenuSeparator />
-                    <DropdownMenuLabel className="text-xs">Europe</DropdownMenuLabel>
+                    <DropdownMenuLabel className="text-xs">{t('europe')}</DropdownMenuLabel>
                     {europeanCountries.map((country) => (
                         <DropdownMenuItem
                             key={country.code}
@@ -265,18 +267,18 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[280px] max-h-[400px] overflow-y-auto">
                 <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground flex items-center justify-between">
-                    <span>Select Delivery Country</span>
+                    <span>{t('selectCountry')}</span>
                     <button
                         onClick={handleRefreshRates}
                         disabled={isLoading}
                         className="p-1 hover:bg-muted rounded transition-colors disabled:opacity-50"
-                        title="Refresh exchange rates"
+                        title={t('refreshRates')}
                     >
                         <RefreshCw className={cn('h-3 w-3', isLoading && 'animate-spin')} />
                     </button>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuLabel className="text-xs text-muted-foreground">Scandinavia</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-xs text-muted-foreground">{t('scandinavia')}</DropdownMenuLabel>
                 {scandinavianCountries.map((country) => (
                     <DropdownMenuItem
                         key={country.code}
@@ -298,7 +300,7 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                     </DropdownMenuItem>
                 ))}
                 <DropdownMenuSeparator />
-                <DropdownMenuLabel className="text-xs text-muted-foreground">Europe</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-xs text-muted-foreground">{t('europe')}</DropdownMenuLabel>
                 {europeanCountries.map((country) => (
                     <DropdownMenuItem
                         key={country.code}
@@ -323,7 +325,7 @@ export function DeliveryLocationSelector({ variant = 'default', className }: Del
                     <>
                         <DropdownMenuSeparator />
                         <div className="px-2 py-1.5 text-[10px] text-muted-foreground text-center">
-                            Exchange rates updated: {lastUpdated}
+                            {t('ratesUpdated', { date: lastUpdated })}
                         </div>
                     </>
                 )}

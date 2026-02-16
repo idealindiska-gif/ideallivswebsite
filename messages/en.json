@@ -468,5 +468,73 @@
     "totalProducts": "Total Products",
     "indianBrands": "Indian Brands",
     "clearFilters": "Clear Filters"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "items": "{count} items",
+    "empty": "Your cart is empty",
+    "total": "Total:",
+    "noImage": "No image"
+  },
+  "bundle": {
+    "deal": "Bundle Deal",
+    "save": "Save {percent}%",
+    "regularTotal": "Regular total",
+    "bundlePrice": "Bundle price",
+    "youSave": "You save",
+    "addToCart": "Add Bundle to Cart",
+    "addedToCart": "Added to Cart",
+    "adding": "Adding...",
+    "someUnavailable": "Some items unavailable",
+    "outOfStock": "Out of stock"
+  },
+  "deliverySelector": {
+    "deliverTo": "Deliver to",
+    "loading": "Loading...",
+    "selectCountry": "Select Delivery Country",
+    "currencyUpdate": "Currency will update automatically",
+    "scandinavia": "Scandinavia",
+    "europe": "Europe",
+    "rates": "Rates: {date}",
+    "loadingRates": "Loading rates...",
+    "refreshRates": "Refresh exchange rates",
+    "ratesUpdated": "Exchange rates updated: {date}"
+  },
+  "shippingForm": {
+    "title": "Shipping Information",
+    "email": "Email Address",
+    "phone": "Phone",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "company": "Company (optional)",
+    "country": "Country",
+    "selectCountry": "Select country",
+    "streetAddress": "Street Address",
+    "addressPlaceholder": "House number and street name",
+    "apartment": "Apartment, suite, etc. (optional)",
+    "city": "City",
+    "state": "State/Province (optional)",
+    "postalCode": "Postal Code",
+    "required": "*",
+    "errors": {
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required",
+      "addressRequired": "Address is required",
+      "cityRequired": "City is required",
+      "postalCodeRequired": "Postal code is required",
+      "countryRequired": "Country is required",
+      "phoneRequired": "Phone number is required",
+      "emailRequired": "Valid email is required"
+    }
+  },
+  "productCard": {
+    "noImage": "No Image",
+    "quickView": "Quick View",
+    "add": "Add",
+    "added": "Added!",
+    "options": "Options",
+    "soldOut": "Sold Out",
+    "onlyLeft": "Only {count} left",
+    "from": "From"
   }
 }

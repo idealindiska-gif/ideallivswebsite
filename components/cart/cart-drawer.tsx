@@ -10,9 +10,12 @@ import { Minus, Plus, X, AlertCircle } from 'lucide-react';
 import { CartThresholdMessages } from './cart-threshold-messages';
 import { WhatsAppOrderButton } from '@/components/whatsapp/whatsapp-order-button';
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 export function CartDrawer() {
   const { items, isOpen, closeCart, updateQuantity, removeItem, getTotalPrice, getTotalItems, notification, clearNotification } = useCartStore();
+  const t = useTranslations('cart');
+  const tCommon = useTranslations('common');
 
   // Auto-clear notification after 5 seconds
   useEffect(() => {
@@ -28,7 +31,7 @@ export function CartDrawer() {
     <Sheet open={isOpen} onOpenChange={closeCart}>
       <SheetContent className="flex w-full flex-col sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>Shopping Cart ({getTotalItems()} items)</SheetTitle>
+          <SheetTitle>{t('title')} ({t('items', { count: getTotalItems() })})</SheetTitle>
         </SheetHeader>
 
         {/* Payment Methods Banner */}
@@ -67,9 +70,9 @@ export function CartDrawer() {
 
         {items.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center">
-            <p className="text-muted-foreground">Your cart is empty</p>
+            <p className="text-muted-foreground">{t('empty')}</p>
             <Button asChild className="mt-4" onClick={closeCart}>
-              <Link href="/shop">Continue Shopping</Link>
+              <Link href="/shop">{tCommon('continueShopping')}</Link>
             </Button>
           </div>
         ) : (
@@ -108,7 +111,7 @@ export function CartDrawer() {
                         />
                       ) : (
                         <div className="flex h-full items-center justify-center bg-muted">
-                          <span className="text-xs text-muted-foreground">No image</span>
+                          <span className="text-xs text-muted-foreground">{t('noImage')}</span>
                         </div>
                       )}
                     </div>
@@ -171,16 +174,16 @@ export function CartDrawer() {
             {/* Cart Footer */}
             <SheetFooter className="flex-col gap-3">
               <div className="flex justify-between border-t pt-4 text-base font-bold">
-                <span>Total:</span>
+                <span>{t('total')}</span>
                 <span><CurrencyPrice price={getTotalPrice()} size="lg" /></span>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <Button asChild variant="outline" size="default" onClick={closeCart} className="text-sm">
-                  <Link href="/shop">Continue Shopping</Link>
+                  <Link href="/shop">{tCommon('continueShopping')}</Link>
                 </Button>
                 <Button asChild size="default" onClick={closeCart} className="text-sm">
-                  <Link href="/checkout">Checkout</Link>
+                  <Link href="/checkout">{tCommon('checkout')}</Link>
                 </Button>
               </div>
             </SheetFooter>

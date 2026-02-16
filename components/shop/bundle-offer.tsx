@@ -11,6 +11,7 @@ import { useCartStore } from '@/store/cart-store';
 import { calculateBundlePrice } from '@/config/bundles.config';
 import type { BundleOffer as BundleOfferType } from '@/config/bundles.config';
 import type { Product } from '@/types/woocommerce';
+import { useTranslations } from 'next-intl';
 
 interface BundleOfferProps {
   bundle: BundleOfferType;
@@ -20,6 +21,7 @@ interface BundleOfferProps {
 export function BundleOfferCard({ bundle, products }: BundleOfferProps) {
   const [state, setState] = useState<'idle' | 'adding' | 'added'>('idle');
   const { addItem, openCart } = useCartStore();
+  const t = useTranslations('bundle');
 
   // Build product lookup map
   const productMap = new Map<number, Product>();
@@ -91,7 +93,7 @@ export function BundleOfferCard({ bundle, products }: BundleOfferProps) {
         <div className="flex items-center gap-2">
           <Package className="h-4 w-4 text-primary" />
           <span className="font-heading font-semibold text-sm text-foreground">
-            Bundle Deal
+            {t('deal')}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -102,7 +104,7 @@ export function BundleOfferCard({ bundle, products }: BundleOfferProps) {
           )}
           {savingsPercent > 0 && (
             <Badge className="bg-red-500 text-white text-xs hover:bg-red-600">
-              Save {savingsPercent}%
+              {t('save', { percent: savingsPercent })}
             </Badge>
           )}
         </div>
@@ -161,7 +163,7 @@ export function BundleOfferCard({ bundle, products }: BundleOfferProps) {
                 </Link>
                 {outOfStock && (
                   <span className="text-xs text-red-500 flex items-center gap-1">
-                    <AlertCircle className="h-3 w-3" /> Out of stock
+                    <AlertCircle className="h-3 w-3" /> {t('outOfStock')}
                   </span>
                 )}
               </div>
@@ -183,20 +185,20 @@ export function BundleOfferCard({ bundle, products }: BundleOfferProps) {
       {/* Pricing Summary */}
       <div className="px-4 py-3 border-t border-border bg-muted/30">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-xs text-muted-foreground">Regular total</span>
+          <span className="text-xs text-muted-foreground">{t('regularTotal')}</span>
           <span className="text-sm text-muted-foreground line-through">
             <CurrencyPrice price={originalTotal} size="sm" />
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-sm font-semibold text-foreground">Bundle price</span>
+          <span className="text-sm font-semibold text-foreground">{t('bundlePrice')}</span>
           <span className="text-lg font-bold text-primary">
             <CurrencyPrice price={bundlePrice} size="lg" />
           </span>
         </div>
         {savings > 0 && (
           <p className="text-xs text-green-600 dark:text-green-400 font-medium mt-1 text-right">
-            You save <CurrencyPrice price={savings} size="sm" className="inline font-semibold" />
+            {t('youSave')} <CurrencyPrice price={savings} size="sm" className="inline font-semibold" />
           </p>
         )}
       </div>
@@ -212,16 +214,16 @@ export function BundleOfferCard({ bundle, products }: BundleOfferProps) {
           {state === 'added' ? (
             <>
               <Check className="mr-2 h-4 w-4" />
-              Added to Cart
+              {t('addedToCart')}
             </>
           ) : state === 'adding' ? (
-            'Adding...'
+            t('adding')
           ) : !allAvailable ? (
-            'Some items unavailable'
+            t('someUnavailable')
           ) : (
             <>
               <ShoppingCart className="mr-2 h-4 w-4" />
-              Add Bundle to Cart
+              {t('addToCart')}
             </>
           )}
         </Button>

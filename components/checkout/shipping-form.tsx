@@ -16,22 +16,23 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { useCountries } from '@/hooks/use-countries';
+import { useTranslations } from 'next-intl';
 
-const shippingSchema = z.object({
-    first_name: z.string().min(1, 'First name is required'),
-    last_name: z.string().min(1, 'Last name is required'),
+const createShippingSchema = (t: (key: string) => string) => z.object({
+    first_name: z.string().min(1, t('errors.firstNameRequired')),
+    last_name: z.string().min(1, t('errors.lastNameRequired')),
     company: z.string().optional(),
-    address_1: z.string().min(1, 'Address is required'),
+    address_1: z.string().min(1, t('errors.addressRequired')),
     address_2: z.string().optional(),
-    city: z.string().min(1, 'City is required'),
+    city: z.string().min(1, t('errors.cityRequired')),
     state: z.string().optional(),
-    postcode: z.string().min(1, 'Postal code is required'),
-    country: z.string().min(2, 'Country is required'),
-    phone: z.string().min(1, 'Phone number is required'),
-    email: z.string().email('Valid email is required'),
+    postcode: z.string().min(1, t('errors.postalCodeRequired')),
+    country: z.string().min(2, t('errors.countryRequired')),
+    phone: z.string().min(1, t('errors.phoneRequired')),
+    email: z.string().email(t('errors.emailRequired')),
 });
 
-export type ShippingFormData = z.infer<typeof shippingSchema>;
+export type ShippingFormData = z.infer<ReturnType<typeof createShippingSchema>>;
 
 interface ShippingFormProps {
     onSubmit: (data: ShippingFormData) => void;
@@ -40,7 +41,7 @@ interface ShippingFormProps {
 }
 export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFormProps) {
     const { countries } = useCountries();
-
+    const t = useTranslations('shippingForm');
 
     const {
         register,
@@ -49,7 +50,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
         setValue,
         watch,
     } = useForm<ShippingFormData>({
-        resolver: zodResolver(shippingSchema),
+        resolver: zodResolver(createShippingSchema(t)),
         defaultValues: defaultValues || {
             country: 'SE', // Default to Sweden
         },
@@ -61,7 +62,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
         <form id="shipping-form" onSubmit={handleSubmit(onSubmit)} className={cn('space-y-6', className)}>
             <div className="space-y-4">
                 <h2 className="font-heading text-2xl font-bold text-primary-950 dark:text-primary-50">
-                    Shipping Information
+                    {t('title')}
                 </h2>
 
                 {/* Email & Phone Group */}
@@ -69,7 +70,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                     {/* Email */}
                     <div className="space-y-2">
                         <Label htmlFor="email">
-                            Email Address <span className="text-destructive">*</span>
+                            {t('email')} <span className="text-destructive">{t('required')}</span>
                         </Label>
                         <Input
                             id="email"
@@ -85,7 +86,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                     {/* Phone */}
                     <div className="space-y-2">
                         <Label htmlFor="phone">
-                            Phone <span className="text-destructive">*</span>
+                            {t('phone')} <span className="text-destructive">{t('required')}</span>
                         </Label>
                         <Input
                             id="phone"
@@ -103,7 +104,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                     {/* First Name */}
                     <div className="space-y-2">
                         <Label htmlFor="first_name">
-                            First Name <span className="text-destructive">*</span>
+                            {t('firstName')} <span className="text-destructive">{t('required')}</span>
                         </Label>
                         <Input
                             id="first_name"
@@ -118,7 +119,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                     {/* Last Name */}
                     <div className="space-y-2">
                         <Label htmlFor="last_name">
-                            Last Name <span className="text-destructive">*</span>
+                            {t('lastName')} <span className="text-destructive">{t('required')}</span>
                         </Label>
                         <Input
                             id="last_name"
@@ -133,21 +134,21 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
 
                 {/* Company */}
                 <div className="space-y-2">
-                    <Label htmlFor="company">Company (optional)</Label>
+                    <Label htmlFor="company">{t('company')}</Label>
                     <Input id="company" {...register('company')} />
                 </div>
 
                 {/* Country */}
                 <div className="space-y-2">
                     <Label htmlFor="country">
-                        Country <span className="text-destructive">*</span>
+                        {t('country')} <span className="text-destructive">{t('required')}</span>
                     </Label>
                     <Select
                         value={selectedCountry}
                         onValueChange={(value) => setValue('country', value)}
                     >
                         <SelectTrigger className={errors.country ? 'border-destructive' : ''}>
-                            <SelectValue placeholder="Select country" />
+                            <SelectValue placeholder={t('selectCountry')} />
                         </SelectTrigger>
                         <SelectContent>
                             {countries.map((country) => (
@@ -165,11 +166,11 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                 {/* Address 1 */}
                 <div className="space-y-2">
                     <Label htmlFor="address_1">
-                        Street Address <span className="text-destructive">*</span>
+                        {t('streetAddress')} <span className="text-destructive">{t('required')}</span>
                     </Label>
                     <Input
                         id="address_1"
-                        placeholder="House number and street name"
+                        placeholder={t('addressPlaceholder')}
                         {...register('address_1')}
                         className={errors.address_1 ? 'border-destructive' : ''}
                     />
@@ -180,7 +181,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
 
                 {/* Address 2 */}
                 <div className="space-y-2">
-                    <Label htmlFor="address_2">Apartment, suite, etc. (optional)</Label>
+                    <Label htmlFor="address_2">{t('apartment')}</Label>
                     <Input id="address_2" {...register('address_2')} />
                 </div>
 
@@ -188,7 +189,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                     {/* City */}
                     <div className="space-y-2">
                         <Label htmlFor="city">
-                            City <span className="text-destructive">*</span>
+                            {t('city')} <span className="text-destructive">{t('required')}</span>
                         </Label>
                         <Input
                             id="city"
@@ -203,7 +204,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                     {/* State */}
                     <div className="space-y-2">
                         <Label htmlFor="state">
-                            State/Province (optional)
+                            {t('state')}
                         </Label>
                         <Input
                             id="state"
@@ -218,7 +219,7 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                     {/* Postcode */}
                     <div className="space-y-2">
                         <Label htmlFor="postcode">
-                            Postal Code <span className="text-destructive">*</span>
+                            {t('postalCode')} <span className="text-destructive">{t('required')}</span>
                         </Label>
                         <Input
                             id="postcode"
