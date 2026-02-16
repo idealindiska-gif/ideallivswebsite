@@ -128,9 +128,13 @@ Allow: /images/
 Allow: /wp-content/uploads/
 
 # ==================================================
-# Sitemap
+# Sitemaps
 # ==================================================
+# Main sitemap (includes all English content + Swedish sitemap index)
 Sitemap: https://www.ideallivs.com/sitemap.xml
+
+# Swedish sitemap (explicitly listed for Google Search Console)
+Sitemap: https://www.ideallivs.com/sv/sitemap.xml
 
 # ==================================================
 # Crawl Settings

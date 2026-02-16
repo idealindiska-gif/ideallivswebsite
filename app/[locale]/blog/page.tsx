@@ -107,29 +107,55 @@ export default async function BlogPage() {
             </div>
           </div>
 
-          {/* Featured Static Post 2 (Indian Fika) */}
-          <div className="flex flex-col md:flex-row gap-8 items-center bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 opacity-90 hover:opacity-100 transition-opacity">
-            <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
-              {/* Note: Placeholder image logic might need update if path invalid */}
-              <div className="absolute inset-0 bg-orange-100 flex items-center justify-center text-orange-400 font-bold text-2xl">
-                ☕
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Indian Fika */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="/images/blog/indian-fika-hero.png"
+                  alt="The Indian Fika"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  Popular
+                </div>
               </div>
-              <Image
-                src="/images/blog/indian-fika-hero.png" // Kept original, verify if exists
-                alt="The Indian Fika"
-                fill
-                className="object-cover"
-              />
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-primary uppercase tracking-widest">Culture & Lifestyle</div>
+                <h2 className="text-2xl font-bold font-heading">The Indian Fika: 5 Savory Snacks for Tea</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  Experience the perfect blend of Swedish tradition and South Asian spice. Discover the best samosas and namkeen.
+                </p>
+                <Button asChild variant="outline" className="rounded-full w-full">
+                  <Link href="/blog/the-indian-fika">Read Guide</Link>
+                </Button>
+              </div>
             </div>
-            <div className="flex-1 space-y-4">
-              <div className="text-sm font-medium text-primary uppercase tracking-widest">Culture & Cooking</div>
-              <h2 className="text-2xl md:text-3xl font-bold font-heading">The Indian Fika: 5 Savory Snacks</h2>
-              <p className="text-muted-foreground line-clamp-3">
-                Experience the perfect blend of Swedish tradition and South Asian spice.
-              </p>
-              <Button asChild variant="outline" className="rounded-full px-8">
-                <Link href="/blog/the-indian-fika">Read Article</Link>
-              </Button>
+
+            {/* No Customs Guide */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"
+                  alt="EU Shipping Guide"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  EU Guide
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-primary uppercase tracking-widest">Shipping & Logistics</div>
+                <h2 className="text-2xl font-bold font-heading">Why Buying from Sweden Saves Money</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  Learn how to get Indian groceries delivered across Europe with zero hidden customs fees and fast shipping.
+                </p>
+                <Button asChild variant="outline" className="rounded-full w-full">
+                  <Link href="/blog/no-customs-indian-grocery-europe">Read Guide</Link>
+                </Button>
+              </div>
             </div>
           </div>
 

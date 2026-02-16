@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 // Static blog posts that are built as Next.js pages (not from WordPress)
 const staticBlogPosts = [
     { slug: 'ramadan-2026', changefreq: 'weekly', priority: '0.8' },
+    { slug: 'ramadan-grocery-checklist-2026', changefreq: 'weekly', priority: '0.8' },
     { slug: 'the-indian-fika', changefreq: 'monthly', priority: '0.7' },
     { slug: 'no-customs-indian-grocery-europe', changefreq: 'monthly', priority: '0.7' },
 ];

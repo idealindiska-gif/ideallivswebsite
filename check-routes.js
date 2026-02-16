@@ -27,7 +27,7 @@ const nextJsRoutes = {
   'europe-delivery': 'app/europe-delivery/page.tsx',
   'faq': 'app/faq/page.tsx',
   'delivery-goteborg-malmo': 'app/delivery-goteborg-malmo/page.tsx',
-  'blog': 'app/blog/page.tsx',
+  'blog': 'app/[locale]/blog/page.tsx',
   'delivery-information': 'app/delivery-information/page.tsx',
   'deals': 'app/(shop)/deals/page.tsx',
   'brands': 'app/brands/page.tsx',
