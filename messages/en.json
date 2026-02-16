@@ -416,5 +416,57 @@
   "search": {
     "searchPlaceholderLong": "Search for fresh produce, groceries, and more...",
     "searchProducts": "Search products..."
+  },
+  "deals": {
+    "heroTitle": "Ramadan",
+    "heroTitleHighlight": "Mega Savings",
+    "heroDesc": "Prepare for a blessed month with Stockholm's best prices on dates, rice, and Iftar essentials.",
+    "exclusiveDeals": "{count} Exclusive Deals",
+    "limitedTime": "Limited Time Only",
+    "seoTitle": "Authentic Flavors,",
+    "seoTitleHighlight": "Unbeatable Prices",
+    "seoP1": "At Ideal Indiska LIVS, we believe that authentic cooking shouldn't break the bank. Our weekly Special Offers bring you the best discounts on high-quality Indian and Pakistani staples right here in Stockholm.",
+    "seoP2": "From 5kg bags of premium Basmati Rice to essential spices and dals, we regularly discount the items your family uses most. Our deals are updated every week, so be sure to bookmark this page!",
+    "whatToLook": "What to look for this week:",
+    "riceFlour": "Rice & Flour Deals",
+    "spiceMix": "Spice Mix Discounts",
+    "halalMeat": "Halal Meat Offers",
+    "freshVeg": "Fresh Vegetable Sales",
+    "frozenFood": "Frozen Food Promos",
+    "brandWeek": "Brand of the Week",
+    "allDeals": "All Deals ({count})",
+    "grabThem": "Limited time offers - grab them before they're gone!",
+    "noDealsTitle": "No Deals Available Right Now",
+    "noDealsDesc": "We don't have any special offers at the moment, but check back soon for amazing deals!",
+    "browseAll": "Browse All Products"
+  },
+  "brandsPage": {
+    "heroTitle": "Shop Your Favorite Indian & Pakistani Brands",
+    "premiumBrands": "{count}+ Premium Brands",
+    "heroP1": "At Ideal Indiska LIVS, we bring you a curated selection of the most trusted and beloved Indian and Pakistani grocery brands, serving Stockholm since 2020.",
+    "heroP2": "Explore authentic spices from Shan, snacks from Haldiram's, or quality staples from ITC and KTC. Our directory is designed to help you find precisely what you need for your kitchen.",
+    "mostPopular": "Most Popular Brands",
+    "items": "items",
+    "seoTitle": "Why Shop by Brand at Ideal Indiska LIVS?",
+    "seoP1": "We understand that when it comes to authentic Indian and Pakistani cooking, the brand matters. That's why we've partnered with the most prestigious and trusted names in South Asian groceries.",
+    "seoP2": "Every brand we stock has been carefully selected for its commitment to quality, authenticity, and taste. From traditional family favorites to modern innovations, our brands deliver the genuine flavors of India and Pakistan.",
+    "seoP3": "Browse by your favorite brand, discover new ones, and order everything you need from the comfort of your home. We offer fast delivery across Stockholm and throughout Sweden.",
+    "popularBrandsTitle": "Popular Brands at Our Store",
+    "visitStore": "Visit our store in Bandhagen or shop online at ideallivs.com for the complete range of Indian and Pakistani brands in Stockholm."
+  },
+  "brandsGrid": {
+    "searchPlaceholder": "Search brands (e.g., Shan, MDH, Haldiram)...",
+    "allBrands": "All Brands",
+    "popular": "Popular",
+    "indian": "Indian",
+    "pakistani": "Pakistani",
+    "international": "International",
+    "noResults": "No brands found matching your criteria.",
+    "viewProducts": "View Products",
+    "totalBrands": "Total Brands",
+    "popularBrands": "Popular Brands",
+    "totalProducts": "Total Products",
+    "indianBrands": "Indian Brands",
+    "clearFilters": "Clear Filters"
   }
 }

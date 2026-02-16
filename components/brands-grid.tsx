@@ -12,6 +12,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useTranslations } from "next-intl";
 
 interface ProductBrand {
     id: number;
@@ -46,6 +47,7 @@ const PAKISTANI_BRANDS = [
 ];
 
 export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
+    const t = useTranslations('brandsGrid');
     const [searchQuery, setSearchQuery] = useState("");
     const [filterType, setFilterType] = useState<FilterType>("all");
 
@@ -94,25 +96,25 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                     <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
                         {initialBrands.length}
                     </div>
-                    <div className="text-sm text-muted-foreground font-medium">Total Brands</div>
+                    <div className="text-sm text-muted-foreground font-medium">{t('totalBrands')}</div>
                 </div>
                 <div className="text-center p-6 bg-card rounded-xl border border-border shadow-sm">
                     <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
                         {popularBrands.length}
                     </div>
-                    <div className="text-sm text-muted-foreground font-medium">Popular Brands</div>
+                    <div className="text-sm text-muted-foreground font-medium">{t('popularBrands')}</div>
                 </div>
                 <div className="text-center p-6 bg-card rounded-xl border border-border shadow-sm">
                     <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
                         {totalProducts}
                     </div>
-                    <div className="text-sm text-muted-foreground font-medium">Total Products</div>
+                    <div className="text-sm text-muted-foreground font-medium">{t('totalProducts')}</div>
                 </div>
                 <div className="text-center p-6 bg-card rounded-xl border border-border shadow-sm">
                     <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
                         {INDIAN_BRANDS.filter(slug => initialBrands.find(b => b.slug === slug)).length}
                     </div>
-                    <div className="text-sm text-muted-foreground font-medium">Indian Brands</div>
+                    <div className="text-sm text-muted-foreground font-medium">{t('indianBrands')}</div>
                 </div>
             </div>
 
@@ -123,7 +125,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                         type="search"
-                        placeholder="Search brands (e.g., Shan, MDH, Haldiram)..."
+                        placeholder={t('searchPlaceholder')}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="pl-10 pr-10 h-12 text-base"
@@ -146,7 +148,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                         onClick={() => setFilterType("all")}
                         className="rounded-full"
                     >
-                        All Brands
+                        {t('allBrands')}
                     </Button>
                     <Button
                         variant={filterType === "popular" ? "default" : "outline"}
@@ -154,7 +156,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                         onClick={() => setFilterType("popular")}
                         className="rounded-full"
                     >
-                        Popular (10+ Products)
+                        {t('popular')}
                     </Button>
                     <Button
                         variant={filterType === "indian" ? "default" : "outline"}
@@ -162,7 +164,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                         onClick={() => setFilterType("indian")}
                         className="rounded-full"
                     >
-                        Indian Brands
+                        {t('indian')}
                     </Button>
                     <Button
                         variant={filterType === "pakistani" ? "default" : "outline"}
@@ -170,7 +172,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                         onClick={() => setFilterType("pakistani")}
                         className="rounded-full"
                     >
-                        Pakistani Brands
+                        {t('pakistani')}
                     </Button>
                     <Button
                         variant={filterType === "international" ? "default" : "outline"}
@@ -178,13 +180,13 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                         onClick={() => setFilterType("international")}
                         className="rounded-full"
                     >
-                        International
+                        {t('international')}
                     </Button>
                 </div>
 
                 {/* Results Count */}
                 <p className="text-center text-sm text-muted-foreground">
-                    Showing {filteredBrands.length} of {initialBrands.length} brands
+                    {t('showingResults', { showing: filteredBrands.length, total: initialBrands.length })}
                 </p>
             </div>
 
@@ -211,7 +213,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                     {sortedLetters.length === 0 ? (
                         <div className="text-center py-12">
                             <p className="text-muted-foreground text-lg">
-                                No brands found matching your criteria.
+                                {t('noResults')}
                             </p>
                             <Button
                                 variant="outline"
@@ -221,7 +223,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                                 }}
                                 className="mt-4"
                             >
-                                Clear Filters
+                                {t('clearFilters')}
                             </Button>
                         </div>
                     ) : (
@@ -235,7 +237,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
                                         </div>
                                         <div className="flex-1 h-px bg-border" />
                                         <span className="text-sm text-muted-foreground font-medium">
-                                            {brandsByLetter[letter].length} {brandsByLetter[letter].length === 1 ? 'brand' : 'brands'}
+                                            {t('brandCount', { count: brandsByLetter[letter].length })}
                                         </span>
                                     </div>
                                 </div>
@@ -277,7 +279,7 @@ export function BrandsGrid({ brands: initialBrands }: BrandsGridProps) {
 
                                                             {brand.count > 0 && (
                                                                 <p className="text-xs text-muted-foreground mt-auto">
-                                                                    {brand.count} Product{brand.count !== 1 ? 's' : ''}
+                                                                    {t('productCount', { count: brand.count })}
                                                                 </p>
                                                             )}
                                                         </div>

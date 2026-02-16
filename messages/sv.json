@@ -416,5 +416,57 @@
   "search": {
     "searchPlaceholderLong": "Sök efter färska produkter, matvaror och mer...",
     "searchProducts": "Sök produkter..."
+  },
+  "deals": {
+    "heroTitle": "Ramadan",
+    "heroTitleHighlight": "Megabesparingar",
+    "heroDesc": "Förbered dig för en välsignad månad med Stockholms bästa priser på dadlar, ris och iftar-essentialer.",
+    "exclusiveDeals": "{count} Exklusiva Erbjudanden",
+    "limitedTime": "Tidsbegränsat",
+    "seoTitle": "Autentiska Smaker,",
+    "seoTitleHighlight": "Oslagbara Priser",
+    "seoP1": "På Ideal Indiska LIVS tror vi att autentisk matlagning inte ska kosta skjortan. Våra veckovisa specialerbjudanden ger dig de bästa rabatterna på högkvalitativa indiska och pakistanska basvaror här i Stockholm.",
+    "seoP2": "Från 5kg-påsar med premium Basmati-ris till essentiella kryddor och linser rabatterar vi regelbundet de varor din familj använder mest. Våra erbjudanden uppdateras varje vecka, så bokmärk gärna denna sida!",
+    "whatToLook": "Vad du ska leta efter denna vecka:",
+    "riceFlour": "Ris & Mjöl-erbjudanden",
+    "spiceMix": "Kryddblandningsrabatter",
+    "halalMeat": "Halaltkötterbjudanden",
+    "freshVeg": "Grönsaksreor",
+    "frozenFood": "Frysprodukter-kampanjer",
+    "brandWeek": "Veckans Varumärke",
+    "allDeals": "Alla Erbjudanden ({count})",
+    "grabThem": "Tidsbegränsade erbjudanden - passa på innan de tar slut!",
+    "noDealsTitle": "Inga Erbjudanden Just Nu",
+    "noDealsDesc": "Vi har inga specialerbjudanden just nu, men kolla tillbaka snart för fantastiska deals!",
+    "browseAll": "Bläddra Bland Alla Produkter"
+  },
+  "brandsPage": {
+    "heroTitle": "Handla Dina Favorit Indiska & Pakistanska Varumärken",
+    "premiumBrands": "{count}+ Premiumvarumärken",
+    "heroP1": "På Ideal Indiska LIVS erbjuder vi ett noggrant utvalt sortiment av de mest betrodda och älskade indiska och pakistanska matvaruvarumärkena, som betjänar Stockholm sedan 2020.",
+    "heroP2": "Utforska autentiska kryddor från Shan, snacks från Haldiram's, eller kvalitetsbasvaror från ITC och KTC. Vår katalog är utformad för att hjälpa dig hitta precis det du behöver till ditt kök.",
+    "mostPopular": "Mest Populära Varumärken",
+    "items": "artiklar",
+    "seoTitle": "Varför Handla efter Varumärke hos Ideal Indiska LIVS?",
+    "seoP1": "Vi förstår att när det gäller autentisk indisk och pakistansk matlagning spelar varumärket roll. Därför har vi samarbetat med de mest prestigefyllda och betrodda namnen inom sydasiatiska matvaror.",
+    "seoP2": "Varje varumärke vi lagerhåller har noggrant valts ut för sitt engagemang för kvalitet, autenticitet och smak. Från traditionella familjefavoriter till moderna innovationer levererar våra varumärken de genuina smakerna av Indien och Pakistan.",
+    "seoP3": "Bläddra efter ditt favoritvarumärke, upptäck nya och beställ allt du behöver hemifrån. Vi erbjuder snabb leverans i Stockholm och hela Sverige.",
+    "popularBrandsTitle": "Populära Varumärken i Vår Butik",
+    "visitStore": "Besök vår butik i Bandhagen eller handla online på ideallivs.com för hela utbudet av indiska och pakistanska varumärken i Stockholm."
+  },
+  "brandsGrid": {
+    "searchPlaceholder": "Sök varumärken (t.ex. Shan, MDH, Haldiram)...",
+    "allBrands": "Alla Varumärken",
+    "popular": "Populära",
+    "indian": "Indiska",
+    "pakistani": "Pakistanska",
+    "international": "Internationella",
+    "noResults": "Inga varumärken hittades som matchar dina kriterier.",
+    "viewProducts": "Visa Produkter",
+    "totalBrands": "Totalt Varumärken",
+    "popularBrands": "Populära Varumärken",
+    "totalProducts": "Totalt Produkter",
+    "indianBrands": "Indiska Varumärken",
+    "clearFilters": "Rensa Filter"
   }
 }

@@ -5,22 +5,36 @@ import { Suspense } from 'react';
 import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
 import { ProductCard } from '@/components/shop/product-card';
 import { Loader2, Percent, TrendingDown } from 'lucide-react';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 
 import { brandProfile } from '@/config/brand-profile';
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { collectionPageSchema, offerCatalogSchema } from "@/lib/schema/collection";
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
 
-export const metadata: Metadata = {
-    title: `Ramadan Mega Savings Stockholm: Dates, Rice, Rooh Afza & More | ${brandProfile.name}`,
-    description: `Huge Ramadan savings on authentic Indian and Pakistani groceries in Stockholm. Exclusive deals on Dates, Basmati rice, Rooh Afza, and Halal meat for Iftar & Suhoor. Order online!`,
-    alternates: {
-        canonical: 'https://www.ideallivs.com/deals',
-    },
-};
+interface PageProps {
+    params: Promise<{ locale: string }>;
+}
 
-async function DealsContent() {
-    const saleProducts = await getOnSaleProducts(50); // Get up to 50 products on sale
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { locale } = await params;
+    if (locale === 'sv') {
+        return {
+            title: `Ramadan Megabesparingar Stockholm: Dadlar, Ris, Rooh Afza & Mer | ${brandProfile.name}`,
+            description: `Stora Ramadan-besparingar på autentiska indiska och pakistanska matvaror i Stockholm. Exklusiva erbjudanden på dadlar, Basmati-ris, Rooh Afza och halaltkött.`,
+            alternates: { canonical: 'https://www.ideallivs.com/sv/deals' },
+        };
+    }
+    return {
+        title: `Ramadan Mega Savings Stockholm: Dates, Rice, Rooh Afza & More | ${brandProfile.name}`,
+        description: `Huge Ramadan savings on authentic Indian and Pakistani groceries in Stockholm. Exclusive deals on Dates, Basmati rice, Rooh Afza, and Halal meat for Iftar & Suhoor. Order online!`,
+        alternates: { canonical: 'https://www.ideallivs.com/deals' },
+    };
+}
+
+async function DealsContent({ locale }: { locale: string }) {
+    const t = await getTranslations('deals');
+    const saleProducts = await getOnSaleProducts(50);
 
     return (
         <div className="min-h-screen w-full bg-background">
@@ -45,7 +59,6 @@ async function DealsContent() {
                     }))
                 })}
             />
-            {/* OfferCatalog Schema - signals promotional content to search engines */}
             <SchemaScript
                 id="deals-offer-catalog"
                 schema={offerCatalogSchema({
@@ -68,7 +81,6 @@ async function DealsContent() {
 
             {/* Hero Section */}
             <div className="relative w-full overflow-hidden bg-emerald-950 min-h-[500px] flex items-center">
-                {/* Background Image */}
                 <div className="absolute inset-0 w-full h-full">
                     <Image
                         src="https://crm.ideallivs.com/wp-content/uploads/2026/02/Ideal-Ramadan-Savings-e1770765144207.jpg"
@@ -77,91 +89,81 @@ async function DealsContent() {
                         className="object-cover object-center"
                         priority
                     />
-                    {/* Gradient Overlay for Text Readability - Stronger on the left */}
                     <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-950/60 to-transparent" />
                 </div>
 
                 <div className="relative container-wide mx-auto page-section-sm w-full">
                     <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left">
-
-                        {/* Text Content - Left Side */}
                         <div className="w-full md:w-1/2 space-y-8 z-10">
-                            {/* Icon */}
                             <div className="inline-flex p-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl">
                                 <Percent className="h-8 w-8 text-emerald-300" />
                             </div>
-
-                            {/* Title */}
                             <div className="space-y-4">
                                 <h1 className="font-heading text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white drop-shadow-sm leading-tight">
-                                    Ramadan <br />
-                                    <span className="text-emerald-300">Mega Savings</span>
+                                    {t('heroTitle')} <br />
+                                    <span className="text-emerald-300">{t('heroTitleHighlight')}</span>
                                 </h1>
                                 <p className="text-lg md:text-xl text-emerald-100/90 font-medium leading-relaxed max-w-lg mx-auto md:mx-0">
-                                    Prepare for a blessed month with Stockholm&apos;s best prices on dates, rice, and Iftar essentials.
+                                    {t('heroDesc')}
                                 </p>
                             </div>
-
-                            {/* Stats */}
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                                 <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-950/60 backdrop-blur-md border border-emerald-500/30 text-emerald-50 shadow-sm">
                                     <TrendingDown className="h-5 w-5 text-emerald-400" />
                                     <span className="text-base font-semibold">
-                                        {saleProducts.length} Exclusive Deals
+                                        {t('exclusiveDeals', { count: saleProducts.length })}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-emerald-900 shadow-lg shadow-black/10">
                                     <Percent className="h-5 w-5" />
                                     <span className="text-base font-bold">
-                                        Limited Time Only
+                                        {t('limitedTime')}
                                     </span>
                                 </div>
                             </div>
                         </div>
-
-                        {/* Right Side - Empty spacer to show the image */}
                         <div className="hidden md:block w-1/2" />
                     </div>
                 </div>
             </div>
 
-            {/* In-depth SEO Description Section */}
+            {/* SEO Description Section */}
             <section className="w-full bg-muted/30 py-12 border-y border-border/50">
                 <div className="container-wide mx-auto px-[var(--container-padding)]">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-4">
                             <h2 className="text-3xl font-heading font-bold text-foreground">
-                                Authentic Flavors, <span className="text-primary">Unbeatable Prices</span>
+                                {t('seoTitle')} <span className="text-primary">{t('seoTitleHighlight')}</span>
                             </h2>
                             <p className="text-muted-foreground leading-relaxed">
-                                At <strong>Ideal Indiska LIVS</strong>, we believe that authentic cooking shouldn&apos;t break the bank. Our weekly <strong>Special Offers</strong> bring you the best discounts on high-quality Indian and Pakistani staples right here in <strong>Stockholm</strong>.
+                                {t('seoP1')}
                             </p>
                             <p className="text-muted-foreground leading-relaxed">
-                                From 5kg bags of premium <strong>Basmati Rice</strong> to essential <strong>spices and dals</strong>, we regularly discount the items your family uses most. Our deals are updated every week, so be sure to bookmark this page!
+                                {t('seoP2')}
                             </p>
                         </div>
                         <div className="bg-card p-6 rounded-2xl border border-border shadow-sm">
                             <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-primary">
-                                <Percent className="w-5 h-5" /> What to look for this week:
+                                <Percent className="w-5 h-5" /> {t('whatToLook')}
                             </h3>
                             <ul className="grid grid-cols-2 gap-3 text-sm">
                                 <li className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Rice & Flour Deals
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> {t('riceFlour')}
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Spice Mix Discounts
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> {t('spiceMix')}
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Halal Meat Offers
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> {t('halalMeat')}
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Fresh Vegetable Sales
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> {t('freshVeg')}
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Frozen Food Promos
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> {t('frozenFood')}
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> Brand of the Week
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" /> {t('brandWeek')}
                                 </li>
                             </ul>
                         </div>
@@ -175,10 +177,10 @@ async function DealsContent() {
                     <>
                         <div className="mb-8">
                             <h2 className="text-2xl font-bold text-foreground mb-2">
-                                All Deals ({saleProducts.length})
+                                {t('allDeals', { count: saleProducts.length })}
                             </h2>
                             <p className="text-muted-foreground">
-                                Limited time offers - grab them before they're gone!
+                                {t('grabThem')}
                             </p>
                         </div>
 
@@ -194,16 +196,16 @@ async function DealsContent() {
                             <Percent className="h-12 w-12 text-muted-foreground" />
                         </div>
                         <h2 className="text-2xl font-bold text-foreground mb-2">
-                            No Deals Available Right Now
+                            {t('noDealsTitle')}
                         </h2>
                         <p className="text-muted-foreground max-w-md mb-6">
-                            We don't have any special offers at the moment, but check back soon for amazing deals!
+                            {t('noDealsDesc')}
                         </p>
                         <Link
                             href="/shop"
                             className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors"
                         >
-                            Browse All Products
+                            {t('browseAll')}
                         </Link>
                     </div>
                 )}
@@ -212,7 +214,10 @@ async function DealsContent() {
     );
 }
 
-export default function DealsPage() {
+export default async function DealsPage({ params }: PageProps) {
+    const { locale } = await params;
+    setRequestLocale(locale);
+
     return (
         <Suspense
             fallback={
@@ -224,7 +229,7 @@ export default function DealsPage() {
                 </div>
             }
         >
-            <DealsContent />
+            <DealsContent locale={locale} />
         </Suspense>
     );
 }

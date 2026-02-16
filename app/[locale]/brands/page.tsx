@@ -1,40 +1,54 @@
-import { Metadata } from "next";
 import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { Container } from "@/components/craft";
 import { brandProfile } from "@/config/brand-profile";
 import { getAllProductBrands } from "@/lib/woocommerce/brands";
-import { Package, ArrowRight, TrendingUp } from "lucide-react";
+import { Package, TrendingUp } from "lucide-react";
 import { BrandsGrid } from "@/components/brands-grid";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { collectionPageSchema, brandDirectorySchema } from "@/lib/schema/collection";
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
 
-export const metadata: Metadata = {
-    title: `135+ Indian & Pakistani Grocery Brands Stockholm | ${brandProfile.name}`,
-    description: `Browse 135+ authentic Indian & Pakistani grocery brands in Stockholm. Shop Shan, MDH, Haldiram, National, MTR, TRS, Tilda, Aashirvaad & more at Ideal Indiska Livs. Fast delivery across Sweden.`,
-    alternates: {
-        canonical: "https://www.ideallivs.com/brands",
-    },
-    keywords: [
-        "top indian brands Stockholm",
-        "pakistani grocery stores sweden",
-        "best basmati rice brands",
-        "halal certified meat brands",
-        "shan spices stockholm",
-        "haldiram sweets sweden",
-        "mtr meals online",
-        "ahmed foods supplier",
-        "mdh masala sweden",
-        "trs foods stockholm",
-    ].join(", "),
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+
+    const titleEn = `135+ Indian & Pakistani Grocery Brands Stockholm | ${brandProfile.name}`;
+    const titleSv = `135+ Indiska & Pakistanska Matvaruvarumärken Stockholm | ${brandProfile.name}`;
+
+    const descriptionEn = `Browse 135+ authentic Indian & Pakistani grocery brands in Stockholm. Shop Shan, MDH, Haldiram, National, MTR, TRS, Tilda, Aashirvaad & more at Ideal Indiska Livs. Fast delivery across Sweden.`;
+    const descriptionSv = `Bläddra bland 135+ autentiska indiska och pakistanska matvaruvarumärken i Stockholm. Handla Shan, MDH, Haldiram, National, MTR, TRS, Tilda, Aashirvaad & mer hos Ideal Indiska Livs. Snabb leverans i hela Sverige.`;
+
+    return {
+        title: locale === 'sv' ? titleSv : titleEn,
+        description: locale === 'sv' ? descriptionSv : descriptionEn,
+        alternates: {
+            canonical: "https://www.ideallivs.com/brands",
+        },
+        keywords: [
+            "top indian brands Stockholm",
+            "pakistani grocery stores sweden",
+            "best basmati rice brands",
+            "halal certified meat brands",
+            "shan spices stockholm",
+            "haldiram sweets sweden",
+            "mtr meals online",
+            "ahmed foods supplier",
+            "mdh masala sweden",
+            "trs foods stockholm",
+        ].join(", "),
+    };
+}
 
 // Revalidate every hour
 export const revalidate = 3600;
 
-export default async function ShopByBrandPage() {
+export default async function ShopByBrandPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
+    const t = await getTranslations('brandsPage');
+
     const brands = await getAllProductBrands();
 
     // Get top 10 most popular brands for featured section
@@ -50,19 +64,19 @@ export default async function ShopByBrandPage() {
                     <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
                         <div>
                             <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-[1.15] text-foreground tracking-tight mb-6">
-                                Shop Your Favorite Indian & Pakistani Brands
+                                {t('heroTitle')}
                             </h1>
                             <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-wide uppercase bg-primary/5 w-fit px-4 py-2 rounded-full border border-primary/10">
                                 <Package className="w-4 h-4" />
-                                <span>{brands.length}+ Premium Brands</span>
+                                <span>{t('premiumBrands', { count: brands.length })}</span>
                             </div>
                         </div>
                         <div className="space-y-4">
                             <p className="text-lg text-muted-foreground leading-relaxed">
-                                At {brandProfile.name}, we bring you a curated selection of the most trusted and beloved Indian and Pakistani grocery brands, serving Stockholm since 2020.
+                                {t('heroP1')}
                             </p>
                             <p className="text-muted-foreground leading-relaxed">
-                                Explore authentic spices from Shan, snacks from Haldiram&apos;s, or quality staples from ITC and KTC. Our directory is designed to help you find precisely what you need for your kitchen.
+                                {t('heroP2')}
                             </p>
                         </div>
                     </div>
@@ -75,7 +89,7 @@ export default async function ShopByBrandPage() {
                     <div className="flex items-center gap-3 mb-8">
                         <TrendingUp className="w-6 h-6 text-primary" />
                         <h2 className="text-2xl md:text-3xl font-heading font-bold">
-                            Most Popular Brands
+                            {t('mostPopular')}
                         </h2>
                     </div>
 
@@ -107,7 +121,7 @@ export default async function ShopByBrandPage() {
                                             {brand.name}
                                         </p>
                                         <p className="text-xs text-primary font-bold">
-                                            {brand.count} items
+                                            {brand.count} {t('items')}
                                         </p>
                                     </div>
                                 </article>
@@ -129,39 +143,39 @@ export default async function ShopByBrandPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto prose prose-lg">
                         <h2 className="text-3xl font-heading font-bold mb-6">
-                            Why Shop by Brand at {brandProfile.name}?
+                            {t('seoTitle')}
                         </h2>
 
                         <div className="space-y-4 text-muted-foreground">
                             <p>
-                                <strong>Largest Selection of Indian and Pakistani Brands in Stockholm:</strong>{" "}
-                                We understand that when it comes to authentic Indian and Pakistani cooking, the brand matters. That's why we've partnered with the most prestigious and trusted names in South Asian groceries.
+                                <strong>{locale === 'sv' ? 'Största urvalet av indiska och pakistanska varumärken i Stockholm:' : 'Largest Selection of Indian and Pakistani Brands in Stockholm:'}</strong>{" "}
+                                {t('seoP1')}
                             </p>
 
                             <p>
-                                <strong>Quality You Can Trust:</strong> Every brand we stock has been carefully selected for its commitment to quality, authenticity, and taste. From traditional family favorites to modern innovations, our brands deliver the genuine flavors of India and Pakistan.
+                                <strong>{locale === 'sv' ? 'Kvalitet du kan lita på:' : 'Quality You Can Trust:'}</strong> {t('seoP2')}
                             </p>
 
                             <p>
-                                <strong>Convenient Online Shopping:</strong> Browse by your favorite brand, discover new ones, and order everything you need from the comfort of your home. We offer fast delivery across Stockholm and throughout Sweden.
+                                <strong>{locale === 'sv' ? 'Bekväm onlinehandel:' : 'Convenient Online Shopping:'}</strong> {t('seoP3')}
                             </p>
 
                             <h3 className="text-2xl font-heading font-bold mt-8 mb-4">
-                                Popular Brands at Our Store
+                                {t('popularBrandsTitle')}
                             </h3>
 
                             <ul className="list-disc pl-6 space-y-2">
-                                <li><strong>Shan:</strong> Pakistan's #1 spice brand, perfect for authentic curries and biryanis</li>
-                                <li><strong>Ahmed Foods:</strong> Premium quality pickles, spices, and food products</li>
-                                <li><strong>MTR:</strong> South Indian specialties and ready-to-eat meals</li>
-                                <li><strong>National Foods:</strong> Trusted Pakistani masalas and food products</li>
-                                <li><strong>Haldiram's:</strong> India's favorite snacks and sweets</li>
-                                <li><strong>MDH:</strong> Premium spice blends and masalas</li>
-                                <li><strong>TRS Foods:</strong> Wide range of rice, lentils, and specialty ingredients</li>
+                                <li><strong>Shan:</strong> {locale === 'sv' ? 'Pakistans #1 kryddmärke, perfekt för autentiska curryrätter och biryanis' : "Pakistan's #1 spice brand, perfect for authentic curries and biryanis"}</li>
+                                <li><strong>Ahmed Foods:</strong> {locale === 'sv' ? 'Premiumkvalitet pickles, kryddor och matprodukter' : 'Premium quality pickles, spices, and food products'}</li>
+                                <li><strong>MTR:</strong> {locale === 'sv' ? 'Sydindiska specialiteter och färdiga måltider' : 'South Indian specialties and ready-to-eat meals'}</li>
+                                <li><strong>National Foods:</strong> {locale === 'sv' ? 'Pålitliga pakistanska masalor och matprodukter' : 'Trusted Pakistani masalas and food products'}</li>
+                                <li><strong>Haldiram&apos;s:</strong> {locale === 'sv' ? 'Indiens favorit snacks och sötsaker' : "India's favorite snacks and sweets"}</li>
+                                <li><strong>MDH:</strong> {locale === 'sv' ? 'Premium kryddblandningar och masalor' : 'Premium spice blends and masalas'}</li>
+                                <li><strong>TRS Foods:</strong> {locale === 'sv' ? 'Brett utbud av ris, linser och specialingredienser' : 'Wide range of rice, lentils, and specialty ingredients'}</li>
                             </ul>
 
                             <p className="mt-6">
-                                Visit our store in {brandProfile.address.area} or shop online at {brandProfile.website.domain} for the complete range of Indian and Pakistani brands in Stockholm.
+                                {t('visitStore')}
                             </p>
                         </div>
                     </div>

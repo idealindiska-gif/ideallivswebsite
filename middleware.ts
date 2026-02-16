@@ -113,7 +113,13 @@ export function middleware(request: NextRequest) {
 
   // next-intl handles locale detection and routing
   // English: no prefix (/) — Swedish: /sv/ prefix
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+
+  // Explicitly set locale header so root layout can always detect it
+  const detectedLocale = pathname.startsWith('/sv') ? 'sv' : 'en';
+  response.headers.set('x-next-intl-locale', detectedLocale);
+
+  return response;
 }
 
 /**
