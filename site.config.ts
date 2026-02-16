@@ -7,7 +7,7 @@ type SiteConfig = {
 
 export const siteConfig: SiteConfig = {
   site_name: "Ideal Indiska LIVS",
-  site_description: "Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, and premium grains delivered to your door.",
+  site_description: "Buy Indian & Pakistani groceries online in Stockholm. 1500+ products with fast delivery across Sweden & Europe. Basmati rice, spices, halal meat & more.",
   site_domain: "https://www.ideallivs.com",
   site_tagline: "Everything You Need. Just Around the Corner.",
 };

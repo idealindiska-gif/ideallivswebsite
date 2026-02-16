@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { Container, Section } from '@/components/craft';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';

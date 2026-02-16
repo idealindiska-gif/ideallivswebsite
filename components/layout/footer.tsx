@@ -1,12 +1,15 @@
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import Script from 'next/script';
 import { brandProfile } from '@/config/brand-profile';
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Clock, Youtube, ExternalLink, Linkedin } from 'lucide-react';
 import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
+import { getTranslations } from 'next-intl/server';
 
 export async function Footer() {
   const saleProducts = await getOnSaleProducts(3);
+  const t = await getTranslations('footer');
+  const nav = await getTranslations('navigation');
 
   return (
     <footer className="w-full bg-gradient-to-br from-primary/95 via-primary to-primary/90 border-t-4 border-primary-600 pt-12 pb-6 text-white shadow-2xl">
@@ -27,7 +30,7 @@ export async function Footer() {
                 />
               </div>
             </Link>
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">Contact</h4>
+            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{t('contact')}</h4>
             <ul className="space-y-2.5 text-sm text-white/70 font-sans">
               <li className="text-xs leading-relaxed">
                 {brandProfile.address.street}, {brandProfile.address.area}<br />
@@ -46,30 +49,30 @@ export async function Footer() {
 
           {/* Column 2: Delivery Information */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">Delivery</h4>
+            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('delivery')}</h4>
             <ul className="space-y-2.5 text-sm text-white/70 font-sans">
               <li>
                 <Link href="/delivery-information" className="group hover:text-white transition-colors">
-                  <p className="font-semibold text-white/90 mb-0.5 group-hover:text-white transition-colors text-xs">Delivery Info</p>
-                  <p className="text-xs text-white/70">Fast & reliable delivery</p>
+                  <p className="font-semibold text-white/90 mb-0.5 group-hover:text-white transition-colors text-xs">{t('deliveryInfo')}</p>
+                  <p className="text-xs text-white/70">{t('fastReliable')}</p>
                 </Link>
               </li>
               <li>
-                <p className="font-semibold text-white/90 mb-0.5 text-xs">Neighborhoods</p>
+                <p className="font-semibold text-white/90 mb-0.5 text-xs">{t('neighborhoods')}</p>
                 <p className="text-[11px] leading-relaxed text-white/70">
-                  Bandhagen, Högdalen, Enskede & more
+                  {t('neighborhoodsList')}
                 </p>
               </li>
               <li>
-                <p className="font-semibold text-white/90 mb-0.5 text-xs">Same-Day</p>
-                <p className="text-xs text-white/70">Local Stockholm orders</p>
+                <p className="font-semibold text-white/90 mb-0.5 text-xs">{t('sameDay')}</p>
+                <p className="text-xs text-white/70">{t('localStockholm')}</p>
               </li>
             </ul>
           </div>
 
           {/* Column 3: Featured Offers */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">Featured Offers</h4>
+            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('featuredOffers')}</h4>
             <div className="space-y-3">
               {saleProducts.slice(0, 3).map((product) => (
                 <Link
@@ -104,54 +107,54 @@ export async function Footer() {
                 </Link>
               ))}
               {saleProducts.length === 0 && (
-                <p className="text-xs text-white/60 italic">No sale items currently.</p>
+                <p className="text-xs text-white/60 italic">{t('noSaleItems')}</p>
               )}
             </div>
           </div>
 
           {/* Column 4: Shop Links */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">Shop</h4>
+            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('shop')}</h4>
             <ul className="space-y-2.5 text-sm text-white/70 font-sans">
-              <li><Link href="/shop" className="hover:text-white transition-colors text-xs">All Products</Link></li>
-              <li><Link href="/blog" className="hover:text-white transition-colors text-xs">Our Blog</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors text-xs">Our Story</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors text-xs">Contact Us</Link></li>
+              <li><Link href="/shop" className="hover:text-white transition-colors text-xs">{nav('allProducts')}</Link></li>
+              <li><Link href="/blog" className="hover:text-white transition-colors text-xs">{nav('blog')}</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors text-xs">{nav('ourStory')}</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors text-xs">{nav('contactUs')}</Link></li>
             </ul>
           </div>
 
           {/* Column 5: Connect & Support Combined */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">Connect</h4>
+            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{nav('connect')}</h4>
             <ul className="space-y-2.5 text-sm text-white/70 font-sans mb-5">
               {brandProfile.social.instagram && (
                 <li>
-                  <Link href={brandProfile.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                  <a href={brandProfile.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
                     <Instagram className="h-3.5 w-3.5" /> Instagram
-                  </Link>
+                  </a>
                 </li>
               )}
               {brandProfile.social.facebook && (
                 <li>
-                  <Link href={brandProfile.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                  <a href={brandProfile.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
                     <Facebook className="h-3.5 w-3.5" /> Facebook
-                  </Link>
+                  </a>
                 </li>
               )}
               {brandProfile.social.youtube && (
                 <li>
-                  <Link href={brandProfile.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                  <a href={brandProfile.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
                     <Youtube className="h-3.5 w-3.5" /> YouTube
-                  </Link>
+                  </a>
                 </li>
               )}
             </ul>
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">Support</h4>
+            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{nav('support')}</h4>
             <ul className="space-y-2.5 text-sm text-white/70 font-sans">
-              <li><Link href="/faq" className="hover:text-white transition-colors text-xs">FAQ</Link></li>
-              <li><Link href="/privacy-policy" className="hover:text-white transition-colors text-xs">Privacy</Link></li>
-              <li><Link href="/terms-conditions" className="hover:text-white transition-colors text-xs">Terms</Link></li>
-              <li><Link href="/refund-return" className="hover:text-white transition-colors text-xs">Refunds</Link></li>
+              <li><Link href="/faq" className="hover:text-white transition-colors text-xs">{nav('faq')}</Link></li>
+              <li><Link href="/privacy-policy" className="hover:text-white transition-colors text-xs">{nav('privacy')}</Link></li>
+              <li><Link href="/terms-conditions" className="hover:text-white transition-colors text-xs">{nav('terms')}</Link></li>
+              <li><Link href="/refund-return" className="hover:text-white transition-colors text-xs">{nav('refunds')}</Link></li>
             </ul>
           </div>
 
@@ -162,7 +165,7 @@ export async function Footer() {
           <div className="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-4" style={{ fontSize: '11px' }}>
             {/* Copyright */}
             <p className="text-white/60 tracking-wide font-sans col-span-2 md:col-span-1">
-              © {new Date().getFullYear()} Ideal Indiska Livs. All Rights Reserved.
+              © {new Date().getFullYear()} Ideal Indiska Livs. {t('allRightsReserved')}.
             </p>
 
             {/* Payment Icons */}

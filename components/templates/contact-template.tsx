@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { Section } from '@/components/craft';
 import { Breadcrumbs, BreadcrumbItem } from '@/components/layout/breadcrumbs';
 import { ContactForm, ContactFormData } from '@/components/forms';

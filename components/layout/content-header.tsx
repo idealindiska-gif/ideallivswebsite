@@ -1,16 +1,19 @@
 "use client";
 
 import { Search, User, ShoppingCart, Menu, X } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSidebar } from "./mobile-sidebar-toggle";
+import { useTranslations } from 'next-intl';
 import { CartIcon } from "@/components/cart/cart-icon";
 import { UserNav } from "@/components/layout/user-nav";
 import { DeliveryLocationSelector } from "@/components/ui/delivery-location-selector";
 
 export function ContentHeader() {
+  const nav = useTranslations('navigation');
+  const ts = useTranslations('search');
   const [searchQuery, setSearchQuery] = useState("");
   const { isOpen, toggle } = useSidebar();
   const router = useRouter();
@@ -32,7 +35,7 @@ export function ContentHeader() {
           <form onSubmit={handleSearch} className="relative group">
             <input
               type="text"
-              placeholder="Search for fresh produce, groceries, and more..."
+              placeholder={ts('searchPlaceholderLong')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-6 pr-14 py-2 text-sm border border-border rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-card/80 hover:bg-card transition-all font-medium placeholder:text-muted-foreground/70"
@@ -69,31 +72,31 @@ export function ContentHeader() {
               href="/shop"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
-              Shop
+              {nav('shop')}
             </Link>
             <Link
               href="/blog"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
-              Blog
+              {nav('blog')}
             </Link>
             <Link
               href="/about"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
-              About Us
+              {nav('aboutUs')}
             </Link>
             <Link
               href="/contact"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
-              Contact
+              {nav('contact')}
             </Link>
 
             {/* Delivery Dropdown */}
             <div className="relative group">
               <button className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
-                Delivery Info
+                {nav('deliveryInfo')}
                 <svg className="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -104,19 +107,19 @@ export function ContentHeader() {
                     href="/delivery-information"
                     className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
                   >
-                    Stockholm & Sweden Delivery
+                    {nav('stockholmDelivery')}
                   </Link>
                   <Link
                     href="/europe-delivery"
                     className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
                   >
-                    Europe Delivery
+                    {nav('europeDelivery')}
                   </Link>
                   <Link
                     href="/delivery-goteborg-malmo"
                     className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
                   >
-                    Göteborg & Malmö Delivery
+                    {nav('goteborgMalmoDelivery')}
                   </Link>
                 </div>
               </div>
@@ -165,7 +168,7 @@ export function ContentHeader() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder={ts('searchProducts')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 text-sm border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary bg-background shadow-sm"

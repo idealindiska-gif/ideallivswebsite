@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { Container, Section } from '@/components/craft';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';

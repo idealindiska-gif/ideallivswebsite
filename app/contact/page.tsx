@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { brandProfile } from "@/config/brand-profile";
 import { MapPin, Phone, Mail, Clock, MessageSquare, ExternalLink } from "lucide-react";
 import { ContactForm } from "@/components/forms/contact-form";

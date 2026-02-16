@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { Search, Filter, X } from "lucide-react";
 import { Input } from "@/components/ui/input";

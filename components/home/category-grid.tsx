@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 interface Category {
     id: number;
@@ -21,6 +22,8 @@ interface CategoryGridProps {
 }
 
 export function CategoryGrid({ categories }: CategoryGridProps) {
+    const t = useTranslations('home');
+    const tc = useTranslations('common');
     if (!categories || categories.length === 0) return null;
 
     // Gradient backgrounds for categories without images
@@ -40,15 +43,15 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
             <div className="container-wide mx-auto px-[var(--container-padding)]">
                 <div className="flex items-center justify-between mb-6 md:mb-8">
                     <div className="space-y-1">
-                        <span className="text-primary font-bold text-xs uppercase tracking-wider">Explore</span>
-                        <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground">Top Categories</h2>
+                        <span className="text-primary font-bold text-xs uppercase tracking-wider">{t('explore')}</span>
+                        <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground">{t('topCategories')}</h2>
                     </div>
                     <Link
                         href="/shop"
                         className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
                     >
-                        <span className="hidden sm:inline">View All</span>
-                        <span className="sm:hidden">All</span>
+                        <span className="hidden sm:inline">{tc('viewAll')}</span>
+                        <span className="sm:hidden">{tc('viewAll')}</span>
                         <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Link>
                 </div>
@@ -94,7 +97,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                                             {category.name}
                                         </h3>
                                         <div className="flex items-center justify-between text-white/70 text-[10px] sm:text-xs font-medium">
-                                            <span>{category.count || 0} Items</span>
+                                            <span>{category.count || 0} {t('items')}</span>
                                             <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center translate-x-2 group-hover:translate-x-0 transition-transform">
                                                 <ArrowRight className="w-2.5 h-2.5 sm:w-3 h-3 text-white" />
                                             </div>

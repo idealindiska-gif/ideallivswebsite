@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar, Facebook, Twitter, Linkedin, Mail, MessageCircle, MapPin } from 'lucide-react';

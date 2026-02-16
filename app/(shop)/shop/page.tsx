@@ -7,8 +7,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Shop Indian & Pakistani Groceries | Ideal Indiska LIVS',
-  description: 'Shop Indian & Pakistani groceries online. Premium Basmati rice, spices, halal products, frozen foods & more. Deliveries across Stockholm & Europe.',
+  title: 'Buy Indian & Pakistani Groceries Online | Ideal Livs Stockholm',
+  description: 'Buy Indian & Pakistani groceries online. 1500+ products: Basmati rice, spices, halal meat, frozen foods & more. Fast delivery Stockholm, Sweden & Europe.',
+  alternates: {
+    canonical: 'https://www.ideallivs.com/shop',
+  },
 };
 
 interface ShopPageProps {

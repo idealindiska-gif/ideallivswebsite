@@ -1,17 +1,28 @@
-import { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
 import { ShieldCheck, Lock, Eye, FileText, MessageCircle, Mail, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
+import { getTranslations } from 'next-intl/server';
+import { getAlternates } from '@/lib/seo/metadata';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | Ideal Indiska LIVS',
-  description: 'Our commitment to protecting your privacy and handling your personal data with transparency and care, in full GDPR compliance.',
-  alternates: {
-    canonical: '/privacy-policy',
-  },
-};
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
 
-export default function PrivacyPolicyPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations('privacy');
+  return {
+    title: locale === 'sv' ? 'Integritetspolicy | Ideal Indiska LIVS' : 'Privacy Policy | Ideal Indiska LIVS',
+    description: locale === 'sv'
+      ? 'Vårt åtagande att skydda din integritet och hantera dina personuppgifter med öppenhet och omsorg, i full GDPR-efterlevnad.'
+      : 'Our commitment to protecting your privacy and handling your personal data with transparency and care, in full GDPR compliance.',
+    alternates: getAlternates('/privacy-policy'),
+  };
+}
+
+export default async function PrivacyPolicyPage({ params }: PageProps) {
+  const t = await getTranslations('privacy');
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -24,7 +35,7 @@ export default function PrivacyPolicyPage() {
               lineHeight: 1.47,
               letterSpacing: '0.02em'
             }} className="mb-4">
-              Privacy Policy
+              {t('title')}
             </h1>
             <p className="text-muted-foreground" style={{
               fontSize: '16px',
@@ -32,7 +43,7 @@ export default function PrivacyPolicyPage() {
               lineHeight: 1.52,
               letterSpacing: '0.03em'
             }}>
-              Your privacy and data protection are our priority. Learn how we handle your personal data with transparency and care.
+              {t('subtitle')}
             </p>
           </div>
         </div>
@@ -46,7 +57,7 @@ export default function PrivacyPolicyPage() {
             <div className="lg:col-span-2 space-y-12">
               {/* Introduction */}
               <div>
-                <p className="text-muted-foreground mb-4" style={{ fontSize: '14.31px' }}>Last Updated: September 20, 2025</p>
+                <p className="text-muted-foreground mb-4" style={{ fontSize: '14.31px' }}>{t('lastUpdated')}</p>
                 <div className="space-y-6 text-muted-foreground" style={{
                   fontSize: '16px',
                   fontWeight: 400,

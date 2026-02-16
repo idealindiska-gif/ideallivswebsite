@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
@@ -12,8 +12,8 @@ import { collectionPageSchema, offerCatalogSchema } from "@/lib/schema/collectio
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
 
 export const metadata: Metadata = {
-    title: `Ramadan Mega Savings Stockholm: Dates, Rice, Rooh Afza & More | ${brandProfile.name}`,
-    description: `Huge Ramadan savings on authentic Indian and Pakistani groceries in Stockholm. Exclusive deals on Dates, Basmati rice, Rooh Afza, and Halal meat for Iftar & Suhoor. Order online!`,
+    title: `Deals & Offers on Indian Groceries Stockholm | Ideal Livs`,
+    description: `Save big on Indian & Pakistani groceries in Stockholm. Exclusive deals on Basmati rice, spices, halal meat & more. Order online with fast delivery across Sweden & Europe.`,
     alternates: {
         canonical: 'https://www.ideallivs.com/deals',
     },

@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { formatPrice } from '@/lib/woocommerce';
 import { useCartStore } from '@/store/cart-store';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import type { Product } from '@/types/woocommerce';
 
 interface Recommendation {

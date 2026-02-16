@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import {
     Menu,
@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { brandConfig } from '@/config/brand.config';
 import { brandProfile } from '@/config/brand-profile';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
     Sheet,
@@ -31,21 +32,22 @@ import {
 } from '@/components/ui/sheet';
 import { getStoreStatus, type StoreStatus } from '@/lib/store-hours';
 
-const menuItems = [
-    { href: '/', label: 'Home', icon: Home },
-    { href: '/deals', label: 'Deals & Offers', icon: Percent },
-    { href: '/shop', label: 'Shop', icon: ShoppingBag },
-    { href: '/brands', label: 'Shop by Brands', icon: ShoppingBag },
-    { href: '/blog', label: 'Blog', icon: BookOpen },
-    { href: '/about', label: 'About', icon: Info },
-    { href: '/contact', label: 'Contact', icon: Mail },
-    { href: '/my-account', label: 'My Account', icon: Crown },
-    { href: '#wishlist', label: 'Wishlist (Coming Soon)', icon: Heart, comingSoon: true },
-];
-
 export function MobileMenu() {
+    const nav = useTranslations('navigation');
     const [open, setOpen] = useState(false);
     const [storeStatus, setStoreStatus] = useState<StoreStatus | null>(null);
+
+    const menuItems = [
+        { href: '/', label: nav('home'), icon: Home },
+        { href: '/deals', label: nav('dealsOffers'), icon: Percent },
+        { href: '/shop', label: nav('shop'), icon: ShoppingBag },
+        { href: '/brands', label: nav('shopByBrands'), icon: ShoppingBag },
+        { href: '/blog', label: nav('blog'), icon: BookOpen },
+        { href: '/about', label: nav('about'), icon: Info },
+        { href: '/contact', label: nav('contact'), icon: Mail },
+        { href: '/my-account', label: nav('myAccount'), icon: Crown },
+        { href: '#wishlist', label: nav('wishlistComingSoon'), icon: Heart, comingSoon: true },
+    ];
 
     useEffect(() => {
         // Update store status on mount and every minute

@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShoppingBag, Truck } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 interface HeroProps {
     title?: string;
@@ -17,6 +18,8 @@ export function Hero({
     subtitle = "Experience the finest selection of organic produce, pantry staples, and international delicacies. Delivered fresh, daily.",
     badge = "Premium Quality Guaranteed"
 }: HeroProps) {
+    const t = useTranslations('home');
+    const tc = useTranslations('common');
     return (
         <section className="relative w-full h-[70vh] min-h-[450px] flex items-start justify-start overflow-hidden bg-muted/20">
             {/* Background Image with Overlay */}
@@ -62,8 +65,8 @@ export function Hero({
                         className="text-3xl md:text-5xl lg:text-6xl xl:text-[3.5rem] font-heading font-bold text-foreground tracking-tight"
                         style={{ lineHeight: 1 }}
                     >
-                        Authentic Indian & Pakistani{' '}
-                        <span className="text-primary">Groceries in Stockholm</span>
+                        {t('heroHeading1')}{' '}
+                        <span className="text-primary">{t('heroHeading2')}</span>
                     </motion.h1>
 
                     {/* Subtitle */}
@@ -90,7 +93,7 @@ export function Hero({
                         >
                             <Link href="/shop">
                                 <ShoppingBag className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
-                                Start Shopping
+                                {tc('startShopping')}
                             </Link>
                         </Button>
                         <Button
@@ -100,7 +103,7 @@ export function Hero({
                             asChild
                         >
                             <Link href="/shop?sort=new">
-                                View New Arrivals
+                                {t('viewNewArrivals')}
                                 <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                             </Link>
                         </Button>
@@ -115,15 +118,15 @@ export function Hero({
                     >
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-green-500" />
-                            <span>Halal Certified</span>
+                            <span>{t('halalCertified')}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500" />
-                            <span>Same-Day Delivery Stockholm</span>
+                            <span>{t('sameDayDelivery')}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-orange-500" />
-                            <span>Europe-Wide Shipping</span>
+                            <span>{t('europeWideShipping')}</span>
                         </div>
                     </motion.div>
                 </div>

@@ -1,25 +1,25 @@
 import { notFound } from 'next/navigation';
-import { getProductBySlug, getRelatedProducts } from '@/lib/woocommerce';
+import { getProductBySlug, getRelatedProducts, getProductsByIds } from '@/lib/woocommerce';
 import { ProductTemplate } from '@/components/templates';
-import { brandConfig } from '@/config/brand.config';
+import { getBundlesForProduct, getBundleProductIds } from '@/config/bundles.config';
 import { siteConfig } from '@/site.config';
+import { getSwedishProductMeta } from '@/lib/seo/swedish-meta';
+import { getAlternates } from '@/lib/seo/metadata';
 import type { Metadata } from 'next';
 
-// ISR: Revalidate product pages every 2 hours
-// Products are cached and served instantly, regenerated in background
-// Use on-demand revalidation via webhook for immediate updates during promotions
 export const revalidate = 7200;
 
 interface ProductPageProps {
     params: Promise<{
+        locale: string;
         slug: string;
     }>;
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-    const resolvedParams = await params;
+    const { slug, locale } = await params;
     try {
-        const product = await getProductBySlug(resolvedParams.slug);
+        const product = await getProductBySlug(slug);
 
         if (!product) {
             return {
@@ -28,80 +28,80 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
             };
         }
 
-        // Default fallback image if product has no images
         const defaultImage = {
             url: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg',
             width: 1200,
             height: 630,
-            alt: `${brandConfig.businessName} - Indian & Pakistani Groceries in Stockholm`,
+            alt: 'Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm',
         };
 
-        // Enhanced description for AI Overview and search snippets
+        const price = product.sale_price || product.price;
+        const priceStr = price ? `${price} kr` : '';
+        const stockStatus = product.stock_status === 'instock' ? 'In Stock' : '';
+        const categoryName = product.categories?.[0]?.name || '';
         const cleanDescription = product.short_description?.replace(/\<[^>]*>/g, '').trim() || '';
-        const metaDescription = cleanDescription
-            ? cleanDescription.substring(0, 150) + " | Ideal Indiska LIVS: Fresh groceries & spices delivered in Stockholm."
-            : `Shop ${product.name} at Ideal Indiska LIVS. Premium Indian & Pakistani groceries. Same-day delivery available in Stockholm. High quality, authentic products.`;
+        const productPath = `/product/${slug}`;
 
-        const url = `${siteConfig.site_domain}/product/${resolvedParams.slug}`;
+        let customTitle: string;
+        let customDescription: string;
 
-        // Analysis-driven metadata optimization for top performing keywords from Search Console
-        const name = product.name.toLowerCase();
-        let customTitle = `${product.name} | Ideal Indiska LIVS - Authentic Groceries`;
-        let customDescription = metaDescription;
+        if (locale === 'sv') {
+            // Swedish meta
+            const svMeta = getSwedishProductMeta(product.name, price || undefined, categoryName);
+            customTitle = svMeta.title;
+            customDescription = svMeta.description;
 
-        // Target: Indian Costus / Qust al Hindi (High Impressions, Low CTR)
-        if (name.includes('costus') || name.includes('qust')) {
-            customTitle = `Original Indian Costus Powder (Qust al Hindi) Stockholm | Premium Quality`;
-            customDescription = `Buy premium Indian Costus Powder (Qust al Hindi) in Stockholm. Known for its traditional health benefits. Pure, authentic, and in stock at Ideal Indiska LIVS.`;
-        }
-        // Target: Pan Parag (High Impressions)
-        else if (name.includes('pan parag')) {
-            customTitle = `Supreme Pan Parag 100g in Stockholm | Authentic Indian Mukhwas`;
-            customDescription = `Get authentic Supreme Pan Parag 100g at Ideal Indiska LIVS Stockholm. The most trusted Indian pan masala for a fresh, authentic mouth-freshening experience.`;
-        }
-        // Target: Mustard Oil / Sarson ka Tel
-        else if (name.includes('mustard oil') || name.includes('sarson')) {
-            customTitle = `Pure Mustard Oil (Sarson ka Tel) Stockholm | Best Brands: Fortune & KTC`;
-            customDescription = `Pure mustard oil for cooking & hair care. High-quality Fortune and KTC brands available in Stockholm. Rich in aroma and traditional nutrients. Shop now!`;
-        }
-        // Target: India Gate Sona Masoori Rice (Key Promotional Item)
-        else if (name.includes('india gate') && (name.includes('sona masoori') || name.includes('rice'))) {
-            customTitle = `India Gate Sona Masoori Rice Stockholm | Best Price & Fast Delivery`;
-            customDescription = `Shop authentic India Gate Sona Masoori Rice and Basmati varieties at Ideal Indiska LIVS. Premium quality rice for perfect meals. Same-day delivery in Stockholm!`;
-        }
-        // Target: Elephant Atta (High Volume Keyword)
-        else if (name.includes('elephant atta')) {
-            customTitle = `Elephant Atta 25kg & 10kg Stockholm | Best Price in Bandhagen`;
-            customDescription = `Looking for Elephant Atta in Stockholm? We stock Medium, Wholemeal, and White Elephant Atta in bulk sizes. Best prices and home delivery available. Shop at Ideal Indiska LIVS.`;
-        }
-        // Target: Aashirvaad Atta
-        else if (name.includes('aashirvaad')) {
-            customTitle = `Aashirvaad Svasti Ghee & Atta Stockholm | Authentic Indian Staples`;
-            customDescription = `Buy Aashirvaad Whole Wheat Atta and Svasti Ghee in Stockholm. The most trusted Indian brand for rotis and parathas. Fresh stock and fast delivery at Ideal Indiska LIVS.`;
-        }
-        // Target: General Cooking Oils (Key Category)
-        else if (name.includes('oil') || name.includes('ghee') || name.includes('ktc')) {
-            customTitle = `${product.name} Stockholm | Pure Cooking Oils & Ghee`;
-            customDescription = `Find the best deals on KTC oils, pure Ghee, and sunflower oils at Ideal Indiska LIVS. Authentic brands for your kitchen. Fast delivery across Stockholm.`;
+            // Swedish sale override
+            if (product.on_sale) {
+                const salePrice = product.sale_price || product.price;
+                const regPrice = product.regular_price;
+                const discount = regPrice && salePrice ? Math.round(((Number(regPrice) - Number(salePrice)) / Number(regPrice)) * 100) : 0;
+                if (discount > 0) {
+                    customTitle = `${product.name} - ${discount}% Rabatt | Nu ${salePrice} kr | Ideal Livs`;
+                    customDescription = `Spara ${discount}% på ${product.name}. Nu ${salePrice} kr (ord. ${regPrice} kr). Handla online hos Ideal Livs Stockholm. Snabb leverans.`;
+                }
+            }
+        } else {
+            // English meta (optimized for CTR)
+            customTitle = priceStr
+                ? `${product.name} - Buy Online | ${priceStr} | Ideal Livs Stockholm`
+                : `${product.name} - Buy Online Stockholm | Ideal Livs`;
+
+            if (customTitle.length > 60) {
+                customTitle = priceStr
+                    ? `${product.name} | ${priceStr} | Ideal Livs`
+                    : `${product.name} | Buy Online | Ideal Livs`;
+            }
+            if (customTitle.length > 60) {
+                customTitle = `${product.name} | Ideal Livs Stockholm`;
+            }
+
+            customDescription = cleanDescription
+                ? `${cleanDescription.substring(0, 100)}. Buy online at Ideal Livs Stockholm. ${stockStatus ? 'In stock. ' : ''}Fast delivery across Sweden & Europe.`
+                : `Buy ${product.name} online at Ideal Livs Stockholm.${categoryName ? ` Premium ${categoryName}.` : ''} ${stockStatus ? 'In stock. ' : ''}Fast delivery Sweden & Europe. Authentic Indian & Pakistani groceries.`;
+
+            if (product.on_sale) {
+                const salePrice = product.sale_price || product.price;
+                const regPrice = product.regular_price;
+                const discount = regPrice && salePrice ? Math.round(((Number(regPrice) - Number(salePrice)) / Number(regPrice)) * 100) : 0;
+                if (discount > 0) {
+                    customTitle = `${product.name} - ${discount}% Off | Now ${salePrice} kr | Ideal Livs`;
+                    customDescription = `Save ${discount}% on ${product.name}. Now ${salePrice} kr (was ${regPrice} kr). Buy online at Ideal Livs Stockholm. Fast delivery Sweden & Europe.`;
+                }
+            }
         }
 
-        // Add "On Sale" indicator to title if product is promotional
-        if (product.on_sale) {
-            customTitle = `PROMO: ${customTitle}`;
-        }
+        const url = `${siteConfig.site_domain}${locale === 'sv' ? '/sv' : ''}${productPath}`;
 
         return {
             title: customTitle,
             description: customDescription.substring(0, 160),
             keywords: [
                 product.name,
-                "Indian groceries",
-                "Pakistani groceries",
-                "halal food Stockholm",
-                "online grocery delivery",
-                "Qust al Hindi Stockholm",
-                "Mustard oil for hair Sweden",
+                `buy ${product.name} online`,
                 ...(product.categories?.map(c => c.name) || []),
+                "Indian grocery Stockholm",
+                "buy online Sweden",
             ],
             openGraph: {
                 type: 'website',
@@ -115,8 +115,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
                         alt: img.alt || product.name,
                     }))
                     : [defaultImage],
-                url: url,
+                url,
                 siteName: 'Ideal Indiska LIVS',
+                locale: locale === 'sv' ? 'sv_SE' : 'en_SE',
             },
             twitter: {
                 card: 'summary_large_image',
@@ -126,9 +127,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
                     ? [product.images[0].src]
                     : [defaultImage.url],
             },
-            alternates: {
-                canonical: url,
-            },
+            alternates: getAlternates(productPath),
             robots: {
                 index: true,
                 follow: true,
@@ -149,11 +148,11 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-    const resolvedParams = await params;
+    const { slug } = await params;
     let product;
 
     try {
-        product = await getProductBySlug(resolvedParams.slug);
+        product = await getProductBySlug(slug);
     } catch (error) {
         notFound();
     }
@@ -164,7 +163,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     const relatedProducts = await getRelatedProducts(product.id);
 
-    // Build breadcrumbs with new URL structure
+    // Fetch bundle offers for this product
+    const bundles = getBundlesForProduct(product.id);
+    const bundleProductIds = getBundleProductIds(bundles);
+    const bundleProducts = bundleProductIds.length > 0
+      ? await getProductsByIds(bundleProductIds)
+      : [];
+
     const breadcrumbs = [
         { label: 'Shop', href: '/shop' },
         ...(product.categories && product.categories.length > 0
@@ -181,6 +186,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             product={product}
             breadcrumbs={breadcrumbs}
             relatedProducts={relatedProducts}
+            bundles={bundles}
+            bundleProducts={bundleProducts}
         />
     );
 }

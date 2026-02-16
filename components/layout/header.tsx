@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import { UserNav } from '@/components/layout/user-nav';
 import { CartIcon } from '@/components/cart/cart-icon';
@@ -6,6 +6,7 @@ import { WishlistIcon } from '@/components/wishlist/wishlist-icon';
 import { SearchModal } from '@/components/search/search-modal';
 import { MobileMenu } from '@/components/layout/mobile-menu';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 import { Phone, MapPin, MessageCircle } from 'lucide-react';
 import { getSiteSettings } from '@/lib/site-settings';
 import { getProductCategories } from '@/lib/woocommerce';
@@ -29,6 +30,7 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
 );
 
 export function Header({ className, categories = [] }: HeaderProps) {
+  const nav = useTranslations('navigation');
   // Use Ideal Livs logo
   const logoUrl = 'https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png';
 
@@ -66,10 +68,10 @@ export function Header({ className, categories = [] }: HeaderProps) {
 
               {/* Left Navigation - Semantic Nav for SEO */}
               <nav className="col-span-4 flex justify-between items-center px-4" aria-label="Primary Navigation Left">
-                <NavLink href="/shop">Shop All</NavLink>
-                <NavLink href="/brands">Top Brands</NavLink>
+                <NavLink href="/shop">{nav('shopAll')}</NavLink>
+                <NavLink href="/brands">{nav('topBrands')}</NavLink>
                 <Link href="/product-category/new-arrivals" className="text-[0.70rem] xl:text-xs font-medium uppercase tracking-wider text-primary hover:opacity-80 transition-opacity">
-                  New Arrivals
+                  {nav('newArrivals')}
                 </Link>
               </nav>
 
@@ -91,10 +93,10 @@ export function Header({ className, categories = [] }: HeaderProps) {
 
               {/* Right Navigation - Semantic Nav for SEO */}
               <nav className="col-span-4 flex justify-between items-center px-2" aria-label="Primary Navigation Right">
-                <NavLink href="/blog">Food Blog</NavLink>
-                <NavLink href="/about">Our Story</NavLink>
-                <NavLink href="/contact">Visit Us</NavLink>
-                <NavLink href="/bookings">Reservations</NavLink>
+                <NavLink href="/blog">{nav('foodBlog')}</NavLink>
+                <NavLink href="/about">{nav('ourStory')}</NavLink>
+                <NavLink href="/contact">{nav('visitUs')}</NavLink>
+                <NavLink href="/bookings">{nav('reservations')}</NavLink>
               </nav>
 
               {/* Extreme Right: Shop/Cart */}

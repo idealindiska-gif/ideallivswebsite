@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn, decodeHtmlEntities } from '@/lib/utils';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface SearchResult {

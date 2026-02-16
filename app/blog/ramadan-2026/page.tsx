@@ -1,7 +1,7 @@
 
 import { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import {
     Calendar, Facebook, Twitter, Linkedin, Mail, MessageCircle,
     MapPin, CheckCircle2, ShoppingBag, Clock, Utensils, Star,

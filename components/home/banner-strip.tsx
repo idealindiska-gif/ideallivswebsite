@@ -1,10 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { ArrowRight, Moon, Star, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from 'next-intl';
 
 export function BannerStrip() {
+    const t = useTranslations('banner');
     return (
         <section className="w-full py-6 md:py-8">
             <div className="container-wide mx-auto px-[var(--container-padding)]">
@@ -58,17 +60,17 @@ export function BannerStrip() {
                                     <Moon className="w-4 h-4 text-yellow-400 md:hidden" />
                                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-yellow-400/20 text-yellow-400 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                                         <Sparkles className="w-3 h-3" />
-                                        Coming Soon
+                                        {t('comingSoon')}
                                     </span>
                                 </div>
 
                                 <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white mb-2 leading-tight">
-                                    Ramadan Mega Savings
+                                    {t('ramadanMegaSavings')}
                                 </h2>
 
                                 <p className="text-white/70 text-xs sm:text-sm md:text-base max-w-xl leading-relaxed">
-                                    Get ready for exclusive discounts on dates, spices, rice & all your Ramadan essentials.
-                                    <span className="text-yellow-400 font-semibold"> Big deals arriving soon!</span>
+                                    {t('ramadanDesc')}
+                                    <span className="text-yellow-400 font-semibold"> {t('bigDeals')}</span>
                                 </p>
                             </div>
 
@@ -77,11 +79,11 @@ export function BannerStrip() {
                                 <Button
                                     className="h-10 md:h-11 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black font-bold px-6 md:px-8 shadow-lg shadow-yellow-500/25 group-hover:shadow-yellow-500/40 transition-all"
                                 >
-                                    Notify Me
+                                    {t('notifyMe')}
                                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                                 </Button>
                                 <span className="text-white/50 text-[10px] md:text-xs">
-                                    Be the first to know
+                                    {t('beFirst')}
                                 </span>
                             </div>
                         </div>

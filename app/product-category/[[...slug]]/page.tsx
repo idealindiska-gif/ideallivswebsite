@@ -67,15 +67,14 @@ export async function generateMetadata({ params, searchParams }: ProductCategory
 
         const cleanDescription = category.description?.replace(/\<[^>]*>/g, '').trim();
         let metaDescription = cleanDescription
-            ? `${cleanDescription.substring(0, 95)} | Ideal Indiska LIVS Stockholm.`
-            : `Shop ${category.name} at Ideal Indiska LIVS Stockholm. Authentic Indian and Pakistani groceries with fast delivery.`;
+            ? `Buy ${category.name} online. ${cleanDescription.substring(0, 80)}. Fast delivery Stockholm, Sweden & Europe. Ideal Livs.`
+            : `Buy ${category.name} online at Ideal Livs Stockholm. Authentic Indian & Pakistani groceries. Fast delivery across Sweden & Europe.`;
 
-        // Add filter context to description
         if (filterParts.length > 0) {
-            metaDescription = `${filterParts.join(', ')} ${category.name} at Ideal Indiska LIVS Stockholm. ${cleanDescription || 'Authentic Indian and Pakistani groceries with fast delivery.'}`;
+            metaDescription = `${filterParts.join(', ')} ${category.name} - buy online at Ideal Livs Stockholm. ${cleanDescription || 'Fast delivery Sweden & Europe.'}`;
         }
 
-        const pageTitle = `${category.name}${filterSuffix} | Ideal Indiska LIVS`;
+        const pageTitle = `${category.name}${filterSuffix} - Buy Online | Ideal Livs Stockholm`;
 
         return {
             title: pageTitle,

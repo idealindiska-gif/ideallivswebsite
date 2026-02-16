@@ -1,17 +1,27 @@
-import { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
 import { FileText, ShoppingCart, CreditCard, Truck, Scale, Shield, Mail, MessageCircle, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
+import { getTranslations } from 'next-intl/server';
+import { getAlternates } from '@/lib/seo/metadata';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Terms & Conditions | Ideal Indiska LIVS',
-  description: 'Terms and conditions for using ideallivs.com. Learn about our policies on orders, payments, delivery, and more.',
-  alternates: {
-    canonical: '/terms-conditions',
-  },
-};
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
 
-export default function TermsConditionsPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: locale === 'sv' ? 'Villkor | Ideal Indiska LIVS' : 'Terms & Conditions | Ideal Indiska LIVS',
+    description: locale === 'sv'
+      ? 'Villkor för användning av ideallivs.com. Läs om våra policyer för beställningar, betalningar, leverans och mer.'
+      : 'Terms and conditions for using ideallivs.com. Learn about our policies on orders, payments, delivery, and more.',
+    alternates: getAlternates('/terms-conditions'),
+  };
+}
+
+export default async function TermsConditionsPage({ params }: PageProps) {
+  const t = await getTranslations('terms');
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -24,7 +34,7 @@ export default function TermsConditionsPage() {
               lineHeight: 1.47,
               letterSpacing: '0.02em'
             }} className="mb-4">
-              Terms & Conditions
+              {t('title')}
             </h1>
             <p className="text-muted-foreground" style={{
               fontSize: '16px',
@@ -32,7 +42,7 @@ export default function TermsConditionsPage() {
               lineHeight: 1.52,
               letterSpacing: '0.03em'
             }}>
-              Please read these terms carefully before using our services. Your use of our website constitutes agreement to these terms.
+              {t('subtitle')}
             </p>
           </div>
         </div>
@@ -46,7 +56,7 @@ export default function TermsConditionsPage() {
             <div className="lg:col-span-2 space-y-12">
               {/* Introduction */}
               <div>
-                <p className="text-muted-foreground mb-4" style={{ fontSize: '14.31px' }}>Last Updated: May 29, 2025</p>
+                <p className="text-muted-foreground mb-4" style={{ fontSize: '14.31px' }}>{t('lastUpdated')}</p>
                 <div className="space-y-6 text-muted-foreground" style={{
                   fontSize: '16px',
                   fontWeight: 400,

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
 import { Truck, Package, Clock, ShieldCheck, MapPin, ExternalLink, Globe, Info, ShoppingBag } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { stockholmDeliveryServiceSchema, deliveryFAQSchema } from "@/lib/schema";
 import { GoogleMapCompact } from "@/components/shared/google-map";

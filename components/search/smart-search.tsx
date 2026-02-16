@@ -9,7 +9,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn, decodeHtmlEntities } from '@/lib/utils';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import type { Product } from '@/types/woocommerce';
 
 interface SearchResult {

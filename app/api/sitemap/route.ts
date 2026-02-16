@@ -11,6 +11,7 @@ export async function GET() {
   const productSitemapCount = Math.ceil(totalProducts / 100);
 
   const sitemaps = [
+    // English sitemaps
     `${baseUrl}/sitemap-pages.xml`,
     `${baseUrl}/sitemap-delivery.xml`,
     `${baseUrl}/sitemap-posts.xml`,
@@ -20,10 +21,13 @@ export async function GET() {
     `${baseUrl}/sitemap-images.xml`,
   ];
 
-  // Add paginated product sitemaps
+  // Add paginated English product sitemaps
   for (let i = 1; i <= productSitemapCount; i++) {
     sitemaps.push(`${baseUrl}/sitemap-products-${i}.xml`);
   }
+
+  // Swedish sitemap index (contains all /sv/ URLs)
+  sitemaps.push(`${baseUrl}/sv/sitemap.xml`);
 
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

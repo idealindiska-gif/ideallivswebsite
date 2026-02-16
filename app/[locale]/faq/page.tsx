@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import {
     Accordion,
     AccordionContent,
@@ -9,116 +9,72 @@ import {
 import { MessageCircle, Mail, MapPin } from 'lucide-react';
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { idealIndiskaFAQSchema } from "@/lib/schema/faq";
+import { getTranslations } from 'next-intl/server';
+import { getAlternates } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-    title: 'Frequently Asked Questions | Ideal Indiska LIVS',
-    description: 'Get answers to common questions about ordering Indian and Pakistani groceries in Stockholm, delivery options across Sweden and Europe, payment methods, and our products.',
-    alternates: {
-        canonical: '/faq',
-    },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: 'faq' });
 
-const faqs = [
-    {
-        category: "Ordering & Payment",
-        questions: [
-            {
-                q: "How do I place an order?",
-                a: "Placing an order is easy! Simply browse our website, add your desired items to the shopping cart, and proceed to checkout. You'll enter your delivery address, choose from Store delivery, pickup, or DHL options, and complete payment securely."
-            },
-            {
-                q: "What payment methods do you accept?",
-                a: "We accept all major credit and debit cards (Visa, Mastercard, American Express) through our secure Stripe gateway. We also offer Klarna, Swish, Google Pay, and Apple Pay. All transactions are encrypted and secure."
-            },
-            {
-                q: "Do I need an account to place an order?",
-                a: "No, you can check out as a guest. However, creating an account lets you view order history, save your address for faster checkout, and receive exclusive first-purchase offers and promotions."
-            },
-            {
-                q: "Where can I buy Indian and Pakistani spices in Stockholm?",
-                a: "You can find the widest selection of authentic Indian and Pakistani spices at Ideal Indiska LIVS, both at our Bandhagen store and online. We stock brands like Shan, MDH, National Foods, and TRS."
-            },
-            {
-                q: "Do you offer discounts for bulk orders?",
-                a: "Yes! We're one of Stockholm's most competitively priced stores. For very large restaurant or catering orders, please contact us via WhatsApp for custom volume pricing."
-            },
-        ]
-    },
-    {
-        category: "Delivery & Shipping",
-        questions: [
-            {
-                q: "Do you deliver Indian groceries in Stockholm?",
-                a: "Absolutely! We offer our own local delivery service across all of Stockholm. We're proud to be a premier indisk mataffär offering matleverans i Stockholm. Visit our Delivery Information page for full details."
-            },
-            {
-                q: "Is there free delivery in Stockholm?",
-                a: "Yes! FREE local delivery on all orders of 500 kr or more anywhere in Stockholm. Orders between 300-499 kr have a flat 30 kr delivery fee."
-            },
-            {
-                q: "Do you deliver to the rest of Sweden?",
-                a: "Yes! We deliver nationwide using our trusted partner, DHL. Shipping costs are calculated automatically at checkout based on weight and your delivery address."
-            },
-            {
-                q: "Do you deliver to other countries in Europe?",
-                a: "Yes! We deliver across Europe (excluding fresh and perishable items) via DHL. Shipping costs are calculated automatically at checkout based on weight and destination."
-            },
-            {
-                q: "Will I have to pay customs duties in EU countries?",
-                a: "No. Since we're shipping from Sweden (an EU member) to other EU countries, there are no additional customs or import duties. The checkout price is your final price. (Standard import rules apply for non-EU countries like Norway.)"
-            },
-        ]
-    },
-    {
-        category: "Our Products",
-        questions: [
-            {
-                q: "What happens if an item I ordered is out of stock?",
-                a: "We operate a busy physical store, and sometimes items may sell out before our online inventory updates. If this happens, we'll contact you immediately with the option of a full refund or a suitable replacement product."
-            },
-            {
-                q: "How do you ensure the freshness of vegetables and frozen items?",
-                a: "Freshness is our priority. Fresh produce and frozen goods are currently only available for our local Stockholm delivery service. This ensures a controlled cold chain from our store to your door."
-            },
-            {
-                q: "I'm looking for a specific brand or product not on your website.",
-                a: "We're always expanding our range! If there's a specific brand or item you'd love to see, email us at info@ideallivs.com. We value your suggestions!"
-            },
-            {
-                q: "What grocery brands do you stock?",
-                a: "We carry over 150 brands including India Gate, Guard, Shan, National Foods, Haldiram's, Ashoka, Ahmed Foods, and many more South Asian favorites."
-            },
-            {
-                q: "Do you sell Halal meat?",
-                a: "Yes, we have a dedicated section for 100% Halal certified meat and poultry. Quality and authenticity are guaranteed for all our Halal products."
-            },
-        ]
-    },
-    {
-        category: "Returns & Refunds",
-        questions: [
-            {
-                q: "What is your return policy?",
-                a: "We accept returns on non-perishable items within 14 days of receipt, provided they're unopened, unused, and in original packaging. Perishable items (fresh produce, frozen goods) are not eligible for return. Read our complete Refund and Return Policy for full details."
-            },
-        ]
-    },
-    {
-        category: "Physical Store Location",
-        questions: [
-            {
-                q: "Do you have a physical store?",
-                a: "Yes! Visit us at Bandhagsplan 4, 12432 Bandhagen Centrum, Stockholm. Find us on Apple Maps and Google Maps."
-            },
-            {
-                q: "What are your store hours?",
-                a: "Monday-Friday: 10:00 AM - 7:00 PM, Saturday: 10:00 AM - 6:00 PM, Sunday: 11:00 AM - 5:00 PM. Hours may vary on holidays."
-            },
-        ]
-    },
-];
+    return {
+        title: `${t('title')} | Ideal Indiska LIVS`,
+        description: t('subtitle'),
+        alternates: getAlternates('/faq'),
+    };
+}
 
-export default function FAQPage() {
+export default async function FAQPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: 'faq' });
+    const tc = await getTranslations({ locale, namespace: 'common' });
+    const tContact = await getTranslations({ locale, namespace: 'contact' });
+
+    const faqs = [
+        {
+            category: t('cat1'),
+            questions: [
+                { q: t('cat1q1'), a: t('cat1a1') },
+                { q: t('cat1q2'), a: t('cat1a2') },
+                { q: t('cat1q3'), a: t('cat1a3') },
+                { q: t('cat1q4'), a: t('cat1a4') },
+                { q: t('cat1q5'), a: t('cat1a5') },
+            ]
+        },
+        {
+            category: t('cat2'),
+            questions: [
+                { q: t('cat2q1'), a: t('cat2a1') },
+                { q: t('cat2q2'), a: t('cat2a2') },
+                { q: t('cat2q3'), a: t('cat2a3') },
+                { q: t('cat2q4'), a: t('cat2a4') },
+                { q: t('cat2q5'), a: t('cat2a5') },
+            ]
+        },
+        {
+            category: t('cat3'),
+            questions: [
+                { q: t('cat3q1'), a: t('cat3a1') },
+                { q: t('cat3q2'), a: t('cat3a2') },
+                { q: t('cat3q3'), a: t('cat3a3') },
+                { q: t('cat3q4'), a: t('cat3a4') },
+                { q: t('cat3q5'), a: t('cat3a5') },
+            ]
+        },
+        {
+            category: t('cat4'),
+            questions: [
+                { q: t('cat4q1'), a: t('cat4a1') },
+            ]
+        },
+        {
+            category: t('cat5'),
+            questions: [
+                { q: t('cat5q1'), a: t('cat5a1') },
+                { q: t('cat5q2'), a: t('cat5a2') },
+            ]
+        },
+    ];
+
     return (
         <div className="min-h-screen bg-background">
             {/* Hero Section */}
@@ -131,7 +87,7 @@ export default function FAQPage() {
                             lineHeight: 1.47,
                             letterSpacing: '0.02em'
                         }} className="mb-4">
-                            Frequently Asked Questions
+                            {t('title')}
                         </h1>
                         <p className="text-muted-foreground" style={{
                             fontSize: '16px',
@@ -139,7 +95,7 @@ export default function FAQPage() {
                             lineHeight: 1.52,
                             letterSpacing: '0.03em'
                         }}>
-                            Everything you need to know about ordering authentic Indian and Pakistani groceries in Stockholm. Can't find your answer? We're here to help.
+                            {t('subtitle')}
                         </p>
                     </div>
                 </div>
@@ -203,7 +159,7 @@ export default function FAQPage() {
                                         lineHeight: 1.52,
                                         letterSpacing: '0.03em'
                                     }} className="mb-4">
-                                        Still have questions?
+                                        {t('stillHaveQuestions')}
                                     </h3>
                                     <p className="text-muted-foreground mb-6" style={{
                                         fontSize: '13.53px',
@@ -211,7 +167,7 @@ export default function FAQPage() {
                                         lineHeight: 1.57,
                                         letterSpacing: '0.03em'
                                     }}>
-                                        Can't find the answer you're looking for? Our customer support team is ready to help.
+                                        {t('stillHaveQuestionsDesc')}
                                     </p>
                                     <div className="space-y-4">
                                         <a
@@ -227,13 +183,13 @@ export default function FAQPage() {
                                                     fontWeight: 500,
                                                     lineHeight: 1.57,
                                                     letterSpacing: '0.03em'
-                                                }}>WhatsApp</p>
+                                                }}>{tc('whatsapp')}</p>
                                                 <p className="text-muted-foreground" style={{
                                                     fontSize: '12.8px',
                                                     fontWeight: 300,
                                                     lineHeight: 1.57,
                                                     letterSpacing: '0.03em'
-                                                }}>Chat with us instantly</p>
+                                                }}>{tc('chatWithUsInstantly')}</p>
                                             </div>
                                         </a>
                                         <a
@@ -247,7 +203,7 @@ export default function FAQPage() {
                                                     fontWeight: 500,
                                                     lineHeight: 1.57,
                                                     letterSpacing: '0.03em'
-                                                }}>Email</p>
+                                                }}>{tc('email')}</p>
                                                 <p className="text-muted-foreground" style={{
                                                     fontSize: '12.8px',
                                                     fontWeight: 300,
@@ -264,7 +220,7 @@ export default function FAQPage() {
                                                     fontWeight: 500,
                                                     lineHeight: 1.57,
                                                     letterSpacing: '0.03em'
-                                                }}>Visit Our Store</p>
+                                                }}>{tc('visitStore')}</p>
                                                 <p className="text-muted-foreground" style={{
                                                     fontSize: '12.8px',
                                                     fontWeight: 300,
@@ -287,7 +243,7 @@ export default function FAQPage() {
                                         lineHeight: 1.52,
                                         letterSpacing: '0.03em'
                                     }} className="mb-2">
-                                        New Customer?
+                                        {tc('newCustomer')}
                                     </h3>
                                     <p className="text-muted-foreground mb-4" style={{
                                         fontSize: '13.53px',
@@ -295,7 +251,7 @@ export default function FAQPage() {
                                         lineHeight: 1.57,
                                         letterSpacing: '0.03em'
                                     }}>
-                                        Create an account for exclusive offers and faster checkout.
+                                        {tContact('newCustomerDesc')}
                                     </p>
                                     <Link
                                         href="/shop"
@@ -307,7 +263,7 @@ export default function FAQPage() {
                                             letterSpacing: '0.03em'
                                         }}
                                     >
-                                        Start Shopping
+                                        {tc('startShopping')}
                                     </Link>
                                 </div>
                             </div>

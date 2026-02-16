@@ -2,7 +2,7 @@ import "./globals.css";
 
 import { Inter as FontSans, Montserrat as FontHeading } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getLocale, getMessages } from 'next-intl/server';
 import { ThemeProvider } from "@/lib/theme";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -20,6 +20,7 @@ import { WishlistDrawer } from "@/components/wishlist/wishlist-drawer";
 import { Toaster } from "@/components/ui/toaster";
 import { siteConfig } from "@/site.config";
 import { cn } from "@/lib/utils";
+import { headers } from "next/headers";
 import { AiChatWidget } from "@/components/ai/ai-chat-widget";
 import { ExitSurveyWrapper } from "@/components/feedback/exit-survey-wrapper";
 
@@ -69,8 +70,8 @@ export const metadata: Metadata = {
   // OpenGraph with Swedish locale
   openGraph: {
     type: "website",
-    locale: "sv_SE",
-    alternateLocale: ["en_SE"],
+    locale: "en_SE",
+    alternateLocale: ["sv_SE"],
     url: siteConfig.site_domain,
     siteName: siteConfig.site_name,
     title: siteConfig.site_name,
@@ -93,16 +94,16 @@ export const metadata: Metadata = {
   },
   // Additional metadata
   keywords: [
-    "Indian groceries Stockholm",
-    "Pakistani groceries Sweden",
-    "Indiska livsmedel Stockholm",
-    "Halal mat Stockholm",
-    "Basmati ris Sverige",
-    "Asiatiska kryddor Stockholm",
-    "Indian spices Sweden",
-    "Halal meat Stockholm",
-    "Bandhagen grocery",
-    "Indian store Sweden",
+    "Indian grocery store Stockholm",
+    "Pakistani grocery online Sweden",
+    "buy Indian groceries online",
+    "halal meat delivery Stockholm",
+    "basmati rice Stockholm",
+    "Indian spices online Sweden",
+    "grocery delivery Stockholm",
+    "Indian food store near me",
+    "Pakistani food Stockholm",
+    "halal grocery delivery Europe",
   ],
   authors: [{ name: "Ideal Indiska LIVS" }],
   creator: "Ideal Indiska LIVS",
@@ -135,12 +136,16 @@ export default async function RootLayout({
 }) {
   const categories = await getProductCategories({ parent: 0 });
 
-  // English is the default locale
-  const locale = 'en';
-  const messages = await getMessages({ locale });
+  // Detect locale from next-intl (en = no prefix, sv = /sv/ prefix)
+  const locale = await getLocale();
+  const messages = await getMessages();
+
+  // Get current path for hreflang tags
+  const headersList = await headers();
+  const currentPath = headersList.get('x-next-url') || headersList.get('x-invoke-path') || '/';
 
   return (
-    <html lang="sv-SE" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         {/* Critical preconnects - Most important first */}
         <link rel="preconnect" href="https://crm.ideallivs.com" crossOrigin="anonymous" />
@@ -167,7 +172,7 @@ export default async function RootLayout({
         <GeoMetaTags />
 
         {/* Hreflang Tags */}
-        <HreflangTags canonicalUrl={siteConfig.site_domain} />
+        <HreflangTags path={currentPath} />
 
         {/* Google Tag Manager */}
         <GoogleTagManager />
@@ -179,7 +184,7 @@ export default async function RootLayout({
         {/* Facebook Pixel */}
         <FacebookPixel />
 
-        <NextIntlClientProvider locale="en" messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

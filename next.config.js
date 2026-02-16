@@ -102,6 +102,32 @@ const nextConfig = {
                 source: '/sitemap-products-:page.xml',
                 destination: '/api/sitemap/products/:page',
             },
+            // Swedish sitemap index
+            {
+                source: '/sv/sitemap.xml',
+                destination: '/api/sitemap/sv',
+            },
+            // Swedish sub-sitemaps (all under /sv/ to match URL structure)
+            {
+                source: '/sv/sitemap-pages.xml',
+                destination: '/api/sitemap/sv-pages',
+            },
+            {
+                source: '/sv/sitemap-products-:page.xml',
+                destination: '/api/sitemap/sv-products/:page',
+            },
+            {
+                source: '/sv/sitemap-delivery.xml',
+                destination: '/api/sitemap/sv-delivery',
+            },
+            {
+                source: '/sv/sitemap-product-categories.xml',
+                destination: '/api/sitemap/sv-product-categories',
+            },
+            {
+                source: '/sv/sitemap-product-brands.xml',
+                destination: '/api/sitemap/sv-product-brands',
+            },
         ];
     },
 };

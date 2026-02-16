@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { brandProfile } from "@/config/brand-profile";
 import { Truck, MapPin, Package, Clock, Info, MessageCircle, ExternalLink, ShieldCheck } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { goteborgMalmoDeliveryServiceSchema } from "@/lib/schema";
 import { GoogleMapCompact } from "@/components/shared/google-map";

@@ -1,7 +1,7 @@
 'use client';
 
 import { OptimizedImage } from '@/components/ui/optimized-image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { Product } from '@/types/woocommerce';

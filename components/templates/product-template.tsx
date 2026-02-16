@@ -2,7 +2,7 @@
 
 import { ReactNode, useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { Breadcrumbs, BreadcrumbItem } from '@/components/layout/breadcrumbs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -265,7 +265,7 @@ export function ProductTemplate({
             </div>
 
             {/* Column 3: Product Info (RIGHT) - Second on mobile */}
-            <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-4 space-y-3 order-2 lg:order-3" : "lg:col-span-6 space-y-3 order-2"}>
+            <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-4 space-y-2 order-2 lg:order-3" : "lg:col-span-6 space-y-2 order-2"}>
               {/* Categories & Badges */}
               <div className="flex flex-wrap items-center gap-2">
                 {product.categories && product.categories.length > 0 && (
@@ -295,30 +295,30 @@ export function ProductTemplate({
               <div>
                 {/* Brand Display using WooCommerce Brands */}
                 {product.brands && product.brands.length > 0 && (
-                  <div className="mb-3">
+                  <div className="mb-1.5">
                     {product.brands.map((brand) => (
                       <Link
                         key={brand.id}
                         href={`/brand/${brand.slug}`}
-                        className="inline-flex items-center gap-3 group"
+                        className="inline-flex items-center gap-2 group"
                       >
                         {typeof brand.image === 'object' && brand.image?.src ? (
-                          <div className="relative w-12 h-12 bg-white rounded-full border border-border p-1 overflow-hidden shadow-sm group-hover:border-primary/50 transition-colors">
+                          <div className="relative w-10 h-10 bg-white rounded-full border border-border p-0.5 overflow-hidden shadow-sm group-hover:border-primary/50 transition-colors">
                             <Image
                               src={brand.image.src}
                               alt={brand.name}
                               fill
                               className="object-contain"
-                              sizes="48px"
+                              sizes="40px"
                             />
                           </div>
                         ) : (
-                          <Badge variant="secondary" className="text-primary bg-primary/10 hover:bg-primary/20 transition-colors">
+                          <Badge variant="secondary" className="text-primary bg-primary/10 hover:bg-primary/20 transition-colors text-xs">
                             {decodeHtmlEntities(brand.name)}
                           </Badge>
                         )}
                         {typeof brand.image === 'object' && brand.image?.src && (
-                          <span style={{ fontSize: '15.13px', fontWeight: 400, lineHeight: 1.57, letterSpacing: '0.03em' }} className="text-muted-foreground group-hover:text-foreground transition-colors">
+                          <span style={{ fontSize: '13px', fontWeight: 400, lineHeight: 1.4, letterSpacing: '0.02em' }} className="text-muted-foreground group-hover:text-foreground transition-colors">
                             {decodeHtmlEntities(brand.name)}
                           </span>
                         )}
@@ -327,23 +327,23 @@ export function ProductTemplate({
                   </div>
                 )}
 
-                <h1 style={{ fontSize: '24px', fontWeight: 500, letterSpacing: '0px' }} className="font-heading text-foreground leading-tight">
+                <h1 style={{ fontSize: '20px', fontWeight: 600, letterSpacing: '-0.01em' }} className="font-heading text-foreground leading-snug">
                   {decodeHtmlEntities(product.name)}
                 </h1>
                 {product.sku && (
-                  <p style={{ fontSize: '13.53px', fontWeight: 400, lineHeight: 1.57, letterSpacing: '0.03em' }} className="mt-2 text-muted-foreground">
+                  <p style={{ fontSize: '12px', fontWeight: 400, lineHeight: 1.5, letterSpacing: '0.02em' }} className="mt-1 text-muted-foreground">
                     SKU: {product.sku}
                   </p>
                 )}
 
                 {/* Rating */}
                 {product.rating_count > 0 && (
-                  <div className="mt-2 flex items-center gap-2">
+                  <div className="mt-1 flex items-center gap-1.5">
                     <div className="flex items-center">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <span
                           key={i}
-                          style={{ fontSize: '16px' }}
+                          style={{ fontSize: '13px' }}
                           className={
                             i < Math.floor(parseFloat(product.average_rating))
                               ? 'text-secondary'
@@ -353,10 +353,10 @@ export function ProductTemplate({
                           ★
                         </span>
                       ))}
-                      <span style={{ fontSize: '14.31px', fontWeight: 500, lineHeight: 1.57, letterSpacing: '0.03em' }} className="ml-2 text-foreground">
+                      <span style={{ fontSize: '12.5px', fontWeight: 500, lineHeight: 1.4 }} className="ml-1.5 text-foreground">
                         {product.average_rating}
                       </span>
-                      <span style={{ fontSize: '14.31px', fontWeight: 400, lineHeight: 1.57, letterSpacing: '0.03em' }} className="ml-1 text-muted-foreground">
+                      <span style={{ fontSize: '12.5px', fontWeight: 400, lineHeight: 1.4 }} className="ml-0.5 text-muted-foreground">
                         ({product.rating_count} {product.rating_count === 1 ? 'review' : 'reviews'})
                       </span>
                     </div>
@@ -365,7 +365,7 @@ export function ProductTemplate({
               </div>
 
               {/* Price */}
-              <div className="flex items-baseline gap-3 border-y border-border py-3">
+              <div className="flex items-baseline gap-3 border-y border-border py-2">
                 {(() => {
                   // Use selected variation price if available, otherwise use product price
                   const displayPrice = selectedVariation?.price || product.price;
@@ -385,7 +385,7 @@ export function ProductTemplate({
                   if (showPricePrompt) {
                     return (
                       <div className="flex flex-col gap-2">
-                        <span style={{ fontSize: '18.91px', fontWeight: 500, lineHeight: 1.52, letterSpacing: '0.03em' }} className="text-muted-foreground">
+                        <span style={{ fontSize: '14px', fontWeight: 500, lineHeight: 1.4 }} className="text-muted-foreground">
                           Please select options to see price
                         </span>
                       </div>
@@ -394,15 +394,15 @@ export function ProductTemplate({
 
                   return isOnSale ? (
                     <>
-                      <span className="font-heading text-primary text-2xl md:text-[27px] font-extrabold leading-tight">
+                      <span className="font-heading text-primary text-xl md:text-2xl font-extrabold leading-tight">
                         <CurrencyPrice price={displaySalePrice} size="lg" />
                       </span>
-                      <span className="text-muted-foreground line-through text-lg md:text-2xl font-semibold">
+                      <span className="text-muted-foreground line-through text-base md:text-lg font-semibold">
                         <CurrencyPrice price={displayRegularPrice} size="md" />
                       </span>
                     </>
                   ) : (
-                    <span className="font-heading text-primary text-2xl md:text-[27px] font-extrabold leading-tight">
+                    <span className="font-heading text-primary text-xl md:text-2xl font-extrabold leading-tight">
                       <CurrencyPrice price={priceStr} size="lg" />
                     </span>
                   );
@@ -421,8 +421,8 @@ export function ProductTemplate({
               {/* Short Description */}
               {product.short_description && (
                 <div
-                  style={{ fontSize: '16px', fontWeight: 400, lineHeight: 1.52, letterSpacing: '0.03em' }}
-                  className="max-w-none text-foreground"
+                  style={{ fontSize: '13.5px', fontWeight: 400, lineHeight: 1.5, letterSpacing: '0.01em' }}
+                  className="max-w-none text-muted-foreground"
                   dangerouslySetInnerHTML={{ __html: product.short_description }}
                 />
               )}
@@ -448,10 +448,10 @@ export function ProductTemplate({
               )}
 
               {/* Add to Cart Section */}
-              <div className="space-y-3 bg-primary/5 rounded-2xl p-5">
+              <div className="space-y-2.5 bg-primary/5 rounded-xl p-4">
                 {/* Quantity Selector */}
-                <div className="flex items-center gap-4">
-                  <span style={{ fontSize: '15.13px', fontWeight: 500, lineHeight: 1.57, letterSpacing: '0.03em' }} className="text-foreground">Quantity:</span>
+                <div className="flex items-center gap-3">
+                  <span style={{ fontSize: '13px', fontWeight: 500, lineHeight: 1.4 }} className="text-foreground">Quantity:</span>
                   <QuantitySelector
                     initialQuantity={1}
                     min={1}
@@ -476,7 +476,7 @@ export function ProductTemplate({
                         <svg className="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <span style={{ fontSize: '13.53px', fontWeight: 400 }}>
+                        <span style={{ fontSize: '12px', fontWeight: 400 }}>
                           Limited to {quantityLimit} unit{quantityLimit > 1 ? 's' : ''} per order
                         </span>
                       </div>
@@ -491,16 +491,16 @@ export function ProductTemplate({
                     product={product}
                     variation={selectedVariation}
                     quantity={quantity}
-                    size="lg"
-                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full py-5"
-                    style={{ fontSize: '15px', fontWeight: 500, lineHeight: 1.52, letterSpacing: '0.03em' }}
+                    size="default"
+                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full py-3"
+                    style={{ fontSize: '13.5px', fontWeight: 500, lineHeight: 1.4 }}
                   />
                   <WishlistButton
                     product={product}
                     variation={selectedVariation || undefined}
-                    size="lg"
+                    size="default"
                     variant="outline"
-                    className="rounded-full py-5 px-6 border-2 hover:bg-red-50 dark:hover:bg-red-950/20"
+                    className="rounded-full py-3 px-5 border-2 hover:bg-red-50 dark:hover:bg-red-950/20"
                   />
                 </div>
 
@@ -525,13 +525,13 @@ export function ProductTemplate({
                   quantity={quantity}
                   requireCustomerInfo={true}
                   variant="outline"
-                  size="lg"
-                  className="w-full rounded-full py-5 border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20"
+                  size="default"
+                  className="w-full rounded-full py-3 border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20 text-sm"
                   label="Order via WhatsApp"
                 />
 
                 {/* Additional Info */}
-                <div style={{ fontSize: '14.31px', fontWeight: 400, lineHeight: 1.57, letterSpacing: '0.03em' }} className="space-y-1 text-muted-foreground">
+                <div style={{ fontSize: '12px', fontWeight: 400, lineHeight: 1.5 }} className="space-y-0.5 text-muted-foreground">
                   {product.shipping_required && (
                     <p className="flex items-center gap-2">
                       <span>📦</span> Shipping calculated at checkout
@@ -550,11 +550,11 @@ export function ProductTemplate({
 
               {/* Product Meta */}
               {product.tags && product.tags.length > 0 && (
-                <div className="border-t border-border pt-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span style={{ fontSize: '14.31px', fontWeight: 500, lineHeight: 1.57, letterSpacing: '0.03em' }} className="text-foreground">Tags:</span>
+                <div className="border-t border-border pt-2">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span style={{ fontSize: '12px', fontWeight: 500, lineHeight: 1.4 }} className="text-foreground">Tags:</span>
                     {product.tags.map((tag) => (
-                      <Badge key={tag.id} variant="outline" style={{ fontSize: '12.8px', fontWeight: 300, lineHeight: 1.57, letterSpacing: '0.03em' }} className="border-border">
+                      <Badge key={tag.id} variant="outline" style={{ fontSize: '11px', fontWeight: 400, lineHeight: 1.4 }} className="border-border py-0">
                         {decodeHtmlEntities(tag.name)}
                       </Badge>
                     ))}
@@ -566,9 +566,9 @@ export function ProductTemplate({
               {additionalContent}
 
               {/* Payment Methods Banner */}
-              <div className="border-t border-border pt-4 mt-4">
-                <p className="text-xs text-muted-foreground text-center mb-2">Secure Payment Methods</p>
-                <div className="relative h-6 w-full">
+              <div className="border-t border-border pt-2 mt-2">
+                <p className="text-[11px] text-muted-foreground text-center mb-1.5">Secure Payment Methods</p>
+                <div className="relative h-5 w-full">
                   <Image
                     src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
                     alt="Payment Methods - Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay"

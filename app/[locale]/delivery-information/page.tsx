@@ -1,20 +1,45 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
 import { Truck, Package, Clock, ShieldCheck, MapPin, ExternalLink, Globe, Info, ShoppingBag } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { stockholmDeliveryServiceSchema, deliveryFAQSchema } from "@/lib/schema";
 import { GoogleMapCompact } from "@/components/shared/google-map";
+import { getTranslations } from 'next-intl/server';
+import { getAlternates } from '@/lib/seo/metadata';
+import { swedishMeta } from '@/lib/seo/swedish-meta';
 
-export const metadata: Metadata = {
+// ISR: Revalidate static pages every 24 hours
+export const revalidate = 86400;
+
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+
+  if (locale === 'sv') {
+    const svMeta = swedishMeta['/delivery-information'];
+    return {
+      title: svMeta.title,
+      description: svMeta.description,
+      alternates: getAlternates('/delivery-information'),
+    };
+  }
+
+  return {
     title: "Free Grocery Delivery Stockholm & All Sweden | Ideal Indiska Livs",
     description: "Authentic Indian & Pakistani groceries with FAST delivery. Free in Stockholm on orders over 500 SEK. Same-day evening delivery in Bandhagen & southern suburbs.",
-    alternates: {
-        canonical: '/delivery-information',
-    },
-};
+    alternates: getAlternates('/delivery-information'),
+  };
+}
 
-export default function DeliveryInformationPage() {
+export default async function DeliveryInformationPage({ params }: PageProps) {
+    const { locale } = await params;
+    const t = await getTranslations('delivery');
+    const tc = await getTranslations('common');
+
     return (
         <main className="min-h-screen bg-background">
             {/* Hero Section */}
@@ -27,7 +52,7 @@ export default function DeliveryInformationPage() {
                             lineHeight: 1.47,
                             letterSpacing: '0.02em'
                         }} className="mb-4">
-                            Grocery Delivery Information
+                            {t('title')}
                         </h1>
                         <p className="text-muted-foreground" style={{
                             fontSize: '16px',
@@ -35,7 +60,7 @@ export default function DeliveryInformationPage() {
                             lineHeight: 1.52,
                             letterSpacing: '0.03em'
                         }}>
-                            From our store in Bandhagen to your door. We offer free delivery across all of Stockholm and fast shipping throughout Sweden and Europe.
+                            {t('subtitle')}
                         </p>
                     </div>
                 </div>
@@ -55,10 +80,10 @@ export default function DeliveryInformationPage() {
                                 letterSpacing: '0.03em'
                             }}>
                                 <p className="text-foreground font-medium" style={{ fontSize: '18px' }}>
-                                    Welcome to Ideal Indiska Livs! We make it easier than ever to get your favourite authentic Indian and Pakistani groceries.
+                                    {t('welcomeText')}
                                 </p>
                                 <p>
-                                    We are proud to offer FREE delivery across all of Stockholm on qualifying orders, as well as fast and flexible shipping options to every corner of Sweden through our trusted partner, DHL. Whether you are in Bandhagen, Södermalm, Kungsholmen, Norrmalm, Vasastan, Östermalm, Gamla Stan, or the surrounding suburbs, getting the taste of home is just a few clicks away.
+                                    {t('introText')}
                                 </p>
                             </section>
 
@@ -66,43 +91,43 @@ export default function DeliveryInformationPage() {
                             <section className="space-y-6">
                                 <h2 style={{ fontSize: '25px', fontWeight: 600 }} className="flex items-center gap-3">
                                     <MapPin className="h-6 w-6 text-primary" />
-                                    Delivery Options for Stockholm
+                                    {t('stockholmTitle')}
                                 </h2>
                                 <p className="text-muted-foreground" style={{ fontSize: '16px' }}>
-                                    We offer two convenient delivery methods for all our customers within the Stockholm area.
+                                    {t('stockholmSubtitle')}
                                 </p>
 
                                 <div className="space-y-6">
                                     <div className="p-6 rounded-xl border bg-card/50">
-                                        <h3 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-3">1. Ideal Indiska Local Delivery (Our Own Service)</h3>
+                                        <h3 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-3">{t('localDeliveryTitle')}</h3>
                                         <div className="space-y-4 text-muted-foreground" style={{ fontSize: '15.13px' }}>
-                                            <p>Enjoy our personalized local delivery service with great flexibility and value.</p>
+                                            <p>{t('localDeliveryIntro')}</p>
                                             <ul className="list-disc pl-5 space-y-2">
-                                                <li><strong>FREE Delivery:</strong> On all orders of 500 kr or more across all of Stockholm.</li>
-                                                <li><strong>Standard Delivery:</strong> For orders between 300 kr and 499 kr, a flat delivery fee of just 30 kr applies.</li>
-                                                <li><strong>Minimum Order:</strong> The minimum order for our local delivery service is 300 kr.</li>
+                                                <li><strong>{t('freeDelivery')}</strong></li>
+                                                <li><strong>{t('standardDelivery')}</strong></li>
+                                                <li><strong>{t('minimumOrder')}</strong></li>
                                             </ul>
 
                                             <div className="mt-4 pt-4 border-t">
-                                                <h4 className="font-semibold text-foreground mb-2">Coverage Areas:</h4>
-                                                <p>Our local delivery covers the entire Stockholm region, including central areas like Södermalm, Kungsholmen, Norrmalm, Vasastan, and Östermalm, as well as surrounding communities including Solna, Sundbyberg, Kista, Nacka, Huddinge, and Järfälla.</p>
+                                                <h4 className="font-semibold text-foreground mb-2">{t('coverageTitle')}</h4>
+                                                <p>{t('coverageText')}</p>
                                             </div>
 
                                             <div className="mt-4 pt-4 border-t">
-                                                <h4 className="font-semibold text-foreground mb-2">Special Same-Day Evening Delivery for Our Neighbours:</h4>
-                                                <p>For our local community in and around Bandhagen, we offer a special Same-day evening delivery service.</p>
+                                                <h4 className="font-semibold text-foreground mb-2">{t('sameDayTitle')}</h4>
+                                                <p>{t('sameDayText')}</p>
                                                 <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
-                                                    <li><strong>Areas:</strong> Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, Älvsjö.</li>
-                                                    <li><strong>Schedule:</strong> Place your order before 4 PM (16:00) to receive your delivery the Same day evening between 7 PM - 10 PM.</li>
+                                                    <li><strong>{t('sameDayAreas')}</strong></li>
+                                                    <li><strong>{t('sameDaySchedule')}</strong></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="p-6 rounded-xl border bg-card/50">
-                                        <h3 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-3">2. DHL Shipping within Stockholm</h3>
+                                        <h3 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-3">{t('dhlStockholmTitle')}</h3>
                                         <p className="text-muted-foreground" style={{ fontSize: '15.13px' }}>
-                                            If you prefer the flexibility of DHL or have a larger/heavier order, you can also choose DHL for delivery within Stockholm. Shipping costs are calculated dynamically based on weight and size.
+                                            {t('dhlStockholmText')}
                                         </p>
                                     </div>
                                 </div>
@@ -112,19 +137,19 @@ export default function DeliveryInformationPage() {
                             <section className="space-y-6">
                                 <h2 style={{ fontSize: '25px', fontWeight: 600 }} className="flex items-center gap-3">
                                     <Truck className="h-6 w-6 text-primary" />
-                                    Shipping to the Rest of Sweden via DHL
+                                    {t('swedenTitle')}
                                 </h2>
                                 <p className="text-muted-foreground" style={{ fontSize: '16px' }}>
-                                    We are thrilled to serve customers across all of Sweden with no minimum order requirements.
+                                    {t('swedenSubtitle')}
                                 </p>
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     <div className="p-4 rounded-lg bg-muted/20 border">
-                                        <p className="font-semibold" style={{ fontSize: '15.13px' }}>Reliable Partner</p>
-                                        <p className="text-sm text-muted-foreground">We use DHL to ensure your groceries arrive safely and promptly anywhere in Sweden.</p>
+                                        <p className="font-semibold" style={{ fontSize: '15.13px' }}>{t('reliablePartner')}</p>
+                                        <p className="text-sm text-muted-foreground">{t('reliablePartnerDesc')}</p>
                                     </div>
                                     <div className="p-4 rounded-lg bg-muted/20 border">
-                                        <p className="font-semibold" style={{ fontSize: '15.13px' }}>Calculated Rates</p>
-                                        <p className="text-sm text-muted-foreground">Fees are based on weight and location, calculated automatically at checkout.</p>
+                                        <p className="font-semibold" style={{ fontSize: '15.13px' }}>{t('calculatedRates')}</p>
+                                        <p className="text-sm text-muted-foreground">{t('calculatedRatesDesc')}</p>
                                     </div>
                                 </div>
                             </section>
@@ -133,15 +158,15 @@ export default function DeliveryInformationPage() {
                             <section className="space-y-6">
                                 <h2 style={{ fontSize: '25px', fontWeight: 600 }} className="flex items-center gap-3">
                                     <ShoppingBag className="h-6 w-6 text-primary" />
-                                    Local Pickup - Always Free!
+                                    {t('pickupTitle')}
                                 </h2>
                                 <div className="p-6 rounded-xl border bg-card/50">
                                     <div className="space-y-4 text-muted-foreground" style={{ fontSize: '15.13px' }}>
-                                        <p>You are always welcome to place your order online and collect it from our store in Bandhagen at no extra cost.</p>
+                                        <p>{t('pickupText')}</p>
                                         <ul className="list-disc pl-5 space-y-2">
-                                            <li><strong>Cost:</strong> Free</li>
-                                            <li><strong>Location:</strong> Bandhagsplan 4, 12432 Bandhagen Centrum</li>
-                                            <li><strong>How it Works:</strong> Select &quot;Local Pickup&quot; at checkout. You will receive an email or SMS notification when your order is ready.</li>
+                                            <li><strong>{t('pickupCost')}</strong></li>
+                                            <li><strong>{t('pickupLocation')}</strong></li>
+                                            <li><strong>{t('pickupHow')}</strong></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -149,9 +174,9 @@ export default function DeliveryInformationPage() {
 
                             {/* Our Commitment */}
                             <section className="p-8 rounded-2xl bg-muted/20 border">
-                                <h2 style={{ fontSize: '22.36px', fontWeight: 600 }} className="mb-4">Our Delivery Commitment</h2>
+                                <h2 style={{ fontSize: '22.36px', fontWeight: 600 }} className="mb-4">{t('commitmentTitle')}</h2>
                                 <p style={{ fontSize: '16px' }} className="text-muted-foreground">
-                                    We understand the importance of receiving your groceries in perfect condition. We take great care in packing every order, ensuring that fresh produce, frozen items, and fragile goods are handled appropriately to maintain their quality from our store to your door.
+                                    {t('commitmentText')}
                                 </p>
                             </section>
                         </div>
@@ -161,20 +186,20 @@ export default function DeliveryInformationPage() {
                             <div className="sticky top-24 space-y-6">
                                 {/* Delivery Schedule */}
                                 <div className="border rounded-lg p-6 bg-card">
-                                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-4">Schedule</h3>
+                                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-4">{t('schedule')}</h3>
                                     <ul className="space-y-4">
                                         <li className="flex gap-3">
                                             <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                                             <div>
-                                                <p style={{ fontSize: '13.53px', fontWeight: 500 }}>Mon - Sun Delivery</p>
-                                                <p style={{ fontSize: '12.8px' }} className="text-muted-foreground">7 PM - 10 PM slots</p>
+                                                <p style={{ fontSize: '13.53px', fontWeight: 500 }}>{t('monSunDelivery')}</p>
+                                                <p style={{ fontSize: '12.8px' }} className="text-muted-foreground">{t('deliverySlots')}</p>
                                             </div>
                                         </li>
                                         <li className="flex gap-3">
                                             <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                                             <div>
-                                                <p style={{ fontSize: '13.53px', fontWeight: 500 }}>4 PM Cut-off</p>
-                                                <p style={{ fontSize: '12.8px' }} className="text-muted-foreground">For same-day delivery</p>
+                                                <p style={{ fontSize: '13.53px', fontWeight: 500 }}>{t('cutoff')}</p>
+                                                <p style={{ fontSize: '12.8px' }} className="text-muted-foreground">{t('cutoffDesc')}</p>
                                             </div>
                                         </li>
                                     </ul>
@@ -182,7 +207,7 @@ export default function DeliveryInformationPage() {
 
                                 {/* Quick Links */}
                                 <div className="border rounded-lg p-6 bg-card">
-                                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-4">Regional Details</h3>
+                                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-4">{t('regionalDetails')}</h3>
                                     <div className="space-y-2">
                                         <Link href="/delivery-goteborg-malmo" className="flex items-center justify-between p-2 rounded hover:bg-muted transition-colors text-sm">
                                             Göteborg & Malmö <ExternalLink className="w-3 h-3" />
@@ -198,17 +223,17 @@ export default function DeliveryInformationPage() {
                                     <GoogleMapCompact />
                                     <div className="p-4 border border-t-0 rounded-b-lg bg-muted/10">
                                         <p className="text-xs text-center text-muted-foreground">
-                                            Pickup from: {brandProfile.address.street}, {brandProfile.address.postalCode} {brandProfile.address.area}
+                                            {t('pickupFrom')} {brandProfile.address.street}, {brandProfile.address.postalCode} {brandProfile.address.area}
                                         </p>
                                     </div>
                                 </div>
 
                                 {/* Support */}
                                 <div className="border rounded-lg p-6 bg-muted/30 text-center">
-                                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">Delivery Help?</h3>
-                                    <p style={{ fontSize: '13.53px' }} className="text-muted-foreground mb-4">Contact our delivery team via WhatsApp.</p>
+                                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">{t('deliveryHelp')}</h3>
+                                    <p style={{ fontSize: '13.53px' }} className="text-muted-foreground mb-4">{t('deliveryHelpDesc')}</p>
                                     <a href="https://wa.me/46728494801" className="inline-block w-full py-2 bg-primary text-primary-foreground rounded-lg font-medium text-sm">
-                                        Chat Now
+                                        {tc('chatNow')}
                                     </a>
                                 </div>
                             </div>

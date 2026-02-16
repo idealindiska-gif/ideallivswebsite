@@ -10,7 +10,7 @@
  */
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { ShoppingCart, Tag } from "lucide-react";
 import dummyData from "@/data/dummy-products.json";
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { useCartStore } from '@/store/cart-store';
 import { Container, Section } from '@/components/craft';
 import { Button } from '@/components/ui/button';

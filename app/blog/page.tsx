@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import { Calendar, User, Tag as TagIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';

@@ -10,7 +10,7 @@ import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/site.config";
 
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Balancer from "react-wrap-balancer";
 
 import type { Metadata } from "next";

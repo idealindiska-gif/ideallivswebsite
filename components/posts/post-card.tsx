@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 
 import { Post } from "@/lib/wordpress.d";
 import { cn } from "@/lib/utils";

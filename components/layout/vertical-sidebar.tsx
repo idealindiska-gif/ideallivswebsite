@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { useSidebar } from "./mobile-sidebar-toggle";
 import {
@@ -30,6 +30,7 @@ import {
   ChefHat
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from 'next-intl';
 import { CartIcon } from "@/components/cart/cart-icon";
 import { WishlistIcon } from "@/components/wishlist/wishlist-icon";
 import { UserNav } from "@/components/layout/user-nav";
@@ -73,6 +74,7 @@ interface VerticalSidebarProps {
 }
 
 export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
+  const nav = useTranslations('navigation');
   const [searchQuery, setSearchQuery] = useState("");
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const { isOpen, close } = useSidebar();
@@ -128,7 +130,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                     <Percent className="h-4 w-4 text-white" />
                   </div>
                   <span className="text-sm font-bold text-red-700 dark:text-red-400">
-                    Deals & Offers
+                    {nav('dealsOffers')}
                   </span>
                 </div>
                 <ChevronRight className="h-4 w-4 text-red-500 group-hover:translate-x-1 transition-transform" />
@@ -140,7 +142,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
               >
                 <div className="flex items-center gap-3">
                   <Home className="h-4 w-4 text-muted-foreground group-hover:text-green-600" />
-                  <span className="text-sm font-semibold">All Products</span>
+                  <span className="text-sm font-semibold">{nav('allProducts')}</span>
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-green-600 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -151,7 +153,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
               >
                 <div className="flex items-center gap-3">
                   <Package className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
-                  <span className="text-sm font-semibold">Shop by Brands</span>
+                  <span className="text-sm font-semibold">{nav('shopByBrands')}</span>
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -162,7 +164,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
               >
                 <div className="flex items-center gap-3">
                   <ChefHat className="h-4 w-4 text-orange-600 dark:text-orange-500 group-hover:text-orange-700" />
-                  <span className="text-sm font-semibold text-orange-700 dark:text-orange-400">Preorder Biryani</span>
+                  <span className="text-sm font-semibold text-orange-700 dark:text-orange-400">{nav('preorderBiryani')}</span>
                 </div>
                 <ChevronRight className="h-4 w-4 text-orange-600 dark:text-orange-500 group-hover:text-orange-700 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -179,7 +181,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                   <svg className="h-4 w-4 text-blue-600 dark:text-blue-500 group-hover:text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                   </svg>
-                  <span className="text-sm font-semibold text-blue-700 dark:text-blue-400">Share Feedback</span>
+                  <span className="text-sm font-semibold text-blue-700 dark:text-blue-400">{nav('shareFeedback')}</span>
                 </div>
                 <ChevronRight className="h-4 w-4 text-blue-600 dark:text-blue-500 group-hover:text-blue-700 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -189,7 +191,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
             <div className="pt-2">
               <div className="flex items-center gap-2 mb-3 px-2">
                 <TrendingUp className="h-4 w-4 text-green-600" />
-                <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">Top Charts</h2>
+                <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">{nav('topCharts')}</h2>
               </div>
               <div className="space-y-1 pl-2">
                 <Link
@@ -197,28 +199,28 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                   className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-2 px-2 hover:bg-muted rounded-lg"
                 >
                   <div className="w-6 h-6 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center text-xs font-bold flex-shrink-0">1</div>
-                  <span className="font-medium">Best Sellers</span>
+                  <span className="font-medium">{nav('bestSellers')}</span>
                 </Link>
                 <Link
                   href="/shop?sort=new"
                   className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-2 px-2 hover:bg-muted rounded-lg"
                 >
                   <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0">2</div>
-                  <span className="font-medium">New Arrivals</span>
+                  <span className="font-medium">{nav('newArrivals')}</span>
                 </Link>
                 <Link
                   href="/shop?sort=trending"
                   className="flex items-center gap-3 text-sm text-muted-foreground hover:text-green-600 transition-colors py-2 px-2 hover:bg-muted rounded-lg"
                 >
                   <div className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold flex-shrink-0">3</div>
-                  <span className="font-medium">Trending Now</span>
+                  <span className="font-medium">{nav('trendingNow')}</span>
                 </Link>
               </div>
             </div>
 
             {/* Product Categories */}
             <div className="pt-2">
-              <h2 className="text-sm font-bold text-foreground mb-3 px-2 uppercase tracking-wider">All Categories</h2>
+              <h2 className="text-sm font-bold text-foreground mb-3 px-2 uppercase tracking-wider">{nav('allCategories')}</h2>
               <div className="space-y-0.5">
                 {categories.map((category) => {
                   const IconComponent = categoryIcons[category.name] || Package;
@@ -268,14 +270,14 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                 className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
               >
                 <User className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">My Account</span>
+                <span className="text-sm">{nav('myAccount')}</span>
               </Link>
               <Link
                 href="/wishlist"
                 className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
               >
                 <Heart className="h-4 w-4 text-red-500" />
-                <span className="text-sm">Wishlist</span>
+                <span className="text-sm">{nav('wishlist')}</span>
                 <div className="ml-auto">
                   <WishlistIcon />
                 </div>
@@ -285,11 +287,11 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
                 className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
               >
                 <Package className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">My Orders</span>
+                <span className="text-sm">{nav('myOrders')}</span>
               </Link>
               <div className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors cursor-pointer">
                 <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">Cart</span>
+                <span className="text-sm">{nav('cart')}</span>
                 <div className="ml-auto">
                   <CartIcon />
                 </div>

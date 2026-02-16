@@ -1,19 +1,29 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
+import { getTranslations } from "next-intl/server";
 import { brandProfile } from "@/config/brand-profile";
+import { getAlternates } from "@/lib/seo/metadata";
 import { MapPin, Phone, Mail, Clock, MessageSquare, ExternalLink } from "lucide-react";
 import { ContactForm } from "@/components/forms/contact-form";
 import { GoogleMapCompact } from "@/components/shared/google-map";
 
-export const metadata: Metadata = {
-  title: `Contact Us - Ideal Indiska LIVS | Grocery Store Bandhagen Stockholm`,
-  description: `Visit our store in Bandhagen Centrum, call us, or message on WhatsApp. We provide authentic Indian & Pakistani groceries with local delivery across Stockholm.`,
-  alternates: {
-    canonical: '/contact',
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'contact' });
 
-export default function ContactPage() {
+  return {
+    title: `${t('title')} - Ideal Indiska LIVS | Grocery Store Bandhagen Stockholm`,
+    description: t('subtitle'),
+    alternates: getAlternates('/contact'),
+  };
+}
+
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'contact' });
+  const tc = await getTranslations({ locale, namespace: 'common' });
+  const td = await getTranslations({ locale, namespace: 'days' });
+
   const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] as const;
 
   return (
@@ -28,7 +38,7 @@ export default function ContactPage() {
               lineHeight: 1.47,
               letterSpacing: '0.02em'
             }} className="mb-4">
-              Contact Us & Get in Touch
+              {t('title')}
             </h1>
             <p className="text-muted-foreground" style={{
               fontSize: '16px',
@@ -36,7 +46,7 @@ export default function ContactPage() {
               lineHeight: 1.52,
               letterSpacing: '0.03em'
             }}>
-              We love connecting with our customers! Whether you visit us in person at our store in Bandhagen Centrum or have a question about your online order, we&apos;re here to help.
+              {t('subtitle')}
             </p>
           </div>
         </div>
@@ -56,7 +66,7 @@ export default function ContactPage() {
                   lineHeight: 1.47,
                   letterSpacing: '0.02em'
                 }} className="mb-8">
-                  Get in Touch Directly
+                  {t('directTitle')}
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   {/* WhatsApp */}
@@ -64,9 +74,9 @@ export default function ContactPage() {
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                       <MessageSquare className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">WhatsApp</h3>
+                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">{tc('whatsapp')}</h3>
                     <p style={{ fontSize: '15.13px' }} className="text-muted-foreground mb-4">
-                      Fastest response for order status or product availability.
+                      {t('whatsappDesc')}
                     </p>
                     <a
                       href="https://wa.me/46728494801"
@@ -84,9 +94,9 @@ export default function ContactPage() {
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                       <Phone className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">Call Us</h3>
+                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">{tc('callUs')}</h3>
                     <p style={{ fontSize: '15.13px' }} className="text-muted-foreground mb-4">
-                      Give us a call during store hours for immediate help.
+                      {t('callDesc')}
                     </p>
                     <a
                       href={`tel:${brandProfile.contact.phone}`}
@@ -102,9 +112,9 @@ export default function ContactPage() {
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                       <Mail className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">Email</h3>
+                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">{tc('email')}</h3>
                     <p style={{ fontSize: '15.13px' }} className="text-muted-foreground mb-4">
-                      For detailed inquiries or feedback, send us an email.
+                      {t('emailDesc')}
                     </p>
                     <a
                       href={`mailto:${brandProfile.contact.email}`}
@@ -120,9 +130,9 @@ export default function ContactPage() {
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                       <MapPin className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">Visit Store</h3>
+                    <h3 style={{ fontSize: '18.91px', fontWeight: 500 }} className="mb-2">{tc('visitStore')}</h3>
                     <p style={{ fontSize: '15.13px' }} className="text-muted-foreground mb-4">
-                      Bandhagsplan 4, 12432 Stockholm.
+                      {t('visitDesc')}
                     </p>
                     <a
                       href="https://maps.google.com/?q=Bandhagsplan+4,+12432+Bandhagen"
@@ -131,7 +141,7 @@ export default function ContactPage() {
                       className="text-primary hover:underline font-medium inline-flex items-center gap-1"
                       style={{ fontSize: '15.13px' }}
                     >
-                      Get Directions <ExternalLink className="w-3 h-3" />
+                      {tc('getDirections')} <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
                 </div>
@@ -139,7 +149,7 @@ export default function ContactPage() {
 
               {/* Message Form */}
               <div className="p-8 rounded-2xl border bg-card">
-                <h2 style={{ fontSize: '22.36px', fontWeight: 600 }} className="mb-6">Send us a message</h2>
+                <h2 style={{ fontSize: '22.36px', fontWeight: 600 }} className="mb-6">{t('messageTitle')}</h2>
                 <ContactForm />
               </div>
             </div>
@@ -157,7 +167,7 @@ export default function ContactPage() {
                       lineHeight: 1.52,
                       letterSpacing: '0.03em'
                     }}>
-                      Opening Hours
+                      {t('openingHours')}
                     </h3>
                   </div>
                   <div className="space-y-3">
@@ -165,7 +175,7 @@ export default function ContactPage() {
                       const hours = brandProfile.hours[day];
                       return (
                         <div key={day} className="flex justify-between items-center py-1 border-b border-dashed last:border-0">
-                          <span style={{ fontSize: '14.31px', fontWeight: 500 }} className="capitalize">{day}</span>
+                          <span style={{ fontSize: '14.31px', fontWeight: 500 }}>{td(day)}</span>
                           <span style={{ fontSize: '13.53px' }} className="text-muted-foreground">{hours.display}</span>
                         </div>
                       );
@@ -181,17 +191,17 @@ export default function ContactPage() {
                     lineHeight: 1.52,
                     letterSpacing: '0.03em'
                   }} className="mb-2">
-                    Finding Answers?
+                    {t('findingAnswers')}
                   </h3>
                   <p className="text-muted-foreground mb-4" style={{ fontSize: '13.53px' }}>
-                    Check our FAQ for quick answers about delivery, payments, and products.
+                    {t('findingAnswersDesc')}
                   </p>
                   <Link
                     href="/faq"
                     className="inline-block w-full text-center px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/5 transition-colors"
                     style={{ fontSize: '13.53px', fontWeight: 500 }}
                   >
-                    View FAQ
+                    {tc('viewFaq')}
                   </Link>
                 </div>
 

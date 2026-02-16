@@ -1,6 +1,6 @@
 import { LoginForm } from '@/components/auth/login-form';
 import { Section, Container } from '@/components/craft';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 

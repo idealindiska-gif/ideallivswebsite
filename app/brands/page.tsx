@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { brandProfile } from "@/config/brand-profile";
 import { getAllProductBrands } from "@/lib/woocommerce/brands";

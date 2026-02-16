@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
 import { RotateCcw, Package, Clock, CheckCircle2, XCircle, Mail, MessageCircle, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 
 export const metadata: Metadata = {
     title: 'Refund & Return Policy | Ideal Indiska LIVS',

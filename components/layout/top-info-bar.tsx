@@ -1,7 +1,7 @@
 "use client";
 
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { brandConfig } from "@/config/brand.config";
 import { useEffect, useState } from "react";
 import { getStoreStatus, type StoreStatus } from "@/lib/store-hours";
@@ -94,8 +94,8 @@ export function TopInfoBar() {
             </div>
           )}
 
-          {/* Language Switcher - Disabled for now */}
-          {/* <LanguageSwitcher variant="topbar" /> */}
+          {/* Language Switcher */}
+          <LanguageSwitcher variant="topbar" />
 
           {/* Location */}
           <div className="flex items-center gap-2">

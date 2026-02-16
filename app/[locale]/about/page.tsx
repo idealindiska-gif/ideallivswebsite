@@ -1,22 +1,44 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { brandProfile } from "@/config/brand-profile";
 import { ShoppingBag, Heart, Users, Award, MessageCircle, Mail, MapPin } from "lucide-react";
 import { GoogleMapCompact } from "@/components/shared/google-map";
+import { getTranslations } from 'next-intl/server';
+import { getAlternates } from '@/lib/seo/metadata';
+import { swedishMeta } from '@/lib/seo/swedish-meta';
 
 // ISR: Revalidate static pages every 24 hours
 export const revalidate = 86400;
 
-export const metadata: Metadata = {
-  title: `About ${brandProfile.name} - Stockholm's Best Indian & Pakistani Grocery`,
-  description: `Discover the story of ${brandProfile.name}. Since 2020, we have been Stockholm's most trusted source for authentic Indian and Pakistani groceries, premium Basmati rice, and Halal meat.`,
-  alternates: {
-    canonical: '/about',
-  },
-};
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
 
-export default function AboutPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+
+  if (locale === 'sv') {
+    const svMeta = swedishMeta['/about'];
+    return {
+      title: svMeta.title,
+      description: svMeta.description,
+      alternates: getAlternates('/about'),
+    };
+  }
+
+  return {
+    title: `About ${brandProfile.name} - Stockholm's Best Indian & Pakistani Grocery`,
+    description: `Discover the story of ${brandProfile.name}. Since 2020, we have been Stockholm's most trusted source for authentic Indian and Pakistani groceries, premium Basmati rice, and Halal meat.`,
+    alternates: getAlternates('/about'),
+  };
+}
+
+export default async function AboutPage({ params }: PageProps) {
+  const { locale } = await params;
+  const t = await getTranslations('about');
+  const tc = await getTranslations('common');
+
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -29,7 +51,7 @@ export default function AboutPage() {
               lineHeight: 1.47,
               letterSpacing: '0.02em'
             }} className="mb-4">
-              About {brandProfile.name}
+              {t('title')}
             </h1>
             <p className="text-muted-foreground" style={{
               fontSize: '16px',
@@ -37,7 +59,7 @@ export default function AboutPage() {
               lineHeight: 1.52,
               letterSpacing: '0.03em'
             }}>
-              {brandProfile.tagline} Discover why we&apos;re Stockholm&apos;s premier destination for authentic South Asian flavours.
+              {brandProfile.tagline} {t('subtitle')}
             </p>
           </div>
         </div>
@@ -57,7 +79,7 @@ export default function AboutPage() {
                   lineHeight: 1.47,
                   letterSpacing: '0.02em'
                 }} className="mb-6">
-                  From Passion to Your Local Grocery Store
+                  {t('storyTitle')}
                 </h2>
                 <div className="space-y-6 text-muted-foreground" style={{
                   fontSize: '16px',
@@ -66,10 +88,10 @@ export default function AboutPage() {
                   letterSpacing: '0.03em'
                 }}>
                   <p>
-                    Ideal Indiska was born in 2020 from a deep-rooted love for the authentic flavours of our homeland and a desire to share them with the vibrant community in Stockholm. We noticed a need for a dedicated space where people could find high-quality, genuine Indian and Pakistani groceries without compromise.
+                    {t('storyP1')}
                   </p>
                   <p>
-                    From our humble beginnings at <strong>Bandhagen Centrum</strong>, we have grown into Stockholm's premier destination for South Asian cooking essentials. We take pride in being a bridge to home for thousands of families across Sweden.
+                    {t('storyP2')}
                   </p>
                   <div className="relative aspect-video rounded-2xl overflow-hidden shadow-sm border mt-8">
                     <Image
@@ -81,7 +103,7 @@ export default function AboutPage() {
                     />
                   </div>
                   <p className="mt-8">
-                    We carefully select our products to ensure you find everything you need to create authentic Indian and Pakistani meals, from everyday staples to special occasion delicacies.
+                    {t('storyP3')}
                   </p>
                 </div>
               </div>
@@ -94,14 +116,14 @@ export default function AboutPage() {
                   lineHeight: 1.47,
                   letterSpacing: '0.02em'
                 }} className="mb-6">
-                  A World of Authentic Ingredients
+                  {t('ingredientsTitle')}
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   {[
-                    { title: "Aromatic Spices", desc: "Whole and ground, sourced for freshness from brands like Shan, MDH, and TRS.", icon: Award },
-                    { title: "Premium Grains", desc: "The finest Basmati rice (India Gate, Guard), Atta, and diverse lentils.", icon: ShoppingBag },
-                    { title: "Fresh Produce", desc: "Seasonal vegetables and herbs (karela, bhindi, tinda) essential for cooking.", icon: Heart },
-                    { title: "South Asian Treats", desc: "Favourite snacks from brands like Haldiram&apos;s and traditional sweets.", icon: Users },
+                    { title: t('spicesTitle'), desc: t('spicesDesc'), icon: Award },
+                    { title: t('grainsTitle'), desc: t('grainsDesc'), icon: ShoppingBag },
+                    { title: t('produceTitle'), desc: t('produceDesc'), icon: Heart },
+                    { title: t('treatsTitle'), desc: t('treatsDesc'), icon: Users },
                   ].map((item, i) => (
                     <div key={i} className="p-6 rounded-xl border bg-card/50">
                       <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
@@ -116,25 +138,25 @@ export default function AboutPage() {
 
               {/* Testimonials */}
               <section className="space-y-6 pt-12 border-t">
-                <h2 style={{ fontSize: '25px', fontWeight: 600 }}>What Our Customers Say</h2>
+                <h2 style={{ fontSize: '25px', fontWeight: 600 }}>{t('testimonialsTitle')}</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      text: "Glad att jag hittade denna butik! Bra sortiment, hittade allt jag behövde och mer. Vänlig och hjälpsam personal.",
+                      text: "Glad att jag hittade denna butik! Bra sortiment, hittade allt jag beh\u00F6vde och mer. V\u00E4nlig och hj\u00E4lpsam personal.",
                       author: "Linda",
                       source: "Google Reviews"
                     },
                     {
-                      text: "Kul med ett annat sortiment än det som finns på vanliga matbutikskedjorna. Kommer tveklöst återkomma!",
+                      text: "Kul med ett annat sortiment \u00E4n det som finns p\u00E5 vanliga matbutikskedjorna. Kommer tvekl\u00F6st \u00E5terkomma!",
                       author: "Michaela Svanberg",
                       source: "Google Reviews"
                     }
-                  ].map((t, i) => (
+                  ].map((review, i) => (
                     <div key={i} className="p-6 rounded-2xl border bg-muted/10 italic">
-                      <p className="text-muted-foreground mb-4" style={{ fontSize: '15.13px' }}>&quot;{t.text}&quot;</p>
+                      <p className="text-muted-foreground mb-4" style={{ fontSize: '15.13px' }}>&quot;{review.text}&quot;</p>
                       <div className="not-italic">
-                        <p className="font-semibold" style={{ fontSize: '14.31px' }}>{t.author}</p>
-                        <p className="text-xs text-muted-foreground">{t.source}</p>
+                        <p className="font-semibold" style={{ fontSize: '14.31px' }}>{review.author}</p>
+                        <p className="text-xs text-muted-foreground">{review.source}</p>
                       </div>
                     </div>
                   ))}
@@ -153,13 +175,13 @@ export default function AboutPage() {
                     lineHeight: 1.52,
                     letterSpacing: '0.03em'
                   }} className="mb-4">
-                    Our Values
+                    {t('valuesTitle')}
                   </h3>
                   <div className="space-y-6">
                     {[
-                      { title: "Authenticity", desc: "Genuine products you can trust.", icon: Award },
-                      { title: "Freshness", desc: "High standards for all produce.", icon: Heart },
-                      { title: "Friendly Service", desc: "Welcoming and helpful assistance.", icon: Users },
+                      { title: t('authenticityTitle'), desc: t('authenticityDesc'), icon: Award },
+                      { title: t('freshnessTitle'), desc: t('freshnessDesc'), icon: Heart },
+                      { title: t('serviceTitle'), desc: t('serviceDesc'), icon: Users },
                     ].map((value, i) => (
                       <div key={i} className="flex gap-4">
                         <div className="w-8 h-8 bg-muted rounded flex items-center justify-center flex-shrink-0">
@@ -182,7 +204,7 @@ export default function AboutPage() {
                     lineHeight: 1.52,
                     letterSpacing: '0.03em'
                   }} className="mb-4">
-                    Contact Us
+                    {tc('contactUs')}
                   </h3>
                   <div className="space-y-4">
                     <a
@@ -191,8 +213,8 @@ export default function AboutPage() {
                     >
                       <MessageCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p style={{ fontSize: '13.53px', fontWeight: 500 }}>WhatsApp</p>
-                        <p className="text-muted-foreground" style={{ fontSize: '12.8px' }}>Chat with us</p>
+                        <p style={{ fontSize: '13.53px', fontWeight: 500 }}>{tc('whatsapp')}</p>
+                        <p className="text-muted-foreground" style={{ fontSize: '12.8px' }}>{tc('chatWithUs')}</p>
                       </div>
                     </a>
                     <a
@@ -201,14 +223,14 @@ export default function AboutPage() {
                     >
                       <Mail className="h-5 w-5 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p style={{ fontSize: '13.53px', fontWeight: 500 }}>Email</p>
+                        <p style={{ fontSize: '13.53px', fontWeight: 500 }}>{tc('email')}</p>
                         <p className="text-muted-foreground" style={{ fontSize: '12.8px' }}>info@ideallivs.com</p>
                       </div>
                     </a>
                     <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
                       <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p style={{ fontSize: '13.53px', fontWeight: 500 }}>Visit Store</p>
+                        <p style={{ fontSize: '13.53px', fontWeight: 500 }}>{tc('visitStore')}</p>
                         <p className="text-muted-foreground" style={{ fontSize: '12.8px' }}>
                           Bandhagsplan 4, Stockholm
                         </p>
@@ -235,17 +257,17 @@ export default function AboutPage() {
                     lineHeight: 1.52,
                     letterSpacing: '0.03em'
                   }} className="mb-2">
-                    Ready to Shop?
+                    {tc('readyToShop')}
                   </h3>
                   <p className="text-muted-foreground mb-4" style={{ fontSize: '13.53px' }}>
-                    Explore our full range of 150+ brands online.
+                    {t('exploreBrands')}
                   </p>
                   <Link
                     href="/shop"
                     className="inline-block w-full text-center px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
                     style={{ fontSize: '13.53px', fontWeight: 500 }}
                   >
-                    Start Shopping
+                    {tc('startShopping')}
                   </Link>
                 </div>
               </div>

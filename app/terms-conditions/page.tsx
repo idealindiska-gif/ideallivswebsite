@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
 import { FileText, ShoppingCart, CreditCard, Truck, Scale, Shield, Mail, MessageCircle, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions | Ideal Indiska LIVS',

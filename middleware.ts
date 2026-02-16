@@ -1,8 +1,13 @@
+import createMiddleware from 'next-intl/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { routing } from './i18n.config';
+
+// next-intl middleware for locale detection and routing
+const intlMiddleware = createMiddleware(routing);
 
 /**
- * Handle legacy redirects - simplified without locale routing
+ * Handle legacy redirects
  */
 function handleLegacyRedirects(request: NextRequest): NextResponse | null {
   const { pathname } = request.nextUrl;
@@ -28,12 +33,6 @@ function handleLegacyRedirects(request: NextRequest): NextResponse | null {
 
   if (oldCategoryPaths[pathname]) {
     return NextResponse.redirect(new URL(oldCategoryPaths[pathname], request.url), 301);
-  }
-
-  // Redirect /sv/* to non-locale version (disable Swedish)
-  if (pathname.startsWith('/sv/') || pathname === '/sv') {
-    const newPath = pathname.replace('/sv', '') || '/';
-    return NextResponse.redirect(new URL(newPath, request.url), 301);
   }
 
   // /shop/category/* → /product-category/*
@@ -81,12 +80,12 @@ function handleLegacyRedirects(request: NextRequest): NextResponse | null {
 }
 
 /**
- * Simplified Middleware - Multilingual DISABLED
- * 
+ * Middleware
+ *
  * Handles:
  * 1. WWW redirect for SEO
  * 2. Legacy URL redirects
- * 3. Redirects /sv/* to non-locale version
+ * 3. next-intl locale routing (English = no prefix, Swedish = /sv/)
  */
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
@@ -102,22 +101,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // ============================================================================
-  // FORCE WWW REDIRECT (SEO Recovery)
-  // ============================================================================
+  // FORCE WWW REDIRECT (SEO)
   if (host === 'ideallivs.com') {
     url.host = 'www.ideallivs.com';
     return NextResponse.redirect(url, 301);
   }
 
-  // ============================================================================
-  // LEGACY REDIRECTS
-  // ============================================================================
+  // LEGACY REDIRECTS (must come before intl middleware)
   const legacyRedirect = handleLegacyRedirects(request);
   if (legacyRedirect) return legacyRedirect;
 
-  // No locale routing - just pass through
-  return NextResponse.next();
+  // next-intl handles locale detection and routing
+  // English: no prefix (/) — Swedish: /sv/ prefix
+  return intlMiddleware(request);
 }
 
 /**

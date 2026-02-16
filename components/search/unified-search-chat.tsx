@@ -12,7 +12,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { cn, decodeHtmlEntities } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { searchKnowledgeBase, getGreeting } from '@/lib/knowledge-base';
 import { FeedbackForm } from '@/components/ai/feedback-form';
 

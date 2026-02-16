@@ -1,5 +1,4 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n.config';
 
@@ -26,12 +25,7 @@ export default async function LocaleLayout({
     // Enable static rendering
     setRequestLocale(locale);
 
-    // Providing all messages to the client
-    const messages = await getMessages();
-
-    return (
-        <NextIntlClientProvider messages={messages}>
-            {children}
-        </NextIntlClientProvider>
-    );
+    // NextIntlClientProvider is in the root layout (app/layout.tsx)
+    // This layout just validates the locale and enables static rendering
+    return <>{children}</>;
 }

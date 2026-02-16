@@ -13,7 +13,7 @@ export function GeoMetaTags() {
       <meta name="ICBM" content="59.2700036, 18.0486904" />
 
       {/* Language and Region */}
-      <meta httpEquiv="content-language" content="sv-SE" />
+      <meta httpEquiv="content-language" content="en" />
 
       {/* Robots - Allow indexing but be clear about region */}
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />

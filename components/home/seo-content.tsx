@@ -1,8 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export function SeoContent() {
+    const t = useTranslations('seo');
     return (
         <section className="w-full py-16 border-t border-border/50">
             <div className="container-wide mx-auto px-[var(--container-padding)]">
@@ -15,13 +17,13 @@ export function SeoContent() {
                         className="space-y-6"
                     >
                         <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
-                            Din Premier Destination för <span className="text-primary">Indiska & Pakistanska Livsmedel</span> i Stockholm
+                            {t('premierDestination')}
                         </h2>
                         <p className="text-muted-foreground leading-relaxed">
-                            Based in the heart of Bandhagen, <strong>Ideal Indiska LIVS</strong> is Stockholm&apos;s most authentic source for South Asian groceries. Vi erbjuder ett brett sortiment av <strong>Indiska kryddor</strong>, premium <strong>Basmatiris</strong>, och färskt <strong>Halal kött</strong>.
+                            {t('seoP1')}
                         </p>
                         <p className="text-muted-foreground leading-relaxed">
-                            Looking for authentic brands? We stock <em>Shan</em>, <em>National Foods</em>, <em>Haldiram&apos;s</em>, and <em>Ashoka</em>. Oavsett om du bor i Stockholm eller beställer online, we bring the true taste of India and Pakistan to your kitchen.
+                            {t('seoP2')}
                         </p>
                     </motion.div>
 
@@ -32,23 +34,23 @@ export function SeoContent() {
                         transition={{ duration: 0.8 }}
                         className="bg-card border border-border/50 p-8 rounded-3xl shadow-sm space-y-4"
                     >
-                        <h3 className="text-xl font-bold font-heading">Why Stockholm Chooses Ideal Indiska LIVS</h3>
+                        <h3 className="text-xl font-bold font-heading">{t('whyChooseUs')}</h3>
                         <ul className="space-y-4">
                             <li className="flex gap-4">
                                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">1</span>
-                                <p className="text-sm text-muted-foreground"><strong>Unmatched Freshness:</strong> Our fresh produce and vegetables are restocked daily to ensure the highest quality for your kitchen.</p>
+                                <p className="text-sm text-muted-foreground">{t('unmatchedFreshness')}</p>
                             </li>
                             <li className="flex gap-4">
                                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">2</span>
-                                <p className="text-sm text-muted-foreground"><strong>European-Wide Delivery:</strong> Not in Stockholm? No problem. We ship our authentic pantry staples across all of Europe via DHL.</p>
+                                <p className="text-sm text-muted-foreground">{t('europeanDelivery')}</p>
                             </li>
                             <li className="flex gap-4">
                                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">3</span>
-                                <p className="text-sm text-muted-foreground"><strong>Customer-First Service:</strong> Our team is passionate about South Asian cuisine and is always here to help you find the right ingredients for your next masterpiece.</p>
+                                <p className="text-sm text-muted-foreground">{t('customerFirst')}</p>
                             </li>
                             <li className="flex gap-4">
                                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">4</span>
-                                <p className="text-sm text-muted-foreground"><strong>Secure Online Shopping:</strong> Enjoy a seamless, mobile-friendly shopping experience with secure payments via Klarna, Swish, and Stripe.</p>
+                                <p className="text-sm text-muted-foreground">{t('secureOnline')}</p>
                             </li>
                         </ul>
                     </motion.div>

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { User } from 'lucide-react';
 import type { Author } from '@/types/wordpress';
 

@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/shop/product-card";
 import type { Product } from "@/types/woocommerce";
+import { useTranslations } from 'next-intl';
 
 interface ProductShowcaseProps {
     title: string;
@@ -13,6 +14,7 @@ interface ProductShowcaseProps {
 }
 
 export function ProductShowcase({ title, products, moreLink = "/shop" }: ProductShowcaseProps) {
+    const t = useTranslations('home');
     if (!products || products.length === 0) return null;
 
     return (
@@ -25,8 +27,8 @@ export function ProductShowcase({ title, products, moreLink = "/shop" }: Product
                     </h2>
                     <Button variant="outline" size="sm" className="rounded-full text-xs h-8" asChild>
                         <Link href={moreLink}>
-                            <span className="hidden sm:inline">More</span>
-                            <span className="sm:hidden">View</span>
+                            <span className="hidden sm:inline">{t('more')}</span>
+                            <span className="sm:hidden">{t('view')}</span>
                             <ArrowRight className="ml-1 h-3 w-3" />
                         </Link>
                     </Button>

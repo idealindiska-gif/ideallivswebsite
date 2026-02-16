@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getCategoryBySlug, getPostsByCategoryPaginated } from '@/lib/wordpress';

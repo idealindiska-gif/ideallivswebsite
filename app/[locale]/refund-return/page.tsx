@@ -1,17 +1,27 @@
-import { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
 import { RotateCcw, Package, Clock, CheckCircle2, XCircle, Mail, MessageCircle, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
+import { getTranslations } from 'next-intl/server';
+import { getAlternates } from '@/lib/seo/metadata';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-    title: 'Refund & Return Policy | Ideal Indiska LIVS',
-    description: '14-day return policy for eligible items. Learn about our return process for customers in Sweden and Europe.',
-    alternates: {
-        canonical: '/refund-return',
-    },
-};
+interface PageProps {
+    params: Promise<{ locale: string }>;
+}
 
-export default function RefundReturnPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { locale } = await params;
+    return {
+        title: locale === 'sv' ? 'Retur- & Återbetalningspolicy | Ideal Indiska LIVS' : 'Refund & Return Policy | Ideal Indiska LIVS',
+        description: locale === 'sv'
+            ? '14 dagars returpolicy för berättigade varor. Läs om vår returprocess för kunder i Sverige och Europa.'
+            : '14-day return policy for eligible items. Learn about our return process for customers in Sweden and Europe.',
+        alternates: getAlternates('/refund-return'),
+    };
+}
+
+export default async function RefundReturnPage({ params }: PageProps) {
+    const t = await getTranslations('refund');
     return (
         <main className="min-h-screen bg-background">
             {/* Hero Section */}
@@ -24,7 +34,7 @@ export default function RefundReturnPage() {
                             lineHeight: 1.47,
                             letterSpacing: '0.02em'
                         }} className="mb-4">
-                            Refund & Return Policy
+                            {t('title')}
                         </h1>
                         <p className="text-muted-foreground" style={{
                             fontSize: '16px',
@@ -32,7 +42,7 @@ export default function RefundReturnPage() {
                             lineHeight: 1.52,
                             letterSpacing: '0.03em'
                         }}>
-                            Your satisfaction is our top priority. We are committed to providing a clear and fair return process for our customers across Sweden and Europe.
+                            {t('subtitle')}
                         </p>
                     </div>
                 </div>
@@ -46,7 +56,7 @@ export default function RefundReturnPage() {
                         <div className="lg:col-span-2 space-y-12">
                             {/* Overview */}
                             <div>
-                                <p className="text-muted-foreground mb-4" style={{ fontSize: '14.31px' }}>Last Updated: September 20, 2025</p>
+                                <p className="text-muted-foreground mb-4" style={{ fontSize: '14.31px' }}>{t('lastUpdated')}</p>
                                 <div className="space-y-6 text-muted-foreground" style={{
                                     fontSize: '16px',
                                     fontWeight: 400,

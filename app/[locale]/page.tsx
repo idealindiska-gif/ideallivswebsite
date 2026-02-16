@@ -1,4 +1,3 @@
-import { Hero } from "@/components/home/hero";
 import { CategoryGrid } from "@/components/home/category-grid";
 import { PromotionGrid } from "@/components/home/promotion-grid";
 import { BannerStrip } from "@/components/home/banner-strip";
@@ -102,62 +101,55 @@ export default async function LocaleHomePage({ params }: PageProps) {
 
     return (
         <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
-            {/* 1. Hero Section */}
-            <Hero
-                title={t('heroTitle')}
-                subtitle={t('heroSubtitle')}
-                badge={t('heroBadge')}
-            />
+            {/* 1. Promotion Cards (first card contains the page H1) */}
+            <PromotionGrid promotionProducts={dealProducts} />
 
-            {/* 2. Features/Benefits Section */}
-            <Features />
-
-            {/* 3. Top Categories */}
+            {/* 2. Top Categories */}
             <CategoryGrid categories={categories} />
 
-            {/* 4. Promotion/Deals Grid */}
-            <PromotionGrid />
-
-            {/* 5. Special Offers */}
+            {/* 3. Special Offers */}
             <ProductShowcase
                 title={t('specialOffers')}
                 products={dealProducts}
                 moreLink={`${linkPrefix}/deals`}
             />
 
-            {/* 6. Banner Strip */}
+            {/* 3. Banner Strip */}
             <BannerStrip />
 
-            {/* 7. Trending Products */}
+            {/* 4. Trending Products */}
             <ProductShowcase
                 title={t('customerFavorites')}
                 products={trendingProducts}
                 moreLink={`${linkPrefix}/shop?sort=bestsellers`}
             />
 
-            {/* 8. Haldiram Section */}
+            {/* 5. Haldiram Section */}
             <ProductShowcase
                 title={t('haldiramSection')}
                 products={haldiramProducts}
                 moreLink={`${linkPrefix}/brand/haldiram`}
             />
 
-            {/* 9. New Arrivals */}
+            {/* 6. New Arrivals */}
             <ProductShowcase
                 title={t('freshArrivals')}
                 products={newProducts}
                 moreLink={`${linkPrefix}/shop?sort=new`}
             />
 
-            {/* 10. Fresh Produce Section */}
+            {/* 7. Fresh Produce Section */}
             <ProductShowcase
                 title={t('freshProduce')}
                 products={freshProduceProducts}
                 moreLink={`${linkPrefix}/product-category/fresh-produce`}
             />
 
-            {/* 11. SEO & Brand Content */}
+            {/* 8. SEO & Brand Content */}
             <SeoContent />
+
+            {/* 10. Features/Benefits Section */}
+            <Features />
 
             {/* ========== SEO STRUCTURED DATA ========== */}
             {/* Note: Organization and WebSite schemas are in layout.tsx (global) */}

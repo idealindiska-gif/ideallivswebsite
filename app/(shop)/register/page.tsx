@@ -1,6 +1,6 @@
 import { RegisterForm } from '@/components/auth/register-form';
 import { Section, Container } from '@/components/craft';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 
 export default function RegisterPage() {
     return (

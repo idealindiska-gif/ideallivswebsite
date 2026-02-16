@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

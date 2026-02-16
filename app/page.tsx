@@ -16,14 +16,14 @@ export const revalidate = 3600;
 const BASE_URL = "https://www.ideallivs.com";
 
 export const metadata: Metadata = {
-  title: "Ideal Indiska LIVS - Indian & Pakistani Groceries Stockholm",
-  description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, spices, Halal meat & fresh produce. Fast delivery Europe-wide.",
+  title: "Indian & Pakistani Grocery Store Stockholm | Buy Online | Ideal Livs",
+  description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, halal meat & fresh produce. Fast delivery across Sweden & Europe. Order now!",
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: "Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm",
-    description: "Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, premium Basmati rice, and halal meat delivered to your door.",
+    title: "Indian & Pakistani Grocery Store Stockholm | Buy Online | Ideal Livs",
+    description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, halal meat & fresh produce. Fast delivery across Sweden & Europe. Order now!",
     url: BASE_URL,
     siteName: "Ideal Indiska LIVS",
     images: [
@@ -34,13 +34,13 @@ export const metadata: Metadata = {
         alt: "Ideal Indiska LIVS Store - Indian & Pakistani Groceries",
       },
     ],
-    locale: "sv_SE",
+    locale: "en_SE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm",
-    description: "Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, premium Basmati rice, and halal meat delivered to your door.",
+    title: "Indian & Pakistani Grocery Store Stockholm | Buy Online | Ideal Livs",
+    description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, halal meat & fresh produce. Fast delivery across Sweden & Europe. Order now!",
     images: ["https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png"],
   },
   robots: {
@@ -94,10 +94,7 @@ export default async function HomePage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
-      {/* Hidden H1 for SEO - Describes the main topic of the page */}
-      <h1 className="sr-only">Ideal Indiska LIVS - Indian & Pakistani Grocery Store Stockholm</h1>
-
-      {/* 1. New Hero: Promotion/Deals Grid */}
+      {/* 1. Promotion Cards (first card contains the page H1) */}
       <PromotionGrid promotionProducts={dealProducts} />
 
       {/* 2. Top Categories */}
@@ -110,41 +107,41 @@ export default async function HomePage() {
         moreLink="/deals"
       />
 
-      {/* 5. Banner Strip */}
+      {/* 3. Banner Strip */}
       <BannerStrip />
 
-      {/* 6. Trending Products */}
+      {/* 4. Trending Products */}
       <ProductShowcase
         title="Customer Favorites - Most Popular Items"
         products={trendingProducts}
         moreLink="/shop?sort=bestsellers"
       />
 
-      {/* 7. Haldiram Section */}
+      {/* 5. Haldiram Section */}
       <ProductShowcase
         title="Haldiram's - Authentic Indian Snacks"
         products={haldiramProducts}
         moreLink="/brand/haldiram"
       />
 
-      {/* 8. New Arrivals */}
+      {/* 6. New Arrivals */}
       <ProductShowcase
         title="Fresh Arrivals - New Stock Just In"
         products={newProducts}
         moreLink="/shop?sort=new"
       />
 
-      {/* 9. Fresh Produce Section */}
+      {/* 7. Fresh Produce Section */}
       <ProductShowcase
         title="Fresh Produce - Fruits & Vegetables"
         products={freshProduceProducts}
         moreLink="/product-category/fresh-produce"
       />
 
-      {/* 11. SEO & Brand Content (NEW) */}
+      {/* 8. SEO & Brand Content */}
       <SeoContent />
 
-      {/* 12. Features/Benefits Section */}
+      {/* 10. Features/Benefits Section */}
       <Features />
 
       {/* ========== SEO STRUCTURED DATA ========== */}

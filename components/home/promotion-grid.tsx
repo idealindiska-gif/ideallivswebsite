@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { ArrowRight, Truck, Globe, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/woocommerce";
@@ -9,12 +9,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { getDiscountPercentage } from "@/lib/woocommerce/products";
 import { CurrencyPrice } from "@/components/ui/currency-price";
+import { useTranslations } from 'next-intl';
 
 interface PromotionGridProps {
     promotionProducts?: Product[];
 }
 
 export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
+    const t = useTranslations('promo');
+    const tc = useTranslations('common');
     const [currentProductIndex, setCurrentProductIndex] = useState(0);
     const [currentDeliveryIndex, setCurrentDeliveryIndex] = useState(0);
 
@@ -55,19 +58,19 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                 <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
                                     <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-yellow-100/90 border border-yellow-600/20 text-emerald-900 text-[9px] md:text-xs font-bold uppercase tracking-wider shadow-sm">
                                         <Sparkles className="inline-block w-2.5 h-2.5 md:w-3 md:h-3 mr-1 -mt-0.5 text-emerald-700" />
-                                        Premium Quality
+                                        {t('premiumQuality')}
                                     </span>
-                                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-emerald-950 drop-shadow-sm leading-tight tracking-tight">
-                                        Indian & <br />Pakistani
-                                    </h2>
+                                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-emerald-950 drop-shadow-sm leading-tight tracking-tight">
+                                        {t('indianPakistani')}
+                                    </h1>
                                 </div>
 
                                 <div className="space-y-1.5 md:space-y-4 mb-1 md:mb-2 w-full px-1">
                                     <p className="text-emerald-950/70 text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed line-clamp-2 md:line-clamp-none">
-                                        Authentic Basmati Rice, Spices & Halal Meat
+                                        {t('authenticRice')}
                                     </p>
                                     <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-emerald-900 hover:bg-emerald-800 text-yellow-50 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-emerald-900/20 transition-all hover:scale-105">
-                                        Shop Now <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5 text-yellow-400" />
+                                        {tc('shopNow')} <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5 text-yellow-400" />
                                     </Button>
                                 </div>
                             </div>
@@ -86,19 +89,19 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                             <div className="absolute inset-0 p-3 sm:p-4 md:p-6 flex flex-col justify-between items-center text-center z-10">
                                 <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
                                     <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-emerald-900/50 border border-emerald-500/30 text-emerald-200 text-[9px] md:text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                                        Ramadan Special
+                                        {t('ramadanSpecial')}
                                     </span>
                                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 drop-shadow-sm leading-tight">
-                                        Mega<br />Savings
+                                        {t('megaSavings')}
                                     </h2>
                                 </div>
 
                                 <div className="space-y-1.5 md:space-y-4 mb-1 md:mb-2 w-full px-1">
                                     <p className="text-emerald-100/80 text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed line-clamp-2 md:line-clamp-none">
-                                        Exclusive discounts on Dates, Rice, Spices & More
+                                        {t('exclusiveDiscounts')}
                                     </p>
                                     <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-yellow-400 hover:bg-yellow-500 text-green-950 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-yellow-400/20 transition-all hover:scale-105">
-                                        View All Deals <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5" />
+                                        {t('viewAllDeals')} <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5" />
                                     </Button>
                                 </div>
                             </div>
@@ -126,7 +129,7 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                     <div className="space-y-1 md:space-y-2 mt-2 md:mt-4 w-full">
                                         <div className="flex justify-center gap-2">
                                             <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-yellow-100/90 border border-yellow-600/20 text-emerald-900 text-[9px] md:text-xs font-bold uppercase tracking-wider shadow-sm">
-                                                Hot Deal
+                                                {t('hotDeal')}
                                             </span>
                                             <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-emerald-900 text-yellow-400 text-[9px] md:text-xs font-bold uppercase tracking-wider shadow-sm">
                                                 -{getDiscountPercentage(sliderProducts[currentProductIndex])}%
@@ -161,11 +164,11 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                     {/* Bottom Content */}
                                     <div className="space-y-1 md:space-y-2 mb-1 md:mb-2 w-full px-1 z-20">
                                         <p className="hidden md:block text-emerald-950/70 text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed line-clamp-1">
-                                            Limited Time Offer
+                                            {t('limitedTimeOffer')}
                                         </p>
                                         <Link href={`/product/${sliderProducts[currentProductIndex]?.slug}`} className="block w-full sm:w-auto">
                                             <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-emerald-900 hover:bg-emerald-800 text-yellow-50 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-emerald-900/20 transition-all hover:scale-105">
-                                                View Deal <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5 text-yellow-400" />
+                                                {t('viewDeal')} <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5 text-yellow-400" />
                                             </Button>
                                         </Link>
                                     </div>
@@ -175,16 +178,16 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                             <div className="absolute inset-0 p-3 sm:p-4 md:p-6 flex flex-col justify-between items-center text-center z-10">
                                 <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
                                     <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-yellow-100/90 border border-yellow-600/20 text-emerald-900 text-[9px] md:text-xs font-bold uppercase tracking-wider shadow-sm">
-                                        Special Offers
+                                        {t('specialOffers')}
                                     </span>
                                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-emerald-950 drop-shadow-sm leading-tight tracking-tight">
-                                        Seasonal<br />Deals
+                                        {t('seasonalDeals')}
                                     </h2>
                                 </div>
                                 <div className="space-y-1 md:space-y-2 mb-1 md:mb-2 w-full px-1">
                                     <Link href="/deals">
                                         <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-emerald-900 hover:bg-emerald-800 text-yellow-50 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-emerald-900/20 transition-all hover:scale-105">
-                                            View Deals <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5 text-yellow-400" />
+                                            {t('viewDeals')} <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5 text-yellow-400" />
                                         </Button>
                                     </Link>
                                 </div>
@@ -225,20 +228,20 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                     <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
                                         <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-emerald-900/50 border border-emerald-500/30 text-emerald-200 text-[9px] md:text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
                                             <Truck className="inline-block w-2.5 h-2.5 md:w-3 md:h-3 mr-1 -mt-0.5" />
-                                            Stockholm
+                                            {t('stockholm')}
                                         </span>
                                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 drop-shadow-sm leading-tight">
-                                            Same-Day<br />Delivery
+                                            {t('sameDayDelivery')}
                                         </h2>
                                     </div>
 
                                     <div className="space-y-1.5 md:space-y-4 mb-1 md:mb-2 w-full px-1">
                                         <p className="text-emerald-100/80 text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed">
-                                            Free over 500 kr
+                                            {t('freeOver500')}
                                         </p>
                                         <Link href="/delivery-information" className="block w-full sm:w-auto">
                                             <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-yellow-400 hover:bg-yellow-500 text-green-950 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-yellow-400/20 transition-all hover:scale-105">
-                                                Book a Slot <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5" />
+                                                {t('bookSlot')} <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5" />
                                             </Button>
                                         </Link>
                                     </div>
@@ -255,10 +258,10 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                     <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
                                         <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-emerald-900/50 border border-emerald-500/30 text-emerald-200 text-[9px] md:text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
                                             <Globe className="inline-block w-2.5 h-2.5 md:w-3 md:h-3 mr-1 -mt-0.5" />
-                                            EU Shipping
+                                            {t('euShipping')}
                                         </span>
                                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 drop-shadow-sm leading-tight">
-                                            Europe<br />Wide
+                                            {t('europeWide')}
                                         </h2>
                                     </div>
                                     <div className="space-y-1.5 md:space-y-4 mb-1 md:mb-2 w-full px-1">
@@ -271,7 +274,7 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                                         </div>
                                         <Link href="/europe-delivery" className="block w-full sm:w-auto">
                                             <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-yellow-400 hover:bg-yellow-500 text-green-950 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-yellow-400/20 transition-all hover:scale-105">
-                                                Shipping Rates <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5" />
+                                                {t('shippingRates')} <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5" />
                                             </Button>
                                         </Link>
                                     </div>

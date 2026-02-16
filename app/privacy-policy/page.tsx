@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
 import { ShieldCheck, Lock, Eye, FileText, MessageCircle, Mail, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Ideal Indiska LIVS',
