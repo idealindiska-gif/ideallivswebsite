@@ -12,6 +12,7 @@ export async function GET() {
 
     const sitemaps = [
         `${baseUrl}/sv/sitemap-pages.xml`,
+        `${baseUrl}/sv/sitemap-posts.xml`,
         `${baseUrl}/sv/sitemap-delivery.xml`,
         `${baseUrl}/sv/sitemap-product-categories.xml`,
         `${baseUrl}/sv/sitemap-product-brands.xml`,

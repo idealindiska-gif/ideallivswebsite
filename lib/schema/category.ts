@@ -19,6 +19,7 @@ export function categorySchema(
   options?: {
     brandName?: string;
     sellerName?: string;
+    locale?: string;
   }
 ): CollectionPage {
   const schema: CollectionPage = {
@@ -28,6 +29,11 @@ export function categorySchema(
     name: category.name,
     url: category.url,
   };
+
+  // Add language metadata
+  if (options?.locale) {
+    schema.inLanguage = options.locale === 'sv' ? 'sv-SE' : 'en-US';
+  }
 
   // Description
   const description = sanitizeSchemaText(category.description);
@@ -48,6 +54,7 @@ export function categorySchema(
       productListItem(product, index + 1, {
         brandName: options?.brandName,
         sellerName: options?.sellerName,
+        locale: options?.locale,
       })
     );
 
@@ -111,6 +118,7 @@ export function wooCategorySchema(
     brandName?: string;
     sellerName?: string;
     websiteId?: string;
+    locale?: string;
   }
 ): CollectionPage {
   // Build category URL
@@ -159,6 +167,7 @@ export function wooCategorySchema(
     {
       brandName: options.brandName || 'Ideal Indiska LIVS',
       sellerName: options.sellerName || 'Ideal Indiska LIVS',
+      locale: options.locale,
     }
   );
 }

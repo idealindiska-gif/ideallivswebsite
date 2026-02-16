@@ -95,12 +95,20 @@ export function organizationSchema(config: OrganizationInput): Organization {
  * Pre-configured Ideal Indiska LIVS Organization Schema
  * Grocery Store focused schema with delivery services
  * Now includes Google Business Profile linking for Local SEO
+ *
+ * @param baseUrl - Base URL of the website
+ * @param locale - Locale for language-specific content (default: 'en')
  */
-export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.ideallivs.com'): Organization {
+export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.ideallivs.com', locale: string = 'en'): Organization {
+  const descriptions = {
+    en: 'Indian & Pakistani Grocery Store in Stockholm, now delivering across Europe with DHL. Free delivery from 500kr in Stockholm (min. order 300kr with 30kr fee). Same-day delivery available.',
+    sv: 'Indisk & Pakistansk livsmedelsbutik i Stockholm, nu med leverans över hela Europa via DHL. Fri leverans från 500kr i Stockholm (min. beställning 300kr med 30kr avgift). Samma dag leverans finns tillgänglig.'
+  };
+
   const schema = organizationSchema({
     name: 'Ideal Indiska LIVS',
     alternateName: 'Ideal Livs',
-    description: 'Indian & Pakistani Grocery Store in Stockholm, now delivering across Europe with DHL. Free delivery from 500kr in Stockholm (min. order 300kr with 30kr fee). Same-day delivery available.',
+    description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
     url: baseUrl,
     logo: 'https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png',
     image: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/ideal-indiska-livs-stockholm.jpg',
@@ -141,6 +149,8 @@ export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.id
   // Add Google Business Profile specific properties
   return {
     ...schema,
+    // Language
+    inLanguage: locale === 'sv' ? 'sv-SE' : 'en-US',
     // Direct link to Google Maps (hasMap property)
     hasMap: 'https://www.google.com/maps?cid=15139028879935821411',
     // Google Place identifier
@@ -163,34 +173,62 @@ export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.id
 /**
  * Full-featured Ideal Indiska LIVS Organization Schema
  * Includes delivery services, payment methods, and service areas
+ *
+ * @param baseUrl - Base URL of the website
+ * @param locale - Locale for language-specific content (default: 'en')
  */
-export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://www.ideallivs.com'): Organization {
-  const baseSchema = idealIndiskaOrganizationSchema(baseUrl);
+export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://www.ideallivs.com', locale: string = 'en'): Organization {
+  const baseSchema = idealIndiskaOrganizationSchema(baseUrl, locale);
+
+  const slogans = {
+    en: 'Everything You Need. Just Around the Corner.',
+    sv: 'Allt du behöver. Precis runt hörnet.'
+  };
+
+  // Payment methods - Swish first for Swedish version
+  const paymentMethods = locale === 'sv'
+    ? [
+        'Swish',
+        'Klarna',
+        'Credit Card',
+        'Debit Card',
+        'Visa',
+        'MasterCard',
+        'Apple Pay',
+        'Google Pay',
+        'Cash',
+      ]
+    : [
+        'Credit Card',
+        'Debit Card',
+        'Visa',
+        'MasterCard',
+        'Apple Pay',
+        'Google Pay',
+        'Klarna',
+        'Swish',
+        'Cash',
+      ];
+
+  const catalogDescriptions = {
+    en: 'Complete range of authentic Indian and Pakistani food products',
+    sv: 'Komplett sortiment av autentiska indiska och pakistanska livsmedelsprodukter'
+  };
 
   return {
     ...baseSchema,
 
-    slogan: 'Everything You Need. Just Around the Corner.',
+    slogan: slogans[locale as keyof typeof slogans] || slogans.en,
 
     // Payment methods
-    paymentAccepted: [
-      'Credit Card',
-      'Debit Card',
-      'Visa',
-      'MasterCard',
-      'Apple Pay',
-      'Google Pay',
-      'Klarna',
-      'Swish',
-      'Cash',
-    ],
+    paymentAccepted: paymentMethods,
     currenciesAccepted: 'SEK',
 
     // Products/Categories offered
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Indian & Pakistani Groceries',
-      description: 'Complete range of authentic Indian and Pakistani food products',
+      name: locale === 'sv' ? 'Indiska & Pakistanska Livsmedel' : 'Indian & Pakistani Groceries',
+      description: catalogDescriptions[locale as keyof typeof catalogDescriptions] || catalogDescriptions.en,
     },
 
     // Knowledge areas
@@ -209,8 +247,10 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       // Stockholm Delivery (300-499kr)
       {
         '@type': 'Offer',
-        name: 'Stockholm Delivery',
-        description: 'Local delivery within Stockholm for orders under 500kr',
+        name: locale === 'sv' ? 'Stockholmsleverans' : 'Stockholm Delivery',
+        description: locale === 'sv'
+          ? 'Lokal leverans inom Stockholm för beställningar under 500kr'
+          : 'Local delivery within Stockholm for orders under 500kr',
         priceSpecification: {
           '@type': 'DeliveryChargeSpecification',
           price: '30.00',
@@ -261,8 +301,10 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       // FREE Stockholm Delivery (500kr+)
       {
         '@type': 'Offer',
-        name: 'FREE Stockholm Delivery',
-        description: 'Free delivery for orders 500kr and above',
+        name: locale === 'sv' ? 'GRATIS Stockholmsleverans' : 'FREE Stockholm Delivery',
+        description: locale === 'sv'
+          ? 'Gratis leverans för beställningar från 500kr och uppåt'
+          : 'Free delivery for orders 500kr and above',
         priceSpecification: {
           '@type': 'DeliveryChargeSpecification',
           price: '0.00',
@@ -312,8 +354,10 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       // Same-Day Delivery
       {
         '@type': 'Offer',
-        name: 'Same-Day Local Delivery',
-        description: 'Same-day delivery to nearby areas',
+        name: locale === 'sv' ? 'Samma dag leverans' : 'Same-Day Local Delivery',
+        description: locale === 'sv'
+          ? 'Samma dag leverans till närliggande områden'
+          : 'Same-day delivery to nearby areas',
         areaServed: [
           { '@type': 'Place', name: 'Bandhagen' },
           { '@type': 'Place', name: 'Hagsätra' },
@@ -354,8 +398,10 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       // DHL Europe Delivery
       {
         '@type': 'Offer',
-        name: 'DHL Europe Delivery',
-        description: 'Delivery to all of Europe with DHL. No minimum order value. Rates calculated at checkout.',
+        name: locale === 'sv' ? 'DHL Europaleverans' : 'DHL Europe Delivery',
+        description: locale === 'sv'
+          ? 'Leverans till hela Europa med DHL. Inget minimivärde. Priser beräknas i kassan.'
+          : 'Delivery to all of Europe with DHL. No minimum order value. Rates calculated at checkout.',
         areaServed: {
           '@type': 'DefinedRegion',
           addressCountry: [
@@ -403,21 +449,46 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       },
     ],
 
-    // Service areas
-    areaServed: [
-      {
-        '@type': 'City',
-        name: 'Stockholm',
-      },
-      {
-        '@type': 'Country',
-        name: 'Sweden',
-      },
-      {
-        '@type': 'Continent',
-        name: 'Europe',
-      },
-    ],
+    // Service areas - emphasize Swedish market for Swedish version
+    areaServed: locale === 'sv'
+      ? [
+          {
+            '@type': 'City',
+            name: 'Stockholm',
+          },
+          {
+            '@type': 'Country',
+            name: 'Sverige',
+            alternateName: 'Sweden',
+          },
+          {
+            '@type': 'AdministrativeArea',
+            name: 'Stockholms län',
+          },
+          {
+            '@type': 'Place',
+            name: 'Skandinavien',
+          },
+          {
+            '@type': 'Continent',
+            name: 'Europa',
+            alternateName: 'Europe',
+          },
+        ]
+      : [
+          {
+            '@type': 'City',
+            name: 'Stockholm',
+          },
+          {
+            '@type': 'Country',
+            name: 'Sweden',
+          },
+          {
+            '@type': 'Continent',
+            name: 'Europe',
+          },
+        ],
 
     // Amenities
     amenityFeature: [
@@ -462,7 +533,7 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
         '@type': 'EntryPoint',
         urlTemplate: baseUrl + '/shop/',
       },
-      name: 'Shop Online',
+      name: locale === 'sv' ? 'Handla Online' : 'Shop Online',
     },
   };
 }

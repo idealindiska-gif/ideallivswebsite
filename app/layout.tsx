@@ -221,13 +221,13 @@ export default async function RootLayout({
         <SpeedInsights />
         <AiChatWidget />
 
-        {/* Global SEO Schemas */}
+        {/* Global SEO Schemas - Locale-aware for Swedish/English */}
         <SchemaScript
           id="global-schema"
           schema={schemaGraph(
-            idealIndiskaWebsiteSchema(siteConfig.site_domain),
-            idealIndiskaOrganizationSchemaFull(siteConfig.site_domain),
-            idealLivsLocalBusinessSchema(),
+            idealIndiskaWebsiteSchema(siteConfig.site_domain, locale),
+            idealIndiskaOrganizationSchemaFull(siteConfig.site_domain, locale),
+            idealLivsLocalBusinessSchema(locale),
             siteNavigationSchema(siteConfig.site_domain)
           )}
         />

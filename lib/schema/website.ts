@@ -108,12 +108,20 @@ export function webpageSchema(config: {
 
 /**
  * Pre-configured Ideal Indiska WebSite Schema
+ *
+ * @param baseUrl - Base URL of the website
+ * @param locale - Locale for language-specific content (default: 'en')
  */
-export function idealIndiskaWebsiteSchema(baseUrl: string = 'https://www.ideallivs.com'): WebSite {
+export function idealIndiskaWebsiteSchema(baseUrl: string = 'https://www.ideallivs.com', locale: string = 'en'): WebSite {
+  const descriptions = {
+    en: 'Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, and premium grains.',
+    sv: 'Din pålitliga källa för autentiska indiska och pakistanska livsmedel i Stockholm. Färska råvaror, aromatiska kryddor och premiumgryn.'
+  };
+
   return websiteSchema({
     name: 'Ideal Indiska LIVS',
     url: baseUrl,
-    description: 'Your trusted source for authentic Indian and Pakistani groceries in Stockholm. Fresh produce, aromatic spices, and premium grains.',
+    description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
     organizationId: generateSchemaId(baseUrl, 'organization'),
     searchUrl: `${baseUrl}/shop`,
   });

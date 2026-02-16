@@ -31,6 +31,7 @@ export interface LocalBusinessSchemaProps {
     servesCuisine?: string[]
     paymentAccepted?: string[]
     currenciesAccepted?: string
+    locale?: string
 }
 
 export function localBusinessSchema(props: LocalBusinessSchemaProps) {
@@ -49,6 +50,7 @@ export function localBusinessSchema(props: LocalBusinessSchemaProps) {
         servesCuisine = ['Indian', 'Pakistani', 'South Asian'],
         paymentAccepted = ['Cash', 'Credit Card', 'Swish', 'Klarna'],
         currenciesAccepted = 'SEK',
+        locale = 'en',
     } = props
 
     const schema: any = {
@@ -61,6 +63,7 @@ export function localBusinessSchema(props: LocalBusinessSchemaProps) {
         email,
         priceRange,
         currenciesAccepted,
+        inLanguage: locale === 'sv' ? 'sv-SE' : 'en-US',
     }
 
     // Add description if provided
@@ -120,11 +123,27 @@ export function localBusinessSchema(props: LocalBusinessSchemaProps) {
 
 /**
  * Default LocalBusiness schema for Ideal Indiska LIVS
+ *
+ * @param locale - Locale for language-specific content (default: 'en')
  */
-export function idealLivsLocalBusinessSchema() {
+export function idealLivsLocalBusinessSchema(locale: string = 'en') {
+    const descriptions = {
+        en: "Stockholm's premier Indian and Pakistani grocery store offering authentic spices, Basmati rice, Halal meat, and fresh produce with fast delivery across Sweden.",
+        sv: 'Stockholms ledande indiska och pakistanska livsmedelsbutik med autentiska kryddor, Basmatris, Halalkött och färska råvaror med snabb leverans över hela Sverige.'
+    };
+
+    const cuisineTypes = locale === 'sv'
+        ? ['Indisk', 'Pakistansk', 'Sydasiatisk', 'Halal']
+        : ['Indian', 'Pakistani', 'South Asian', 'Halal'];
+
+    // Payment methods - Swish first for Swedish version
+    const paymentMethods = locale === 'sv'
+        ? ['Swish', 'Klarna', 'Kontanter', 'Kreditkort', 'Bankkort']
+        : ['Cash', 'Credit Card', 'Debit Card', 'Swish', 'Klarna'];
+
     return localBusinessSchema({
         name: 'Ideal Indiska LIVS',
-        description: "Stockholm's premier Indian and Pakistani grocery store offering authentic spices, Basmati rice, Halal meat, and fresh produce with fast delivery across Sweden.",
+        description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
         url: 'https://www.ideallivs.com',
         telephone: '+46728494801',
         email: 'hello@ideallivs.com',
@@ -154,8 +173,9 @@ export function idealLivsLocalBusinessSchema() {
         priceRange: '$$',
         image: 'https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png',
         logo: 'https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png',
-        servesCuisine: ['Indian', 'Pakistani', 'South Asian', 'Halal'],
-        paymentAccepted: ['Cash', 'Credit Card', 'Debit Card', 'Swish', 'Klarna'],
+        servesCuisine: cuisineTypes,
+        paymentAccepted: paymentMethods,
         currenciesAccepted: 'SEK',
+        locale,
     })
 }

@@ -536,5 +536,31 @@
     "soldOut": "Slutsåld",
     "onlyLeft": "Endast {count} kvar",
     "from": "Från"
+  },
+  "notFound": {
+    "title": "404 - Sidan kunde inte hittas",
+    "description": "Tyvärr, sidan du letar efter finns inte.",
+    "returnHome": "Tillbaka till startsidan"
+  },
+  "blog": {
+    "title": "Vår Blogg",
+    "subtitle": "Upptäck autentiska recept, matlaggningstips och de rika kulinariska traditionerna från indiskt och pakistanskt kök i Sverige.",
+    "newGuide": "Ny Guide",
+    "popular": "Populär",
+    "euGuide": "EU-Guide",
+    "seasonalGuide": "Säsongsguide",
+    "cultureLifestyle": "Kultur & Livsstil",
+    "shippingLogistics": "Frakt & Logistik",
+    "ramadanTitle": "Ramadan 2026: Viktig Inköpslista",
+    "ramadanDescription": "Förbered dig för Ramadan med vår samlade lista över Suhoor-kraftmat och Iftar-nödvändigheter. Upptäck specialerbjudanden på Atta, Ris, Dadlar och mer.",
+    "viewChecklist": "Visa Checklista",
+    "fikaTitle": "Den Indiska Fikan: 5 Salta Snacks till Te",
+    "fikaDescription": "Upplev den perfekta blandningen av svensk tradition och sydasiatisk krydda. Upptäck de bästa samosorna och namkeen.",
+    "readGuide": "Läs Guide",
+    "noCustomsTitle": "Varför Köp från Sverige Sparar Pengar",
+    "noCustomsDescription": "Lär dig hur du får indiska livsmedel levererade över hela Europa utan dolda tullavgifter och med snabb frakt.",
+    "noPostsFound": "Inga blogginlägg hittades. Kom tillbaka snart för nytt innehåll!",
+    "errorLoading": "Kunde inte ladda blogginlägg. Försök igen senare.",
+    "readMore": "Läs Mer"
   }
 }

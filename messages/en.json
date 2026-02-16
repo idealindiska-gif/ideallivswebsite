@@ -536,5 +536,31 @@
     "soldOut": "Sold Out",
     "onlyLeft": "Only {count} left",
     "from": "From"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist.",
+    "returnHome": "Return Home"
+  },
+  "blog": {
+    "title": "Our Blog",
+    "subtitle": "Discover authentic recipes, cooking tips, and the rich culinary traditions of Indian and Pakistani cuisine in Sweden.",
+    "newGuide": "New Guide",
+    "popular": "Popular",
+    "euGuide": "EU Guide",
+    "seasonalGuide": "Seasonal Guide",
+    "cultureLifestyle": "Culture & Lifestyle",
+    "shippingLogistics": "Shipping & Logistics",
+    "ramadanTitle": "Ramadan 2026: Essential Grocery Checklist",
+    "ramadanDescription": "Get ready for Ramadan with our curated list of Suhoor power-foods and Iftar essentials. Discover special deals on Atta, Rice, Dates, and more.",
+    "viewChecklist": "View Checklist",
+    "fikaTitle": "The Indian Fika: 5 Savory Snacks for Tea",
+    "fikaDescription": "Experience the perfect blend of Swedish tradition and South Asian spice. Discover the best samosas and namkeen.",
+    "readGuide": "Read Guide",
+    "noCustomsTitle": "Why Buying from Sweden Saves Money",
+    "noCustomsDescription": "Learn how to get Indian groceries delivered across Europe with zero hidden customs fees and fast shipping.",
+    "noPostsFound": "No blog posts found. Check back soon for new content!",
+    "errorLoading": "Failed to load blog posts. Please try again later.",
+    "readMore": "Read More"
   }
 }

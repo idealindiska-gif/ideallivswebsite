@@ -6,16 +6,23 @@ import { Button } from '@/components/ui/button';
 import { getPostsPaginated, getAllCategories, getAllTags } from '@/lib/wordpress';
 import { Post } from '@/lib/wordpress.d';
 import { brandConfig } from '@/config/brand.config';
+import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: `Blog - ${brandConfig.businessName}`,
-  description: `Read the latest articles, recipes, and news from ${brandConfig.businessName}. Discover authentic ${brandConfig.cuisineType} cuisine tips, cooking techniques, and restaurant updates.`,
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog' });
 
-// Helper function to format date
-function formatDate(dateString: string): string {
+  return {
+    title: `${t('title')} - ${brandConfig.businessName}`,
+    description: t('subtitle'),
+  };
+}
+
+// Helper function to format date with locale
+function formatDate(dateString: string, locale: string = 'en'): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString(locale === 'sv' ? 'sv-SE' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -53,7 +60,10 @@ function getCategoryNames(post: any): string[] {
   return [];
 }
 
-export default async function BlogPage() {
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog' });
+
   let posts: Post[] = [];
   let error: string | null = null;
 
@@ -61,7 +71,7 @@ export default async function BlogPage() {
     const response = await getPostsPaginated(1, 12);
     posts = response.data;
   } catch (err) {
-    error = 'Failed to load blog posts. Please try again later.';
+    error = t('errorLoading');
     console.error('Error fetching blog posts:', err);
   }
 
@@ -71,10 +81,10 @@ export default async function BlogPage() {
       <section className="bg-primary text-primary-foreground py-16 md:py-24">
         <div className="container px-4 md:px-6 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-            Our Blog
+            {t('title')}
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-            Discover authentic recipes, cooking tips, and the rich culinary traditions of Indian and Pakistani cuisine in Sweden.
+            {t('subtitle')}
           </p>
         </div>
       </section>
@@ -87,22 +97,22 @@ export default async function BlogPage() {
             <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
               <Image
                 src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
-                alt="Ramadan 2026 Grocery Guide"
+                alt={t('ramadanTitle')}
                 fill
                 className="object-cover"
               />
               <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                New Guide
+                {t('newGuide')}
               </div>
             </div>
             <div className="flex-1 space-y-4">
-              <div className="text-sm font-medium text-primary uppercase tracking-widest">Seasonal Guide</div>
-              <h2 className="text-2xl md:text-3xl font-bold font-heading">Ramadan 2026: Essential Grocery Checklist</h2>
+              <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('seasonalGuide')}</div>
+              <h2 className="text-2xl md:text-3xl font-bold font-heading">{t('ramadanTitle')}</h2>
               <p className="text-muted-foreground line-clamp-3">
-                Get ready for Ramadan with our curated list of Suhoor power-foods and Iftar essentials. Discover special deals on Atta, Rice, Dates, and more.
+                {t('ramadanDescription')}
               </p>
               <Button asChild className="rounded-full px-8">
-                <Link href="/blog/ramadan-2026">View Checklist</Link>
+                <Link href="/blog/ramadan-2026">{t('viewChecklist')}</Link>
               </Button>
             </div>
           </div>
@@ -113,22 +123,22 @@ export default async function BlogPage() {
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
                 <Image
                   src="/images/blog/indian-fika-hero.png"
-                  alt="The Indian Fika"
+                  alt={t('fikaTitle')}
                   fill
                   className="object-cover"
                 />
                 <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  Popular
+                  {t('popular')}
                 </div>
               </div>
               <div className="flex-1 space-y-4">
-                <div className="text-sm font-medium text-primary uppercase tracking-widest">Culture & Lifestyle</div>
-                <h2 className="text-2xl font-bold font-heading">The Indian Fika: 5 Savory Snacks for Tea</h2>
+                <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('cultureLifestyle')}</div>
+                <h2 className="text-2xl font-bold font-heading">{t('fikaTitle')}</h2>
                 <p className="text-muted-foreground line-clamp-2 text-sm">
-                  Experience the perfect blend of Swedish tradition and South Asian spice. Discover the best samosas and namkeen.
+                  {t('fikaDescription')}
                 </p>
                 <Button asChild variant="outline" className="rounded-full w-full">
-                  <Link href="/blog/the-indian-fika">Read Guide</Link>
+                  <Link href="/blog/the-indian-fika">{t('readGuide')}</Link>
                 </Button>
               </div>
             </div>
@@ -138,22 +148,22 @@ export default async function BlogPage() {
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
                 <Image
                   src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"
-                  alt="EU Shipping Guide"
+                  alt={t('noCustomsTitle')}
                   fill
                   className="object-cover"
                 />
                 <div className="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  EU Guide
+                  {t('euGuide')}
                 </div>
               </div>
               <div className="flex-1 space-y-4">
-                <div className="text-sm font-medium text-primary uppercase tracking-widest">Shipping & Logistics</div>
-                <h2 className="text-2xl font-bold font-heading">Why Buying from Sweden Saves Money</h2>
+                <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('shippingLogistics')}</div>
+                <h2 className="text-2xl font-bold font-heading">{t('noCustomsTitle')}</h2>
                 <p className="text-muted-foreground line-clamp-2 text-sm">
-                  Learn how to get Indian groceries delivered across Europe with zero hidden customs fees and fast shipping.
+                  {t('noCustomsDescription')}
                 </p>
                 <Button asChild variant="outline" className="rounded-full w-full">
-                  <Link href="/blog/no-customs-indian-grocery-europe">Read Guide</Link>
+                  <Link href="/blog/no-customs-indian-grocery-europe">{t('readGuide')}</Link>
                 </Button>
               </div>
             </div>
@@ -172,7 +182,7 @@ export default async function BlogPage() {
           ) : posts.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground text-lg">
-                No blog posts found. Check back soon for new content!
+                {t('noPostsFound')}
               </p>
             </div>
           ) : (
@@ -216,7 +226,7 @@ export default async function BlogPage() {
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
-                          <span>{formatDate(post.date)}</span>
+                          <span>{formatDate(post.date, locale)}</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <User className="h-4 w-4" />
@@ -241,7 +251,7 @@ export default async function BlogPage() {
                         href={`/blog/${post.slug}`}
                         className="inline-flex items-center text-primary font-medium hover:text-primary/80 transition-colors"
                       >
-                        Read More
+                        {t('readMore')}
                         <svg
                           className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform"
                           fill="none"

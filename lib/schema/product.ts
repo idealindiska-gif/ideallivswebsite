@@ -130,6 +130,7 @@ export function productSchema(
     brandName?: string;
     sellerName?: string;
     includeReviews?: boolean;
+    locale?: string;
   }
 ): Product {
   const schema: Product = {
@@ -137,6 +138,11 @@ export function productSchema(
     '@type': 'Product',
     name: product.name,
   };
+
+  // Add language metadata
+  if (options?.locale) {
+    schema.inLanguage = options.locale === 'sv' ? 'sv-SE' : 'en-US';
+  }
 
   // Generate product ID if baseUrl provided
   if (options?.baseUrl && product.url) {
@@ -312,6 +318,7 @@ export function wooCommerceProductSchema(
     baseUrl?: string;
     brandName?: string;
     sellerName?: string;
+    locale?: string;
   }
 ): Product {
   // Map stock status to availability
@@ -387,6 +394,7 @@ export function wooCommerceProductSchema(
     baseUrl: options?.baseUrl,
     brandName: options?.brandName || 'Ideal Indiska LIVS',
     sellerName: options?.sellerName || 'Ideal Indiska LIVS',
+    locale: options?.locale,
   });
 }
 
@@ -400,6 +408,7 @@ export function productListItem(
   options?: {
     brandName?: string;
     sellerName?: string;
+    locale?: string;
   }
 ) {
   const fullProduct = productSchema(product, options);

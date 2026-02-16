@@ -16,6 +16,7 @@ export const revalidate = 7200;
 
 interface ProductCategoryPageProps {
     params: Promise<{
+        locale: string;
         slug?: string[];
     }>;
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -79,6 +80,7 @@ export async function generateMetadata({ params }: ProductCategoryPageProps): Pr
 export default async function ProductCategoryPage({ params, searchParams }: ProductCategoryPageProps) {
     const resolvedParams = await params;
     const resolvedSearchParams = await searchParams;
+    const locale = resolvedParams.locale;
 
     // Get the last segment as the category slug
     const categorySlug = resolvedParams.slug?.[resolvedParams.slug.length - 1] || '';
@@ -158,13 +160,14 @@ export default async function ProductCategoryPage({ params, searchParams }: Prod
                 }
             />
 
-            {/* SEO Structured Data */}
+            {/* SEO Structured Data - Locale-aware */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(wooCategorySchema(category, products, {
                         baseUrl: siteConfig.site_domain,
                         websiteId: `${siteConfig.site_domain}/#website`,
+                        locale,
                     }))
                 }}
             />

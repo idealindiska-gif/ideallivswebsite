@@ -17,6 +17,7 @@ export const revalidate = 7200;
 
 interface BrandArchivePageProps {
     params: Promise<{
+        locale: string;
         slug: string;
     }>;
     searchParams: Promise<{
@@ -206,6 +207,7 @@ const STRUCTURED_BRANDS = [
 export default async function BrandArchivePage({ params, searchParams }: BrandArchivePageProps) {
     const resolvedParams = await params;
     const resolvedSearchParams = await searchParams;
+    const locale = resolvedParams.locale;
 
     const brand = await getBrandBySlug(resolvedParams.slug);
 
@@ -418,6 +420,7 @@ export default async function BrandArchivePage({ params, searchParams }: BrandAr
                                     {
                                         brandName: brand.name,
                                         sellerName: 'Ideal Indiska LIVS',
+                                        locale,
                                     }
                                 )
                             ),

@@ -2,6 +2,7 @@ import type { Product, ProductReview } from '@/types/woocommerce';
 import { wooCommerceProductSchema, breadcrumbSchema, productBreadcrumbs } from '@/lib/schema';
 import { siteConfig } from '@/site.config';
 import { brandConfig } from '@/config/brand.config';
+import { useLocale } from 'next-intl';
 
 interface ProductSchemaProps {
   product: Product;
@@ -11,14 +12,14 @@ interface ProductSchemaProps {
 
 export function ProductSchema({ product, reviews = [], breadcrumbs }: ProductSchemaProps) {
   const baseUrl = siteConfig.site_domain;
-
-
+  const locale = useLocale();
 
   // Generate product schema using standardized function
   const productSchema = wooCommerceProductSchema(product, {
     baseUrl,
     brandName: brandConfig.businessName,
     sellerName: brandConfig.businessName,
+    locale,
   });
 
   // Add reviews to schema if available
