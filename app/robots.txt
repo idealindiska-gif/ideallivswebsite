@@ -27,6 +27,7 @@ Allow: /wp-content/uploads/
 # Sitemap
 # --------------------------------------------------
 Sitemap: https://www.ideallivs.com/sitemap.xml
+Sitemap: https://www.ideallivs.com/sv/sitemap.xml
 
 # --------------------------------------------------
 # Explicit allow for major crawlers & AI systems

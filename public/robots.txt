@@ -3,6 +3,12 @@
 # Ecommerce SEO Optimized (Next.js + WooCommerce API)
 # ==================================================
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
 User-agent: *
 Allow: /
 
