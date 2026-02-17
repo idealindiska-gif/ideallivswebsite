@@ -17,7 +17,17 @@ interface Product {
     images: Array<{ src: string }>;
 }
 
-export function ProductCarousel({ products }: { products: Product[] }) {
+export function ProductCarousel({
+    products,
+    label = 'Ramadan Mega Savings',
+    title = 'Products On Promotion Right Now',
+    viewAllLabel = 'View all Ramadan deals',
+}: {
+    products: Product[];
+    label?: string;
+    title?: string;
+    viewAllLabel?: string;
+}) {
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const scroll = (dir: 'left' | 'right') => {
@@ -32,9 +42,9 @@ export function ProductCarousel({ products }: { products: Product[] }) {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Ramadan Mega Savings</p>
+                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">{label}</p>
                     <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground">
-                        Products On Promotion Right Now
+                        {title}
                     </h2>
                 </div>
                 <div className="flex gap-2">
@@ -130,7 +140,7 @@ export function ProductCarousel({ products }: { products: Product[] }) {
                     href="/deals"
                     className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline underline-offset-4"
                 >
-                    View all Ramadan deals <ChevronRight className="h-4 w-4" />
+                    {viewAllLabel} <ChevronRight className="h-4 w-4" />
                 </Link>
             </div>
         </div>
