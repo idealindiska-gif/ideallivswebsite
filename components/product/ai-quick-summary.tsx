@@ -36,8 +36,8 @@ export function AiQuickSummary({ product, className = '' }: AiQuickSummaryProps)
     if (!ingredients && !origin && !bestFor && !weight) return null;
 
     return (
-        <div className={`my-8 border rounded-xl overflow-hidden bg-gradient-to-br from-indigo-50/50 to-purple-50/50 dark:from-indigo-950/20 dark:to-purple-950/20 ${className}`}>
-            <div className="p-4 border-b bg-white/50 dark:bg-black/20 flex items-center gap-2">
+        <div className={`my-8 border rounded-xl overflow-hidden bg-transparent ${className}`}>
+            <div className="p-4 border-b bg-transparent flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 <h3 className="font-semibold text-lg text-indigo-950 dark:text-indigo-100">
                     Key Facts
@@ -91,7 +91,7 @@ export function AiQuickSummary({ product, className = '' }: AiQuickSummaryProps)
                                 </div>
                                 <span className="ml-auto text-xs text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                             </summary>
-                            <p className="mt-2 text-sm text-foreground/80 leading-relaxed bg-white/50 dark:bg-black/20 p-3 rounded-lg">
+                            <p className="mt-2 text-sm text-foreground/80 leading-relaxed bg-transparent p-3 rounded-lg">
                                 {decodeHtmlEntities(ingredients.options.join(', '))}
                             </p>
                         </details>

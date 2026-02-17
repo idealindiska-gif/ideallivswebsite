@@ -65,6 +65,13 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
                 description: 'Köp indiska och pakistanska livsmedel online i Stockholm. 1500+ produkter med snabb leverans över Sverige & Europa.',
                 images: ['https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg'],
             },
+            icons: {
+                icon: [
+                    { url: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png", sizes: "any", type: "image/png" },
+                ],
+                shortcut: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+                apple: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+            },
             alternates: {
                 canonical: `/sv`,
                 languages: {
@@ -118,6 +125,13 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
             title: siteConfig.site_name,
             description: siteConfig.site_description,
             images: ['https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg'],
+        },
+        icons: {
+            icon: [
+                { url: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png", sizes: "any", type: "image/png" },
+            ],
+            shortcut: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+            apple: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
         },
         alternates: {
             canonical: `/en`,

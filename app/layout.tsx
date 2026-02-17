@@ -59,10 +59,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.png", sizes: "any", type: "image/png" },
+      { url: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png", sizes: "any", type: "image/png" },
     ],
-    shortcut: "/icon.png",
-    apple: "/icon.png",
+    shortcut: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+    apple: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
   },
   verification: {
     google: "JHCIpEz_IWYNdnNQGCkUKVQ8tiUre1hcCOqcSNhKlmQ",

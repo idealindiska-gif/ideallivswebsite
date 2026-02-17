@@ -46,7 +46,7 @@ export function ProductImageGallery({
     <>
       <div className={cn('space-y-4', className)}>
         {/* Main Image */}
-        <div className="group relative aspect-square overflow-hidden rounded-xl border-2 border-border bg-muted">
+        <div className="group relative aspect-square overflow-hidden rounded-xl border-2 border-border">
           {currentImage ? (
             <>
               <div
@@ -137,7 +137,7 @@ export function ProductImageGallery({
                 key={image.id || index}
                 onClick={() => handleThumbnailClick(index)}
                 className={cn(
-                  'group relative aspect-square overflow-hidden rounded-lg border-2 bg-muted transition-all hover:border-primary',
+                  'group relative aspect-square overflow-hidden rounded-lg border-2 transition-all hover:border-primary',
                   selectedIndex === index
                     ? 'border-primary ring-2 ring-primary ring-offset-2'
                     : 'border-border'

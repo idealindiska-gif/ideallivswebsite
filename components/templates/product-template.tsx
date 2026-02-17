@@ -258,10 +258,12 @@ export function ProductTemplate({
 
             {/* Column 2: Product Images (CENTER) - First on mobile */}
             <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-5 order-1 lg:order-2" : "lg:col-span-6 order-1"}>
-              <ProductImageGallery
-                images={product.images || []}
-                productName={product.name}
-              />
+              <div className="lg:sticky lg:top-24">
+                <ProductImageGallery
+                  images={product.images || []}
+                  productName={product.name}
+                />
+              </div>
             </div>
 
             {/* Column 3: Product Info (RIGHT) - Second on mobile */}
@@ -415,8 +417,7 @@ export function ProductTemplate({
                 variant="detailed"
               />
 
-              {/* AI Quick Summary (New) */}
-              <AiQuickSummary product={product} />
+
 
               {/* Short Description */}
               {product.short_description && (
@@ -564,6 +565,9 @@ export function ProductTemplate({
 
               {/* Additional Product Info */}
               {additionalContent}
+
+              {/* AI Quick Summary (New Position) */}
+              <AiQuickSummary product={product} />
 
               {/* Payment Methods Banner */}
               <div className="border-t border-border pt-2 mt-2">
