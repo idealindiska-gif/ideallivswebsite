@@ -174,12 +174,16 @@ function generateProductXML(product: WooProduct): string {
 
     // Add sale_price_effective_date if available
     if (product.date_on_sale_from || product.date_on_sale_to) {
-      const from = product.date_on_sale_from ? new Date(product.date_on_sale_from).toISOString().split('T')[0] : '2026-01-19';
-      const to = product.date_on_sale_to ? new Date(product.date_on_sale_to).toISOString().split('T')[0] : '2026-01-25';
+      const today = new Date().toISOString().split('T')[0];
+      const in30Days = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      const from = product.date_on_sale_from ? new Date(product.date_on_sale_from).toISOString().split('T')[0] : today;
+      const to = product.date_on_sale_to ? new Date(product.date_on_sale_to).toISOString().split('T')[0] : in30Days;
       xml += `    <g:sale_price_effective_date>${from}T00:00:00/${to}T23:59:59</g:sale_price_effective_date>\n`;
     } else {
-      // Fallback to current week if dates missing but item is on sale
-      xml += `    <g:sale_price_effective_date>2026-01-19T00:00:00/2026-01-25T23:59:59</g:sale_price_effective_date>\n`;
+      // Fallback: sale is active now, valid for 30 days
+      const today = new Date().toISOString().split('T')[0];
+      const in30Days = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      xml += `    <g:sale_price_effective_date>${today}T00:00:00/${in30Days}T23:59:59</g:sale_price_effective_date>\n`;
     }
   } else {
     xml += `    <g:price>${product.price} ${CURRENCY}</g:price>\n`;
@@ -207,11 +211,9 @@ function generateProductXML(product: WooProduct): string {
     xml += `    <g:mpn>PRODUCT_${product.id}</g:mpn>\n`;
   }
 
-  // Weight
+  // Weight (WooCommerce stores in g)
   if (product.weight) {
-    const weight = `${product.weight} g`;
-    xml += `    <g:shipping_weight>${weight}</g:shipping_weight>\n`;
-    xml += `    <g:unit_pricing_measure>${weight}</g:unit_pricing_measure>\n`;
+    xml += `    <g:shipping_weight>${product.weight} g</g:shipping_weight>\n`;
   }
 
   // Shipping
