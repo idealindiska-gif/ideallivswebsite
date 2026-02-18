@@ -1,49 +1,31 @@
 "use client";
 
-import { Search, User, ShoppingCart, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link } from "@/lib/navigation";
 import Image from "next/image";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useSidebar } from "./mobile-sidebar-toggle";
 import { useTranslations } from 'next-intl';
 import { CartIcon } from "@/components/cart/cart-icon";
 import { UserNav } from "@/components/layout/user-nav";
 import { DeliveryLocationSelector } from "@/components/ui/delivery-location-selector";
+import { SmartSearch } from "@/components/search/smart-search";
 
 export function ContentHeader() {
   const nav = useTranslations('navigation');
   const ts = useTranslations('search');
-  const [searchQuery, setSearchQuery] = useState("");
   const { isOpen, toggle } = useSidebar();
-  const router = useRouter();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
 
   return (
     <header className="sticky top-0 lg:top-[10px] z-30 w-full bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
       {/* Desktop Header */}
       <div className="hidden lg:flex items-center justify-between px-6 h-14 gap-4 bg-background/70 backdrop-blur-md">
 
-        {/* Search Bar - Center - Dominant */}
+        {/* Search Bar - Center - with autocomplete & intent detection */}
         <div className="flex-1 max-w-2xl mx-auto w-full">
-          <form onSubmit={handleSearch} className="relative group">
-            <input
-              type="text"
-              placeholder={ts('searchPlaceholderLong')}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-6 pr-14 py-2 text-sm border border-border rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-card/80 hover:bg-card transition-all font-medium placeholder:text-muted-foreground/70"
-            />
-            <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-primary rounded-md text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm">
-              <Search className="h-5 w-5" />
-            </button>
-          </form>
+          <SmartSearch
+            placeholder={ts('searchPlaceholderLong')}
+            className="w-full"
+          />
         </div>
 
         {/* Login/Signup & Cart - Right */}
@@ -162,18 +144,12 @@ export function ContentHeader() {
           <CartIcon />
         </div>
 
-        {/* Search Bar - Bottom Row */}
+        {/* Search Bar - Bottom Row - with autocomplete & intent detection */}
         <div className="px-4 py-3 bg-muted/20">
-          <form onSubmit={handleSearch} className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder={ts('searchProducts')}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 text-sm border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary bg-background shadow-sm"
-            />
-          </form>
+          <SmartSearch
+            placeholder={ts('searchProducts')}
+            className="w-full"
+          />
         </div>
       </div>
     </header>
