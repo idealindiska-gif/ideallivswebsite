@@ -64,7 +64,6 @@ export default function CheckoutPage() {
   const [coupon, setCoupon] = useState<any | null>(null);
 
   // Stripe payment state — when set, the payment form replaces Step 2 content
-  const [pendingOrderId, setPendingOrderId] = useState<number | null>(null);
   const [stripeClientSecret, setStripeClientSecret] = useState<string | null>(null);
 
   // Track initiate checkout event on mount
@@ -165,7 +164,8 @@ export default function CheckoutPage() {
     setCurrentStep('shipping-payment');
   };
 
-  // ─── Stripe: create order + PaymentIntent, show payment form ────────────────
+  // ─── Stripe: validate stock + create PaymentIntent ONLY (no WC order yet) ───
+  // WC order is created AFTER payment succeeds in handleStripeSuccess below.
 
   const handleInitStripePayment = async () => {
     if (!shippingData || !billingData) { setError(t('pleaseComplete')); return; }
@@ -176,7 +176,7 @@ export default function CheckoutPage() {
     setStockErrors([]);
 
     try {
-      // 1. Validate stock
+      // 1. Validate stock before showing payment form
       const stockResult = await validateCartStockAction(
         items.map((item) => ({ productId: item.productId, quantity: item.quantity }))
       );
@@ -190,37 +190,8 @@ export default function CheckoutPage() {
       }
 
       const totalAmount = getTotalPrice() + shippingCost - calculateDiscount();
-      const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
 
-      // 2. Create WooCommerce order with pending status
-      const orderResult = await createOrderAction({
-        customer_id: isRealCustomer ? user.id : undefined,
-        billing: billingData,
-        shipping: shippingData,
-        line_items: items.map((item) => ({
-          product_id: item.productId,
-          variation_id: item.variationId,
-          quantity: item.quantity,
-          tax_class: item.variation?.tax_class || item.product.tax_class,
-        })),
-        shipping_lines: [{
-          method_id: shippingMethod.method_id,
-          method_title: shippingMethod.label,
-          total: shippingCost.toString(),
-        }],
-        payment_method: paymentMethod,
-        payment_method_title: getPaymentMethodTitle(paymentMethod),
-        customer_note: orderNotes || undefined,
-        coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
-        set_paid: false,
-      });
-
-      if (!orderResult.success || !orderResult.data) {
-        throw new Error(orderResult.error || 'Failed to create order');
-      }
-      const wcOrderId = orderResult.data.id;
-
-      // 3. Create Stripe PaymentIntent linked to the WC order
+      // 2. Create Stripe PaymentIntent ONLY — no WC order yet
       const response = await fetch('/api/stripe/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -229,15 +200,7 @@ export default function CheckoutPage() {
           currency: 'sek',
           customerEmail: billingData.email,
           customerName: `${billingData.first_name} ${billingData.last_name}`,
-          wcOrderId,
-          billingAddress: {
-            line1: billingData.address_1,
-            line2: billingData.address_2,
-            city: billingData.city,
-            state: billingData.state,
-            postal_code: billingData.postcode,
-            country: billingData.country,
-          },
+          // No wcOrderId — order is created after payment succeeds
           shippingAddress: {
             name: `${shippingData.first_name} ${shippingData.last_name}`,
             address_1: shippingData.address_1,
@@ -260,28 +223,9 @@ export default function CheckoutPage() {
         throw new Error(errData.error || 'Failed to initialize payment');
       }
 
-      const { clientSecret, paymentIntentId } = await response.json();
+      const { clientSecret } = await response.json();
       if (!clientSecret) throw new Error('Failed to get payment client secret');
 
-      // Save checkout data for redirect-based payments (Klarna, etc.)
-      sessionStorage.setItem('pendingCheckoutData', JSON.stringify({
-        wcOrderId,
-        billing: billingData,
-        shipping: shippingData,
-        shippingMethod: { method_id: shippingMethod.method_id, label: shippingMethod.label, cost: shippingCost },
-        paymentMethod,
-        items: items.map((item) => ({
-          product_id: item.productId,
-          variation_id: item.variationId,
-          quantity: item.quantity,
-          tax_class: item.variation?.tax_class || item.product.tax_class,
-        })),
-        orderNotes,
-        coupon: coupon ? { code: coupon.code } : null,
-        paymentIntentId,
-      }));
-
-      setPendingOrderId(wcOrderId);
       setStripeClientSecret(clientSecret);
       setIsProcessing(false);
 
@@ -292,7 +236,7 @@ export default function CheckoutPage() {
     }
   };
 
-  // ─── Non-Stripe: create order immediately ───────────────────────────────────
+  // ─── Non-Stripe: create order immediately (COD / Swish / BACS) ──────────────
 
   const handlePlaceOrder = async () => {
     if (!shippingData || !billingData) { setError(t('pleaseComplete')); return; }
@@ -351,13 +295,64 @@ export default function CheckoutPage() {
     }
   };
 
-  // ─── Stripe payment success ──────────────────────────────────────────────────
+  // ─── Stripe payment success: NOW create the WC order with set_paid: true ────
+  // This fires only after Stripe confirms the payment — guaranteeing payment
+  // always precedes order creation for card/Klarna/wallet payments.
 
   const handleStripeSuccess = async (paymentIntentId: string) => {
-    if (!pendingOrderId) { setError('Order information not found'); return; }
-    sessionStorage.removeItem('pendingCheckoutData');
-    clearCart();
-    router.push(`/checkout/success?order=${pendingOrderId}&payment_intent=${paymentIntentId}`);
+    if (!shippingData || !billingData || !shippingMethod) {
+      setError('Checkout data missing. Please refresh and try again.');
+      return;
+    }
+
+    try {
+      const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
+
+      const result = await createOrderAction({
+        customer_id: isRealCustomer ? user.id : undefined,
+        billing: billingData,
+        shipping: shippingData,
+        line_items: items.map((item) => ({
+          product_id: item.productId,
+          variation_id: item.variationId,
+          quantity: item.quantity,
+          tax_class: item.variation?.tax_class || item.product.tax_class,
+        })),
+        shipping_lines: [{
+          method_id: shippingMethod.method_id,
+          method_title: shippingMethod.label,
+          total: shippingCost.toString(),
+        }],
+        payment_method: paymentMethod,
+        payment_method_title: getPaymentMethodTitle(paymentMethod),
+        customer_note: [
+          orderNotes,
+          `Stripe Payment ID: ${paymentIntentId}`,
+        ].filter(Boolean).join(' | '),
+        coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
+        set_paid: true, // Payment already confirmed by Stripe
+      });
+
+      if (!result.success || !result.data) {
+        // Payment succeeded but order creation failed — log it prominently
+        console.error('CRITICAL: Stripe payment succeeded but WC order creation failed!', {
+          paymentIntentId,
+          error: result.error,
+        });
+        // Still clear cart and redirect — order can be manually created from Stripe dashboard
+        clearCart();
+        router.push(`/checkout/success?payment_intent=${paymentIntentId}&order_pending=true`);
+        return;
+      }
+
+      clearCart();
+      router.push(`/checkout/success?order=${result.data.id}&payment_intent=${paymentIntentId}`);
+    } catch (err) {
+      console.error('Post-payment order creation failed:', err);
+      // Payment succeeded — don't show a scary error. Redirect to success with payment reference.
+      clearCart();
+      router.push(`/checkout/success?payment_intent=${paymentIntentId}&order_pending=true`);
+    }
   };
 
   // ─── Progress steps (2 steps only) ──────────────────────────────────────────
@@ -387,18 +382,18 @@ export default function CheckoutPage() {
                 <div className="flex items-center gap-2">
                   <div
                     className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${step.completed
-                        ? 'bg-primary-600 text-white'
-                        : currentStep === step.id
-                          ? 'bg-primary-100 text-primary-700 ring-2 ring-primary-600 dark:bg-primary-950 dark:text-primary-400'
-                          : 'bg-neutral-200 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400'
+                      ? 'bg-primary-600 text-white'
+                      : currentStep === step.id
+                        ? 'bg-primary-100 text-primary-700 ring-2 ring-primary-600 dark:bg-primary-950 dark:text-primary-400'
+                        : 'bg-neutral-200 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400'
                       }`}
                   >
                     {step.completed ? <CheckCircle2 className="h-4 w-4" /> : index + 1}
                   </div>
                   <span
                     className={`hidden text-sm font-medium sm:inline ${currentStep === step.id
-                        ? 'text-primary-700 dark:text-primary-400'
-                        : 'text-neutral-600 dark:text-neutral-400'
+                      ? 'text-primary-700 dark:text-primary-400'
+                      : 'text-neutral-600 dark:text-neutral-400'
                       }`}
                   >
                     {step.label}
@@ -580,7 +575,6 @@ export default function CheckoutPage() {
                           type="button"
                           onClick={() => {
                             setStripeClientSecret(null);
-                            setPendingOrderId(null);
                             setError(null);
                           }}
                           className="flex items-center gap-1 text-sm text-primary-600 hover:underline dark:text-primary-400"
@@ -647,7 +641,6 @@ export default function CheckoutPage() {
                             setPaymentMethod(method);
                             // Reset Stripe state if switching away
                             setStripeClientSecret(null);
-                            setPendingOrderId(null);
                           }}
                         />
                       </div>
