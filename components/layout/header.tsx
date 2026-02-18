@@ -13,6 +13,8 @@ import { getProductCategories } from '@/lib/woocommerce';
 import { brandConfig } from '@/config/brand.config';
 import { brandProfile } from '@/config/brand-profile';
 import { AiChatWidget, useAIChat } from '@/components/ai/ai-chat-widget';
+import { BrandsDropdown } from '@/components/layout/brands-dropdown';
+import { LanguageSwitcher } from '@/components/layout/language-switcher';
 
 interface HeaderProps {
   className?: string;
@@ -69,7 +71,7 @@ export function Header({ className, categories = [] }: HeaderProps) {
               {/* Left Navigation - Semantic Nav for SEO */}
               <nav className="col-span-4 flex justify-between items-center px-4" aria-label="Primary Navigation Left">
                 <NavLink href="/shop">{nav('shopAll')}</NavLink>
-                <NavLink href="/brands">{nav('topBrands')}</NavLink>
+                <BrandsDropdown />
                 <Link href="/product-category/new-arrivals" className="text-[0.70rem] xl:text-xs font-medium uppercase tracking-wider text-primary hover:opacity-80 transition-opacity">
                   {nav('newArrivals')}
                 </Link>
@@ -146,7 +148,8 @@ export function Header({ className, categories = [] }: HeaderProps) {
               </Link>
 
               {/* Right Actions */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <LanguageSwitcher variant="compact" className="text-foreground" />
                 <WishlistIcon />
                 <CartIcon />
               </div>

@@ -31,6 +31,7 @@ import {
     SheetTrigger,
 } from '@/components/ui/sheet';
 import { getStoreStatus, type StoreStatus } from '@/lib/store-hours';
+import { MobileBrandLinks } from '@/components/layout/brands-dropdown';
 
 export function MobileMenu() {
     const nav = useTranslations('navigation');
@@ -134,6 +135,11 @@ export function MobileMenu() {
                         );
                     })}
                 </nav>
+
+                {/* Popular Brands Grid */}
+                <div className="border-t border-border/20">
+                    <MobileBrandLinks onClose={() => setOpen(false)} />
+                </div>
 
                 {/* Footer with Contact Info */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background via-background to-transparent border-t border-primary/10">
