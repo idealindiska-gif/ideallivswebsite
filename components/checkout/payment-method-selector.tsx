@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CreditCard, Banknote, Smartphone, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 export interface PaymentMethod {
     id: string;
@@ -46,6 +47,7 @@ export function PaymentMethodSelector({
     const [methods, setMethods] = useState<PaymentMethod[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const t = useTranslations('paymentMethod');
 
     const fetchPaymentGateways = useCallback(async () => {
         setLoading(true);
@@ -79,20 +81,20 @@ export function PaymentMethodSelector({
                 .map((gateway: any) => {
                     // Fallback title logic for known gateways
                     let title = gateway.title;
-                    if (!title || title === 'null') {
+                    if (!title || title === 'null' || title === '') {
                         switch (gateway.id) {
                             case 'stripe':
                             case 'stripe_cc':
-                                title = 'Credit / Debit Card (Stripe)';
+                                title = t('cards');
                                 break;
                             case 'stripe_klarna':
-                                title = 'Klarna';
+                                title = t('klarna');
                                 break;
                             case 'cod':
-                                title = 'Cash on Delivery';
+                                title = t('cod');
                                 break;
                             case 'swish':
-                                title = 'Swish';
+                                title = t('swish');
                                 break;
                             default:
                                 // Skip unknown gateways without titles
@@ -123,7 +125,7 @@ export function PaymentMethodSelector({
             const fallbackMethods = [
                 {
                     id: 'cod',
-                    title: 'Cash on Delivery',
+                    title: t('cod'),
                     description: 'Pay with cash upon delivery',
                     enabled: true,
                     icon: getPaymentIcon('cod'),
@@ -134,7 +136,7 @@ export function PaymentMethodSelector({
         } finally {
             setLoading(false);
         }
-    }, [selectedMethod, onMethodChange]);
+    }, [selectedMethod, onMethodChange, t]);
 
     useEffect(() => {
         fetchPaymentGateways();
@@ -145,7 +147,7 @@ export function PaymentMethodSelector({
             <Card className={cn('p-6', className)}>
                 <div className="flex items-center justify-center space-x-2">
                     <Loader2 className="h-5 w-5 animate-spin text-primary-600" />
-                    <span className="text-neutral-600">Loading payment methods...</span>
+                    <span className="text-neutral-600">{t('loading')}</span>
                 </div>
             </Card>
         );
@@ -156,7 +158,7 @@ export function PaymentMethodSelector({
     return (
         <div className={cn('space-y-4', className)}>
             <h2 className="font-heading text-2xl font-bold text-primary-950 dark:text-primary-50">
-                Payment Method
+                {t('title')}
             </h2>
 
             {error && (
@@ -194,7 +196,9 @@ export function PaymentMethodSelector({
                                             {method.title}
                                         </Label>
                                         <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                                            {method.description}
+                                            {/* Note: Description usually comes from backend in correct language if configured, 
+                                                otherwise might remain English. We display as HTML for flexibility. */}
+                                            {method.description.replace(/<[^>]*>/g, '').substring(0, 100) + (method.description.length > 100 ? '...' : '')}
                                         </p>
 
                                         {/* Display additional payment details from WooCommerce */}

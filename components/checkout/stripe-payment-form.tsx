@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, AlertCircle, CreditCard } from 'lucide-react';
 import { Card } from '@/components/ui/card';
+import { useTranslations } from 'next-intl';
 
 interface StripePaymentFormProps {
     amount: number;
@@ -22,6 +23,8 @@ export function StripePaymentForm({
 }: StripePaymentFormProps) {
     const stripe = useStripe();
     const elements = useElements();
+    const t = useTranslations('stripe');
+    const tOrder = useTranslations('orderSummary');
 
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -103,7 +106,7 @@ export function StripePaymentForm({
                         <div className="flex items-center gap-2">
                             <CreditCard className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                             <span className="font-medium text-primary-950 dark:text-primary-50">
-                                Total Amount
+                                {tOrder('total')}
                             </span>
                         </div>
                         <span className="text-xl font-bold text-primary-700 dark:text-primary-400">
@@ -172,22 +175,23 @@ export function StripePaymentForm({
                         {isProcessing ? (
                             <>
                                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                Processing Payment...
+                                {t('processing')}
                             </>
                         ) : (
                             <>
-                                Pay {new Intl.NumberFormat('sv-SE', {
-                                    style: 'currency',
-                                    currency: currency,
-                                }).format(amount)}
+                                {t('pay', {
+                                    amount: new Intl.NumberFormat('sv-SE', {
+                                        style: 'currency',
+                                        currency: currency,
+                                    }).format(amount)
+                                })}
                             </>
                         )}
                     </Button>
 
                     {/* Payment Security Notice */}
                     <p className="text-center text-xs text-neutral-500 dark:text-neutral-400">
-                        Your payment information is encrypted and secure. Powered by{' '}
-                        <span className="font-semibold">Stripe</span>.
+                        {t('encrypted')}
                     </p>
                 </div>
             </form>

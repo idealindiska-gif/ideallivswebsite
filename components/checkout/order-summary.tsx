@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingBag } from 'lucide-react';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface OrderSummaryProps {
     shippingCost?: number;
@@ -48,6 +49,9 @@ export function OrderSummary({
     appliedCoupon
 }: OrderSummaryProps) {
     const { items, getTotalPrice, getShippingCost } = useCartStore();
+    const t = useTranslations('orderSummary');
+    const tCart = useTranslations('cart');
+    const locale = useLocale();
 
     // Get shipping cost from cart store (DHL rates) or fallback to prop
     const shippingCost = propShippingCost !== undefined ? propShippingCost : getShippingCost();
@@ -111,7 +115,7 @@ export function OrderSummary({
             <Card className={className}>
                 <div className="flex flex-col items-center justify-center p-8 text-center">
                     <ShoppingBag className="mb-4 h-12 w-12 text-neutral-400" />
-                    <p className="text-neutral-600 dark:text-neutral-400">Your cart is empty</p>
+                    <p className="text-neutral-600 dark:text-neutral-400">{tCart('empty')}</p>
                 </div>
             </Card>
         );
@@ -121,7 +125,7 @@ export function OrderSummary({
         <Card className={className}>
             <div className="p-6">
                 <h2 className="mb-6 font-heading text-xl font-bold text-primary-950 dark:text-primary-50">
-                    Order Summary
+                    {t('title')}
                 </h2>
 
                 {/* Cart Items */}
@@ -180,7 +184,7 @@ export function OrderSummary({
                     {/* Subtotal without tax */}
                     <div className="flex justify-between text-sm">
                         <span className="text-neutral-600 dark:text-neutral-400">
-                            Subtotal (excl. tax)
+                            {t('subtotal')}
                         </span>
                         <span className="font-medium">{formatPrice(totalSubtotalWithoutTax, 'SEK')}</span>
                     </div>
@@ -191,7 +195,7 @@ export function OrderSummary({
                         taxBreakdown.map(({ rate, amount }) => (
                             <div key={rate} className="flex justify-between text-sm">
                                 <span className="text-neutral-600 dark:text-neutral-400">
-                                    Tax ({rate}% {rate === 12 ? '- food items' : ''})
+                                    Moms ({rate}% {rate === 12 && locale === 'sv' ? '- livsmedel' : rate === 12 ? '- food items' : ''})
                                 </span>
                                 <span className="font-medium">{formatPrice(amount, 'SEK')}</span>
                             </div>
@@ -200,7 +204,7 @@ export function OrderSummary({
                         // Single tax rate - show simple display
                         <div className="flex justify-between text-sm">
                             <span className="text-neutral-600 dark:text-neutral-400">
-                                Tax ({taxBreakdown[0]?.rate || 25}% included)
+                                Moms ({taxBreakdown[0]?.rate || 25}%)
                             </span>
                             <span className="font-medium">{formatPrice(totalIncludedTax, 'SEK')}</span>
                         </div>
@@ -208,14 +212,14 @@ export function OrderSummary({
 
                     {discountAmount > 0 && (
                         <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
-                            <span>Discount {appliedCoupon ? `(${appliedCoupon})` : ''}</span>
+                            <span>{t('discount')} {appliedCoupon ? `(${appliedCoupon})` : ''}</span>
                             <span>-{formatPrice(discountAmount, 'SEK')}</span>
                         </div>
                     )}
 
                     {shippingCost > 0 && (
                         <div className="flex justify-between text-sm">
-                            <span className="text-neutral-600 dark:text-neutral-400">Shipping</span>
+                            <span className="text-neutral-600 dark:text-neutral-400">{t('shipping')}</span>
                             <span className="font-medium">{formatPrice(shippingCost, 'SEK')}</span>
                         </div>
                     )}
@@ -223,7 +227,7 @@ export function OrderSummary({
                     <Separator />
 
                     <div className="flex justify-between text-lg font-bold">
-                        <span className="text-primary-950 dark:text-primary-50">Total</span>
+                        <span className="text-primary-950 dark:text-primary-50">{t('total')}</span>
                         <span className="text-primary-700 dark:text-primary-400">
                             {formatPrice(total, 'SEK')}
                         </span>
@@ -240,7 +244,7 @@ export function OrderSummary({
                 {/* Additional Info */}
                 <div className="mt-6 rounded-lg bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
                     <p className="text-neutral-600 dark:text-neutral-400">
-                        <strong>Note:</strong> Prices include VAT. Food items are charged at the reduced rate (12%), other items at the standard rate (25%).
+                        <strong>Obs:</strong> {locale === 'sv' ? 'Priser inkluderar moms.' : 'Prices include VAT.'} {locale === 'sv' ? 'Livsmedel beskattas med 12%, andra varor med 25%.' : 'Food items are charged at the reduced rate (12%), other items at the standard rate (25%).'}
                     </p>
                 </div>
             </div>

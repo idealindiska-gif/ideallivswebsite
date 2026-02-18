@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Link } from '@/lib/navigation';
 import { Container, Section } from '@/components/craft';
 import { Button } from '@/components/ui/button';
@@ -30,15 +31,18 @@ import { PaymentRequestButton } from '@/components/checkout/payment-request-butt
 import { StripeExpressCheckout } from '@/components/checkout/stripe-express-checkout';
 import { trackInitiateCheckout } from '@/lib/analytics';
 import { WhatsAppOrderButton } from '@/components/whatsapp/whatsapp-order-button';
+import { useTranslations } from 'next-intl';
 
-type CheckoutStep = 'shipping' | 'shipping-method' | 'billing' | 'payment' | 'review';
+type CheckoutStep = 'information' | 'shipping-payment' | 'review';
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, getTotalPrice, clearCart, setShippingAddress } = useCartStore();
   const { user } = useAuthStore(); // Get logged-in user for customer linking
+  const t = useTranslations('checkoutPage');
+  const tPaymentMethod = useTranslations('paymentMethod');
 
-  const [currentStep, setCurrentStep] = useState<CheckoutStep>('shipping');
+  const [currentStep, setCurrentStep] = useState<CheckoutStep>('information');
   const [shippingData, setShippingData] = useState<ShippingFormData | null>(null);
   const [billingData, setBillingData] = useState<BillingFormData | null>(null);
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod | null>(null);
@@ -60,19 +64,6 @@ export default function CheckoutPage() {
   const [pendingOrderId, setPendingOrderId] = useState<number | null>(null);
   const [stripeClientSecret, setStripeClientSecret] = useState<string | null>(null);
   const [isStripePayment, setIsStripePayment] = useState(false);
-  const [stripeError, setStripeError] = useState<string | null>(null);
-
-  // Memoize Stripe callbacks to prevent unnecessary re-renders of the Express Checkout button
-  const handleExpressSuccess = useCallback(async (result: any) => {
-    console.log('Express checkout success:', result);
-    // Payment was processed via Express Checkout
-    // The page will redirect to stripe-return for order creation
-  }, []);
-
-  const handleExpressError = useCallback((error: string) => {
-    console.error('Express checkout error:', error);
-    setError(`Express checkout failed: ${error}`);
-  }, []);
 
   // Track initiate checkout event on mount
   useEffect(() => {
@@ -118,13 +109,13 @@ export default function CheckoutPage() {
           <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
             <ShoppingBag className="mb-4 h-16 w-16 text-neutral-400" />
             <h1 className="mb-2 font-heading text-3xl font-bold text-primary-950 dark:text-primary-50">
-              Your cart is empty
+              {t('emptyCartTitle')}
             </h1>
             <p className="mb-6 text-neutral-600 dark:text-neutral-400">
-              Add items to your cart before proceeding to checkout
+              {t('emptyCartMessage')}
             </p>
             <Button asChild size="lg" className="rounded-full">
-              <Link href="/shop">Shop Now</Link>
+              <Link href="/shop">{t('shopNow')}</Link>
             </Button>
           </div>
         </Container>
@@ -155,7 +146,7 @@ export default function CheckoutPage() {
     if (restrictionResult.data && !restrictionResult.data.valid) {
       setShippingRestrictions(restrictionResult.data.restrictedProducts);
       setError(
-        'Some items in your cart cannot be shipped to this location. Please review the restrictions below.'
+        t('itemsRestricted')
       );
       return;
     }
@@ -177,18 +168,19 @@ export default function CheckoutPage() {
         phone: data.phone,
       });
     }
-    setCurrentStep('shipping-method');
+    setCurrentStep('shipping-payment');
   };
 
   const handleBillingSubmit = (data: BillingFormData) => {
     setBillingData(data);
-    setCurrentStep('payment');
+    setCurrentStep('shipping-payment');
   };
 
-  // Handler for successful Stripe payment - creates WooCommerce order
+  // Handler for successful Stripe payment - order is already created, just redirect
+  // The Stripe webhook will handle updating the order status to 'processing'
   const handleStripeSuccess = async (paymentIntentId: string) => {
-    if (!shippingData || !billingData || !shippingMethod) {
-      setError('Missing order information');
+    if (!pendingOrderId) {
+      setError('Order information not found');
       return;
     }
 
@@ -197,71 +189,34 @@ export default function CheckoutPage() {
 
     try {
       if (process.env.NODE_ENV === 'development') {
-        console.log('✅ Payment successful! Creating WooCommerce order...');
+        console.log(`✅ Payment successful for order #${pendingOrderId}!`);
+        console.log('🎯 Webhook will update order status to processing');
       }
 
-      // Build customer note
-      let customerNote = orderNotes || '';
-
-      // Only pass customer_id if it's a real WooCommerce customer (not a temporary profile)
-      // Temporary profiles have _meta.is_temporary = true (created when WC fetch fails)
-      const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
-
-      // Create WooCommerce order with payment details
-      const result = await createOrderAction({
-        customer_id: isRealCustomer ? user.id : undefined, // Only link if real WC customer
-        billing: billingData,
-        shipping: shippingData,
-        line_items: items.map((item) => ({
-          product_id: item.productId,
-          variation_id: item.variationId,
-          quantity: item.quantity,
-          tax_class: item.variation?.tax_class || item.product.tax_class, // Include tax class for Swedish rates (25% standard, 12% reduced)
-        })),
-        shipping_lines: [
-          {
-            method_id: shippingMethod.method_id,
-            method_title: shippingMethod.label,
-            total: shippingCost.toString(),
-          },
-        ],
-        payment_method: paymentMethod,
-        payment_method_title: getPaymentMethodTitle(paymentMethod),
-        customer_note: customerNote || undefined,
-        coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
-        set_paid: true, // Mark as paid since Stripe payment succeeded
-        transaction_id: paymentIntentId, // Store Stripe PaymentIntent ID
-      });
-
-      if (!result.success || !result.data) {
-        throw new Error(result.error || 'Failed to create order');
-      }
-
-      if (process.env.NODE_ENV === 'development') {
-        console.log('✅ WooCommerce order created:', result.data.id);
-      }
-
-      // Clear cart and redirect to success page
+      // Clear sessionStorage and cart
+      sessionStorage.removeItem('pendingCheckoutData');
       clearCart();
-      router.push(`/checkout/success?order=${result.data.id}&payment_intent=${paymentIntentId}`);
+
+      // Redirect to success page
+      // The order is already created and webhook will update status
+      router.push(`/checkout/success?order=${pendingOrderId}&payment_intent=${paymentIntentId}`);
     } catch (err) {
-      console.error('Order creation after payment failed:', err);
-      setError(
-        'Payment succeeded but order creation failed. Please contact support with payment ID: ' +
-        paymentIntentId
-      );
-      setIsProcessing(false);
+      console.error('Redirect after payment failed:', err);
+      // Still show success since payment went through
+      // Webhook will update order status
+      clearCart();
+      router.push(`/checkout/success?order=${pendingOrderId}&payment_intent=${paymentIntentId}`);
     }
   };
 
   const handlePlaceOrder = async () => {
     if (!shippingData || !billingData) {
-      setError('Please complete all required information');
+      setError(t('pleaseComplete'));
       return;
     }
 
     if (!shippingMethod) {
-      setError('Please select a shipping method');
+      setError(t('selectShipping'));
       return;
     }
 
@@ -300,21 +255,62 @@ export default function CheckoutPage() {
 
       if (!stockValidation || !stockValidation.valid) {
         setStockErrors(stockValidation?.errors || []);
-        setError('Some items in your cart are no longer available');
+        setError(t('itemsUnavailable'));
         setIsProcessing(false);
         return;
       }
 
-      // For Stripe payments, create PaymentIntent FIRST (before WooCommerce order)
+      // For Stripe payments, create WooCommerce order FIRST (with pending status)
+      // Then create PaymentIntent with order ID in metadata
+      // This ensures orders are never lost - webhook updates order on payment success/failure
       if (isStripe) {
         try {
           const totalAmount = getTotalPrice() + shippingCost - calculateDiscount();
 
           if (process.env.NODE_ENV === 'development') {
+            console.log('📦 Creating WooCommerce order with pending status...');
+          }
+
+          // Only pass customer_id if it's a real WooCommerce customer
+          const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
+
+          // STEP 1: Create WooCommerce order first with pending status
+          const orderResult = await createOrderAction({
+            customer_id: isRealCustomer ? user.id : undefined,
+            billing: billingData,
+            shipping: shippingData,
+            line_items: items.map((item) => ({
+              product_id: item.productId,
+              variation_id: item.variationId,
+              quantity: item.quantity,
+              tax_class: item.variation?.tax_class || item.product.tax_class,
+            })),
+            shipping_lines: [
+              {
+                method_id: shippingMethod.method_id,
+                method_title: shippingMethod.label,
+                total: shippingCost.toString(),
+              },
+            ],
+            payment_method: paymentMethod,
+            payment_method_title: getPaymentMethodTitle(paymentMethod),
+            customer_note: orderNotes || undefined,
+            coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
+            set_paid: false, // Order starts as pending payment
+          });
+
+          if (!orderResult.success || !orderResult.data) {
+            throw new Error(orderResult.error || 'Failed to create order');
+          }
+
+          const wcOrderId = orderResult.data.id;
+
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`✅ WooCommerce order #${wcOrderId} created with pending status`);
             console.log('💳 Creating Stripe PaymentIntent...');
           }
 
-          // Create PaymentIntent via Next.js API route
+          // STEP 2: Create PaymentIntent with WooCommerce order ID in metadata
           const response = await fetch('/api/stripe/create-payment-intent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -323,6 +319,7 @@ export default function CheckoutPage() {
               currency: 'sek',
               customerEmail: billingData.email,
               customerName: `${billingData.first_name} ${billingData.last_name}`,
+              wcOrderId: wcOrderId, // CRITICAL: Links payment to order for webhook
               billingAddress: {
                 line1: billingData.address_1,
                 line2: billingData.address_2,
@@ -344,7 +341,6 @@ export default function CheckoutPage() {
                 customer_name: `${billingData.first_name} ${billingData.last_name}`,
                 customer_email: billingData.email,
                 item_count: items.length.toString(),
-                // Note: Full items stored in sessionStorage for order creation
               },
             }),
           });
@@ -360,9 +356,10 @@ export default function CheckoutPage() {
             throw new Error('Failed to get payment client secret');
           }
 
-          // Store checkout data in sessionStorage for redirect-based payments (Klarna, etc.)
-          // This data will be retrieved on the stripe-return page to create the WooCommerce order
+          // Store checkout data including the WooCommerce order ID
+          // This is used by stripe-return page for redirect-based payments (Klarna, etc.)
           const checkoutData = {
+            wcOrderId: wcOrderId, // Include order ID for reference
             billing: billingData,
             shipping: shippingData,
             shippingMethod: {
@@ -375,7 +372,7 @@ export default function CheckoutPage() {
               product_id: item.productId,
               variation_id: item.variationId,
               quantity: item.quantity,
-              tax_class: item.variation?.tax_class || item.product.tax_class, // Include tax class for Swedish rates (25% standard, 12% reduced)
+              tax_class: item.variation?.tax_class || item.product.tax_class,
             })),
             orderNotes: orderNotes,
             coupon: coupon ? { code: coupon.code } : null,
@@ -383,22 +380,24 @@ export default function CheckoutPage() {
           };
           sessionStorage.setItem('pendingCheckoutData', JSON.stringify(checkoutData));
 
-          // Store paymentIntentId for later order creation
-          setPendingOrderId(0); // Temporary flag to indicate we're in Stripe flow
+          // Store order ID for UI reference
+          setPendingOrderId(wcOrderId);
           setStripeClientSecret(clientSecret);
           setIsProcessing(false);
 
           if (process.env.NODE_ENV === 'development') {
-            console.log('✅ Stripe PaymentIntent created:', paymentIntentId);
+            console.log(`✅ Stripe PaymentIntent created: ${paymentIntentId}`);
+            console.log(`🔗 Linked to WooCommerce order #${wcOrderId}`);
             console.log('📦 Checkout data saved to sessionStorage for redirect recovery');
+            console.log('🎯 Webhook will update order status on payment success/failure');
           }
 
           // The Stripe payment form will now be shown
-          // Order will be created in handleStripeSuccess after payment succeeds
+          // Webhook handles order status update after payment
           return;
 
         } catch (stripeError) {
-          console.error('Stripe initialization failed:', stripeError);
+          console.error('Order/Stripe initialization failed:', stripeError);
           setError(
             stripeError instanceof Error
               ? stripeError.message
@@ -469,21 +468,22 @@ export default function CheckoutPage() {
   };
 
   const getPaymentMethodTitle = (methodId: string): string => {
-    const titles: Record<string, string> = {
-      cod: 'Cash on Delivery',
-      bacs: 'Direct Bank Transfer',
-      stripe: 'Credit Card',
-      swish: 'Swish',
-    };
-    return titles[methodId] || methodId;
+    switch (methodId) {
+      case 'cod': return tPaymentMethod('cod');
+      case 'bacs': return tPaymentMethod('bacs');
+      case 'stripe':
+      case 'stripe_cc': return tPaymentMethod('cards');
+      case 'swish': return tPaymentMethod('swish');
+      case 'klarna':
+      case 'stripe_klarna': return tPaymentMethod('klarna');
+      default: return methodId;
+    }
   };
 
   const steps = [
-    { id: 'shipping', label: 'Shipping', completed: !!shippingData },
-    { id: 'shipping-method', label: 'Method', completed: !!shippingMethod },
-    { id: 'billing', label: 'Billing', completed: !!billingData },
-    { id: 'payment', label: 'Payment', completed: currentStep === 'review' },
-    { id: 'review', label: 'Review', completed: false },
+    { id: 'information', label: t('steps.information'), completed: !!shippingData },
+    { id: 'shipping-payment', label: t('steps.shippingPayment'), completed: !!shippingMethod && currentStep === 'review' },
+    { id: 'review', label: t('steps.reviewPay'), completed: false },
   ];
 
   return (
@@ -491,7 +491,7 @@ export default function CheckoutPage() {
       <Container>
         <div className="mb-8">
           <h1 className="mb-4 font-heading text-4xl font-bold text-primary-950 dark:text-primary-50">
-            Checkout
+            {t('title')}
           </h1>
 
           {/* Progress Steps */}
@@ -524,6 +524,17 @@ export default function CheckoutPage() {
               </div>
             ))}
           </div>
+
+          {/* Payment Methods Banner */}
+          <div className="mt-4 flex justify-center">
+            <Image
+              src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
+              alt="Payment Methods - Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay"
+              width={400}
+              height={50}
+              className="h-6 w-auto object-contain"
+            />
+          </div>
         </div>
 
         {/* Error Display */}
@@ -538,7 +549,7 @@ export default function CheckoutPage() {
           <Alert variant="destructive" className="mb-6">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              <p className="font-semibold">Stock issues:</p>
+              <p className="font-semibold">{t('stockIssues')}:</p>
               <ul className="mt-2 list-disc pl-4">
                 {stockErrors.map((err) => (
                   <li key={err.productId}>{err.message}</li>
@@ -556,7 +567,7 @@ export default function CheckoutPage() {
           <Alert variant="destructive" className="mb-6">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              <p className="font-semibold">Shipping Restrictions:</p>
+              <p className="font-semibold">{t('shippingRestrictions')}:</p>
               <ul className="mt-2 list-disc pl-4">
                 {shippingRestrictions.map((restriction) => (
                   <li key={restriction.productId}>
@@ -572,182 +583,160 @@ export default function CheckoutPage() {
           {/* Main Content */}
           <div className="lg:col-span-2">
             <AnimatePresence mode="wait">
-              {/* Shipping Step */}
-              {currentStep === 'shipping' && (
+              {/* Step 1: Information (Shipping + Billing + Order Notes) */}
+              {currentStep === 'information' && (
                 <motion.div
-                  key="shipping"
+                  key="information"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Express Checkout - Shows Link, Apple Pay, Google Pay BEFORE forms (like WordPress) */}
+                  {/* Express Checkout - Shows Link, Apple Pay, Google Pay BEFORE forms */}
                   <StripeExpressCheckout
                     amount={getTotalPrice()}
                     currency="SEK"
-                    showDebug={false}  /* Debug disabled - Express Checkout working with Link */
-                    onSuccess={handleExpressSuccess}
-                    onError={handleExpressError}
+                    showDebug={false}
+                    onSuccess={async (result) => {
+                      console.log('Express checkout success:', result);
+                      // Payment was processed via Express Checkout
+                      // The page will redirect to stripe-return for order creation
+                    }}
+                    onError={(error) => {
+                      console.error('Express checkout error:', error);
+                      setError(t('expressCheckoutError', { error }));
+                    }}
                   />
 
                   <ShippingForm
                     onSubmit={handleShippingSubmit}
                     defaultValues={shippingData || undefined}
                   />
+
+                  {/* Billing Same as Shipping Checkbox */}
+                  <div className="mt-6 p-4 rounded-lg border bg-neutral-50 dark:bg-neutral-900">
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="same-as-shipping"
+                        checked={sameAsShipping}
+                        onCheckedChange={(checked) => setSameAsShipping(checked as boolean)}
+                      />
+                      <Label htmlFor="same-as-shipping" className="cursor-pointer font-medium">
+                        {t('billingSameAsShipping')}
+                      </Label>
+                    </div>
+
+                    {/* Conditional Billing Form */}
+                    {!sameAsShipping && (
+                      <div className="mt-4">
+                        <BillingForm
+                          onSubmit={handleBillingSubmit}
+                          defaultValues={billingData || undefined}
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Order Notes (moved from payment step) */}
+                  <div className="mt-6 space-y-2">
+                    <Label htmlFor="order-notes">{t('orderNotes')}</Label>
+                    <Textarea
+                      id="order-notes"
+                      placeholder={t('orderNotesPlaceholder')}
+                      value={orderNotes}
+                      onChange={(e) => setOrderNotes(e.target.value)}
+                      rows={3}
+                    />
+                  </div>
+
+                  {/* Continue Button */}
                   <div className="mt-6 flex justify-end">
                     <Button
                       size="lg"
                       className="rounded-full"
                       onClick={() => {
                         const form = document.getElementById('shipping-form') as HTMLFormElement;
-                        form?.requestSubmit();
+                        if (form) {
+                          form.requestSubmit();
+                        } else if (shippingData) {
+                          // Auto-set billing if same as shipping
+                          if (sameAsShipping) {
+                            setBillingData({
+                              ...shippingData,
+                              state: shippingData.state || '',
+                              email: billingData?.email || '',
+                              phone: shippingData.phone || '',
+                            });
+                          }
+                          setCurrentStep('shipping-payment');
+                        }
                       }}
                     >
-                      Continue to Shipping Method
+                      {t('continueToShipping')}
                     </Button>
                   </div>
                 </motion.div>
               )}
 
-              {/* Shipping Method Step */}
-              {currentStep === 'shipping-method' && shippingData && (
+              {/* Step 2: Shipping & Payment (Combined Method Selections) */}
+              {currentStep === 'shipping-payment' && shippingData && (
                 <motion.div
-                  key="shipping-method"
+                  key="shipping-payment"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
+                  className="space-y-8"
                 >
-                  <ShippingMethodSelector
-                    postcode={shippingData.postcode}
-                    cartTotal={getTotalPrice()}
-                    selectedMethod={shippingMethod?.id}
-                    onMethodChange={setShippingMethod}
-                    onShippingCostChange={setShippingCost}
-                  />
+                  {/* Shipping Method Selection */}
+                  <div>
+                    <ShippingMethodSelector
+                      postcode={shippingData.postcode}
+                      cartTotal={getTotalPrice()}
+                      selectedMethod={shippingMethod?.id}
+                      onMethodChange={setShippingMethod}
+                      onShippingCostChange={setShippingCost}
+                    />
+                  </div>
 
+                  {/* Visual Separator */}
+                  <Separator />
+
+                  {/* Payment Method Selection */}
+                  <div>
+                    <PaymentMethodSelector
+                      selectedMethod={paymentMethod}
+                      onMethodChange={setPaymentMethod}
+                    />
+                  </div>
+
+                  {/* Navigation Buttons */}
                   <div className="mt-6 flex justify-between">
                     <Button
                       variant="outline"
-                      onClick={() => setCurrentStep('shipping')}
+                      onClick={() => setCurrentStep('information')}
                     >
-                      Back
-                    </Button>
-                    <Button
-                      size="lg"
-                      className="rounded-full"
-                      onClick={() => setCurrentStep('billing')}
-                      disabled={!shippingMethod}
-                    >
-                      Continue to Billing
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-
-
-              {/* Billing Step */}
-              {currentStep === 'billing' && (
-                <motion.div
-                  key="billing"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="mb-6 flex items-center gap-2">
-                    <Checkbox
-                      id="same-as-shipping"
-                      checked={sameAsShipping}
-                      onCheckedChange={(checked) => setSameAsShipping(checked as boolean)}
-                    />
-                    <Label htmlFor="same-as-shipping" className="cursor-pointer">
-                      Billing address same as shipping
-                    </Label>
-                  </div>
-
-                  {!sameAsShipping && (
-                    <BillingForm
-                      onSubmit={handleBillingSubmit}
-                      defaultValues={billingData || undefined}
-                    />
-                  )}
-
-                  <div className="mt-6 flex justify-between">
-                    <Button
-                      variant="outline"
-                      onClick={() => setCurrentStep('shipping-method')}
-                    >
-                      Back
+                      {t('back')}
                     </Button>
                     <Button
                       size="lg"
                       className="rounded-full"
                       onClick={() => {
-                        if (sameAsShipping && shippingData) {
-                          setBillingData({
-                            ...shippingData,
-                            state: shippingData.state || '', // Ensure state is always a string
-                            email: billingData?.email || '',
-                            phone: shippingData.phone || '',
-                          });
-                          setCurrentStep('payment');
-                        } else {
-                          const form = document.querySelector('form') as HTMLFormElement;
-                          form?.requestSubmit();
+                        if (!shippingMethod) {
+                          setError(t('selectShippingContinue'));
+                          return;
                         }
+                        setCurrentStep('review');
                       }}
+                      disabled={!shippingMethod}
                     >
-                      Continue to Payment
+                      {t('reviewOrder')}
                     </Button>
                   </div>
                 </motion.div>
               )}
 
-              {/* Payment Step */}
-              {currentStep === 'payment' && (
-                <motion.div
-                  key="payment"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <PaymentMethodSelector
-                    selectedMethod={paymentMethod}
-                    onMethodChange={setPaymentMethod}
-                  />
-
-                  <div className="mt-6 space-y-2">
-                    <Label htmlFor="order-notes">Order Notes (Optional)</Label>
-                    <Textarea
-                      id="order-notes"
-                      placeholder="Special instructions for your order..."
-                      value={orderNotes}
-                      onChange={(e) => setOrderNotes(e.target.value)}
-                      rows={4}
-                    />
-                  </div>
-
-                  <div className="mt-6 flex justify-between">
-                    <Button
-                      variant="outline"
-                      onClick={() => setCurrentStep('billing')}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      size="lg"
-                      className="rounded-full"
-                      onClick={() => setCurrentStep('review')}
-                    >
-                      Review Order
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Review Step */}
+              {/* Step 3: Review & Pay (Enhanced Layout) */}
               {currentStep === 'review' && (
                 <motion.div
                   key="review"
@@ -758,83 +747,119 @@ export default function CheckoutPage() {
                   className="space-y-6"
                 >
                   <h2 className="font-heading text-2xl font-bold text-primary-950 dark:text-primary-50">
-                    Review Your Order
+                    {t('reviewYourOrder')}
                   </h2>
 
-                  {/* Shipping Info */}
-                  {shippingData && (
+                  {/* 2-Column Grid Layout */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Shipping Address */}
+                    {shippingData && (
+                      <div className="rounded-lg border p-4">
+                        <h3 className="mb-2 font-semibold">{t('shippingAddress')}</h3>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                          {shippingData.first_name} {shippingData.last_name}
+                          <br />
+                          {shippingData.address_1}
+                          {shippingData.address_2 && (
+                            <>
+                              <br />
+                              {shippingData.address_2}
+                            </>
+                          )}
+                          <br />
+                          {shippingData.city}, {shippingData.state} {shippingData.postcode}
+                          <br />
+                          {shippingData.country}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Billing Address (only if different) */}
+                    {billingData && !sameAsShipping && (
+                      <div className="rounded-lg border p-4">
+                        <h3 className="mb-2 font-semibold">{t('billingAddress')}</h3>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                          {billingData.first_name} {billingData.last_name}
+                          <br />
+                          {billingData.address_1}
+                          {billingData.address_2 && (
+                            <>
+                              <br />
+                              {billingData.address_2}
+                            </>
+                          )}
+                          <br />
+                          {billingData.city}, {billingData.state} {billingData.postcode}
+                          <br />
+                          {billingData.country}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Shipping Method Display */}
+                    {shippingMethod && (
+                      <div className="rounded-lg border p-4">
+                        <h3 className="mb-2 font-semibold">{t('shippingMethod')}</h3>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                          {shippingMethod.label}
+                          {shippingCost > 0 && ` - ${formatPrice(shippingCost, 'SEK')}`}
+                          {shippingCost === 0 && ` - ${t('free')}`}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Payment Method */}
                     <div className="rounded-lg border p-4">
-                      <h3 className="mb-2 font-semibold">Shipping Address</h3>
+                      <h3 className="mb-2 font-semibold">{tPaymentMethod('title')}</h3>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        {shippingData.first_name} {shippingData.last_name}
-                        <br />
-                        {shippingData.address_1}
-                        {shippingData.address_2 && (
-                          <>
-                            <br />
-                            {shippingData.address_2}
-                          </>
-                        )}
-                        <br />
-                        {shippingData.city}, {shippingData.state} {shippingData.postcode}
-                        <br />
-                        {shippingData.country}
+                        {getPaymentMethodTitle(paymentMethod)}
                       </p>
                     </div>
-                  )}
-
-                  {/* Billing Info */}
-                  {billingData && !sameAsShipping && (
-                    <div className="rounded-lg border p-4">
-                      <h3 className="mb-2 font-semibold">Billing Address</h3>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        {billingData.first_name} {billingData.last_name}
-                        <br />
-                        {billingData.address_1}
-                        {billingData.address_2 && (
-                          <>
-                            <br />
-                            {billingData.address_2}
-                          </>
-                        )}
-                        <br />
-                        {billingData.city}, {billingData.state} {billingData.postcode}
-                        <br />
-                        {billingData.country}
-                      </p>
-                    </div>
-                  )}
-
-
-                  {/* Payment Method */}
-                  <div className="rounded-lg border p-4">
-                    <h3 className="mb-2 font-semibold">Payment Method</h3>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      {getPaymentMethodTitle(paymentMethod)}
-                    </p>
                   </div>
 
+
+                  {/* Order Notes Display */}
+                  {orderNotes && (
+                    <div className="rounded-lg border p-4">
+                      <h3 className="mb-2 font-semibold">{t('orderNotes')}</h3>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        {orderNotes}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Shipping Method Missing Alert */}
+                  {!shippingMethod && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        <strong>{t('noShippingSelected')}.</strong> {t('noShippingSelectedMessage')}
+                      </AlertDescription>
+                    </Alert>
+                  )}
+
+                  {/* Navigation Buttons */}
                   <div className="mt-6 flex justify-between">
                     <Button
                       variant="outline"
-                      onClick={() => setCurrentStep('payment')}
+                      onClick={() => setCurrentStep('shipping-payment')}
                       disabled={isProcessing}
                     >
-                      Back
+                      {t('back')}
                     </Button>
                     <Button
                       size="lg"
                       className="rounded-full"
                       onClick={handlePlaceOrder}
-                      disabled={isProcessing}
+                      disabled={isProcessing || !shippingMethod}
                     >
                       {isProcessing ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Processing...
+                          {t('processing')}
                         </>
                       ) : (
-                        'Place Order'
+                        t('placeOrder')
                       )}
                     </Button>
                   </div>
@@ -844,17 +869,17 @@ export default function CheckoutPage() {
                     <div className="mt-8">
                       <Separator className="my-6" />
                       <h3 className="mb-4 font-heading text-xl font-bold text-primary-950 dark:text-primary-50">
-                        Complete Payment
+                        {t('completePayment')}
                       </h3>
                       <StripeProvider clientSecret={stripeClientSecret}>
-                        {/* Payment Request Button (Apple Pay / Google Pay) - SAME as WordPress */}
+                        {/* Payment Request Button (Apple Pay / Google Pay) */}
                         <PaymentRequestButton
                           amount={getTotalPrice() + shippingCost - calculateDiscount()}
                           currency="SEK"
                           onSuccess={handleStripeSuccess}
                           onError={(error) => {
                             console.error('Wallet payment failed:', error);
-                            setError(`Wallet payment failed: ${error}`);
+                            setError(t('walletPaymentError', { error }));
                           }}
                         />
 
@@ -865,7 +890,7 @@ export default function CheckoutPage() {
                           onSuccess={handleStripeSuccess}
                           onError={(error) => {
                             console.error('Payment failed:', error);
-                            setError(`Payment failed: ${error}`);
+                            setError(t('paymentError', { error }));
                           }}
                         />
                       </StripeProvider>
@@ -890,7 +915,7 @@ export default function CheckoutPage() {
                   variant="outline"
                   size="lg"
                   className="w-full border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/20"
-                  label="Order via WhatsApp"
+                  label={undefined}
                   onSuccess={() => {
                     clearCart();
                     router.push('/');
@@ -901,7 +926,7 @@ export default function CheckoutPage() {
               {/* Stock Disclaimer */}
               <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-900/30 dark:bg-amber-900/10 dark:text-amber-200">
                 <p>
-                  <strong>Note:</strong> Inventory is shared with our physical store. In the rare event of a stock discrepancy, we will contact you immediately.
+                  <strong>{t('note')}:</strong> {t('inventoryDisclaimer')}
                 </p>
               </div>
 
@@ -915,7 +940,7 @@ export default function CheckoutPage() {
               {/* Swish Payment QR Code */}
               <div className="rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
                 <h3 className="mb-4 text-center font-heading text-lg font-semibold text-primary-950 dark:text-primary-50">
-                  Scan and pay by Swish
+                  {t('scanSwish')}
                 </h3>
                 <div className="flex justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

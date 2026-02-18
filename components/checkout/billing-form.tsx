@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { useCountries } from '@/hooks/use-countries';
+import { useTranslations } from 'next-intl';
 
 const billingSchema = z.object({
     first_name: z.string().min(1, 'First name is required'),
@@ -39,6 +40,8 @@ interface BillingFormProps {
 
 export function BillingForm({ onSubmit, defaultValues, className }: BillingFormProps) {
     const { countries } = useCountries();
+    const t = useTranslations('billingForm');
+    const tShipping = useTranslations('shippingForm');
 
     const {
         register,
@@ -59,14 +62,14 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
         <form onSubmit={handleSubmit(onSubmit)} className={cn('space-y-6', className)}>
             <div className="space-y-4">
                 <h2 className="font-heading text-2xl font-bold text-primary-950 dark:text-primary-50">
-                    Billing Information
+                    {t('title')}
                 </h2>
 
                 <div className="grid gap-4 sm:grid-cols-2">
                     {/* First Name */}
                     <div className="space-y-2">
                         <Label htmlFor="billing_first_name">
-                            First Name <span className="text-destructive">*</span>
+                            {tShipping('firstName')} <span className="text-destructive">*</span>
                         </Label>
                         <Input
                             id="billing_first_name"
@@ -81,7 +84,7 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
                     {/* Last Name */}
                     <div className="space-y-2">
                         <Label htmlFor="billing_last_name">
-                            Last Name <span className="text-destructive">*</span>
+                            {tShipping('lastName')} <span className="text-destructive">*</span>
                         </Label>
                         <Input
                             id="billing_last_name"
@@ -96,21 +99,21 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
 
                 {/* Company */}
                 <div className="space-y-2">
-                    <Label htmlFor="billing_company">Company (optional)</Label>
+                    <Label htmlFor="billing_company">{tShipping('company')}</Label>
                     <Input id="billing_company" {...register('company')} />
                 </div>
 
                 {/* Country */}
                 <div className="space-y-2">
                     <Label htmlFor="billing_country">
-                        Country <span className="text-destructive">*</span>
+                        {tShipping('country')} <span className="text-destructive">*</span>
                     </Label>
                     <Select
                         value={selectedCountry}
                         onValueChange={(value) => setValue('country', value)}
                     >
                         <SelectTrigger className={errors.country ? 'border-destructive' : ''}>
-                            <SelectValue placeholder="Select country" />
+                            <SelectValue placeholder={tShipping('selectCountry')} />
                         </SelectTrigger>
                         <SelectContent>
                             {countries.map((country) => (
@@ -128,11 +131,11 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
                 {/* Address 1 */}
                 <div className="space-y-2">
                     <Label htmlFor="billing_address_1">
-                        Street Address <span className="text-destructive">*</span>
+                        {tShipping('streetAddress')} <span className="text-destructive">*</span>
                     </Label>
                     <Input
                         id="billing_address_1"
-                        placeholder="House number and street name"
+                        placeholder={tShipping('addressPlaceholder')}
                         {...register('address_1')}
                         className={errors.address_1 ? 'border-destructive' : ''}
                     />
@@ -143,7 +146,7 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
 
                 {/* Address 2 */}
                 <div className="space-y-2">
-                    <Label htmlFor="billing_address_2">Apartment, suite, etc. (optional)</Label>
+                    <Label htmlFor="billing_address_2">{tShipping('apartment')}</Label>
                     <Input id="billing_address_2" {...register('address_2')} />
                 </div>
 
@@ -151,7 +154,7 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
                     {/* City */}
                     <div className="space-y-2">
                         <Label htmlFor="billing_city">
-                            City <span className="text-destructive">*</span>
+                            {tShipping('city')} <span className="text-destructive">*</span>
                         </Label>
                         <Input
                             id="billing_city"
@@ -166,7 +169,7 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
                     {/* State */}
                     <div className="space-y-2">
                         <Label htmlFor="billing_state">
-                            State/Province <span className="text-destructive">*</span>
+                            {tShipping('state')} <span className="text-destructive">*</span>
                         </Label>
                         <Input
                             id="billing_state"
@@ -181,7 +184,7 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
                     {/* Postcode */}
                     <div className="space-y-2">
                         <Label htmlFor="billing_postcode">
-                            Postal Code <span className="text-destructive">*</span>
+                            {tShipping('postalCode')} <span className="text-destructive">*</span>
                         </Label>
                         <Input
                             id="billing_postcode"
@@ -197,7 +200,7 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
                 {/* Email */}
                 <div className="space-y-2">
                     <Label htmlFor="billing_email">
-                        Email Address <span className="text-destructive">*</span>
+                        {tShipping('email')} <span className="text-destructive">*</span>
                     </Label>
                     <Input
                         id="billing_email"
@@ -213,7 +216,7 @@ export function BillingForm({ onSubmit, defaultValues, className }: BillingFormP
                 {/* Phone */}
                 <div className="space-y-2">
                     <Label htmlFor="billing_phone">
-                        Phone <span className="text-destructive">*</span>
+                        {tShipping('phone')} <span className="text-destructive">*</span>
                     </Label>
                     <Input
                         id="billing_phone"

@@ -562,5 +562,119 @@
     "noPostsFound": "Inga blogginlägg hittades. Kom tillbaka snart för nytt innehåll!",
     "errorLoading": "Kunde inte ladda blogginlägg. Försök igen senare.",
     "readMore": "Läs Mer"
+  },
+  "billingForm": {
+    "title": "Faktureringsadress",
+    "sameAsShipping": "Faktureringsadress är samma som leveransadress",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "address": "Adress",
+    "city": "Stad",
+    "postcode": "Postnummer",
+    "country": "Land",
+    "phone": "Telefon",
+    "email": "E-post"
+  },
+  "orderSummary": {
+    "title": "Ordersammanfattning",
+    "subtotal": "Delsumma",
+    "shipping": "Frakt",
+    "tax": "Moms (12%)",
+    "total": "Totalt",
+    "discount": "Rabatt",
+    "couponCode": "Rabattkod",
+    "apply": "Använd",
+    "remove": "Ta bort"
+  },
+  "shippingMethod": {
+    "title": "Fraktmetod",
+    "subtitle": "Leverans till {address}",
+    "freeShippingBar": "Fri frakt vid {amount}",
+    "freeShippingToGo": "{amount} kvar!",
+    "congratsFreeShipping": "Grattis! Du har kvalificerat dig för fri frakt!",
+    "calculating": "Beräknar fraktpriser...",
+    "noMethods": "Inga fraktmetoder tillgängliga för din adress.",
+    "poweredBy": "Drivs av DHL eCommerce Sverige"
+  },
+  "paymentMethod": {
+    "title": "Betalningsmetod",
+    "secure": "Alla transaktioner är säkra och krypterade.",
+    "cards": "Kortbetalning",
+    "klarna": "Klarna",
+    "swish": "Swish",
+    "bacs": "Banköverföring",
+    "cod": "Postförskott / Betala vid leverans",
+    "loading": "Laddar betalningsmetoder..."
+  },
+  "stripe": {
+    "pay": "Betala {amount}",
+    "processing": "Bearbetar betalning...",
+    "encrypted": "Din betalningsinformation är krypterad och säker. Drivs av Stripe.",
+    "expressCheckout": "Snabbkassa",
+    "fastSecure": "Snabbt & Säkert",
+    "orContinue": "Eller fortsätt nedan"
+  },
+  "actions": {
+    "orderViaWhatsapp": "Beställ via WhatsApp",
+    "consultViaWhatsapp": "Rådgivning via WhatsApp"
+  },
+  "whatsapp": {
+    "modalTitle": "Fyll i din information",
+    "modalDescription": "Vänligen ange dina kontakt- och leveransuppgifter för att skapa din WhatsApp-beställning.",
+    "contactInfo": "Kontaktinformation",
+    "shippingAddress": "Leveransadress",
+    "billingSameAsShipping": "Faktureringsadress samma som leveransadress",
+    "orderNotes": "Ordernoteringar (frivilligt)",
+    "cancel": "Avbryt",
+    "continue": "Fortsätt till WhatsApp",
+    "creatingOrder": "Skapar order..."
+  },
+  "coupon": {
+    "placeholder": "Kupongkod eller Presentkort",
+    "apply": "Använd",
+    "success": "Kupong \"{code}\" användes framgångsrikt!",
+    "error": "Ogiltig kupongkod",
+    "failed": "Misslyckades med att använda kupong"
+  },
+  "checkoutPage": {
+    "title": "Kassan",
+    "emptyCartTitle": "Din varukorg är tom",
+    "emptyCartMessage": "Lägg till varor i din varukorg innan du går vidare till kassan",
+    "shopNow": "Handla nu",
+    "steps": {
+      "information": "Information",
+      "shippingPayment": "Frakt & Betalning",
+      "reviewPay": "Granska & Betala"
+    },
+    "billingSameAsShipping": "Faktureringsadress samma som leveransadress",
+    "orderNotes": "Ordernoteringar (Valfritt)",
+    "orderNotesPlaceholder": "Särskilda instruktioner för din beställning...",
+    "continueToShipping": "Fortsätt till Frakt & Betalning",
+    "back": "Tillbaka",
+    "reviewOrder": "Granska beställning",
+    "reviewYourOrder": "Granska din beställning",
+    "shippingAddress": "Leveransadress",
+    "billingAddress": "Faktureringsadress",
+    "shippingMethod": "Fraktmetod",
+    "free": "Gratis",
+    "expressCheckoutSuccess": "Express-kassa lyckades",
+    "expressCheckoutError": "Express-kassa misslyckades: {error}",
+    "stockIssues": "Lagerproblem",
+    "shippingRestrictions": "Fraktrestriktioner",
+    "pleaseComplete": "Vänligen fyll i all obligatorisk information",
+    "selectShipping": "Vänligen välj en fraktmetod",
+    "selectShippingContinue": "Vänligen välj en fraktmetod innan du fortsätter",
+    "itemsUnavailable": "Vissa varor i din varukorg är inte längre tillgängliga",
+    "itemsRestricted": "Vissa varor i din varukorg kan inte skickas till denna plats. Vänligen granska restriktionerna nedan.",
+    "noShippingSelected": "Ingen fraktmetod vald",
+    "noShippingSelectedMessage": "Vänligen gå tillbaka till föregående steg och välj en fraktmetod innan du slutför din beställning.",
+    "placeOrder": "Slutför beställning",
+    "processing": "Bearbetar...",
+    "completePayment": "Slutför betalning",
+    "walletPaymentError": "Plånboksbetalning misslyckades: {error}",
+    "paymentError": "Betalning misslyckades: {error}",
+    "note": "Obs",
+    "inventoryDisclaimer": "Lagret delas med vår fysiska butik. I sällsynta fall av lageravvikelse kontaktar vi dig omedelbart.",
+    "scanSwish": "Scanna och betala med Swish"
   }
 }

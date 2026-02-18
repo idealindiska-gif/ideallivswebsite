@@ -19,6 +19,7 @@ import type {
 } from '@/types/whatsapp';
 import { useToast } from '@/hooks/use-toast';
 import { isWhatsAppEnabledForProduct, getProductWhatsAppMessage } from '@/lib/whatsapp/product-helpers';
+import { useTranslations } from 'next-intl';
 
 export interface WhatsAppOrderButtonProps {
   // Context: product or cart
@@ -72,7 +73,7 @@ export function WhatsAppOrderButton({
   size = 'lg',
   className = '',
   label,
-  loadingLabel = 'Creating Order...',
+  loadingLabel: propLoadingLabel,
   customerData,
   shippingData,
   billingData,
@@ -83,6 +84,7 @@ export function WhatsAppOrderButton({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const t = useTranslations();
 
   // Check if WhatsApp is enabled for product
   if (context === 'product' && product && !isWhatsAppEnabledForProduct(product)) {
@@ -90,7 +92,8 @@ export function WhatsAppOrderButton({
   }
 
   // Determine button label
-  const buttonLabel = label || (context === 'product' ? 'Order via WhatsApp' : 'WhatsApp Order');
+  const buttonLabel = label || t('actions.orderViaWhatsapp');
+  const loadingLabel = propLoadingLabel || t('whatsapp.creatingOrder');
 
   // Handle button click
   const handleClick = () => {
@@ -147,41 +150,41 @@ export function WhatsAppOrderButton({
       const orderData =
         context === 'product'
           ? {
-              product: {
-                id: product!.id,
-                name: product!.name,
-                slug: product!.slug,
-                price: variation?.price || product!.price,
-                quantity,
-                variation,
-              },
-              customer: data.customer,
-              shipping: data.shipping,
-              billing: data.billing,
-              notes: data.notes,
-            }
+            product: {
+              id: product!.id,
+              name: product!.name,
+              slug: product!.slug,
+              price: variation?.price || product!.price,
+              quantity,
+              variation,
+            },
+            customer: data.customer,
+            shipping: data.shipping,
+            billing: data.billing,
+            notes: data.notes,
+          }
           : {
-              cart: {
-                items: cartItems.map((item) => ({
-                  productId: item.product.id,
-                  variationId: item.variation?.id,
-                  quantity: item.quantity,
-                  name: item.product.name,
-                  price: item.price.toString(),
-                  variation: item.variation?.attributes
-                    ?.map((attr) => attr.option)
-                    .join(', '),
-                })),
-                total: cartTotal || '0',
-                subtotal: cartSubtotal,
-                shipping: cartShipping,
-                tax: cartTax,
-              },
-              customer: data.customer,
-              shipping: data.shipping,
-              billing: data.billing,
-              notes: data.notes,
-            };
+            cart: {
+              items: cartItems.map((item) => ({
+                productId: item.product.id,
+                variationId: item.variation?.id,
+                quantity: item.quantity,
+                name: item.product.name,
+                price: item.price.toString(),
+                variation: item.variation?.attributes
+                  ?.map((attr) => attr.option)
+                  .join(', '),
+              })),
+              total: cartTotal || '0',
+              subtotal: cartSubtotal,
+              shipping: cartShipping,
+              tax: cartTax,
+            },
+            customer: data.customer,
+            shipping: data.shipping,
+            billing: data.billing,
+            notes: data.notes,
+          };
 
       // Create order via server action
       const result = await createWhatsAppOrderAction(orderData);

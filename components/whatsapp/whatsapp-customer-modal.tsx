@@ -27,6 +27,7 @@ import type {
   WhatsAppShippingAddress,
   WhatsAppBillingAddress,
 } from '@/types/whatsapp';
+import { useTranslations } from 'next-intl';
 
 // Validation schema
 const customerFormSchema = z.object({
@@ -67,6 +68,10 @@ export function WhatsAppCustomerModal({
   onSubmit,
   isLoading = false,
 }: WhatsAppCustomerModalProps) {
+  const tWhatsapp = useTranslations('whatsapp');
+  const tBilling = useTranslations('billingForm');
+  const tShipping = useTranslations('shippingForm');
+
   const {
     register,
     handleSubmit,
@@ -102,10 +107,10 @@ export function WhatsAppCustomerModal({
     const billing: WhatsAppBillingAddress | undefined = data.billingSameAsShipping
       ? undefined
       : {
-          ...shipping,
-          email: data.email,
-          phone: data.phone,
-        };
+        ...shipping,
+        email: data.email,
+        phone: data.phone,
+      };
 
     onSubmit({
       customer,
@@ -119,21 +124,20 @@ export function WhatsAppCustomerModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Complete Your Information</DialogTitle>
+          <DialogTitle>{tWhatsapp('modalTitle')}</DialogTitle>
           <DialogDescription>
-            Please provide your contact and shipping details to create your WhatsApp
-            order.
+            {tWhatsapp('modalDescription')}
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
           {/* Contact Information */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold">Contact Information</h3>
+            <h3 className="text-sm font-semibold">{tWhatsapp('contactInfo')}</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="firstName">
-                  First Name <span className="text-red-500">*</span>
+                  {tBilling('firstName')} <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="firstName"
@@ -149,7 +153,7 @@ export function WhatsAppCustomerModal({
 
               <div>
                 <Label htmlFor="lastName">
-                  Last Name <span className="text-red-500">*</span>
+                  {tBilling('lastName')} <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="lastName"
@@ -166,7 +170,7 @@ export function WhatsAppCustomerModal({
 
             <div>
               <Label htmlFor="email">
-                Email <span className="text-red-500">*</span>
+                {tBilling('email')} <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="email"
@@ -181,7 +185,7 @@ export function WhatsAppCustomerModal({
 
             <div>
               <Label htmlFor="phone">
-                Phone Number <span className="text-red-500">*</span>
+                {tBilling('phone')} <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="phone"
@@ -198,11 +202,11 @@ export function WhatsAppCustomerModal({
 
           {/* Shipping Address */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold">Shipping Address</h3>
+            <h3 className="text-sm font-semibold">{tWhatsapp('shippingAddress')}</h3>
 
             <div>
               <Label htmlFor="address_1">
-                Street Address <span className="text-red-500">*</span>
+                {tBilling('address')} <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="address_1"
@@ -217,7 +221,7 @@ export function WhatsAppCustomerModal({
             </div>
 
             <div>
-              <Label htmlFor="address_2">Apartment, suite, etc. (optional)</Label>
+              <Label htmlFor="address_2">{tShipping('apartment')}</Label>
               <Input
                 id="address_2"
                 {...register('address_2')}
@@ -228,7 +232,7 @@ export function WhatsAppCustomerModal({
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="city">
-                  City <span className="text-red-500">*</span>
+                  {tBilling('city')} <span className="text-red-500">*</span>
                 </Label>
                 <Input id="city" {...register('city')} disabled={isLoading} />
                 {errors.city && (
@@ -237,7 +241,7 @@ export function WhatsAppCustomerModal({
               </div>
 
               <div>
-                <Label htmlFor="state">State / Province (optional)</Label>
+                <Label htmlFor="state">{tShipping('state')}</Label>
                 <Input id="state" {...register('state')} disabled={isLoading} />
               </div>
             </div>
@@ -245,7 +249,7 @@ export function WhatsAppCustomerModal({
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="postcode">
-                  Postcode <span className="text-red-500">*</span>
+                  {tBilling('postcode')} <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="postcode"
@@ -261,7 +265,7 @@ export function WhatsAppCustomerModal({
 
               <div>
                 <Label htmlFor="country">
-                  Country <span className="text-red-500">*</span>
+                  {tBilling('country')} <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="country"
@@ -290,13 +294,13 @@ export function WhatsAppCustomerModal({
               htmlFor="billingSameAsShipping"
               className="text-sm font-normal cursor-pointer"
             >
-              Billing address same as shipping
+              {tWhatsapp('billingSameAsShipping')}
             </Label>
           </div>
 
           {/* Order Notes */}
           <div>
-            <Label htmlFor="notes">Order Notes (optional)</Label>
+            <Label htmlFor="notes">{tWhatsapp('orderNotes')}</Label>
             <Textarea
               id="notes"
               {...register('notes')}
@@ -314,7 +318,7 @@ export function WhatsAppCustomerModal({
               onClick={() => onOpenChange(false)}
               disabled={isLoading}
             >
-              Cancel
+              {tWhatsapp('cancel')}
             </Button>
             <Button
               type="submit"
@@ -324,10 +328,10 @@ export function WhatsAppCustomerModal({
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Creating Order...
+                  {tWhatsapp('creatingOrder')}
                 </>
               ) : (
-                'Continue to WhatsApp'
+                tWhatsapp('continue')
               )}
             </Button>
           </div>

@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Loader2, Tag } from 'lucide-react';
 import { validateCouponAction } from '@/app/actions/woocommerce-settings';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useTranslations } from 'next-intl';
 
 interface CouponInputProps {
     onApply: (coupon: any) => void;
@@ -17,6 +18,7 @@ export function CouponInput({ onApply, disabled }: CouponInputProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
+    const t = useTranslations('coupon');
 
     const handleApply = async () => {
         if (!code.trim()) return;
@@ -29,15 +31,15 @@ export function CouponInput({ onApply, disabled }: CouponInputProps) {
             const result = await validateCouponAction(code);
 
             if (!result.success || !result.data) {
-                setError(result.error || 'Invalid coupon code');
+                setError(result.error || t('error'));
                 return;
             }
 
             onApply(result.data);
-            setSuccess(`Coupon "${result.data.code}" applied successfully!`);
+            setSuccess(t('success', { code: result.data.code }));
             setCode('');
         } catch (err) {
-            setError('Failed to apply coupon');
+            setError(t('failed'));
         } finally {
             setLoading(false);
         }
@@ -50,7 +52,7 @@ export function CouponInput({ onApply, disabled }: CouponInputProps) {
                     <Tag className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                         type="text"
-                        placeholder="Coupon code or Gift Card"
+                        placeholder={t('placeholder')}
                         className="pl-9"
                         value={code}
                         onChange={(e) => setCode(e.target.value)}
@@ -69,7 +71,7 @@ export function CouponInput({ onApply, disabled }: CouponInputProps) {
                     disabled={loading || disabled || !code.trim()}
                     variant="secondary"
                 >
-                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Apply'}
+                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : t('apply')}
                 </Button>
             </div>
 

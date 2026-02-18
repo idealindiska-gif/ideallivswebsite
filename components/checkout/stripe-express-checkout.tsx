@@ -3,6 +3,7 @@
 import { useStripe, Elements } from '@stripe/react-stripe-js';
 import { loadStripe, PaymentRequest, Stripe } from '@stripe/stripe-js';
 import { useState, useEffect, useRef } from 'react';
+import { useTranslations, useLocale } from 'next-intl';
 
 // Initialize Stripe
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
@@ -32,6 +33,8 @@ function PaymentRequestButtonInner({
     const [status, setStatus] = useState<'loading' | 'ready' | 'unavailable' | 'error'>('loading');
     const [errorMsg, setErrorMsg] = useState<string>('');
     const buttonRef = useRef<HTMLDivElement>(null);
+    const t = useTranslations('stripe');
+    const locale = useLocale();
 
     const prRef = useRef<PaymentRequest | null>(null);
 
@@ -135,10 +138,10 @@ function PaymentRequestButtonInner({
             {/* Header */}
             <div className="mb-4 flex items-center gap-2">
                 <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                    Express Checkout
+                    {t('expressCheckout')}
                 </span>
                 <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                    Fast & Secure
+                    {t('fastSecure')}
                 </span>
             </div>
 
@@ -172,18 +175,18 @@ function PaymentRequestButtonInner({
             {/* Status messages */}
             {status === 'loading' && (
                 <p className="mt-2 text-center text-xs text-neutral-500">
-                    Checking payment options...
+                    {locale === 'sv' ? 'Kontrollerar betalningsalternativ...' : 'Checking payment options...'}
                 </p>
             )}
 
             {status === 'ready' && (
                 <>
                     <p className="mt-4 text-center text-xs text-neutral-500 dark:text-neutral-400">
-                        Pay instantly with Link, Apple Pay, or Google Pay
+                        {locale === 'sv' ? 'Betala direkt med Link, Apple Pay eller Google Pay' : 'Pay instantly with Link, Apple Pay, or Google Pay'}
                     </p>
                     <div className="mt-6 flex items-center gap-3">
                         <div className="h-px flex-1 bg-neutral-300 dark:bg-neutral-700" />
-                        <span className="text-sm font-medium text-neutral-500">Or continue below</span>
+                        <span className="text-sm font-medium text-neutral-500">{t('orContinue')}</span>
                         <div className="h-px flex-1 bg-neutral-300 dark:bg-neutral-700" />
                     </div>
                 </>

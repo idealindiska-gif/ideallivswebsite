@@ -562,5 +562,119 @@
     "noPostsFound": "No blog posts found. Check back soon for new content!",
     "errorLoading": "Failed to load blog posts. Please try again later.",
     "readMore": "Read More"
+  },
+  "billingForm": {
+    "title": "Billing Address",
+    "sameAsShipping": "Billing address is the same as shipping",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "address": "Address",
+    "city": "City",
+    "postcode": "Postcode",
+    "country": "Country",
+    "phone": "Phone",
+    "email": "Email"
+  },
+  "orderSummary": {
+    "title": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "tax": "Tax (12% VAT)",
+    "total": "Total",
+    "discount": "Discount",
+    "couponCode": "Coupon Code",
+    "apply": "Apply",
+    "remove": "Remove"
+  },
+  "shippingMethod": {
+    "title": "Shipping Method",
+    "subtitle": "Shipping to {address}",
+    "freeShippingBar": "Free shipping at {amount}",
+    "freeShippingToGo": "{amount} to go!",
+    "congratsFreeShipping": "Congratulations! You qualify for free shipping!",
+    "calculating": "Calculating shipping rates...",
+    "noMethods": "No shipping methods available for your address.",
+    "poweredBy": "Powered by DHL eCommerce Sweden"
+  },
+  "paymentMethod": {
+    "title": "Payment Method",
+    "secure": "All transactions are secure and encrypted.",
+    "cards": "Credit / Debit Card",
+    "klarna": "Klarna",
+    "swish": "Swish",
+    "bacs": "Direct Bank Transfer",
+    "cod": "Cash on Delivery",
+    "loading": "Loading payment methods..."
+  },
+  "stripe": {
+    "pay": "Pay {amount}",
+    "processing": "Processing Payment...",
+    "encrypted": "Your payment information is encrypted and secure. Powered by Stripe.",
+    "expressCheckout": "Express Checkout",
+    "fastSecure": "Fast & Secure",
+    "orContinue": "Or continue below"
+  },
+  "actions": {
+    "orderViaWhatsapp": "Order via WhatsApp",
+    "consultViaWhatsapp": "Consult via WhatsApp"
+  },
+  "whatsapp": {
+    "modalTitle": "Complete Your Information",
+    "modalDescription": "Please provide your contact and shipping details to create your WhatsApp order.",
+    "contactInfo": "Contact Information",
+    "shippingAddress": "Shipping Address",
+    "billingSameAsShipping": "Billing address same as shipping",
+    "orderNotes": "Order Notes (optional)",
+    "cancel": "Cancel",
+    "continue": "Continue to WhatsApp",
+    "creatingOrder": "Creating Order..."
+  },
+  "coupon": {
+    "placeholder": "Coupon code or Gift Card",
+    "apply": "Apply",
+    "success": "Coupon \"{code}\" applied successfully!",
+    "error": "Invalid coupon code",
+    "failed": "Failed to apply coupon"
+  },
+  "checkoutPage": {
+    "title": "Checkout",
+    "emptyCartTitle": "Your cart is empty",
+    "emptyCartMessage": "Add items to your cart before proceeding to checkout",
+    "shopNow": "Shop Now",
+    "steps": {
+      "information": "Information",
+      "shippingPayment": "Shipping & Payment",
+      "reviewPay": "Review & Pay"
+    },
+    "billingSameAsShipping": "Billing address same as shipping",
+    "orderNotes": "Order Notes (Optional)",
+    "orderNotesPlaceholder": "Special instructions for your order...",
+    "continueToShipping": "Continue to Shipping & Payment",
+    "back": "Back",
+    "reviewOrder": "Review Order",
+    "reviewYourOrder": "Review Your Order",
+    "shippingAddress": "Shipping Address",
+    "billingAddress": "Billing Address",
+    "shippingMethod": "Shipping Method",
+    "free": "Free",
+    "expressCheckoutSuccess": "Express checkout success",
+    "expressCheckoutError": "Express checkout failed: {error}",
+    "stockIssues": "Stock issues",
+    "shippingRestrictions": "Shipping Restrictions",
+    "pleaseComplete": "Please complete all required information",
+    "selectShipping": "Please select a shipping method",
+    "selectShippingContinue": "Please select a shipping method before continuing",
+    "itemsUnavailable": "Some items in your cart are no longer available",
+    "itemsRestricted": "Some items in your cart cannot be shipped to this location. Please review the restrictions below.",
+    "noShippingSelected": "No shipping method selected",
+    "noShippingSelectedMessage": "Please go back to the previous step and select a shipping method before placing your order.",
+    "placeOrder": "Place Order",
+    "processing": "Processing...",
+    "completePayment": "Complete Payment",
+    "walletPaymentError": "Wallet payment failed: {error}",
+    "paymentError": "Payment failed: {error}",
+    "note": "Note",
+    "inventoryDisclaimer": "Inventory is shared with our physical store. In the rare event of a stock discrepancy, we will contact you immediately.",
+    "scanSwish": "Scan and pay by Swish"
   }
 }

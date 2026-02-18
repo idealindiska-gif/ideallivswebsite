@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { formatPrice } from '@/lib/woocommerce';
 import { ShippingMethod } from '@/lib/shipping-service';
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 export type { ShippingMethod };
 
@@ -42,6 +43,7 @@ export function ShippingMethodSelector({
     selectShippingMethod,
     getSubtotal,
   } = useCartStore();
+  const t = useTranslations('shippingMethod');
 
   // Use props if provided, otherwise fall back to cart store
   const effectivePostcode = postcode || shippingAddress?.postcode;
@@ -91,7 +93,7 @@ export function ShippingMethodSelector({
     return (
       <Alert className={className}>
         <AlertDescription>
-          Please enter your shipping address first to see available shipping methods.
+          {t('noMethods')}
         </AlertDescription>
       </Alert>
     );
@@ -104,7 +106,7 @@ export function ShippingMethodSelector({
         <div className="flex items-center justify-center space-x-2">
           <Loader2 className="h-5 w-5 animate-spin text-primary-600" />
           <span className="text-neutral-600">
-            Calculating shipping rates with DHL...
+            {t('calculating')}
           </span>
         </div>
       </Card>
@@ -137,8 +139,7 @@ export function ShippingMethodSelector({
     return (
       <Alert className={className}>
         <AlertDescription>
-          No shipping methods available for your address. Please verify your postal code
-          and try again.
+          {t('noMethods')}
         </AlertDescription>
       </Alert>
     );
@@ -149,11 +150,10 @@ export function ShippingMethodSelector({
     <div className={cn('space-y-4', className)}>
       <div>
         <h2 className="font-heading text-2xl font-bold text-primary-950 dark:text-primary-50">
-          Shipping Method
+          {t('title')}
         </h2>
         <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-          Shipping to {effectivePostcode || shippingAddress?.postcode}
-          {shippingAddress?.city && `, ${shippingAddress.city}`}
+          {t('subtitle', { address: `${effectivePostcode || shippingAddress?.postcode}${shippingAddress?.city ? `, ${shippingAddress.city}` : ''}` })}
         </p>
       </div>
 
@@ -164,10 +164,10 @@ export function ShippingMethodSelector({
             <div className="flex items-center justify-between text-sm">
               <span className="flex items-center gap-2 font-medium text-green-800 dark:text-green-300">
                 <Gift className="h-4 w-4" />
-                Free shipping at {formatPrice(freeShippingThreshold, 'SEK')}
+                {t('freeShippingBar', { amount: formatPrice(freeShippingThreshold, 'SEK') })}
               </span>
               <span className="font-semibold text-green-700 dark:text-green-400">
-                {formatPrice(amountToFreeShipping, 'SEK')} to go!
+                {t('freeShippingToGo', { amount: formatPrice(amountToFreeShipping, 'SEK') })}
               </span>
             </div>
             <Progress value={freeShippingProgress} className="h-2" />
@@ -185,7 +185,7 @@ export function ShippingMethodSelector({
           <div className="flex items-center gap-2 text-green-800 dark:text-green-300">
             <Gift className="h-5 w-5" />
             <p className="font-semibold">
-              Congratulations! You qualify for free shipping!
+              {t('congratsFreeShipping')}
             </p>
           </div>
         </Card>
@@ -261,7 +261,7 @@ export function ShippingMethodSelector({
                     {/* Show DHL info if available */}
                     {method.method_id.includes('dhl') && (
                       <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                        Powered by DHL eCommerce Sweden
+                        {t('poweredBy')}
                       </p>
                     )}
                   </div>

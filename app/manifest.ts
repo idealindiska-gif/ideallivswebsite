@@ -11,7 +11,7 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#2d6a4f',
     icons: [
       {
-        src: '/icon.png',
+        src: 'https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png',
         sizes: '512x512',
         type: 'image/png',
       },

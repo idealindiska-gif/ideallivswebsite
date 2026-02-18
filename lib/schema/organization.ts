@@ -110,7 +110,7 @@ export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.id
     alternateName: 'Ideal Livs',
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
     url: baseUrl,
-    logo: 'https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png',
+    logo: 'https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png',
     image: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/ideal-indiska-livs-stockholm.jpg',
     telephone: '+46728494801',
     email: 'hello@ideallivs.com',
@@ -188,27 +188,27 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
   // Payment methods - Swish first for Swedish version
   const paymentMethods = locale === 'sv'
     ? [
-        'Swish',
-        'Klarna',
-        'Credit Card',
-        'Debit Card',
-        'Visa',
-        'MasterCard',
-        'Apple Pay',
-        'Google Pay',
-        'Cash',
-      ]
+      'Swish',
+      'Klarna',
+      'Credit Card',
+      'Debit Card',
+      'Visa',
+      'MasterCard',
+      'Apple Pay',
+      'Google Pay',
+      'Cash',
+    ]
     : [
-        'Credit Card',
-        'Debit Card',
-        'Visa',
-        'MasterCard',
-        'Apple Pay',
-        'Google Pay',
-        'Klarna',
-        'Swish',
-        'Cash',
-      ];
+      'Credit Card',
+      'Debit Card',
+      'Visa',
+      'MasterCard',
+      'Apple Pay',
+      'Google Pay',
+      'Klarna',
+      'Swish',
+      'Cash',
+    ];
 
   const catalogDescriptions = {
     en: 'Complete range of authentic Indian and Pakistani food products',
@@ -452,43 +452,43 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
     // Service areas - emphasize Swedish market for Swedish version
     areaServed: locale === 'sv'
       ? [
-          {
-            '@type': 'City',
-            name: 'Stockholm',
-          },
-          {
-            '@type': 'Country',
-            name: 'Sverige',
-            alternateName: 'Sweden',
-          },
-          {
-            '@type': 'AdministrativeArea',
-            name: 'Stockholms län',
-          },
-          {
-            '@type': 'Place',
-            name: 'Skandinavien',
-          },
-          {
-            '@type': 'Continent',
-            name: 'Europa',
-            alternateName: 'Europe',
-          },
-        ]
+        {
+          '@type': 'City',
+          name: 'Stockholm',
+        },
+        {
+          '@type': 'Country',
+          name: 'Sverige',
+          alternateName: 'Sweden',
+        },
+        {
+          '@type': 'AdministrativeArea',
+          name: 'Stockholms län',
+        },
+        {
+          '@type': 'Place',
+          name: 'Skandinavien',
+        },
+        {
+          '@type': 'Continent',
+          name: 'Europa',
+          alternateName: 'Europe',
+        },
+      ]
       : [
-          {
-            '@type': 'City',
-            name: 'Stockholm',
-          },
-          {
-            '@type': 'Country',
-            name: 'Sweden',
-          },
-          {
-            '@type': 'Continent',
-            name: 'Europe',
-          },
-        ],
+        {
+          '@type': 'City',
+          name: 'Stockholm',
+        },
+        {
+          '@type': 'Country',
+          name: 'Sweden',
+        },
+        {
+          '@type': 'Continent',
+          name: 'Europe',
+        },
+      ],
 
     // Amenities
     amenityFeature: [
