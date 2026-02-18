@@ -15,6 +15,9 @@ interface SearchResult {
     name: string;
     slug: string;
     price: string;
+    regular_price?: string;
+    sale_price?: string;
+    stock_status?: string;
     image?: string;
     categories: string[];
     relevance: number;
@@ -92,7 +95,7 @@ export function SearchModal() {
         localStorage.removeItem('recent-searches');
     };
 
-    const trendingSearches = ['Biryani', 'Samosa', 'Gulab Jamun', 'Tandoori', 'Curry'];
+    const trendingSearches = ['Basmati Rice', 'Atta', 'Gram Flour', 'Ghee', 'Dates', 'Cooking Oil', 'Masala'];
 
     return (
         <>
@@ -201,13 +204,24 @@ export function SearchModal() {
                                                             <p className="font-medium text-foreground truncate group-hover:text-primary transition-colors text-sm">
                                                                 {decodeHtmlEntities(result.name)}
                                                             </p>
-                                                            <div className="flex items-center gap-2 mt-0.5">
-                                                                <p className="text-sm font-bold text-primary">
-                                                                    {result.price} SEK
-                                                                </p>
-                                                                {result.categories.length > 0 && (
+                                                            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                                                                {result.sale_price && parseFloat(result.sale_price) > 0 ? (
+                                                                    <>
+                                                                        <span className="text-sm font-bold text-primary">
+                                                                            {parseFloat(result.sale_price).toFixed(0)} SEK
+                                                                        </span>
+                                                                        <span className="text-xs text-muted-foreground line-through">
+                                                                            {parseFloat(result.regular_price || result.price).toFixed(0)} SEK
+                                                                        </span>
+                                                                    </>
+                                                                ) : (
+                                                                    <span className="text-sm font-bold text-primary">
+                                                                        {parseFloat(result.price || '0').toFixed(0)} SEK
+                                                                    </span>
+                                                                )}
+                                                                {result.stock_status === 'outofstock' && (
                                                                     <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-full bg-muted">
-                                                                        {decodeHtmlEntities(result.categories[0])}
+                                                                        Out of stock
                                                                     </span>
                                                                 )}
                                                             </div>

@@ -214,6 +214,24 @@
     font-family: var(--font-heading), serif;
   }
 
+  /* =============================================
+     BLOG / ARTICLE HERO SECTIONS
+     Force white text over dark image/color backgrounds.
+     Using @layer utilities ensures these rules beat the
+     @layer base heading color assignments.
+     ============================================= */
+  .blog-hero h1,
+  .blog-hero h2,
+  .blog-hero h3,
+  .blog-hero h4,
+  .blog-hero h5,
+  .blog-hero h6,
+  .blog-hero p,
+  .blog-hero .display,
+  .blog-hero .display-large {
+    color: white;
+  }
+
   /* Custom Animations for Lunch Buffet Hero */
   @keyframes slowZoom {
     0% {

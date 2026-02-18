@@ -17,6 +17,9 @@ interface SearchResult {
     name: string;
     slug: string;
     price: string;
+    regular_price?: string;
+    sale_price?: string;
+    stock_status?: string;
     image?: string;
     categories: string[];
     relevance: number;
@@ -30,7 +33,7 @@ interface SmartSearchProps {
 
 export function SmartSearch({
     className,
-    placeholder = "Search for dishes, ingredients, or cuisines...",
+    placeholder = "Search products, brands, or ingredients...",
     showTrending = true
 }: SmartSearchProps) {
     const router = useRouter();
@@ -104,11 +107,13 @@ export function SmartSearch({
     };
 
     const trendingSearches = [
-        'Biryani',
-        'Samosa',
-        'Gulab Jamun',
-        'Tandoori',
-        'Curry',
+        'Basmati Rice',
+        'Atta',
+        'Gram Flour',
+        'Ghee',
+        'Dates',
+        'Cooking Oil',
+        'Masala',
     ];
 
     return (
@@ -190,16 +195,27 @@ export function SmartSearch({
                                             </div>
                                         )}
                                         <div className="flex-1 overflow-hidden">
-                                            <p className="truncate font-medium text-primary-950 dark:text-primary-50">
+                                            <p className="truncate font-medium text-foreground">
                                                 {decodeHtmlEntities(result.name)}
                                             </p>
-                                            <div className="flex items-center gap-2">
-                                                <p className="text-sm font-semibold text-primary-700 dark:text-primary-400">
-                                                    {result.price} SEK
-                                                </p>
-                                                {result.categories.length > 0 && (
-                                                    <Badge variant="outline" className="text-xs">
-                                                        {decodeHtmlEntities(result.categories[0])}
+                                            <div className="flex items-center gap-2 flex-wrap">
+                                                {result.sale_price && parseFloat(result.sale_price) > 0 ? (
+                                                    <>
+                                                        <span className="text-sm font-bold text-primary">
+                                                            {parseFloat(result.sale_price).toFixed(0)} SEK
+                                                        </span>
+                                                        <span className="text-xs text-muted-foreground line-through">
+                                                            {parseFloat(result.regular_price || result.price).toFixed(0)} SEK
+                                                        </span>
+                                                    </>
+                                                ) : (
+                                                    <span className="text-sm font-semibold text-primary">
+                                                        {parseFloat(result.price || '0').toFixed(0)} SEK
+                                                    </span>
+                                                )}
+                                                {result.stock_status === 'outofstock' && (
+                                                    <Badge variant="outline" className="text-xs text-muted-foreground">
+                                                        Out of stock
                                                     </Badge>
                                                 )}
                                             </div>

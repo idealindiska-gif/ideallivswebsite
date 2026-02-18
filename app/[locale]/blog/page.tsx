@@ -78,7 +78,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-primary text-primary-foreground py-16 md:py-24">
+      <section className="bg-primary text-primary-foreground py-16 md:py-24 blog-hero">
         <div className="container px-4 md:px-6 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
             {t('title')}

@@ -50,7 +50,7 @@ export default async function IndianFikaPage() {
     return (
         <div className="min-h-screen bg-background text-foreground font-sans">
             {/* Hero Header */}
-            <section className="relative overflow-hidden">
+            <section className="relative overflow-hidden blog-hero">
                 <div className="absolute inset-0 h-full w-full">
                     <Image
                         src="/images/blog/indian-fika-hero.png"

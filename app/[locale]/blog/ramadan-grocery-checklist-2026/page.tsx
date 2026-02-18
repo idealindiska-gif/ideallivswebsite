@@ -71,7 +71,7 @@ export default async function RamadanGroceryChecklist() {
     return (
         <div className="min-h-screen bg-background">
             {/* Hero Header */}
-            <section className="relative overflow-hidden h-[60vh] min-h-[500px]">
+            <section className="relative overflow-hidden h-[60vh] min-h-[500px] blog-hero">
                 <div className="absolute inset-0 h-full w-full">
                     <Image
                         src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
