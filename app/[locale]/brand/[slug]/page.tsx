@@ -44,8 +44,11 @@ export async function generateMetadata({ params }: BrandArchivePageProps): Promi
     }
 
     let title = `${brand.name} | Authentic Products at Ideal Indiska LIVS`;
-    let description = brand.description
-        ? brand.description.replace(/\<[^>]*>/g, '').substring(0, 150) + " | Shop authentic products at Ideal Indiska LIVS Stockholm."
+    const rawBrandDesc = brand.description
+        ? brand.description.replace(/\<[^>]*>/g, '').trim()
+        : '';
+    let description = rawBrandDesc.length >= 80
+        ? `${rawBrandDesc.substring(0, 100)} | Shop ${brand.name} at Ideal Indiska LIVS Stockholm. Fast delivery across Sweden & EU.`.substring(0, 160)
         : `Shop all ${brand.name} products at Ideal Indiska LIVS. Your trusted source for authentic Indian and Pakistani groceries in Stockholm. High-quality products from top brands.`;
 
     // Pakistani targeting for National Foods

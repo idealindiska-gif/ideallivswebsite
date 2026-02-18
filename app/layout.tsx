@@ -66,6 +66,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "JHCIpEz_IWYNdnNQGCkUKVQ8tiUre1hcCOqcSNhKlmQ",
+    other: {
+      "msvalidate.01": "8E68CDE5D92B9661C9CCEB4217B3BA56",
+    },
   },
   // OpenGraph with Swedish locale
   openGraph: {

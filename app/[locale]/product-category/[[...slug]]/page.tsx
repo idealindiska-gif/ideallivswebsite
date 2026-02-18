@@ -43,17 +43,28 @@ export async function generateMetadata({ params }: ProductCategoryPageProps): Pr
             alt: 'Ideal Indiska LIVS - Indian & Pakistani Groceries in Stockholm',
         };
 
-        const cleanDescription = category.description?.replace(/\<[^>]*>/g, '').trim();
-        const metaDescription = cleanDescription
-            ? `${cleanDescription.substring(0, 95)} | Ideal Indiska LIVS Stockholm.`
-            : `Shop ${category.name} at Ideal Indiska LIVS Stockholm. Authentic Indian and Pakistani groceries with fast delivery.`;
+        const cleanDescription = category.description?.replace(/\<[^>]*>/g, '').trim() || '';
+
+        // ── Always produce 150–160 char descriptions (Bing minimum) ──────────
+        const storeContext = 'Ideal Indiska LIVS Stockholm – authentic Indian & Pakistani groceries with fast delivery across Sweden & EU. Free shipping over 500 SEK.';
+        let metaDescription: string;
+
+        if (cleanDescription.length >= 80) {
+            // Use category description + store context suffix
+            const truncated = cleanDescription.substring(0, 110);
+            metaDescription = `${truncated} | ${storeContext}`.substring(0, 160);
+        } else {
+            // Build rich fallback from category name
+            metaDescription = `Shop ${category.name} at ${storeContext}`.substring(0, 160);
+        }
+
 
         return {
             title: `${category.name} | Ideal Indiska LIVS`,
-            description: metaDescription.substring(0, 150),
+            description: metaDescription.substring(0, 160),
             openGraph: {
                 title: `${category.name} | Ideal Indiska LIVS`,
-                description: metaDescription.substring(0, 150),
+                description: metaDescription.substring(0, 160),
                 images: category.image
                     ? [{
                         url: category.image.src,

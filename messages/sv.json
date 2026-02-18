@@ -653,6 +653,8 @@
     "back": "Tillbaka",
     "reviewOrder": "Granska beställning",
     "reviewYourOrder": "Granska din beställning",
+    "proceedToPayment": "Gå till betalning",
+    "orderReserved": "Din beställning är reserverad. Slutför betalningen nedan för att bekräfta.",
     "shippingAddress": "Leveransadress",
     "billingAddress": "Faktureringsadress",
     "shippingMethod": "Fraktmetod",

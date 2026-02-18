@@ -653,6 +653,8 @@
     "back": "Back",
     "reviewOrder": "Review Order",
     "reviewYourOrder": "Review Your Order",
+    "proceedToPayment": "Proceed to Payment",
+    "orderReserved": "Your order is reserved. Complete the payment below to confirm.",
     "shippingAddress": "Shipping Address",
     "billingAddress": "Billing Address",
     "shippingMethod": "Shipping Method",

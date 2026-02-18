@@ -27,9 +27,35 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     const isShanBrand = product.brands?.some(b => b.slug === 'shan' || b.slug === 'shan-foods' || b.name.toLowerCase().includes('shan'));
 
     let title = `${product.name} | ${brandConfig.businessName}`;
-    let description = product.short_description
-      ? product.short_description.replace(/<[^>]*>/g, '').substring(0, 150)
-      : brandConfig.seo.defaultDescription;
+
+    // ── Smart meta description generator ──────────────────────────────────────
+    // Bing requires 150–160 chars. Build a rich fallback when short_description
+    // is missing or too short (many WooCommerce products have no description set).
+    const rawShortDesc = product.short_description
+      ? product.short_description.replace(/<[^>]*>/g, '').trim()
+      : '';
+
+    const brandName = product.brands?.[0]?.name || '';
+    const categoryName = product.categories?.[0]?.name || '';
+    const price = product.price ? `${product.price} SEK` : '';
+
+    // Build a rich contextual description from available product data
+    const buildFallbackDescription = (): string => {
+      const parts: string[] = [];
+      if (brandName) parts.push(`${brandName}`);
+      parts.push(product.name);
+      if (categoryName) parts.push(`in ${categoryName}`);
+      const base = `Buy ${parts.join(' ')} at Ideal Indiska LIVS Stockholm.`;
+      const suffix = price
+        ? ` Price: ${price}. Authentic Indian & Pakistani groceries with fast delivery across Sweden & EU. No customs duty.`
+        : ` Authentic Indian & Pakistani groceries delivered fast across Sweden & EU. Free shipping over 500 SEK. No customs duty.`;
+      return (base + suffix).substring(0, 160);
+    };
+
+    let description = rawShortDesc.length >= 100
+      ? rawShortDesc.substring(0, 155) + (rawShortDesc.length > 155 ? '...' : '')
+      : buildFallbackDescription();
+
 
     // Pakistani targeting for National Foods products
     if (isNationalBrand) {
