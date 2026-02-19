@@ -107,7 +107,6 @@ Disallow: /wishlist
 # ==================================================
 # Block Internal System Paths
 # ==================================================
-Disallow: /api/
 Disallow: /_next/
 Disallow: /cdn-cgi/
 
@@ -125,6 +124,15 @@ Allow: /contact
 Allow: /deals
 Allow: /brands
 Allow: /delivery
+
+# ==================================================
+# Allow AdsBot for Merchant Center
+# ==================================================
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
 
 # ==================================================
 # Allow Static Assets

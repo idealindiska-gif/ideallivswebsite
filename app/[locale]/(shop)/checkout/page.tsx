@@ -27,8 +27,6 @@ import { Separator } from '@/components/ui/separator';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StripeProvider } from '@/components/providers/stripe-provider';
 import { StripePaymentForm } from '@/components/checkout/stripe-payment-form';
-import { PaymentRequestButton } from '@/components/checkout/payment-request-button';
-import { StripeExpressCheckout } from '@/components/checkout/stripe-express-checkout';
 import { trackInitiateCheckout } from '@/lib/analytics';
 import { WhatsAppOrderButton } from '@/components/whatsapp/whatsapp-order-button';
 import { useTranslations } from 'next-intl';
@@ -65,6 +63,8 @@ export default function CheckoutPage() {
 
   // Stripe payment state — when set, the payment form replaces Step 2 content
   const [stripeClientSecret, setStripeClientSecret] = useState<string | null>(null);
+  const [stripeWcOrderId, setStripeWcOrderId] = useState<number | null>(null);
+  const [stripeWcOrderKey, setStripeWcOrderKey] = useState<string | null>(null);
 
   // Track initiate checkout event on mount
   useEffect(() => {
@@ -164,8 +164,10 @@ export default function CheckoutPage() {
     setCurrentStep('shipping-payment');
   };
 
-  // ─── Stripe: validate stock + create PaymentIntent ONLY (no WC order yet) ───
-  // WC order is created AFTER payment succeeds in handleStripeSuccess below.
+  // ─── Stripe: validate stock, create WC order, then create PaymentIntent ─────
+  // Order is created FIRST so the webhook can always update it on payment success,
+  // including redirect-based payments (Klarna, Apple Pay, Google Pay) where the
+  // user navigates away and handleStripeSuccess never fires.
 
   const handleInitStripePayment = async () => {
     if (!shippingData || !billingData) { setError(t('pleaseComplete')); return; }
@@ -176,7 +178,7 @@ export default function CheckoutPage() {
     setStockErrors([]);
 
     try {
-      // 1. Validate stock before showing payment form
+      // 1. Validate stock before creating order
       const stockResult = await validateCartStockAction(
         items.map((item) => ({ productId: item.productId, quantity: item.quantity }))
       );
@@ -189,18 +191,49 @@ export default function CheckoutPage() {
         return;
       }
 
-      const totalAmount = getTotalPrice() + shippingCost - calculateDiscount();
+      // 2. Create WC order first (pending, not paid yet)
+      const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
+      const orderResult = await createOrderAction({
+        customer_id: isRealCustomer ? user.id : undefined,
+        billing: billingData,
+        shipping: shippingData,
+        line_items: items.map((item) => ({
+          product_id: item.productId,
+          variation_id: item.variationId,
+          quantity: item.quantity,
+          tax_class: item.variation?.tax_class || item.product.tax_class,
+        })),
+        shipping_lines: [{
+          method_id: shippingMethod.method_id,
+          method_title: shippingMethod.label,
+          total: shippingCost.toString(),
+        }],
+        payment_method: paymentMethod,
+        payment_method_title: getPaymentMethodTitle(paymentMethod),
+        customer_note: orderNotes || undefined,
+        coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
+        set_paid: false,
+      });
 
-      // 2. Create Stripe PaymentIntent ONLY — no WC order yet
+      if (!orderResult.success || !orderResult.data) {
+        throw new Error(orderResult.error || 'Failed to create order');
+      }
+
+      const wcOrderId = orderResult.data.id;
+      const wcOrderKey = orderResult.data.order_key;
+
+      // 3. Create Stripe PaymentIntent with wc_order_id so the webhook can update it.
+      // Use the WC order total as the authoritative amount — WC calculates taxes, coupons,
+      // and shipping server-side, so this prevents any frontend/backend rounding mismatch.
       const response = await fetch('/api/stripe/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: Math.round(totalAmount * 100),
+          amount: Math.round(parseFloat(orderResult.data.total) * 100),
           currency: 'sek',
           customerEmail: billingData.email,
           customerName: `${billingData.first_name} ${billingData.last_name}`,
-          // No wcOrderId — order is created after payment succeeds
+          wcOrderId,
           shippingAddress: {
             name: `${shippingData.first_name} ${shippingData.last_name}`,
             address_1: shippingData.address_1,
@@ -226,6 +259,12 @@ export default function CheckoutPage() {
       const { clientSecret } = await response.json();
       if (!clientSecret) throw new Error('Failed to get payment client secret');
 
+      // 4. Store order ID + key in sessionStorage for redirect-based payments (Klarna, etc.)
+      //    so /checkout/stripe-return can redirect to the correct success page
+      sessionStorage.setItem('pendingCheckoutData', JSON.stringify({ wcOrderId, wcOrderKey }));
+
+      setStripeWcOrderId(wcOrderId);
+      setStripeWcOrderKey(wcOrderKey);
       setStripeClientSecret(clientSecret);
       setIsProcessing(false);
 
@@ -287,7 +326,7 @@ export default function CheckoutPage() {
       if (!result.success || !result.data) throw new Error(result.error);
 
       clearCart();
-      router.push(`/checkout/success?order=${result.data.id}`);
+      router.push(`/checkout/success?order=${result.data.id}&key=${result.data.order_key}`);
     } catch (err) {
       console.error('Order creation failed:', err);
       setError(err instanceof Error ? err.message : 'Failed to create order. Please try again.');
@@ -295,63 +334,18 @@ export default function CheckoutPage() {
     }
   };
 
-  // ─── Stripe payment success: NOW create the WC order with set_paid: true ────
-  // This fires only after Stripe confirms the payment — guaranteeing payment
-  // always precedes order creation for card/Klarna/wallet payments.
+  // ─── Stripe payment success: order already exists, just redirect ────────────
+  // The WC order was created before payment in handleInitStripePayment.
+  // The Stripe webhook (payment_intent.succeeded) handles updating the order
+  // status to "processing". This callback just clears the cart and redirects.
 
-  const handleStripeSuccess = async (paymentIntentId: string) => {
-    if (!shippingData || !billingData || !shippingMethod) {
-      setError('Checkout data missing. Please refresh and try again.');
-      return;
-    }
-
-    try {
-      const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
-
-      const result = await createOrderAction({
-        customer_id: isRealCustomer ? user.id : undefined,
-        billing: billingData,
-        shipping: shippingData,
-        line_items: items.map((item) => ({
-          product_id: item.productId,
-          variation_id: item.variationId,
-          quantity: item.quantity,
-          tax_class: item.variation?.tax_class || item.product.tax_class,
-        })),
-        shipping_lines: [{
-          method_id: shippingMethod.method_id,
-          method_title: shippingMethod.label,
-          total: shippingCost.toString(),
-        }],
-        payment_method: paymentMethod,
-        payment_method_title: getPaymentMethodTitle(paymentMethod),
-        customer_note: [
-          orderNotes,
-          `Stripe Payment ID: ${paymentIntentId}`,
-        ].filter(Boolean).join(' | '),
-        coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
-        set_paid: true, // Payment already confirmed by Stripe
-      });
-
-      if (!result.success || !result.data) {
-        // Payment succeeded but order creation failed — log it prominently
-        console.error('CRITICAL: Stripe payment succeeded but WC order creation failed!', {
-          paymentIntentId,
-          error: result.error,
-        });
-        // Still clear cart and redirect — order can be manually created from Stripe dashboard
-        clearCart();
-        router.push(`/checkout/success?payment_intent=${paymentIntentId}&order_pending=true`);
-        return;
-      }
-
-      clearCart();
-      router.push(`/checkout/success?order=${result.data.id}&payment_intent=${paymentIntentId}`);
-    } catch (err) {
-      console.error('Post-payment order creation failed:', err);
-      // Payment succeeded — don't show a scary error. Redirect to success with payment reference.
-      clearCart();
-      router.push(`/checkout/success?payment_intent=${paymentIntentId}&order_pending=true`);
+  const handleStripeSuccess = (paymentIntentId: string) => {
+    clearCart();
+    sessionStorage.removeItem('pendingCheckoutData');
+    if (stripeWcOrderId && stripeWcOrderKey) {
+      router.push(`/checkout/success?order=${stripeWcOrderId}&key=${stripeWcOrderKey}&payment_intent=${paymentIntentId}`);
+    } else {
+      router.push(`/checkout/success?payment_intent=${paymentIntentId}`);
     }
   };
 
@@ -472,20 +466,6 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Express Checkout */}
-                  <StripeExpressCheckout
-                    amount={getTotalPrice()}
-                    currency="SEK"
-                    showDebug={false}
-                    onSuccess={async (result) => {
-                      console.log('Express checkout success:', result);
-                    }}
-                    onError={(error) => {
-                      console.error('Express checkout error:', error);
-                      setError(t('expressCheckoutError', { error }));
-                    }}
-                  />
-
                   <ShippingForm
                     onSubmit={handleShippingSubmit}
                     defaultValues={shippingData || undefined}
@@ -575,6 +555,9 @@ export default function CheckoutPage() {
                           type="button"
                           onClick={() => {
                             setStripeClientSecret(null);
+                            setStripeWcOrderId(null);
+                            setStripeWcOrderKey(null);
+                            sessionStorage.removeItem('pendingCheckoutData');
                             setError(null);
                           }}
                           className="flex items-center gap-1 text-sm text-primary-600 hover:underline dark:text-primary-400"
@@ -594,17 +577,9 @@ export default function CheckoutPage() {
                         </AlertDescription>
                       </Alert>
 
-                      {/* Stripe payment form */}
+                      {/* Stripe payment form — handles cards, wallets (Apple Pay,
+                          Google Pay), Klarna, and Link via PaymentElement */}
                       <StripeProvider clientSecret={stripeClientSecret}>
-                        <PaymentRequestButton
-                          amount={getTotalPrice() + shippingCost - calculateDiscount()}
-                          currency="SEK"
-                          onSuccess={handleStripeSuccess}
-                          onError={(error) => {
-                            console.error('Wallet payment failed:', error);
-                            setError(t('walletPaymentError', { error }));
-                          }}
-                        />
                         <StripePaymentForm
                           amount={getTotalPrice() + shippingCost - calculateDiscount()}
                           currency="SEK"
@@ -641,6 +616,8 @@ export default function CheckoutPage() {
                             setPaymentMethod(method);
                             // Reset Stripe state if switching away
                             setStripeClientSecret(null);
+                            setStripeWcOrderId(null);
+                            setStripeWcOrderKey(null);
                           }}
                         />
                       </div>

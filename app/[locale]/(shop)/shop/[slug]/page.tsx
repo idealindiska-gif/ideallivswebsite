@@ -5,10 +5,10 @@ import { brandConfig } from '@/config/brand.config';
 import { siteConfig } from '@/site.config';
 import type { Metadata } from 'next';
 
-interface ProductPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+params: Promise<{
+  slug: string;
+  locale: string;
+}>;
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
@@ -103,7 +103,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       description = `Shop ${product.name} by ${intBrand.name} at Ideal Indiska LIVS. Trusted brand quality delivered fast across Stockholm and Europe. No customs duty in EU.`;
     }
 
-    const url = `${siteConfig.site_domain}/product/${product.slug}`;
+    const locale = resolvedParams.locale;
+    const localePath = locale === 'en' ? '' : `/${locale}`;
+    const url = `${siteConfig.site_domain}${localePath}/product/${product.slug}`;
+
+    // Construct alternates for SEO (hreflang)
+    const enUrl = `${siteConfig.site_domain}/product/${product.slug}`;
+    const svUrl = `${siteConfig.site_domain}/sv/product/${product.slug}`;
+
     const images = product.images.map((img) => ({
       url: img.src,
       width: 800,
@@ -116,6 +123,10 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       description,
       alternates: {
         canonical: url,
+        languages: {
+          'en': enUrl,
+          'sv': svUrl,
+        },
       },
       robots: {
         index: true,
@@ -134,7 +145,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
         url,
         siteName: brandConfig.businessName,
         images,
-        locale: 'en_SE',
+        locale: locale === 'sv' ? 'sv_SE' : 'en_SE',
         type: 'website',
       },
       twitter: {

@@ -88,9 +88,10 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ received: true });
     } catch (error) {
         console.error('❌ Stripe webhook handler error:', error);
-        // Return 200 to prevent Stripe from retrying (we've logged the error)
-        // In production, you might want a dead-letter queue for failed events
-        return NextResponse.json({ received: true, error: 'Handler error' });
+        // Return 500 so Stripe retries the webhook on transient failures
+        // (e.g. WooCommerce API temporarily unreachable).
+        // Stripe retries with exponential backoff up to 3 days.
+        return NextResponse.json({ error: 'Handler error' }, { status: 500 });
     }
 }
 

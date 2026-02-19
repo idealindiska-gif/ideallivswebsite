@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { getOrder } from '@/lib/woocommerce/orders';
 import { formatPrice } from '@/lib/woocommerce';
-import { CheckCircle2, Package, Mail, ArrowRight } from 'lucide-react';
+import { CheckCircle2, Package, Mail, ArrowRight, Clock } from 'lucide-react';
 import { OrderSuccessTracking } from '@/components/checkout/order-success-tracking';
 import type { Metadata } from 'next';
 
@@ -16,12 +16,40 @@ export const metadata: Metadata = {
 };
 
 interface SuccessPageProps {
-    searchParams: Promise<{ order?: string }>;
+    searchParams: Promise<{ order?: string; key?: string }>;
 }
 
-async function OrderDetails({ orderId }: { orderId: string }) {
+// Maps WooCommerce status values to a customer-friendly label + colour
+function StatusBadge({ status }: { status: string }) {
+    // "pending" means payment was accepted but the webhook hasn't fired yet.
+    // Show a softer "confirming" label so customers aren't alarmed.
+    if (status === 'pending') {
+        return (
+            <div className="flex items-center gap-1.5 rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700 dark:bg-yellow-950 dark:text-yellow-400">
+                <Clock className="h-3.5 w-3.5" />
+                Confirming payment…
+            </div>
+        );
+    }
+    return (
+        <div className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium capitalize text-green-700 dark:bg-green-950 dark:text-green-400">
+            {status}
+        </div>
+    );
+}
+
+async function OrderDetails({ orderId, orderKey }: { orderId: string; orderKey: string }) {
     try {
         const order = await getOrder(parseInt(orderId));
+
+        // Validate ownership — anyone who can guess an order ID shouldn't see the data
+        if (order.order_key !== orderKey) {
+            return (
+                <Card className="p-8 text-center">
+                    <p className="text-muted-foreground">Order not found.</p>
+                </Card>
+            );
+        }
 
         return (
             <div className="space-y-6">
@@ -39,10 +67,10 @@ async function OrderDetails({ orderId }: { orderId: string }) {
                 <Card className="p-6">
                     <div className="mb-4 flex items-start justify-between">
                         <div>
-                            <h2 className="font-heading text-xl font-bold text-primary-950 dark:text-primary-50">
+                            <h2 className="font-heading text-xl font-bold text-foreground">
                                 Order #{order.number}
                             </h2>
-                            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                            <p className="text-sm text-muted-foreground">
                                 Placed on {new Date(order.date_created).toLocaleDateString('en-US', {
                                     year: 'numeric',
                                     month: 'long',
@@ -50,9 +78,7 @@ async function OrderDetails({ orderId }: { orderId: string }) {
                                 })}
                             </p>
                         </div>
-                        <div className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700 dark:bg-green-950 dark:text-green-400">
-                            {order.status}
-                        </div>
+                        <StatusBadge status={order.status} />
                     </div>
 
                     <Separator className="my-4" />
@@ -62,7 +88,7 @@ async function OrderDetails({ orderId }: { orderId: string }) {
                         <h3 className="font-semibold">Order Items</h3>
                         {order.line_items.map((item: any) => (
                             <div key={item.id} className="flex justify-between text-sm">
-                                <span className="text-neutral-600 dark:text-neutral-400">
+                                <span className="text-muted-foreground">
                                     {item.name} × {item.quantity}
                                 </span>
                                 <span className="font-medium">{formatPrice(parseFloat(item.total), 'SEK')}</span>
@@ -75,12 +101,12 @@ async function OrderDetails({ orderId }: { orderId: string }) {
                     {/* Totals */}
                     <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                            <span className="text-neutral-600 dark:text-neutral-400">Subtotal</span>
+                            <span className="text-muted-foreground">Subtotal</span>
                             <span>{formatPrice(parseFloat(order.total) - parseFloat(order.shipping_total), 'SEK')}</span>
                         </div>
                         {parseFloat(order.shipping_total) > 0 && (
                             <div className="flex justify-between text-sm">
-                                <span className="text-neutral-600 dark:text-neutral-400">Shipping</span>
+                                <span className="text-muted-foreground">Shipping</span>
                                 <span>{formatPrice(parseFloat(order.shipping_total), 'SEK')}</span>
                             </div>
                         )}
@@ -98,7 +124,7 @@ async function OrderDetails({ orderId }: { orderId: string }) {
                 <div className="grid gap-6 md:grid-cols-2">
                     <Card className="p-6">
                         <h3 className="mb-3 font-semibold">Shipping Address</h3>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-muted-foreground">
                             {order.shipping.first_name} {order.shipping.last_name}
                             <br />
                             {order.shipping.address_1}
@@ -117,7 +143,7 @@ async function OrderDetails({ orderId }: { orderId: string }) {
 
                     <Card className="p-6">
                         <h3 className="mb-3 font-semibold">Billing Address</h3>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-muted-foreground">
                             {order.billing.first_name} {order.billing.last_name}
                             <br />
                             {order.billing.address_1}
@@ -143,7 +169,7 @@ async function OrderDetails({ orderId }: { orderId: string }) {
                 {/* Payment Method */}
                 <Card className="p-6">
                     <h3 className="mb-3 font-semibold">Payment Method</h3>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className="text-sm text-muted-foreground">
                         {order.payment_method_title}
                     </p>
                 </Card>
@@ -152,7 +178,7 @@ async function OrderDetails({ orderId }: { orderId: string }) {
     } catch (error) {
         return (
             <Card className="p-8 text-center">
-                <p className="text-neutral-600 dark:text-neutral-400">
+                <p className="text-muted-foreground">
                     Unable to load order details. Please check your email for confirmation.
                 </p>
             </Card>
@@ -163,6 +189,10 @@ async function OrderDetails({ orderId }: { orderId: string }) {
 export default async function SuccessPage({ searchParams }: SuccessPageProps) {
     const params = await searchParams;
     const orderId = params.order;
+    const orderKey = params.key;
+
+    // Only render order details when both orderId and a key are present
+    const canShowOrder = orderId && orderKey;
 
     return (
         <Section>
@@ -173,17 +203,17 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
                         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-950">
                             <CheckCircle2 className="h-8 w-8 text-green-600 dark:text-green-400" />
                         </div>
-                        <h1 className="mb-2 font-heading text-4xl font-bold text-primary-950 dark:text-primary-50">
+                        <h1 className="mb-2 font-heading text-4xl font-bold text-foreground">
                             Order Confirmed!
                         </h1>
-                        <p className="text-lg text-neutral-600 dark:text-neutral-400">
+                        <p className="text-lg text-muted-foreground">
                             Thank you for your order. We&apos;ve sent a confirmation email with your order details.
                         </p>
                     </div>
 
                     {/* What's Next */}
                     <Card className="mb-8 p-6">
-                        <h2 className="mb-4 font-heading text-xl font-bold text-primary-950 dark:text-primary-50">
+                        <h2 className="mb-4 font-heading text-xl font-bold text-foreground">
                             What happens next?
                         </h2>
                         <div className="space-y-4">
@@ -193,7 +223,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
                                 </div>
                                 <div>
                                     <h3 className="font-semibold">Order Confirmation</h3>
-                                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                                    <p className="text-sm text-muted-foreground">
                                         You&apos;ll receive an email confirmation with your order details shortly.
                                     </p>
                                 </div>
@@ -204,7 +234,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
                                 </div>
                                 <div>
                                     <h3 className="font-semibold">Order Processing</h3>
-                                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                                    <p className="text-sm text-muted-foreground">
                                         We&apos;re preparing your order for delivery. You&apos;ll be notified when it ships.
                                     </p>
                                 </div>
@@ -212,16 +242,16 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
                         </div>
                     </Card>
 
-                    {/* Order Details */}
-                    {orderId && (
+                    {/* Order Details — only shown when orderId + valid key are present */}
+                    {canShowOrder && (
                         <Suspense
                             fallback={
                                 <Card className="p-8 text-center">
-                                    <p className="text-neutral-600 dark:text-neutral-400">Loading order details...</p>
+                                    <p className="text-muted-foreground">Loading order details…</p>
                                 </Card>
                             }
                         >
-                            <OrderDetails orderId={orderId} />
+                            <OrderDetails orderId={orderId} orderKey={orderKey} />
                         </Suspense>
                     )}
 
