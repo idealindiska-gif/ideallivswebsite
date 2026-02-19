@@ -5,10 +5,11 @@ import { brandConfig } from '@/config/brand.config';
 import { siteConfig } from '@/site.config';
 import type { Metadata } from 'next';
 
-params: Promise<{
-  slug: string;
-  locale: string;
-}>;
+interface ProductPageProps {
+  params: Promise<{
+    slug: string;
+    locale: string;
+  }>;
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
