@@ -38,7 +38,7 @@ function BrandTile({
 }
 
 // ─── Desktop Dropdown ─────────────────────────────────────────────────────────
-export function BrandsDropdown() {
+export function BrandsDropdown({ isTransparent = false }: { isTransparent?: boolean }) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -49,7 +49,8 @@ export function BrandsDropdown() {
         >
             {/* Trigger */}
             <button
-                className="group relative flex items-center gap-1 text-[0.70rem] xl:text-xs font-medium uppercase tracking-wider xl:tracking-widest text-foreground transition-colors hover:text-primary whitespace-nowrap"
+                className={`group relative flex items-center gap-1 text-[0.70rem] xl:text-xs font-medium uppercase tracking-wider xl:tracking-widest transition-colors hover:text-primary whitespace-nowrap ${isTransparent ? 'text-white' : 'text-foreground'
+                    }`}
                 aria-expanded={open}
                 aria-haspopup="true"
             >
@@ -67,8 +68,8 @@ export function BrandsDropdown() {
             {/* Dropdown panel */}
             <div
                 className={`absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[520px] bg-background border border-border/60 rounded-2xl shadow-2xl shadow-black/10 z-50 transition-all duration-200 origin-top ${open
-                        ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
-                        : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                    ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+                    : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
                     }`}
             >
                 {/* Arrow tip */}

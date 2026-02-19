@@ -12,6 +12,8 @@ import { useEffect, useState } from 'react';
 import type { ProductCategoryFull } from '@/types/woocommerce';
 import { brandConfig } from '@/config/brand.config';
 import { useAIChat } from '@/components/ai/ai-chat-widget';
+import { BrandsDropdown } from '@/components/layout/brands-dropdown';
+import { LanguageSwitcher } from '@/components/layout/language-switcher';
 
 interface TransparentHeaderProps {
   categories: ProductCategoryFull[];
@@ -34,7 +36,7 @@ const TransparentNavLink = ({ href, children, isTransparent }: { href: string; c
 
 export function TransparentHeader({ categories, className }: TransparentHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const logoUrl = 'https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png';
+  const logoUrl = 'https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-black.png';
 
   // Chat functionality
   const { openChat, ChatWidget } = useAIChat();
@@ -101,33 +103,22 @@ export function TransparentHeader({ categories, className }: TransparentHeaderPr
               {/* Left Navigation - Spread Out */}
               <div className="col-span-4 flex justify-between items-center px-2">
                 <TransparentNavLink href="/shop" isTransparent={isTransparent}>Shop</TransparentNavLink>
-                <TransparentNavLink href="/brands" isTransparent={isTransparent}>Brands</TransparentNavLink>
+                <BrandsDropdown isTransparent={isTransparent} />
+                <TransparentNavLink href="/product-category/new-arrivals" isTransparent={isTransparent}>New In</TransparentNavLink>
               </div>
 
-              {/* Center: Logo & Brand */}
-              <div className="col-span-2 flex flex-col items-center justify-center">
-                <Link href="/" className="flex flex-col items-center group">
-                  <div className="relative h-12 w-12 mb-1 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+              {/* Center: Logo */}
+              <div className="col-span-2 flex flex-col items-center justify-center mb-[5px]">
+                <Link href="/" className="group" aria-label="Ideal Indiska LIVS Home">
+                  <div className="relative h-24 w-40 transition-transform duration-500 group-hover:scale-105">
                     <Image
                       src={logoUrl}
-                      alt="Ideal Indiska LIVS"
+                      alt="Ideal Indiska LIVS - Indian & Pakistani Grocery Store Stockholm"
                       fill
                       className="object-contain"
+                      sizes="160px"
+                      priority
                     />
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <span className={cn(
-                      "font-heading text-lg font-bold uppercase tracking-[0.15em] leading-none transition-colors group-hover:text-primary",
-                      isTransparent ? "text-white" : "text-foreground"
-                    )}>
-                      Ideal Indiska
-                    </span>
-                    <span className={cn(
-                      "font-heading text-[0.65rem] uppercase tracking-[0.37em] leading-tight mt-1 transition-colors",
-                      isTransparent ? "text-white/90" : "text-primary"
-                    )}>
-                      LIVS
-                    </span>
                   </div>
                 </Link>
               </div>
@@ -141,11 +132,12 @@ export function TransparentHeader({ categories, className }: TransparentHeaderPr
                 <TransparentNavLink href="/bookings" isTransparent={isTransparent}>Reservations</TransparentNavLink>
               </div>
 
-              {/* Extreme Right: Shop/Cart */}
+              {/* Extreme Right: Cart + Lang */}
               <div className={cn(
-                "col-span-1 flex justify-end items-center gap-3 transition-colors",
+                "col-span-1 flex justify-end items-center gap-2 transition-colors",
                 isTransparent && "[&_button]:text-white [&_svg]:text-white [&_a]:text-white"
               )}>
+                <LanguageSwitcher variant="compact" />
                 <UserNav />
                 <CartIcon />
               </div>
@@ -202,9 +194,10 @@ export function TransparentHeader({ categories, className }: TransparentHeaderPr
 
               {/* Right Actions */}
               <div className={cn(
-                "flex items-center gap-3 transition-colors",
+                "flex items-center gap-2 transition-colors",
                 isTransparent && "[&_button]:text-amber-100 [&_svg]:text-amber-100 [&_span]:text-amber-100"
               )}>
+                <LanguageSwitcher variant="compact" />
                 <CartIcon />
               </div>
             </div>

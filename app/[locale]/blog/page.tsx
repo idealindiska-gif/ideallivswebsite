@@ -117,7 +117,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Indian Fika */}
             <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
@@ -133,12 +133,37 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
               </div>
               <div className="flex-1 space-y-4">
                 <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('cultureLifestyle')}</div>
-                <h2 className="text-2xl font-bold font-heading">{t('fikaTitle')}</h2>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('fikaTitle')}</h2>
                 <p className="text-muted-foreground line-clamp-2 text-sm">
                   {t('fikaDescription')}
                 </p>
-                <Button asChild variant="outline" className="rounded-full w-full">
+                <Button asChild variant="outline" className="rounded-full w-full mt-auto">
                   <Link href="/blog/the-indian-fika">{t('readGuide')}</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Ramadan Calendar */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/02/Ramadan-Calendar-A4-ideal.jpg"
+                  alt={t('calendarTitle')}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {t('newGuide')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-emerald-600 uppercase tracking-widest">{t('seasonalGuide')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('calendarTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('calendarDescription')}
+                </p>
+                <Button asChild variant="outline" className="rounded-full w-full mt-auto border-emerald-200 hover:bg-emerald-50 text-emerald-700">
+                  <Link href="/blog/ramadan-kalender-2026">{t('viewCalendar')}</Link>
                 </Button>
               </div>
             </div>
@@ -158,11 +183,11 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
               </div>
               <div className="flex-1 space-y-4">
                 <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('shippingLogistics')}</div>
-                <h2 className="text-2xl font-bold font-heading">{t('noCustomsTitle')}</h2>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('noCustomsTitle')}</h2>
                 <p className="text-muted-foreground line-clamp-2 text-sm">
                   {t('noCustomsDescription')}
                 </p>
-                <Button asChild variant="outline" className="rounded-full w-full">
+                <Button asChild variant="outline" className="rounded-full w-full mt-auto text-primary">
                   <Link href="/blog/no-customs-indian-grocery-europe">{t('readGuide')}</Link>
                 </Button>
               </div>
