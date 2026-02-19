@@ -38,8 +38,10 @@ interface ShippingFormProps {
     onSubmit: (data: ShippingFormData) => void;
     defaultValues?: Partial<ShippingFormData>;
     className?: string;
+    /** Called with the email value when the email field loses focus */
+    onEmailBlur?: (email: string) => void;
 }
-export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFormProps) {
+export function ShippingForm({ onSubmit, defaultValues, className, onEmailBlur }: ShippingFormProps) {
     const { countries } = useCountries();
     const t = useTranslations('shippingForm');
 
@@ -77,6 +79,13 @@ export function ShippingForm({ onSubmit, defaultValues, className }: ShippingFor
                             type="email"
                             {...register('email')}
                             className={errors.email ? 'border-destructive' : ''}
+                            onBlur={(e) => {
+                                // Trigger the parent's abandoned-cart capture when email looks valid
+                                const val = e.target.value.trim();
+                                if (val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+                                    onEmailBlur?.(val);
+                                }
+                            }}
                         />
                         {errors.email && (
                             <p className="text-sm text-destructive">{errors.email.message}</p>

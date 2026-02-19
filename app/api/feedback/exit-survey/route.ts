@@ -53,7 +53,8 @@ export async function POST(request: NextRequest) {
 
         const adminEmail = process.env.ADMIN_EMAIL || 'info@ideallivs.com';
         const secondaryEmail = process.env.SECONDARY_ADMIN_EMAIL;
-        const recipients = secondaryEmail ? [adminEmail, secondaryEmail] : [adminEmail];
+        const tertiaryEmail = process.env.TERTIARY_ADMIN_EMAIL;
+        const recipients = [adminEmail, secondaryEmail, tertiaryEmail].filter(Boolean) as string[];
         const fromEmail = process.env.SMTP_USER;
 
         // Format reasons as HTML list

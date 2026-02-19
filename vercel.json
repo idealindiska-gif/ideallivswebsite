@@ -132,5 +132,10 @@
       "destination": "/api/sitemap"
     }
   ],
-  "crons": []
+  "crons": [
+    {
+      "path": "/api/cron/abandoned-cart",
+      "schedule": "0 * * * *"
+    }
+  ]
 }

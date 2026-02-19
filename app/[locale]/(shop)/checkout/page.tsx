@@ -66,10 +66,28 @@ export default function CheckoutPage() {
   const [stripeWcOrderId, setStripeWcOrderId] = useState<number | null>(null);
   const [stripeWcOrderKey, setStripeWcOrderKey] = useState<string | null>(null);
 
-  // Track initiate checkout event on mount
+  // Abandoned-cart tracking: stores the WC order ID created on email-blur
+  const [abandonedCartId, setAbandonedCartId] = useState<number | null>(null);
+
+  // Track initiate checkout event on mount; also restore pre-filled data from
+  // the cart recovery page (/checkout/recover)
   useEffect(() => {
     if (items.length > 0) {
       trackInitiateCheckout(items, getTotalPrice());
+    }
+
+    // If the user arrived via a recovery link, pre-fill their billing data
+    const recoveryRaw = sessionStorage.getItem('abandoned_cart_recovery');
+    if (recoveryRaw) {
+      try {
+        const { billingData: savedBilling, abandonedCartId: savedId } = JSON.parse(recoveryRaw);
+        if (savedBilling) {
+          setShippingData(savedBilling);
+          setBillingData(savedBilling);
+        }
+        if (savedId) setAbandonedCartId(savedId);
+      } catch { /* ignore malformed data */ }
+      sessionStorage.removeItem('abandoned_cart_recovery');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -95,6 +113,60 @@ export default function CheckoutPage() {
       case 'stripe_klarna': return tPaymentMethod('klarna');
       default: return methodId;
     }
+  };
+
+  // ─── Abandoned cart helpers ──────────────────────────────────────────────────
+
+  /** Called when the email field blurs with a valid email — earliest capture point */
+  const handleEmailBlur = async (email: string) => {
+    try {
+      const res = await fetch('/api/abandoned-cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          items: items.map((i) => ({
+            productId: i.productId,
+            variationId: i.variationId,
+            quantity: i.quantity,
+          })),
+          abandonedCartId: abandonedCartId ?? undefined,
+        }),
+      });
+      const data = await res.json();
+      if (data.id && !abandonedCartId) setAbandonedCartId(data.id);
+    } catch { /* silent — never block the checkout UX */ }
+  };
+
+  /** Called after Step 1 submit — updates the record with full customer details */
+  const updateAbandonedCartWithDetails = async (data: ShippingFormData) => {
+    if (!abandonedCartId) return;
+    try {
+      await fetch('/api/abandoned-cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: data.email,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          phone: data.phone,
+          items: items.map((i) => ({
+            productId: i.productId,
+            variationId: i.variationId,
+            quantity: i.quantity,
+          })),
+          abandonedCartId,
+        }),
+      });
+    } catch { /* silent */ }
+  };
+
+  /** Called when a real order is placed — removes the abandoned-cart flag */
+  const markAbandonedCartRecovered = async () => {
+    if (!abandonedCartId) return;
+    try {
+      await fetch(`/api/abandoned-cart?id=${abandonedCartId}`, { method: 'DELETE' });
+    } catch { /* silent */ }
   };
 
   // ─── Empty cart ──────────────────────────────────────────────────────────────
@@ -147,6 +219,9 @@ export default function CheckoutPage() {
 
     setShippingData(data);
     setShippingAddress({ postcode: data.postcode, city: data.city, country: data.country });
+
+    // Update abandoned cart with full customer details (fire-and-forget)
+    updateAbandonedCartWithDetails(data);
 
     if (sameAsShipping) {
       setBillingData({
@@ -325,6 +400,7 @@ export default function CheckoutPage() {
 
       if (!result.success || !result.data) throw new Error(result.error);
 
+      markAbandonedCartRecovered();
       clearCart();
       router.push(`/checkout/success?order=${result.data.id}&key=${result.data.order_key}`);
     } catch (err) {
@@ -340,6 +416,7 @@ export default function CheckoutPage() {
   // status to "processing". This callback just clears the cart and redirects.
 
   const handleStripeSuccess = (paymentIntentId: string) => {
+    markAbandonedCartRecovered();
     clearCart();
     sessionStorage.removeItem('pendingCheckoutData');
     if (stripeWcOrderId && stripeWcOrderKey) {
@@ -469,6 +546,7 @@ export default function CheckoutPage() {
                   <ShippingForm
                     onSubmit={handleShippingSubmit}
                     defaultValues={shippingData || undefined}
+                    onEmailBlur={handleEmailBlur}
                   />
 
                   {/* Billing Same as Shipping */}
