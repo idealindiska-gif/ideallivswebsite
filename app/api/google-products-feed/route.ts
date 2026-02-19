@@ -31,6 +31,7 @@ interface WooProduct {
   permalink: string;
   slug: string;
   images: Array<{ src: string }>;
+  image?: { src: string };          // variations use singular image, not images[]
   stock_status: 'instock' | 'outofstock' | 'onbackorder';
   stock_quantity: number | null;
   weight: string;
@@ -172,26 +173,34 @@ function generateProductXML(product: WooProduct): string {
     xml += `    <g:price>${product.regular_price} ${CURRENCY}</g:price>\n`;
     xml += `    <g:sale_price>${product.sale_price} ${CURRENCY}</g:sale_price>\n`;
 
-    // Add sale_price_effective_date if available
-    if (product.date_on_sale_from || product.date_on_sale_to) {
-      const today = new Date().toISOString().split('T')[0];
-      const in30Days = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-      const from = product.date_on_sale_from ? new Date(product.date_on_sale_from).toISOString().split('T')[0] : today;
-      const to = product.date_on_sale_to ? new Date(product.date_on_sale_to).toISOString().split('T')[0] : in30Days;
-      xml += `    <g:sale_price_effective_date>${from}T00:00:00/${to}T23:59:59</g:sale_price_effective_date>\n`;
-    } else {
-      // Fallback: sale is active now, valid for 30 days
-      const today = new Date().toISOString().split('T')[0];
-      const in30Days = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-      xml += `    <g:sale_price_effective_date>${today}T00:00:00/${in30Days}T23:59:59</g:sale_price_effective_date>\n`;
-    }
+    // Add sale_price_effective_date — always use real WC dates when set,
+    // otherwise fall back to a rolling 30-day window from today
+    const today = new Date().toISOString().split('T')[0];
+    const in30Days = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const saleFrom = product.date_on_sale_from
+      ? new Date(product.date_on_sale_from).toISOString().split('T')[0]
+      : today;
+    const saleTo = product.date_on_sale_to
+      ? new Date(product.date_on_sale_to).toISOString().split('T')[0]
+      : in30Days;
+    xml += `    <g:sale_price_effective_date>${saleFrom}T00:00:00/${saleTo}T23:59:59</g:sale_price_effective_date>\n`;
   } else {
     xml += `    <g:price>${product.price} ${CURRENCY}</g:price>\n`;
   }
 
-  // Image
-  if (product.images && product.images.length > 0) {
-    xml += `    <g:image_link>${escapeXml(product.images[0].src)}</g:image_link>\n`;
+  // Image — variations return `image` (singular); parent products return `images[]`
+  // Fall back through: variation image → parent images array → skip
+  const primaryImage =
+    product.image?.src ||
+    (product.images && product.images.length > 0 ? product.images[0].src : null);
+  if (primaryImage) {
+    xml += `    <g:image_link>${escapeXml(primaryImage)}</g:image_link>\n`;
+    // Additional images
+    if (product.images && product.images.length > 1) {
+      for (const img of product.images.slice(1, 10)) {
+        xml += `    <g:additional_image_link>${escapeXml(img.src)}</g:additional_image_link>\n`;
+      }
+    }
   }
 
   // Brand
@@ -211,9 +220,11 @@ function generateProductXML(product: WooProduct): string {
     xml += `    <g:mpn>PRODUCT_${product.id}</g:mpn>\n`;
   }
 
-  // Weight (WooCommerce stores in g)
+  // Weight
   if (product.weight) {
-    xml += `    <g:shipping_weight>${product.weight} g</g:shipping_weight>\n`;
+    const weight = `${product.weight} g`;
+    xml += `    <g:shipping_weight>${weight}</g:shipping_weight>\n`;
+    xml += `    <g:unit_pricing_measure>${weight}</g:unit_pricing_measure>\n`;
   }
 
   // Shipping
@@ -283,7 +294,12 @@ export async function GET() {
               description: variation.description || product.description,
               short_description: variation.description || product.short_description,
               categories: product.categories,
-              slug: product.slug, // Use parent slug for variations to point to product page
+              slug: product.slug,
+              // Variations return image (singular) — if missing, inherit parent images[]
+              images: (variation.images && variation.images.length > 0)
+                ? variation.images
+                : product.images,
+              image: variation.image ?? undefined,
             });
           } catch (error) {
             console.error(`Error fetching variation ${variationId}:`, error);

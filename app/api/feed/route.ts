@@ -102,8 +102,9 @@ export async function GET() {
     // Add posts
     for (const post of posts) {
       const title = stripHtml(post.title.rendered);
-      const contentHtml = post.content.rendered;
-      const excerpt = stripHtml(post.excerpt.rendered);
+      // content.rendered may be empty due to WordPress config — fall back to excerpt
+      const contentHtml = post.content.rendered || post.excerpt.rendered || '';
+      const excerpt = stripHtml(post.excerpt.rendered || post.content.rendered || '');
       const pubDate = new Date(post.date).toUTCString();
 
       // Get featured image if available
@@ -114,7 +115,7 @@ export async function GET() {
       // Get author name
       const authorName = post._embedded?.author?.[0]?.name || siteConfig.site_name;
 
-      // Build content with image
+      // Build content with image prepended
       let fullContent = contentHtml;
       if (imageUrl) {
         fullContent = `<img src="${escapeXml(imageUrl)}" alt="${escapeXml(imageAlt)}" />\n${contentHtml}`;
