@@ -67,11 +67,12 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
             },
             icons: {
                 icon: [
-                    { url: "https://crm.ideallivs.com/wp-content/uploads/2026/02/ideal-favicon.svg?v=1", sizes: "any", type: "image/svg+xml" },
-                    { url: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png", sizes: "any", type: "image/png" },
+                    { url: "/favicon.svg", type: "image/svg+xml" },
+                    { url: "/icon.png", sizes: "any", type: "image/png" },
+                    { url: "/favicon.ico", sizes: "any" },
                 ],
-                shortcut: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
-                apple: "https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png",
+                shortcut: "/favicon.ico",
+                apple: "/icon.png",
             },
             alternates: {
                 canonical: `/sv`,

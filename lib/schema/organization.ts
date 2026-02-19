@@ -110,7 +110,7 @@ export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.id
     alternateName: 'Ideal Livs',
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
     url: baseUrl,
-    logo: 'https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png',
+    logo: 'https://www.ideallivs.com/favicon.svg',
     image: 'https://crm.ideallivs.com/wp-content/uploads/2025/07/ideal-indiska-livs-stockholm.jpg',
     telephone: '+46728494801',
     email: 'hello@ideallivs.com',

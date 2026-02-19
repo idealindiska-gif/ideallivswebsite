@@ -172,7 +172,7 @@ export function idealLivsLocalBusinessSchema(locale: string = 'en') {
         ],
         priceRange: '$$',
         image: 'https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png',
-        logo: 'https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png',
+        logo: 'https://www.ideallivs.com/favicon.svg',
         servesCuisine: cuisineTypes,
         paymentAccepted: paymentMethods,
         currenciesAccepted: 'SEK',
