@@ -131,26 +131,21 @@ function findDishMatch(query: string): KnowledgeBaseResponse | null {
 function getSpiceInfo(query: string): KnowledgeBaseResponse {
     if (query.includes('not spicy') || query.includes('mild')) {
         return {
-            answer: "Looking for mild options? Try our **Butter Chicken**, **Korma**, or **Palak Paneer** - they're flavorful but not spicy. We can always adjust the spice level to your preference!",
+            answer: "Looking for mild spices? We carry **MDH Mild Curry**, **Shaan Korma Mix**, and **TRS Coriander Powder** — great for gentle flavours. Browse all spices in our [Shop](/shop).",
             confidence: 'high',
             category: 'spice'
         };
     }
     return {
-        answer: "For a spicy kick, I recommend our **Chicken Tikka**, **Vindaloo**, or **Chili Chicken**! We can adjust the spice level from mild to extra hot - just let us know your preference when ordering.",
+        answer: "For bold heat, check out **MDH Chilli Powder**, **Shaan Karahi Mix**, or **TRS Hot Curry Powder**. We stock a wide range of whole and ground spices. Browse our [spice collection](/shop)!",
         confidence: 'high',
         category: 'spice'
     };
 }
 
 function getSweetsInfo(): KnowledgeBaseResponse {
-    const sweets = knowledgeBase.popular_dishes
-        .filter(d => d.category === 'sweets')
-        .map(d => `**${d.name}**`)
-        .join(', ');
-
     return {
-        answer: `Our traditional Indian sweets are legendary! Popular choices: ${sweets}. All made fresh daily. Visit our [Sweets Menu](/menu/sweets) to see the full selection!`,
+        answer: `We stock a great range of Indian sweets and desserts! Look for **Haldiram's Sweets**, **Laziza Dessert Mixes**, **Rooh Afza**, and **Ahmed Custard Powder**. Browse our [Shop](/shop) for the full selection!`,
         confidence: 'high',
         category: 'sweets'
     };
@@ -178,25 +173,25 @@ function getDietaryInfo(type: string): KnowledgeBaseResponse {
 
 function getBuffetInfo(): KnowledgeBaseResponse {
     return {
-        answer: `We offer special buffet options! Visit our store during business hours to enjoy our buffet. [Learn more](/lunch-buffet-in-stockholm) | [Weekend Brunch](/weekend-brunch-buffet)`,
+        answer: `We carry everything you need to cook a feast at home! From **Basmati rice** and **Shaan spice mixes** to **frozen halal meats** and **ready-to-cook sauces**. Browse our [Shop](/shop) to stock up!`,
         confidence: 'high',
-        category: 'buffet'
+        category: 'products'
     };
 }
 
 function getCateringInfo(): KnowledgeBaseResponse {
     return {
-        answer: `We offer full-service catering for weddings, parties, and corporate events with customizable menus and a price calculator.\n\nVisit our [Catering Page](/special-order) to explore packages and get a quote!`,
+        answer: `Planning a large gathering? We stock bulk quantities of rice, spices, lentils, and more — perfect for cooking for big groups. Contact us at **${brandConfig.contact.email}** or call **${brandConfig.contact.phone}** for bulk orders!`,
         confidence: 'high',
-        category: 'catering'
+        category: 'bulk-orders'
     };
 }
 
 function getReservationInfo(): KnowledgeBaseResponse {
     return {
-        answer: `You can book a table easily online! For group bookings or special events, please contact us directly.\n\n[Book Now](/bookings) or email us at ${brandConfig.contact.reservationEmail}.`,
+        answer: `You can shop online at any time and we'll deliver to your door! For large or special orders, contact us at **${brandConfig.contact.reservationEmail}** or call **${brandConfig.contact.phone}**.`,
         confidence: 'high',
-        category: 'reservations'
+        category: 'orders'
     };
 }
 
@@ -217,18 +212,18 @@ function getHoursInfo(): KnowledgeBaseResponse {
 }
 
 function getMenuInfo(): KnowledgeBaseResponse {
-    const categories = ["Starters", "Main Course (Lamb, Beef, Chicken)", "Vegetarian", "Tandoor", "Biryani", "Sweets"];
+    const categories = ["Rice & Grains", "Spices & Masalas", "Lentils & Pulses", "Flours & Baking", "Frozen & Halal Meat", "Snacks & Drinks", "Oils & Ghee", "Personal Care"];
 
     return {
-        answer: `Explore our menu with: ${categories.join(', ')}.\n\nView full menu: [Restaurant Food](/menu/restaurant) | [Sweets](/menu/sweets) | [Bakery](/menu/bakery)`,
+        answer: `We stock 1500+ products across categories: ${categories.join(', ')} and more.\n\nBrowse our full [Shop](/shop) or search for your favourite brands!`,
         confidence: 'high',
-        category: 'menu'
+        category: 'products'
     };
 }
 
 function getDeliveryInfo(): KnowledgeBaseResponse {
     return {
-        answer: `**Delivery:** ${brandConfig.features.hasDelivery ? "Yes, we offer delivery!" : "Currently we do not offer delivery."}\n\nCheck our website for online ordering options or call us at ${brandConfig.contact.phone} for delivery details!`,
+        answer: `**Yes, we deliver!**\n\n🚚 **Stockholm:** Free delivery on orders over 500kr\n✈️ **Europe:** Worldwide shipping via DHL\n\nOrder online through our [Shop](/shop) or call us at **${brandConfig.contact.phone}** for more details!`,
         confidence: 'high',
         category: 'delivery'
     };
@@ -236,7 +231,7 @@ function getDeliveryInfo(): KnowledgeBaseResponse {
 
 function getPriceInfo(): KnowledgeBaseResponse {
     return {
-        answer: `Our prices are competitive and offer great value for ${brandConfig.cuisineDescription}! For specific pricing, please check our [Menu](/menu/restaurant) or use our [Catering Calculator](/special-order) for event pricing. Feel free to call us for any pricing questions!`,
+        answer: `We offer competitive prices on all ${brandConfig.cuisineDescription}! Prices are shown on each product page.\n\nFree delivery on Stockholm orders over **500kr**. Browse our [Shop](/shop) or contact us at **${brandConfig.contact.phone}** for bulk pricing!`,
         confidence: 'medium',
         category: 'pricing'
     };
@@ -244,7 +239,7 @@ function getPriceInfo(): KnowledgeBaseResponse {
 
 function getDefaultResponse(): KnowledgeBaseResponse {
     return {
-        answer: `I'd be happy to help! At **${brandConfig.businessName}**, we offer ${brandConfig.cuisineDescription}, traditional sweets, catering services, and more.\n\nYou can:\n- Browse our [Menu](/menu/restaurant)\n- Book a [Reservation](/bookings)\n- Explore [Catering Options](/special-order)\n- Try our lunch or weekend buffets\n\nWhat would you like to know more about?`,
+        answer: `I'd be happy to help! At **${brandConfig.businessName}** we stock 1500+ ${brandConfig.cuisineDescription} with delivery across Sweden & Europe.\n\nYou can:\n- 🛒 Browse our [Shop](/shop)\n- 🌶️ Explore [Spices & Masalas](/shop)\n- 🍚 Find [Rice & Grains](/shop)\n- 📍 Visit us at ${brandConfig.contact.address}\n- 📞 Call us: ${brandConfig.contact.phone}\n\nWhat can I help you find today?`,
         confidence: 'low'
     };
 }
@@ -258,5 +253,5 @@ function calculateSimilarity(str1: string, str2: string): number {
 }
 
 export function getGreeting(): string {
-    return `Hello! I'm your **Ideal Indiska Assistant**. I can help you with:\n\n✨ Menu recommendations\n🍽️ Reservations\n🎉 Catering & events\n📍 Location & hours\n💬 Any questions about our food\n\nWhat can I help you with today?`;
+    return `Hello! I'm your **Ideal Indiska Assistant**. I can help you with:\n\n🛒 Finding products & brands\n🌶️ Spices, rice & grocery recommendations\n🚚 Delivery & shipping info\n📍 Store location & opening hours\n💬 Any questions about our products\n\nWhat can I help you find today?`;
 }
