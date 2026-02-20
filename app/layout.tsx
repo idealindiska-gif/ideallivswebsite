@@ -60,11 +60,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/icon.png", sizes: "any", type: "image/png" },
       { url: "/favicon.ico", sizes: "any" },
     ],
     shortcut: "/favicon.ico",
-    apple: "/icon.png",
+    apple: "/favicon.svg",
   },
   verification: {
     google: "JHCIpEz_IWYNdnNQGCkUKVQ8tiUre1hcCOqcSNhKlmQ",
