@@ -27,8 +27,6 @@ import { Separator } from '@/components/ui/separator';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StripeProvider } from '@/components/providers/stripe-provider';
 import { StripePaymentForm } from '@/components/checkout/stripe-payment-form';
-import { PaymentRequestButton } from '@/components/checkout/payment-request-button';
-import { StripeExpressCheckout } from '@/components/checkout/stripe-express-checkout';
 import { trackInitiateCheckout } from '@/lib/analytics';
 import { WhatsAppOrderButton } from '@/components/whatsapp/whatsapp-order-button';
 
@@ -58,7 +56,8 @@ export default function CheckoutPage() {
   const [coupon, setCoupon] = useState<any | null>(null);
 
   // Stripe state
-  const [pendingOrderId, setPendingOrderId] = useState<number | null>(null);
+  const [stripeWcOrderId, setStripeWcOrderId] = useState<number | null>(null);
+  const [stripeWcOrderKey, setStripeWcOrderKey] = useState<string | null>(null);
   const [stripeClientSecret, setStripeClientSecret] = useState<string | null>(null);
   const [isStripePayment, setIsStripePayment] = useState(false);
 
@@ -175,34 +174,13 @@ export default function CheckoutPage() {
 
   // Handler for successful Stripe payment - order is already created, just redirect
   // The Stripe webhook will handle updating the order status to 'processing'
-  const handleStripeSuccess = async (paymentIntentId: string) => {
-    if (!pendingOrderId) {
-      setError('Order information not found');
-      return;
-    }
-
-    setIsProcessing(true);
-    setError(null);
-
-    try {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`✅ Payment successful for order #${pendingOrderId}!`);
-        console.log('🎯 Webhook will update order status to processing');
-      }
-
-      // Clear sessionStorage and cart
-      sessionStorage.removeItem('pendingCheckoutData');
-      clearCart();
-
-      // Redirect to success page
-      // The order is already created and webhook will update status
-      router.push(`/checkout/success?order=${pendingOrderId}&payment_intent=${paymentIntentId}`);
-    } catch (err) {
-      console.error('Redirect after payment failed:', err);
-      // Still show success since payment went through
-      // Webhook will update order status
-      clearCart();
-      router.push(`/checkout/success?order=${pendingOrderId}&payment_intent=${paymentIntentId}`);
+  const handleStripeSuccess = (paymentIntentId: string) => {
+    clearCart();
+    sessionStorage.removeItem('pendingCheckoutData');
+    if (stripeWcOrderId && stripeWcOrderKey) {
+      router.push(`/checkout/success?order=${stripeWcOrderId}&key=${stripeWcOrderKey}&payment_intent=${paymentIntentId}`);
+    } else {
+      router.push(`/checkout/success?payment_intent=${paymentIntentId}`);
     }
   };
 
@@ -301,6 +279,7 @@ export default function CheckoutPage() {
           }
 
           const wcOrderId = orderResult.data.id;
+          const wcOrderKey = orderResult.data.order_key;
 
           if (process.env.NODE_ENV === 'development') {
             console.log(`✅ WooCommerce order #${wcOrderId} created with pending status`);
@@ -353,41 +332,14 @@ export default function CheckoutPage() {
             throw new Error('Failed to get payment client secret');
           }
 
-          // Store checkout data including the WooCommerce order ID
-          // This is used by stripe-return page for redirect-based payments (Klarna, etc.)
-          const checkoutData = {
-            wcOrderId: wcOrderId, // Include order ID for reference
-            billing: billingData,
-            shipping: shippingData,
-            shippingMethod: {
-              method_id: shippingMethod.method_id,
-              label: shippingMethod.label,
-              cost: shippingCost,
-            },
-            paymentMethod: paymentMethod,
-            items: items.map((item) => ({
-              product_id: item.productId,
-              variation_id: item.variationId,
-              quantity: item.quantity,
-              tax_class: item.variation?.tax_class || item.product.tax_class,
-            })),
-            orderNotes: orderNotes,
-            coupon: coupon ? { code: coupon.code } : null,
-            paymentIntentId: paymentIntentId,
-          };
-          sessionStorage.setItem('pendingCheckoutData', JSON.stringify(checkoutData));
+          // Store minimal data for redirect-based payments (Klarna, etc.)
+          // Only wcOrderId + wcOrderKey needed — order is already in WooCommerce
+          sessionStorage.setItem('pendingCheckoutData', JSON.stringify({ wcOrderId, wcOrderKey }));
 
-          // Store order ID for UI reference
-          setPendingOrderId(wcOrderId);
+          setStripeWcOrderId(wcOrderId);
+          setStripeWcOrderKey(wcOrderKey);
           setStripeClientSecret(clientSecret);
           setIsProcessing(false);
-
-          if (process.env.NODE_ENV === 'development') {
-            console.log(`✅ Stripe PaymentIntent created: ${paymentIntentId}`);
-            console.log(`🔗 Linked to WooCommerce order #${wcOrderId}`);
-            console.log('📦 Checkout data saved to sessionStorage for redirect recovery');
-            console.log('🎯 Webhook will update order status on payment success/failure');
-          }
 
           // The Stripe payment form will now be shown
           // Webhook handles order status update after payment
@@ -586,22 +538,6 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Express Checkout - Shows Link, Apple Pay, Google Pay BEFORE forms */}
-                  <StripeExpressCheckout
-                    amount={getTotalPrice()}
-                    currency="SEK"
-                    showDebug={false}
-                    onSuccess={async (result) => {
-                      console.log('Express checkout success:', result);
-                      // Payment was processed via Express Checkout
-                      // The page will redirect to stripe-return for order creation
-                    }}
-                    onError={(error) => {
-                      console.error('Express checkout error:', error);
-                      setError(`Express checkout failed: ${error}`);
-                    }}
-                  />
-
                   <ShippingForm
                     onSubmit={handleShippingSubmit}
                     defaultValues={shippingData || undefined}
@@ -866,18 +802,7 @@ export default function CheckoutPage() {
                         Complete Payment
                       </h3>
                       <StripeProvider clientSecret={stripeClientSecret}>
-                        {/* Payment Request Button (Apple Pay / Google Pay) */}
-                        <PaymentRequestButton
-                          amount={getTotalPrice() + shippingCost - calculateDiscount()}
-                          currency="SEK"
-                          onSuccess={handleStripeSuccess}
-                          onError={(error) => {
-                            console.error('Wallet payment failed:', error);
-                            setError(`Wallet payment failed: ${error}`);
-                          }}
-                        />
-
-                        {/* Regular Payment Form (Card, Klarna, Link) */}
+                        {/* Payment Form (Card, Klarna, Link, Apple Pay, Google Pay via PaymentElement) */}
                         <StripePaymentForm
                           amount={getTotalPrice() + shippingCost - calculateDiscount()}
                           currency="SEK"

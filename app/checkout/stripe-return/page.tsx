@@ -13,24 +13,8 @@ import { useCartStore } from '@/store/cart-store';
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
 interface CheckoutData {
-    wcOrderId: number;  // Order is already created before payment
-    billing: any;
-    shipping: any;
-    shippingMethod: {
-        method_id: string;
-        label: string;
-        cost: number;
-    };
-    paymentMethod: string;
-    items: Array<{
-        product_id: number;
-        variation_id?: number;
-        quantity: number;
-        tax_class?: string;
-    }>;
-    orderNotes?: string;
-    coupon?: { code: string } | null;
-    paymentIntentId: string;
+    wcOrderId: number;
+    wcOrderKey: string;
 }
 
 function StripeReturnContent() {
@@ -41,6 +25,7 @@ function StripeReturnContent() {
     const [message, setMessage] = useState('');
     const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
     const [orderId, setOrderId] = useState<number | null>(null);
+    const [orderKey, setOrderKey] = useState<string | null>(null);
 
     useEffect(() => {
         const handleReturn = async () => {
@@ -78,14 +63,17 @@ function StripeReturnContent() {
 
                 setPaymentIntentId(paymentIntent.id);
 
-                // Retrieve checkout data from sessionStorage to get order ID
+                // Retrieve checkout data from sessionStorage to get order ID + key
                 const storedData = sessionStorage.getItem('pendingCheckoutData');
                 let wcOrderId: number | null = null;
+                let wcOrderKey: string | null = null;
 
                 if (storedData) {
                     const checkoutData: CheckoutData = JSON.parse(storedData);
                     wcOrderId = checkoutData.wcOrderId;
+                    wcOrderKey = checkoutData.wcOrderKey;
                     setOrderId(wcOrderId);
+                    setOrderKey(wcOrderKey);
                 }
 
                 // Handle payment status
@@ -103,8 +91,8 @@ function StripeReturnContent() {
 
                         // Redirect to success page after a short delay
                         setTimeout(() => {
-                            if (wcOrderId) {
-                                router.push(`/checkout/success?order=${wcOrderId}&payment_intent=${paymentIntent.id}`);
+                            if (wcOrderId && wcOrderKey) {
+                                router.push(`/checkout/success?order=${wcOrderId}&key=${wcOrderKey}&payment_intent=${paymentIntent.id}`);
                             } else {
                                 router.push(`/checkout/success?payment_intent=${paymentIntent.id}`);
                             }
