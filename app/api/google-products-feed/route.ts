@@ -100,14 +100,32 @@ function getAvailabilityDate(product: WooProduct): string {
   return date.toISOString().split('T')[0];
 }
 
+// Strip characters that are illegal in XML 1.0
+function stripInvalidXmlChars(str: string): string {
+  // eslint-disable-next-line no-control-regex
+  return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\uFFFE\uFFFF]/g, '');
+}
+
 // Escape XML special characters
 function escapeXml(unsafe: string): string {
-  return unsafe
+  return stripInvalidXmlChars(unsafe)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
+}
+
+// Safe CDATA wrap — escapes the ]]> sequence that would break CDATA sections
+function cdata(str: string): string {
+  return `<![CDATA[${stripInvalidXmlChars(str).replace(/\]\]>/g, ']]]]><![CDATA[>')}]]>`;
+}
+
+// Format price with 2 decimal places
+function formatPrice(price: string | number): string {
+  const num = typeof price === 'string' ? parseFloat(price) : price;
+  if (!num || isNaN(num) || num <= 0) return '';
+  return num.toFixed(2);
 }
 
 // Generate shipping XML for a product
@@ -161,20 +179,21 @@ function generateProductXML(product: WooProduct): string {
 
   let xml = `  <item>\n`;
   xml += `    <g:id>${product.id}</g:id>\n`;
-  xml += `    <title><![CDATA[${product.name}]]></title>\n`;
-  xml += `    <description><![CDATA[${description}]]></description>\n`;
+  xml += `    <title>${cdata(product.name)}</title>\n`;
+  xml += `    <description>${cdata(description)}</description>\n`;
   xml += `    <link>${escapeXml(productLink)}</link>\n`;
   xml += `    <g:condition>new</g:condition>\n`;
   xml += `    <g:availability>${availability}</g:availability>\n`;
   xml += `    <g:availability_date>${availabilityDate}</g:availability_date>\n`;
 
   // Price and sale price
-  if (product.sale_price && parseFloat(product.sale_price) > 0) {
-    xml += `    <g:price>${product.regular_price} ${CURRENCY}</g:price>\n`;
-    xml += `    <g:sale_price>${product.sale_price} ${CURRENCY}</g:sale_price>\n`;
+  const saleNum = parseFloat(product.sale_price);
+  const regularNum = parseFloat(product.regular_price);
+  if (product.sale_price && saleNum > 0 && regularNum > 0) {
+    xml += `    <g:price>${formatPrice(product.regular_price)} ${CURRENCY}</g:price>\n`;
+    xml += `    <g:sale_price>${formatPrice(product.sale_price)} ${CURRENCY}</g:sale_price>\n`;
 
-    // Add sale_price_effective_date — always use real WC dates when set,
-    // otherwise fall back to a rolling 30-day window from today
+    // Add sale_price_effective_date with timezone (CET = +01:00)
     const today = new Date().toISOString().split('T')[0];
     const in30Days = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     const saleFrom = product.date_on_sale_from
@@ -183,9 +202,9 @@ function generateProductXML(product: WooProduct): string {
     const saleTo = product.date_on_sale_to
       ? new Date(product.date_on_sale_to).toISOString().split('T')[0]
       : in30Days;
-    xml += `    <g:sale_price_effective_date>${saleFrom}T00:00:00/${saleTo}T23:59:59</g:sale_price_effective_date>\n`;
+    xml += `    <g:sale_price_effective_date>${saleFrom}T00:00:00+01:00/${saleTo}T23:59:59+01:00</g:sale_price_effective_date>\n`;
   } else {
-    xml += `    <g:price>${product.price} ${CURRENCY}</g:price>\n`;
+    xml += `    <g:price>${formatPrice(product.price)} ${CURRENCY}</g:price>\n`;
   }
 
   // Image — variations return `image` (singular); parent products return `images[]`
@@ -204,7 +223,7 @@ function generateProductXML(product: WooProduct): string {
   }
 
   // Brand
-  xml += `    <g:brand><![CDATA[${brand}]]></g:brand>\n`;
+  xml += `    <g:brand>${cdata(brand)}</g:brand>\n`;
 
   // GTIN or identifier_exists
   if (gtin) {
@@ -215,7 +234,7 @@ function generateProductXML(product: WooProduct): string {
 
   // MPN (SKU)
   if (sku) {
-    xml += `    <g:mpn><![CDATA[${sku}]]></g:mpn>\n`;
+    xml += `    <g:mpn>${cdata(sku)}</g:mpn>\n`;
   } else if (!gtin) {
     xml += `    <g:mpn>PRODUCT_${product.id}</g:mpn>\n`;
   }
@@ -316,9 +335,9 @@ export async function GET() {
     xml += `<!-- Generated on: ${timestamp} -->\n`;
     xml += `<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n`;
     xml += `  <channel>\n`;
-    xml += `    <title><![CDATA[${siteConfig.site_name} - Primary Product Feed (Europe-wide Shipping)]]></title>\n`;
-    xml += `    <link>${siteConfig.site_domain}</link>\n`;
-    xml += `    <description><![CDATA[Primary product feed for Google Merchant Center with Europe-wide shipping]]></description>\n`;
+    xml += `    <title>${cdata(siteConfig.site_name + ' - Primary Product Feed (Europe-wide Shipping)')}</title>\n`;
+    xml += `    <link>${escapeXml(siteConfig.site_domain)}</link>\n`;
+    xml += `    <description>${cdata('Primary product feed for Google Merchant Center with Europe-wide shipping')}</description>\n`;
 
     // Add products
     for (const product of allProducts) {

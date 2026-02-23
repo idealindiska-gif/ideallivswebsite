@@ -35,14 +35,25 @@ interface WPPost {
   };
 }
 
+// Strip characters that are illegal in XML 1.0
+function stripInvalidXmlChars(str: string): string {
+  // eslint-disable-next-line no-control-regex
+  return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\uFFFE\uFFFF]/g, '');
+}
+
 // Escape XML special characters
 function escapeXml(unsafe: string): string {
-  return unsafe
+  return stripInvalidXmlChars(unsafe)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
+}
+
+// Safe CDATA wrap — escapes the ]]> sequence that would break CDATA sections
+function cdata(str: string): string {
+  return `<![CDATA[${stripInvalidXmlChars(str).replace(/\]\]>/g, ']]]]><![CDATA[>')}]]>`;
 }
 
 // Strip HTML tags but preserve basic formatting
@@ -92,9 +103,9 @@ export async function GET() {
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     xml += `<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">\n`;
     xml += `  <channel>\n`;
-    xml += `    <title><![CDATA[${siteConfig.site_name} Blog]]></title>\n`;
+    xml += `    <title>${cdata(siteConfig.site_name + ' Blog')}</title>\n`;
     xml += `    <link>${siteConfig.site_domain}</link>\n`;
-    xml += `    <description><![CDATA[${siteConfig.site_description}]]></description>\n`;
+    xml += `    <description>${cdata(siteConfig.site_description)}</description>\n`;
     xml += `    <lastBuildDate>${now}</lastBuildDate>\n`;
     xml += `    <language>sv-SE</language>\n`;
     xml += `    <atom:link href="${siteConfig.site_domain}/api/feed" rel="self" type="application/rss+xml" />\n`;
@@ -124,17 +135,17 @@ export async function GET() {
       const frontendLink = `${siteConfig.site_domain}/blog/${post.slug}`;
 
       xml += `    <item>\n`;
-      xml += `      <title><![CDATA[${title}]]></title>\n`;
+      xml += `      <title>${cdata(title)}</title>\n`;
       xml += `      <link>${escapeXml(frontendLink)}</link>\n`;
       xml += `      <pubDate>${pubDate}</pubDate>\n`;
-      xml += `      <dc:creator><![CDATA[${authorName}]]></dc:creator>\n`;
+      xml += `      <dc:creator>${cdata(authorName)}</dc:creator>\n`;
       xml += `      <guid isPermaLink="true">${escapeXml(frontendLink)}</guid>\n`;
-      xml += `      <description><![CDATA[${excerpt}]]></description>\n`;
-      xml += `      <content:encoded><![CDATA[${fullContent}]]></content:encoded>\n`;
+      xml += `      <description>${cdata(excerpt)}</description>\n`;
+      xml += `      <content:encoded>${cdata(fullContent)}</content:encoded>\n`;
 
       if (imageUrl) {
         xml += `      <media:content url="${escapeXml(imageUrl)}" medium="image">\n`;
-        xml += `        <media:title><![CDATA[${imageAlt}]]></media:title>\n`;
+        xml += `        <media:title>${cdata(imageAlt)}</media:title>\n`;
         xml += `      </media:content>\n`;
       }
 

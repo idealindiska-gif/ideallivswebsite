@@ -13,6 +13,24 @@ import { WC_API_CONFIG } from '@/lib/woocommerce/config';
 const STORE_CODE = '12397410391306859227'; // Google Merchant store code
 const CURRENCY = 'SEK';
 
+// Strip characters that are illegal in XML 1.0
+function stripInvalidXmlChars(str: string): string {
+  // eslint-disable-next-line no-control-regex
+  return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\uFFFE\uFFFF]/g, '');
+}
+
+// Safe CDATA wrap
+function cdata(str: string): string {
+  return `<![CDATA[${stripInvalidXmlChars(str).replace(/\]\]>/g, ']]]]><![CDATA[>')}]]>`;
+}
+
+// Format price with 2 decimal places
+function formatPrice(price: string | number): string {
+  const num = typeof price === 'string' ? parseFloat(price) : price;
+  if (!num || isNaN(num) || num <= 0) return '';
+  return num.toFixed(2);
+}
+
 interface WooProduct {
   id: number;
   name: string;
@@ -95,16 +113,20 @@ function generateLocalInventoryXML(product: WooProduct): string {
   }
 
   // Price and sale price logic for local
-  if (product.sale_price && parseFloat(product.sale_price) > 0) {
-    xml += `    <g:price>${product.regular_price} ${CURRENCY}</g:price>\n`;
-    xml += `    <g:sale_price>${product.sale_price} ${CURRENCY}</g:sale_price>\n`;
+  const saleNum = parseFloat(product.sale_price);
+  const regularNum = parseFloat(product.regular_price);
+  if (product.sale_price && saleNum > 0 && regularNum > 0) {
+    xml += `    <g:price>${formatPrice(product.regular_price)} ${CURRENCY}</g:price>\n`;
+    xml += `    <g:sale_price>${formatPrice(product.sale_price)} ${CURRENCY}</g:sale_price>\n`;
 
-    // Effective dates for local deals
-    const from = product.date_on_sale_from ? new Date(product.date_on_sale_from).toISOString().split('T')[0] : '2026-01-19';
-    const to = product.date_on_sale_to ? new Date(product.date_on_sale_to).toISOString().split('T')[0] : '2026-01-25';
-    xml += `    <g:sale_price_effective_date>${from}T00:00:00/${to}T23:59:59</g:sale_price_effective_date>\n`;
+    // Effective dates for local deals — rolling 30-day window when WC dates not set
+    const today = new Date().toISOString().split('T')[0];
+    const in30Days = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const from = product.date_on_sale_from ? new Date(product.date_on_sale_from).toISOString().split('T')[0] : today;
+    const to = product.date_on_sale_to ? new Date(product.date_on_sale_to).toISOString().split('T')[0] : in30Days;
+    xml += `    <g:sale_price_effective_date>${from}T00:00:00+01:00/${to}T23:59:59+01:00</g:sale_price_effective_date>\n`;
   } else {
-    xml += `    <g:price>${product.price} ${CURRENCY}</g:price>\n`;
+    xml += `    <g:price>${formatPrice(product.price)} ${CURRENCY}</g:price>\n`;
   }
 
   // Add quantity if stock is managed
@@ -182,9 +204,9 @@ export async function GET() {
     xml += `<!-- Generated on: ${timestamp} -->\n`;
     xml += `<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n`;
     xml += `  <channel>\n`;
-    xml += `    <title><![CDATA[${siteConfig.site_name} - Local Inventory Feed (Sweden Store)]]></title>\n`;
+    xml += `    <title>${cdata(siteConfig.site_name + ' - Local Inventory Feed (Sweden Store)')}</title>\n`;
     xml += `    <link>${siteConfig.site_domain}</link>\n`;
-    xml += `    <description><![CDATA[Local inventory feed for Swedish physical store with pickup options]]></description>\n`;
+    xml += `    <description>${cdata('Local inventory feed for Swedish physical store with pickup options')}</description>\n`;
 
     // Add products
     for (const product of allProducts) {

@@ -128,6 +128,10 @@ const nextConfig = {
                 source: '/sv/sitemap-product-brands.xml',
                 destination: '/api/sitemap/sv-product-brands',
             },
+            {
+                source: '/sv/sitemap-posts.xml',
+                destination: '/api/sitemap/sv-posts',
+            },
         ];
     },
 };

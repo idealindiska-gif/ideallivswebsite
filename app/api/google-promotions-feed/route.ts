@@ -10,6 +10,17 @@ import { fetchWooCommerceCached } from '@/lib/woocommerce/api';
 
 const CURRENCY = 'SEK';
 
+// Strip characters that are illegal in XML 1.0
+function stripInvalidXmlChars(str: string): string {
+  // eslint-disable-next-line no-control-regex
+  return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\uFFFE\uFFFF]/g, '');
+}
+
+// Safe CDATA wrap
+function cdata(str: string): string {
+  return `<![CDATA[${stripInvalidXmlChars(str).replace(/\]\]>/g, ']]]]><![CDATA[>')}]]>`;
+}
+
 interface WooProduct {
     id: number;
     name: string;
@@ -28,24 +39,24 @@ export async function GET() {
         );
 
         const timestamp = new Date().toISOString();
-        // Promotion dates: today through 30 days from now (rolling window)
-        const effectiveDateStart = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
-        const effectiveDateEnd = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().replace(/\.\d{3}Z$/, 'Z');
+        // Promotion dates: today through 30 days from now (rolling window, with timezone)
+        const effectiveDateStart = new Date().toISOString().split('.')[0] + '+01:00';
+        const effectiveDateEnd = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('.')[0] + '+01:00';
         const effectiveDates = `${effectiveDateStart}/${effectiveDateEnd}`;
 
         let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
         xml += `<!-- Generated on: ${timestamp} -->\n`;
         xml += `<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n`;
         xml += `  <channel>\n`;
-        xml += `    <title><![CDATA[${siteConfig.site_name} - Merchant Promotions Feed]]></title>\n`;
+        xml += `    <title>${cdata(siteConfig.site_name + ' - Merchant Promotions Feed')}</title>\n`;
         xml += `    <link>${siteConfig.site_domain}</link>\n`;
-        xml += `    <description><![CDATA[Active promotions and special offers for Google Merchant Center]]></description>\n`;
+        xml += `    <description>${cdata('Active promotions and special offers for Google Merchant Center')}</description>\n`;
 
         if (saleProducts.length > 0) {
             // 1. Generic Promotion for all sale items
             xml += `    <item>\n`;
             xml += `      <g:promotion_id>WEEKLY_DEALS</g:promotion_id>\n`;
-            xml += `      <g:long_title><![CDATA[Weekly Specials: Indian & Pakistani Grocery Deals]]></g:long_title>\n`;
+            xml += `      <g:long_title>${cdata('Weekly Specials: Indian & Pakistani Grocery Deals')}</g:long_title>\n`;
             xml += `      <g:promotion_display_path>Weekly Deals</g:promotion_display_path>\n`;
             xml += `      <g:redemption_channel>ONLINE</g:redemption_channel>\n`;
             xml += `      <g:offer_type>NO_CODE</g:offer_type>\n`;
@@ -56,7 +67,7 @@ export async function GET() {
             // 2. Free Delivery Promotion (Store wide)
             xml += `    <item>\n`;
             xml += `      <g:promotion_id>FREE_DELIVERY_500</g:promotion_id>\n`;
-            xml += `      <g:long_title><![CDATA[Free Delivery in Stockholm on orders over 500 SEK]]></g:long_title>\n`;
+            xml += `      <g:long_title>${cdata('Free Delivery in Stockholm on orders over 500 SEK')}</g:long_title>\n`;
             xml += `      <g:promotion_display_path>Free Shipping</g:promotion_display_path>\n`;
             xml += `      <g:redemption_channel>ONLINE</g:redemption_channel>\n`;
             xml += `      <g:offer_type>NO_CODE</g:offer_type>\n`;
