@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next'
+import { siteConfig } from '@/site.config'
 
 export default function manifest(): MetadataRoute.Manifest {
+  const base = siteConfig.site_domain;
   return {
     name: 'Ideal Indiska LIVS',
     short_name: 'Ideal LIVS',
@@ -11,23 +13,23 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#2d6a4f',
     icons: [
       {
-        src: '/favicon.svg',
+        src: `${base}/favicon.svg`,
         sizes: 'any',
         type: 'image/svg+xml',
       },
       {
-        src: '/icon-512.png',
+        src: `${base}/icon-512.png`,
         sizes: '512x512',
         type: 'image/png',
         purpose: 'maskable',
       },
       {
-        src: '/favicon-32x32.png',
+        src: `${base}/favicon-32x32.png`,
         sizes: '32x32',
         type: 'image/png',
       },
       {
-        src: '/favicon.ico',
+        src: `${base}/favicon.ico`,
         sizes: 'any',
         type: 'image/x-icon',
       },
