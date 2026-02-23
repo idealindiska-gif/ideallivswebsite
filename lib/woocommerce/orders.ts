@@ -80,6 +80,50 @@ export async function createOrder(orderData: CreateOrderData): Promise<Order> {
 }
 
 /**
+ * Data for updating an existing order (billing, shipping, payment, etc.)
+ * Intentionally omits line_items — WooCommerce appends rather than replaces them
+ * on PUT, so we never send line_items in updates to avoid duplicates.
+ */
+export interface UpdateOrderData {
+    billing?: Partial<BillingAddress>;
+    shipping?: Partial<ShippingAddress>;
+    /** Include `id` on an existing shipping line to update it in-place */
+    shipping_lines?: Array<{
+        id?: number;
+        method_id?: string;
+        method_title?: string;
+        total?: string;
+    }>;
+    payment_method?: string;
+    payment_method_title?: string;
+    customer_note?: string;
+    coupon_lines?: Array<{ code: string }>;
+    meta_data?: Array<{ key: string; value: string }>;
+}
+
+/**
+ * Update an existing WooCommerce order (billing/shipping/payment/meta).
+ * Does NOT touch line_items to prevent WooCommerce from duplicating them.
+ */
+export async function updateOrder(orderId: number, orderData: UpdateOrderData): Promise<Order> {
+    const response = await fetch(getWooCommerceUrl(`/orders/${orderId}`), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': getWooCommerceAuthHeader(),
+        },
+        body: JSON.stringify(orderData),
+    });
+
+    if (!response.ok) {
+        const error = await parseJsonResponse(response);
+        throw new Error(error.message || 'Failed to update order');
+    }
+
+    return parseJsonResponse(response);
+}
+
+/**
  * Update order status in WooCommerce
  * Used by Stripe webhook to update order after payment confirmation
  */

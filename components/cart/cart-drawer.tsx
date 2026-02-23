@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from '@/components/ui/sheet';
 import { CurrencyPrice } from '@/components/ui/currency-price';
 import { Minus, Plus, X, AlertCircle } from 'lucide-react';
-import { CartThresholdMessages } from './cart-threshold-messages';
 import { WhatsAppOrderButton } from '@/components/whatsapp/whatsapp-order-button';
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
@@ -164,11 +163,6 @@ export function CartDrawer() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* Threshold Messages */}
-            <div className="pb-4">
-              <CartThresholdMessages />
             </div>
 
             {/* Cart Footer */}

@@ -4,6 +4,12 @@
  * Source: ideal-indiska-commerce-rules/ideal-indiska-commerce-rules.php
  */
 
+/**
+ * WooCommerce tag slug that marks a product as promotional.
+ * Products with this tag will block the free shipping option at checkout.
+ */
+export const PROMOTIONAL_TAG_SLUG = 'promotional';
+
 export interface QuantityLimit {
   productId: number;
   maxQuantity: number;
@@ -148,5 +154,13 @@ export const CommerceRules = {
    */
   getPerishableCategoryNames(): string[] {
     return ['Fresh Produce', 'Frozen Foods', 'Traditional Sweets'];
-  }
+  },
+
+  /**
+   * Check if a product is promotional (tagged with PROMOTIONAL_TAG_SLUG).
+   * Promotional products block the free shipping option at checkout.
+   */
+  isPromotionalProduct(tags: { slug: string }[]): boolean {
+    return tags.some(tag => tag.slug === PROMOTIONAL_TAG_SLUG);
+  },
 };

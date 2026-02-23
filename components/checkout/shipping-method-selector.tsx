@@ -5,11 +5,11 @@ import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Progress } from '@/components/ui/progress';
 import { AlertTriangle, Gift, Loader2, Truck, Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/lib/woocommerce';
 import { ShippingMethod } from '@/lib/shipping-service';
+import { CommerceRules } from '@/config/commerce-rules';
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -33,6 +33,7 @@ export function ShippingMethodSelector({
   className
 }: ShippingMethodSelectorProps) {
   const {
+    items,
     shippingAddress,
     availableShippingMethods,
     selectedShippingMethod,
@@ -48,22 +49,29 @@ export function ShippingMethodSelector({
   // Use props if provided, otherwise fall back to cart store
   const effectivePostcode = postcode || shippingAddress?.postcode;
   const subtotal = cartTotal !== undefined ? cartTotal : getSubtotal();
-  const freeShippingProgress = Math.min((subtotal / freeShippingThreshold) * 100, 100);
   const qualifiesForFreeShipping = subtotal >= freeShippingThreshold;
+
+  // Hide free shipping when any promotional item is in the cart
+  const hasPromoItem = items.some(item =>
+    CommerceRules.isPromotionalProduct(item.product.tags || [])
+  );
+  const visibleMethods = hasPromoItem
+    ? availableShippingMethods.filter(m => m.method_id !== 'free_shipping')
+    : availableShippingMethods;
 
   // FIX: Auto-notify parent when cart store selects free shipping AND customer qualifies
   useEffect(() => {
     if (selectedShippingMethod && onMethodChange && !selectedMethod) {
-      // Only auto-select free shipping if customer qualifies (cart >= 500 SEK)
+      // Only auto-select free shipping if customer qualifies AND cart has no promo items
       if (selectedShippingMethod.method_id === 'free_shipping') {
-        if (qualifiesForFreeShipping) {
+        if (qualifiesForFreeShipping && !hasPromoItem) {
           console.log('✅ Auto-selecting free shipping (qualifies):', subtotal, '>=', freeShippingThreshold);
           onMethodChange(selectedShippingMethod);
           if (onShippingCostChange) {
             onShippingCostChange(selectedShippingMethod.cost);
           }
         } else {
-          console.log('⚠️ Not auto-selecting free shipping (does not qualify):', subtotal, '<', freeShippingThreshold);
+          console.log('⚠️ Not auto-selecting free shipping (promo item or does not qualify)');
           // Don't auto-select - let user choose another method
         }
       } else {
@@ -75,7 +83,7 @@ export function ShippingMethodSelector({
         }
       }
     }
-  }, [selectedShippingMethod, onMethodChange, onShippingCostChange, selectedMethod, qualifiesForFreeShipping, subtotal, freeShippingThreshold]);
+  }, [selectedShippingMethod, onMethodChange, onShippingCostChange, selectedMethod, qualifiesForFreeShipping, subtotal, freeShippingThreshold, hasPromoItem]);
 
   const getMethodIcon = (methodId: string) => {
     switch (methodId) {
@@ -157,45 +165,21 @@ export function ShippingMethodSelector({
         </p>
       </div>
 
-      {/* Free Shipping Progress Bar */}
-      {subtotal < freeShippingThreshold && (
-        <Card className="border-green-200 bg-green-50 p-4 dark:border-green-900 dark:bg-green-950/20">
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-sm">
-              <span className="flex items-center gap-2 font-medium text-green-800 dark:text-green-300">
-                <Gift className="h-4 w-4" />
-                {t('freeShippingBar', { amount: formatPrice(freeShippingThreshold, 'SEK') })}
-              </span>
-              <span className="font-semibold text-green-700 dark:text-green-400">
-                {t('freeShippingToGo', { amount: formatPrice(amountToFreeShipping, 'SEK') })}
-              </span>
-            </div>
-            <Progress value={freeShippingProgress} className="h-2" />
-            <p className="text-xs text-green-700 dark:text-green-400">
-              *Available for Stockholm zones only
-            </p>
-          </div>
-        </Card>
-      )}
-
-      {/* Shipping achieved message */}
-      {/* Check if free shipping is ACTUALLY available in the methods list provided by API */}
-      {subtotal >= freeShippingThreshold && availableShippingMethods.some(m => m.method_id === 'free_shipping') && (
-        <Card className="border-green-200 bg-green-50 p-4 dark:border-green-900 dark:bg-green-950/20">
-          <div className="flex items-center gap-2 text-green-800 dark:text-green-300">
-            <Gift className="h-5 w-5" />
-            <p className="font-semibold">
-              {t('congratsFreeShipping')}
-            </p>
-          </div>
-        </Card>
+      {/* Promo item notice */}
+      {hasPromoItem && (
+        <Alert className="border-orange-200 bg-orange-50 dark:border-orange-900 dark:bg-orange-950/20">
+          <AlertTriangle className="h-4 w-4 text-orange-600 dark:text-orange-400" />
+          <AlertDescription className="text-orange-800 dark:text-orange-300">
+            Free shipping is not available when your cart contains promotional items.
+          </AlertDescription>
+        </Alert>
       )}
 
       {/* Shipping Methods */}
       <RadioGroup
         value={selectedMethod || selectedShippingMethod?.id}
         onValueChange={(id) => {
-          const method = availableShippingMethods.find((m) => m.id === id);
+          const method = visibleMethods.find((m) => m.id === id);
           if (method) {
             // Use callback props if provided, otherwise use cart store
             if (onMethodChange) {
@@ -210,7 +194,7 @@ export function ShippingMethodSelector({
         }}
       >
         <div className="space-y-3">
-          {availableShippingMethods.map((method) => (
+          {visibleMethods.map((method) => (
             <Card
               key={method.id}
               className={cn(

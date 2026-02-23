@@ -16,7 +16,7 @@ import { BillingForm, type BillingFormData } from '@/components/checkout/billing
 import { PaymentMethodSelector } from '@/components/checkout/payment-method-selector';
 import { ShippingMethodSelector, type ShippingMethod } from '@/components/checkout/shipping-method-selector';
 import { OrderSummary } from '@/components/checkout/order-summary';
-import { createOrderAction } from '@/app/actions/order';
+import { createOrderAction, updateOrderAction } from '@/app/actions/order';
 import { validateCartStockAction } from '@/app/actions/cart';
 import { getMinimumOrderAmount } from '@/app/actions/woocommerce-settings';
 import { validateShippingRestrictions } from '@/app/actions/shipping-restrictions';
@@ -68,6 +68,15 @@ export default function CheckoutPage() {
 
   // Abandoned-cart tracking: stores the WC order ID created on email-blur
   const [abandonedCartId, setAbandonedCartId] = useState<number | null>(null);
+
+  // The single WC order that represents this checkout session.
+  // Set on first "Proceed to Payment" / "Place Order" — either by promoting the
+  // abandoned-cart order or by creating a fresh one. Reused on subsequent attempts
+  // (user goes back then proceeds again) to prevent duplicate orders.
+  const [checkoutOrderId, setCheckoutOrderId] = useState<number | null>(null);
+  const [checkoutOrderKey, setCheckoutOrderKey] = useState<string | null>(null);
+  // The WooCommerce shipping_line ID on that order, used for in-place updates.
+  const [checkoutShippingLineId, setCheckoutShippingLineId] = useState<number | null>(null);
 
   // Track initiate checkout event on mount; also restore pre-filled data from
   // the cart recovery page (/checkout/recover)
@@ -253,7 +262,7 @@ export default function CheckoutPage() {
     setStockErrors([]);
 
     try {
-      // 1. Validate stock before creating order
+      // 1. Validate stock before creating / updating order
       const stockResult = await validateCartStockAction(
         items.map((item) => ({ productId: item.productId, quantity: item.quantity }))
       );
@@ -266,36 +275,102 @@ export default function CheckoutPage() {
         return;
       }
 
-      // 2. Create WC order first (pending, not paid yet)
       const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
-      const orderResult = await createOrderAction({
-        customer_id: isRealCustomer ? user.id : undefined,
-        billing: billingData,
-        shipping: shippingData,
-        line_items: items.map((item) => ({
-          product_id: item.productId,
-          variation_id: item.variationId,
-          quantity: item.quantity,
-          tax_class: item.variation?.tax_class || item.product.tax_class,
-        })),
-        shipping_lines: [{
-          method_id: shippingMethod.method_id,
-          method_title: shippingMethod.label,
-          total: shippingCost.toString(),
-        }],
-        payment_method: paymentMethod,
-        payment_method_title: getPaymentMethodTitle(paymentMethod),
-        customer_note: orderNotes || undefined,
-        coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
-        set_paid: false,
-      });
+      let wcOrderId: number;
+      let wcOrderKey: string;
+      let wcOrderTotal: string;
 
-      if (!orderResult.success || !orderResult.data) {
-        throw new Error(orderResult.error || 'Failed to create order');
+      if (checkoutOrderId) {
+        // ── User went back and is trying again ──
+        // Update the existing WC order (shipping line id for in-place update,
+        // no line_items sent to avoid WooCommerce duplicating them).
+        const updateResult = await updateOrderAction(checkoutOrderId, {
+          billing: billingData,
+          shipping: shippingData,
+          shipping_lines: [{
+            ...(checkoutShippingLineId ? { id: checkoutShippingLineId } : {}),
+            method_id: shippingMethod.method_id,
+            method_title: shippingMethod.label,
+            total: shippingCost.toString(),
+          }],
+          payment_method: paymentMethod,
+          payment_method_title: getPaymentMethodTitle(paymentMethod),
+          customer_note: orderNotes || undefined,
+        });
+        if (!updateResult.success || !updateResult.data) {
+          throw new Error(updateResult.error || 'Failed to update order');
+        }
+        wcOrderId = checkoutOrderId;
+        wcOrderKey = updateResult.data.order_key;
+        wcOrderTotal = updateResult.data.total;
+        setCheckoutOrderKey(wcOrderKey);
+
+      } else if (abandonedCartId) {
+        // ── Promote the abandoned-cart order to the real checkout order ──
+        // Update it with full billing/shipping/payment details and clear the
+        // abandoned-cart flag. Line items are already on the order from capture.
+        const updateResult = await updateOrderAction(abandonedCartId, {
+          billing: billingData,
+          shipping: shippingData,
+          shipping_lines: [{
+            method_id: shippingMethod.method_id,
+            method_title: shippingMethod.label,
+            total: shippingCost.toString(),
+          }],
+          payment_method: paymentMethod,
+          payment_method_title: getPaymentMethodTitle(paymentMethod),
+          customer_note: orderNotes || undefined,
+          coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
+          meta_data: [
+            { key: '_is_abandoned_cart', value: '0' },
+            { key: '_recovered_at', value: new Date().toISOString() },
+          ],
+        });
+        if (!updateResult.success || !updateResult.data) {
+          throw new Error(updateResult.error || 'Failed to promote order');
+        }
+        wcOrderId = abandonedCartId;
+        wcOrderKey = updateResult.data.order_key;
+        wcOrderTotal = updateResult.data.total;
+        setCheckoutOrderId(abandonedCartId);
+        setCheckoutOrderKey(wcOrderKey);
+        const firstShippingLine = (updateResult.data as any).shipping_lines?.[0];
+        if (firstShippingLine?.id) setCheckoutShippingLineId(firstShippingLine.id);
+
+      } else {
+        // ── No prior order — create a fresh one ──
+        const orderResult = await createOrderAction({
+          customer_id: isRealCustomer ? user.id : undefined,
+          billing: billingData,
+          shipping: shippingData,
+          line_items: items.map((item) => ({
+            product_id: item.productId,
+            variation_id: item.variationId,
+            quantity: item.quantity,
+            tax_class: item.variation?.tax_class || item.product.tax_class,
+          })),
+          shipping_lines: [{
+            method_id: shippingMethod.method_id,
+            method_title: shippingMethod.label,
+            total: shippingCost.toString(),
+          }],
+          payment_method: paymentMethod,
+          payment_method_title: getPaymentMethodTitle(paymentMethod),
+          customer_note: orderNotes || undefined,
+          coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
+          set_paid: false,
+        });
+        if (!orderResult.success || !orderResult.data) {
+          throw new Error(orderResult.error || 'Failed to create order');
+        }
+        wcOrderId = orderResult.data.id;
+        wcOrderKey = orderResult.data.order_key;
+        wcOrderTotal = orderResult.data.total;
+        setCheckoutOrderId(wcOrderId);
+        setCheckoutOrderKey(wcOrderKey);
+        const firstShippingLine = (orderResult.data as any).shipping_lines?.[0];
+        if (firstShippingLine?.id) setCheckoutShippingLineId(firstShippingLine.id);
       }
-
-      const wcOrderId = orderResult.data.id;
-      const wcOrderKey = orderResult.data.order_key;
 
       // 3. Create Stripe PaymentIntent with wc_order_id so the webhook can update it.
       // Use the WC order total as the authoritative amount — WC calculates taxes, coupons,
@@ -304,7 +379,7 @@ export default function CheckoutPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: Math.round(parseFloat(orderResult.data.total) * 100),
+          amount: Math.round(parseFloat(wcOrderTotal) * 100),
           currency: 'sek',
           customerEmail: billingData.email,
           customerName: `${billingData.first_name} ${billingData.last_name}`,
@@ -375,36 +450,84 @@ export default function CheckoutPage() {
       }
 
       const isRealCustomer = user?.id && !(user as any)?._meta?.is_temporary;
+      let orderId: number;
+      let orderKey: string;
 
-      const result = await createOrderAction({
-        customer_id: isRealCustomer ? user.id : undefined,
-        billing: billingData,
-        shipping: shippingData,
-        line_items: items.map((item) => ({
-          product_id: item.productId,
-          variation_id: item.variationId,
-          quantity: item.quantity,
-          tax_class: item.variation?.tax_class || item.product.tax_class,
-        })),
-        shipping_lines: [{
-          method_id: shippingMethod.method_id,
-          method_title: shippingMethod.label,
-          total: shippingCost.toString(),
-        }],
-        payment_method: paymentMethod,
-        payment_method_title: getPaymentMethodTitle(paymentMethod),
-        customer_note: orderNotes || undefined,
-        coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
-        set_paid: false,
-      });
+      if (checkoutOrderId) {
+        // ── Update existing order (user went back and is trying again) ──
+        const updateResult = await updateOrderAction(checkoutOrderId, {
+          billing: billingData,
+          shipping: shippingData,
+          shipping_lines: [{
+            ...(checkoutShippingLineId ? { id: checkoutShippingLineId } : {}),
+            method_id: shippingMethod.method_id,
+            method_title: shippingMethod.label,
+            total: shippingCost.toString(),
+          }],
+          payment_method: paymentMethod,
+          payment_method_title: getPaymentMethodTitle(paymentMethod),
+          customer_note: orderNotes || undefined,
+        });
+        if (!updateResult.success || !updateResult.data) throw new Error(updateResult.error || 'Failed to update order');
+        orderId = checkoutOrderId;
+        orderKey = updateResult.data.order_key;
 
-      if (!result.success || !result.data) throw new Error(result.error);
+      } else if (abandonedCartId) {
+        // ── Promote the abandoned-cart order ──
+        const updateResult = await updateOrderAction(abandonedCartId, {
+          billing: billingData,
+          shipping: shippingData,
+          shipping_lines: [{
+            method_id: shippingMethod.method_id,
+            method_title: shippingMethod.label,
+            total: shippingCost.toString(),
+          }],
+          payment_method: paymentMethod,
+          payment_method_title: getPaymentMethodTitle(paymentMethod),
+          customer_note: orderNotes || undefined,
+          coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
+          meta_data: [
+            { key: '_is_abandoned_cart', value: '0' },
+            { key: '_recovered_at', value: new Date().toISOString() },
+          ],
+        });
+        if (!updateResult.success || !updateResult.data) throw new Error(updateResult.error || 'Failed to promote order');
+        orderId = abandonedCartId;
+        orderKey = updateResult.data.order_key;
+
+      } else {
+        // ── No prior order — create a fresh one ──
+        const result = await createOrderAction({
+          customer_id: isRealCustomer ? user.id : undefined,
+          billing: billingData,
+          shipping: shippingData,
+          line_items: items.map((item) => ({
+            product_id: item.productId,
+            variation_id: item.variationId,
+            quantity: item.quantity,
+            tax_class: item.variation?.tax_class || item.product.tax_class,
+          })),
+          shipping_lines: [{
+            method_id: shippingMethod.method_id,
+            method_title: shippingMethod.label,
+            total: shippingCost.toString(),
+          }],
+          payment_method: paymentMethod,
+          payment_method_title: getPaymentMethodTitle(paymentMethod),
+          customer_note: orderNotes || undefined,
+          coupon_lines: coupon ? [{ code: coupon.code }] : undefined,
+          set_paid: false,
+        });
+        if (!result.success || !result.data) throw new Error(result.error);
+        orderId = result.data.id;
+        orderKey = result.data.order_key;
+      }
 
       markAbandonedCartRecovered();
       clearCart();
-      router.push(`/checkout/success?order=${result.data.id}&key=${result.data.order_key}`);
+      router.push(`/checkout/success?order=${orderId}&key=${orderKey}`);
     } catch (err) {
-      console.error('Order creation failed:', err);
+      console.error('Order placement failed:', err);
       setError(err instanceof Error ? err.message : 'Failed to create order. Please try again.');
       setIsProcessing(false);
     }
@@ -633,6 +756,8 @@ export default function CheckoutPage() {
                           type="button"
                           onClick={() => {
                             setStripeClientSecret(null);
+                            // Keep checkoutOrderId — we'll update the existing WC order
+                            // on the next "Proceed to Payment" instead of creating a new one.
                             setStripeWcOrderId(null);
                             setStripeWcOrderKey(null);
                             sessionStorage.removeItem('pendingCheckoutData');
