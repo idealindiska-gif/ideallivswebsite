@@ -314,6 +314,8 @@ export async function GET() {
               short_description: variation.description || product.short_description,
               categories: product.categories,
               slug: product.slug,
+              // Inherit parent weight when the variation itself has no weight set
+              weight: variation.weight || product.weight,
               // Variations return image (singular) — if missing, inherit parent images[]
               images: (variation.images && variation.images.length > 0)
                 ? variation.images
