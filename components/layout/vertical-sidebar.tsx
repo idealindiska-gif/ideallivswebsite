@@ -118,7 +118,7 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
           </Link>
 
           {/* Main Navigation Content - Wrapped in Nav for SEO */}
-          <nav className="space-y-6" aria-label="Sidebar categories and links">
+          <nav className="space-y-6" aria-label="Product category filters and navigation">
             {/* Quick Actions */}
             <div className="space-y-2">
               <Link
@@ -221,46 +221,47 @@ export function VerticalSidebar({ categories = [] }: VerticalSidebarProps) {
             {/* Product Categories */}
             <div className="pt-2">
               <h2 className="text-sm font-bold text-foreground mb-3 px-2 uppercase tracking-wider">{nav('allCategories')}</h2>
-              <div className="space-y-0.5">
+              <ul className="space-y-0.5" role="list" aria-label="Filter by product category">
                 {categories.map((category) => {
                   const IconComponent = categoryIcons[category.name] || Package;
                   const isHovered = hoveredCategory === category.id;
                   const decodedName = category.name.replace(/&amp;/g, '&').replace(/&#038;/g, '&').replace(/&quot;/g, '"').replace(/&#039;/g, "'");
 
                   return (
-                    <Link
-                      key={category.id}
-                      href={`/product-category/${category.slug}`}
-                      className={cn(
-                        "flex items-center gap-3 py-2 px-2 rounded-lg transition-all duration-200 group border border-transparent",
-                        isHovered ? "bg-green-50 dark:bg-green-950/20 border-green-100 dark:border-green-900" : "hover:bg-muted"
-                      )}
-                      onMouseEnter={() => setHoveredCategory(category.id)}
-                      onMouseLeave={() => setHoveredCategory(null)}
-                    >
-                      <div className={cn(
-                        "p-1.5 rounded-md transition-all duration-300",
-                        isHovered
-                          ? "bg-green-600 text-white shadow-md scale-105"
-                          : "bg-muted text-muted-foreground group-hover:bg-green-100 dark:group-hover:bg-green-950/30 group-hover:text-green-600"
-                      )}>
-                        <IconComponent className="h-4 w-4" />
-                      </div>
-                      <span className={cn(
-                        "text-sm font-medium transition-colors duration-200",
-                        isHovered ? "text-green-700 dark:text-green-400 font-bold" : "text-foreground"
-                      )}>
-                        {decodedName}
-                      </span>
-                      {category.count > 0 && (
-                        <span className="ml-auto text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-muted group-hover:bg-white dark:group-hover:bg-black/20 text-muted-foreground">
-                          {category.count}
+                    <li key={category.id}>
+                      <Link
+                        href={`/product-category/${category.slug}`}
+                        className={cn(
+                          "flex items-center gap-3 py-2 px-2 rounded-lg transition-all duration-200 group border border-transparent",
+                          isHovered ? "bg-green-50 dark:bg-green-950/20 border-green-100 dark:border-green-900" : "hover:bg-muted"
+                        )}
+                        onMouseEnter={() => setHoveredCategory(category.id)}
+                        onMouseLeave={() => setHoveredCategory(null)}
+                      >
+                        <div className={cn(
+                          "p-1.5 rounded-md transition-all duration-300",
+                          isHovered
+                            ? "bg-green-600 text-white shadow-md scale-105"
+                            : "bg-muted text-muted-foreground group-hover:bg-green-100 dark:group-hover:bg-green-950/30 group-hover:text-green-600"
+                        )}>
+                          <IconComponent className="h-4 w-4" />
+                        </div>
+                        <span className={cn(
+                          "text-sm font-medium transition-colors duration-200",
+                          isHovered ? "text-green-700 dark:text-green-400 font-bold" : "text-foreground"
+                        )}>
+                          {decodedName}
                         </span>
-                      )}
-                    </Link>
+                        {category.count > 0 && (
+                          <span className="ml-auto text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-muted group-hover:bg-white dark:group-hover:bg-black/20 text-muted-foreground">
+                            {category.count}
+                          </span>
+                        )}
+                      </Link>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
 
             {/* User Actions */}

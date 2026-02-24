@@ -74,12 +74,19 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     }
   }
 
+  // When a search query is active and no explicit sort chosen by the user,
+  // we fetch a wider set and apply our own relevance scoring so that title
+  // matches always outrank popularity-based ordering from WooCommerce.
+  const isRelevanceSearch = !!params.search && !params.sort && !params.orderby;
+
   // Build query params (without brand filter for API)
   const queryParams: any = {
-    page: params.brand ? 1 : page, // Always fetch page 1 if filtering by brand (client-side)
-    per_page: params.brand ? 100 : perPage, // Fetch more if brand filtering (client-side)
-    orderby: orderby,
-    order: order,
+    // For relevance search: always start from page 1, fetch 100 for in-memory pagination
+    page: (params.brand || isRelevanceSearch) ? 1 : page,
+    per_page: params.brand ? 100 : isRelevanceSearch ? 100 : perPage,
+    // For relevance search: use alphabetical so WooCommerce doesn't bias by popularity
+    orderby: isRelevanceSearch ? 'title' : orderby,
+    order: isRelevanceSearch ? 'asc' : order,
   };
 
   // Apply filters (excluding brand since we'll handle it client-side)
@@ -92,6 +99,57 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   if (params.search) queryParams.search = params.search;
 
   let { data: products, total, totalPages } = await getProducts(queryParams);
+
+  // Apply relevance scoring + in-memory pagination for search results.
+  // This fixes issues like "rice" returning korma (popular but only mentions
+  // rice in description) above actual rice products.
+  if (isRelevanceSearch) {
+    const query = params.search!.toLowerCase().trim();
+    const escRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const scored = products.map((p) => {
+      const name = p.name.toLowerCase();
+      let score = 0;
+
+      if (name === query) score += 100;
+      else if (name.startsWith(query)) score += 90;
+      else if (new RegExp(`\\b${escRe(query)}\\b`).test(name)) score += 85;
+      else if (name.includes(query)) score += 70;
+      else {
+        // Multi-word: score each word independently
+        const words = query.split(/\s+/).filter((w) => w.length > 1);
+        if (words.length > 0) {
+          const matched = words.filter((w) => name.includes(w)).length;
+          if (matched > 0) score += (matched / words.length) * 55;
+        }
+      }
+
+      // Tags — strong signal (deliberately assigned)
+      const tagNames = (p.tags || []).map((t: any) => t.name.toLowerCase());
+      const tagSlugs = (p.tags || []).map((t: any) => t.slug.toLowerCase());
+      if (tagNames.includes(query) || tagSlugs.includes(query)) {
+        score += 80;   // exact tag match
+      } else if (tagNames.some((t: string) => query.includes(t) || t.includes(query))) {
+        score += 50;   // partial tag match
+      }
+
+      // Descriptions are a weak signal — only used as tiebreaker
+      const desc = [p.description || '', p.short_description || ''].join(' ').toLowerCase();
+      if (desc.includes(query)) score += 5;
+
+      if (p.stock_status === 'instock') score += 20;
+      else if (p.stock_status === 'outofstock') score -= 40;
+
+      return { p, score };
+    });
+
+    scored.sort((a, b) => b.score - a.score);
+
+    total = scored.length;
+    totalPages = Math.ceil(total / perPage);
+    const start = (page - 1) * perPage;
+    products = scored.slice(start, start + perPage).map((s) => s.p);
+  }
 
   // Client-side brand filtering if brand param exists
   if (params.brand) {

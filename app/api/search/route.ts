@@ -169,7 +169,20 @@ function calculateRelevance(product: any, query: string): number {
         }
     }
 
-    // ── 2. Description match (secondary signal) ──────────────────
+    // ── 2. Tag matching (strong signal — deliberately assigned by store manager)
+    const tags = (product.tags || []) as Array<{ name: string; slug: string }>;
+    if (tags.length > 0) {
+        const tagNames = tags.map((t) => t.name.toLowerCase());
+        const tagSlugs = tags.map((t) => t.slug.toLowerCase());
+
+        if (tagNames.includes(lower) || tagSlugs.includes(lower)) {
+            score += 80;   // exact tag match: search "salt" → tag "salt"
+        } else if (tagNames.some((t) => lower.includes(t) || t.includes(lower))) {
+            score += 50;   // partial: search "basmati rice" → tag "basmati" or "rice"
+        }
+    }
+
+    // ── 3. Description match (secondary signal) ──────────────────
     if (combined.includes(lower)) {
         score += 10;
     } else {
@@ -177,14 +190,14 @@ function calculateRelevance(product: any, query: string): number {
         if (syns.some((s) => combined.includes(s))) score += 5;
     }
 
-    // ── 3. Stock status (critical for UX) ────────────────────────
+    // ── 4. Stock status (critical for UX) ────────────────────────
     if (product.stock_status === 'instock') {
         score += 20;   // strongly prefer in-stock items
     } else if (product.stock_status === 'outofstock') {
         score -= 40;   // push out-of-stock to the bottom
     }
 
-    // ── 4. Minor boosts ──────────────────────────────────────────
+    // ── 5. Minor boosts ──────────────────────────────────────────
     if (product.sale_price && parseFloat(product.sale_price) > 0) score += 5;
     if (product.images?.[0]?.src) score += 3;
 
@@ -212,16 +225,20 @@ export async function GET(request: NextRequest) {
         // ── Search with primary term (original query)
         const { data: primary } = await getProducts({
             search: searchTerms[0],
-            per_page: 50,     // cast a wider net for better scoring
+            per_page: 100,    // wider net — WooCommerce orders by date, so products added
+                              // at different times may otherwise be missed
         });
         primary.forEach((p) => seen.set(p.id, p));
 
-        // ── If few results and we have a synonym, search with that too
-        if (seen.size < 6 && searchTerms[1]) {
-            console.log('[Search API] Trying synonym:', searchTerms[1]);
+        // ── Always also search with synonym(s) if available.
+        // Previously this only ran when < 6 results, but that caused "salt" to miss
+        // actual salt products: WooCommerce returned 50+ masalas mentioning "salt"
+        // in their descriptions, so the threshold was never triggered.
+        if (searchTerms[1]) {
+            console.log('[Search API] Also searching synonym:', searchTerms[1]);
             const { data: secondary } = await getProducts({
                 search: searchTerms[1],
-                per_page: 30,
+                per_page: 50,
             });
             secondary.forEach((p) => {
                 if (!seen.has(p.id)) seen.set(p.id, p);

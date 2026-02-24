@@ -186,9 +186,13 @@ export default async function ShopByBrandPage({ params }: { params: Promise<{ lo
             <SchemaScript
                 id="brands-collection-schema"
                 schema={collectionPageSchema({
-                    name: "Indian & Pakistani Grocery Brands - Ideal Indiska LIVS",
-                    description: "Directory of authentic South Asian grocery brands available in Stockholm.",
-                    url: "https://www.ideallivs.com/brands",
+                    name: locale === 'sv'
+                        ? "Indiska & Pakistanska Matvaruvarumärken - Ideal Indiska LIVS"
+                        : "Indian & Pakistani Grocery Brands - Ideal Indiska LIVS",
+                    description: locale === 'sv'
+                        ? "Katalog över autentiska sydasiatiska matvaruvarumärken tillgängliga i Stockholm."
+                        : "Directory of authentic South Asian grocery brands available in Stockholm.",
+                    url: locale === 'sv' ? "https://www.ideallivs.com/sv/brands" : "https://www.ideallivs.com/brands",
                     items: brands.map(brand => ({
                         url: `https://www.ideallivs.com/brand/${brand.slug}`,
                         name: brand.name,
@@ -201,13 +205,18 @@ export default async function ShopByBrandPage({ params }: { params: Promise<{ lo
             <SchemaScript
                 id="brands-directory-schema"
                 schema={brandDirectorySchema({
-                    name: "Shop by Brand - Premium Indian & Pakistani Grocery Brands",
-                    description: `Browse ${brands.length}+ trusted South Asian grocery brands at Ideal Indiska LIVS Stockholm.`,
-                    url: "https://www.ideallivs.com/brands",
+                    name: locale === 'sv'
+                        ? "Handla efter Varumärke - Premium Indiska & Pakistanska Matvaruvarumärken"
+                        : "Shop by Brand - Premium Indian & Pakistani Grocery Brands",
+                    description: locale === 'sv'
+                        ? `Bläddra bland ${brands.length}+ pålitliga sydasiatiska matvaruvarumärken hos Ideal Indiska LIVS Stockholm.`
+                        : `Browse ${brands.length}+ trusted South Asian grocery brands at Ideal Indiska LIVS Stockholm.`,
+                    url: locale === 'sv' ? "https://www.ideallivs.com/sv/brands" : "https://www.ideallivs.com/brands",
                     brands: brands.map(brand => ({
                         name: brand.name,
                         slug: brand.slug,
                         image: brand.image?.src,
+                        description: brand.description || undefined,
                         productCount: brand.count
                     })),
                     baseUrl: "https://www.ideallivs.com"
@@ -218,9 +227,9 @@ export default async function ShopByBrandPage({ params }: { params: Promise<{ lo
             <SchemaScript
                 id="brands-breadcrumb-schema"
                 schema={breadcrumbSchema([
-                    { name: "Home", url: "https://www.ideallivs.com" },
-                    { name: "Brands", url: "https://www.ideallivs.com/brands" }
-                ], "https://www.ideallivs.com/brands")}
+                    { name: locale === 'sv' ? "Hem" : "Home", url: "https://www.ideallivs.com" },
+                    { name: locale === 'sv' ? "Varumärken" : "Brands", url: locale === 'sv' ? "https://www.ideallivs.com/sv/brands" : "https://www.ideallivs.com/brands" }
+                ], locale === 'sv' ? "https://www.ideallivs.com/sv/brands" : "https://www.ideallivs.com/brands")}
             />
         </main>
     );

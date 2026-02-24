@@ -11,6 +11,7 @@ import { brandProfile } from '@/config/brand-profile';
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { collectionPageSchema, offerCatalogSchema } from "@/lib/schema/collection";
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
+import { wooCommerceProductSchema } from "@/lib/schema/product";
 
 interface PageProps {
     params: Promise<{ locale: string }>;
@@ -77,6 +78,29 @@ async function DealsContent({ locale }: { locale: string }) {
                         url: "https://www.ideallivs.com"
                     }
                 })}
+            />
+            {/* Product ItemList — proper Product+Offer schema required for Google Search Console rich results */}
+            <SchemaScript
+                id="deals-products-itemlist"
+                schema={{
+                    '@context': 'https://schema.org',
+                    '@type': 'ItemList',
+                    name: locale === 'sv' ? 'Ramadandeals — Produkter på rea' : 'Ramadan Deals — On Sale Products',
+                    description: locale === 'sv'
+                        ? 'Kampanjpriser på indiska och pakistanska matvaror i Stockholm.'
+                        : 'Promotional prices on Indian and Pakistani groceries in Stockholm.',
+                    numberOfItems: saleProducts.slice(0, 30).length,
+                    itemListElement: saleProducts.slice(0, 30).map((p, index) => ({
+                        '@type': 'ListItem',
+                        position: index + 1,
+                        item: wooCommerceProductSchema(p, {
+                            baseUrl: 'https://www.ideallivs.com',
+                            brandName: 'Ideal Indiska LIVS',
+                            sellerName: 'Ideal Indiska LIVS',
+                            locale,
+                        }),
+                    })),
+                }}
             />
 
             {/* Hero Section */}

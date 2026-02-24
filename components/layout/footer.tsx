@@ -30,7 +30,7 @@ export async function Footer() {
                 />
               </div>
             </Link>
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{t('contact')}</h4>
+            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{t('contact')}</h2>
             <ul className="space-y-2.5 text-sm text-white/70 font-sans">
               <li className="text-xs leading-relaxed">
                 {brandProfile.address.street}, {brandProfile.address.area}<br />
@@ -49,7 +49,7 @@ export async function Footer() {
 
           {/* Column 2: Delivery Information */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('delivery')}</h4>
+            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('delivery')}</h2>
             <ul className="space-y-2.5 text-sm text-white/70 font-sans">
               <li>
                 <Link href="/delivery-information" className="group hover:text-white transition-colors">
@@ -72,7 +72,7 @@ export async function Footer() {
 
           {/* Column 3: Featured Offers */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('featuredOffers')}</h4>
+            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('featuredOffers')}</h2>
             <div className="space-y-3">
               {saleProducts.slice(0, 3).map((product) => (
                 <Link
@@ -114,48 +114,54 @@ export async function Footer() {
 
           {/* Column 4: Shop Links */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('shop')}</h4>
-            <ul className="space-y-2.5 text-sm text-white/70 font-sans">
-              <li><Link href="/shop" className="hover:text-white transition-colors text-xs">{nav('allProducts')}</Link></li>
-              <li><Link href="/blog" className="hover:text-white transition-colors text-xs">{nav('blog')}</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors text-xs">{nav('ourStory')}</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors text-xs">{nav('contactUs')}</Link></li>
-            </ul>
+            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('shop')}</h2>
+            <nav aria-label="Shop navigation">
+              <ul className="space-y-2.5 text-sm text-white/70 font-sans">
+                <li><Link href="/shop" className="hover:text-white transition-colors text-xs">{nav('allProducts')}</Link></li>
+                <li><Link href="/blog" className="hover:text-white transition-colors text-xs">{nav('blog')}</Link></li>
+                <li><Link href="/about" className="hover:text-white transition-colors text-xs">{nav('ourStory')}</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors text-xs">{nav('contactUs')}</Link></li>
+              </ul>
+            </nav>
           </div>
 
           {/* Column 5: Connect & Support Combined */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{nav('connect')}</h4>
-            <ul className="space-y-2.5 text-sm text-white/70 font-sans mb-5">
-              {brandProfile.social.instagram && (
-                <li>
-                  <a href={brandProfile.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                    <Instagram className="h-3.5 w-3.5" /> Instagram
-                  </a>
-                </li>
-              )}
-              {brandProfile.social.facebook && (
-                <li>
-                  <a href={brandProfile.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                    <Facebook className="h-3.5 w-3.5" /> Facebook
-                  </a>
-                </li>
-              )}
-              {brandProfile.social.youtube && (
-                <li>
-                  <a href={brandProfile.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                    <Youtube className="h-3.5 w-3.5" /> YouTube
-                  </a>
-                </li>
-              )}
-            </ul>
-            <h4 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{nav('support')}</h4>
-            <ul className="space-y-2.5 text-sm text-white/70 font-sans">
-              <li><Link href="/faq" className="hover:text-white transition-colors text-xs">{nav('faq')}</Link></li>
-              <li><Link href="/privacy-policy" className="hover:text-white transition-colors text-xs">{nav('privacy')}</Link></li>
-              <li><Link href="/terms-conditions" className="hover:text-white transition-colors text-xs">{nav('terms')}</Link></li>
-              <li><Link href="/refund-return" className="hover:text-white transition-colors text-xs">{nav('refunds')}</Link></li>
-            </ul>
+            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{nav('connect')}</h2>
+            <nav aria-label="Social media links">
+              <ul className="space-y-2.5 text-sm text-white/70 font-sans mb-5">
+                {brandProfile.social.instagram && (
+                  <li>
+                    <a href={brandProfile.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                      <Instagram className="h-3.5 w-3.5" /> Instagram
+                    </a>
+                  </li>
+                )}
+                {brandProfile.social.facebook && (
+                  <li>
+                    <a href={brandProfile.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                      <Facebook className="h-3.5 w-3.5" /> Facebook
+                    </a>
+                  </li>
+                )}
+                {brandProfile.social.youtube && (
+                  <li>
+                    <a href={brandProfile.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                      <Youtube className="h-3.5 w-3.5" /> YouTube
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </nav>
+            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{nav('support')}</h2>
+            <nav aria-label="Support navigation">
+              <ul className="space-y-2.5 text-sm text-white/70 font-sans">
+                <li><Link href="/faq" className="hover:text-white transition-colors text-xs">{nav('faq')}</Link></li>
+                <li><Link href="/privacy-policy" className="hover:text-white transition-colors text-xs">{nav('privacy')}</Link></li>
+                <li><Link href="/terms-conditions" className="hover:text-white transition-colors text-xs">{nav('terms')}</Link></li>
+                <li><Link href="/refund-return" className="hover:text-white transition-colors text-xs">{nav('refunds')}</Link></li>
+              </ul>
+            </nav>
           </div>
 
         </div>
