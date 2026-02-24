@@ -165,8 +165,11 @@ export function ContentHeader() {
             </div>
           </Link>
 
-          {/* Cart */}
-          <CartIcon />
+          {/* Language Switcher + Cart */}
+          <div className="flex items-center">
+            <LanguageSwitcher variant="icon" />
+            <CartIcon />
+          </div>
         </div>
 
         {/* Search Bar */}
@@ -239,10 +242,6 @@ export function ContentHeader() {
               >
                 {nav('deliveryInfo')}
               </Link>
-            </li>
-            {/* Language switcher — separated by a divider */}
-            <li className="ml-1 pl-2 border-l border-border/60">
-              <LanguageSwitcher variant="compact" />
             </li>
           </ul>
         </nav>

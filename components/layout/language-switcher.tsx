@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 interface LanguageSwitcherProps {
     className?: string;
-    variant?: 'default' | 'compact' | 'topbar';
+    variant?: 'default' | 'compact' | 'topbar' | 'icon';
 }
 
 const languages = [
@@ -96,6 +96,38 @@ export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwi
                                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                     </svg>
                                 )}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    if (variant === 'icon') {
+        return (
+            <div className={cn("relative", className)} ref={dropdownRef}>
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-muted transition-colors"
+                    aria-label={`Switch language (${currentLanguage.name})`}
+                >
+                    <span className="text-lg leading-none">{currentLanguage.flag}</span>
+                </button>
+
+                {isOpen && (
+                    <div className="absolute right-0 mt-2 w-40 bg-background rounded-lg shadow-lg border overflow-hidden z-50">
+                        {languages.map((lang) => (
+                            <button
+                                key={lang.code}
+                                onClick={() => switchLanguage(lang.code)}
+                                className={cn(
+                                    "w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-muted transition-colors",
+                                    currentLocale === lang.code && "bg-primary/10"
+                                )}
+                            >
+                                <span className="text-lg">{lang.flag}</span>
+                                <span>{lang.name}</span>
                             </button>
                         ))}
                     </div>
