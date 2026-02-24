@@ -65,6 +65,17 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
                 description: 'Köp indiska och pakistanska livsmedel online i Stockholm. 1500+ produkter med snabb leverans över Sverige & Europa.',
                 images: ['https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg'],
             },
+            metadataBase: new URL(siteConfig.site_domain),
+            icons: {
+                icon: [
+                    { url: `${siteConfig.site_domain}/favicon.svg?v=2`, type: "image/svg+xml" },
+                    { url: `${siteConfig.site_domain}/favicon-32x32.png?v=2`, type: "image/png", sizes: "32x32" },
+                    { url: `${siteConfig.site_domain}/favicon-16x16.png?v=2`, type: "image/png", sizes: "16x16" },
+                    { url: `${siteConfig.site_domain}/favicon.ico?v=2`, sizes: "any" },
+                ],
+                shortcut: `${siteConfig.site_domain}/favicon.ico?v=2`,
+                apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=2`, sizes: "180x180", type: "image/png" }],
+            },
             alternates: {
                 canonical: `/sv`,
                 languages: {
@@ -77,11 +88,22 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
 
     // English metadata for /en/* pages (matches root layout for consistency)
     return {
+        metadataBase: new URL(siteConfig.site_domain),
         title: {
             default: siteConfig.site_name,
             template: `%s | ${siteConfig.site_name}`,
         },
         description: siteConfig.site_description,
+        icons: {
+            icon: [
+                { url: `${siteConfig.site_domain}/favicon.svg?v=2`, type: "image/svg+xml" },
+                { url: `${siteConfig.site_domain}/favicon-32x32.png?v=2`, type: "image/png", sizes: "32x32" },
+                { url: `${siteConfig.site_domain}/favicon-16x16.png?v=2`, type: "image/png", sizes: "16x16" },
+                { url: `${siteConfig.site_domain}/favicon.ico?v=2`, sizes: "any" },
+            ],
+            shortcut: `${siteConfig.site_domain}/favicon.ico?v=2`,
+            apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=2`, sizes: "180x180", type: "image/png" }],
+        },
         keywords: [
             'Indian grocery store Stockholm',
             'Pakistani grocery online Sweden',
