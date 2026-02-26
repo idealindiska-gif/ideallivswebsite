@@ -91,7 +91,7 @@ export function BannerStrip() {
 
                             {/* Right: Two product CTAs */}
                             <div className="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0">
-                                <Link href="/product/5243" className="block">
+                                <Link href="/product/rang-barse-holi-colors-y-300g" className="block">
                                     <Button
                                         className="h-10 md:h-11 w-full rounded-full font-bold px-5 md:px-7 shadow-lg transition-all hover:scale-105"
                                         style={{
@@ -104,7 +104,7 @@ export function BannerStrip() {
                                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                                     </Button>
                                 </Link>
-                                <Link href="/product/5236" className="block">
+                                <Link href="/product/rang-barse-holi-colours" className="block">
                                     <Button
                                         className="h-10 md:h-11 w-full rounded-full font-bold px-5 md:px-7 shadow-lg transition-all hover:scale-105"
                                         style={{
