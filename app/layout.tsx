@@ -169,6 +169,8 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://www.facebook.com" />
+        <link rel="icon" href={`${siteConfig.site_domain}/icon-512.png?v=2`} type="image/png" />
+        <link rel="shortcut icon" href={`${siteConfig.site_domain}/icon-512.png?v=2`} />
 
         {/* Preload critical hero image */}
         <link

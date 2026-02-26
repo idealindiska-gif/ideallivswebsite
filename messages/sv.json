@@ -369,12 +369,12 @@
     "sunday": "Söndag"
   },
   "banner": {
-    "comingSoon": "Kommer Snart",
-    "ramadanMegaSavings": "Ramadan Megabesparingar",
-    "ramadanDesc": "Gör dig redo för exklusiva rabatter på dadlar, kryddor, ris och alla dina Ramadan-produkter.",
-    "bigDeals": "Stora erbjudanden på väg!",
-    "notifyMe": "Meddela Mig",
-    "beFirst": "Bli först att veta"
+    "holiTag": "Holi Special",
+    "holiTitle": "Glad Holi – Fira med Färg!",
+    "holiDesc": "Gör din Holi-firande extra speciell med våra handplockade festliga produkter.",
+    "holiHighlight": "Shoppa bästa erbjudandena nu!",
+    "product1Cta": "Köp Produkt 1",
+    "product2Cta": "Köp Produkt 2"
   },
   "promo": {
     "premiumQuality": "Premiumkvalitet",
