@@ -228,6 +228,7 @@ export interface BlogPosting {
   dateModified?: string;
   author?: {
     '@type': 'Person';
+    '@id'?: string;
     name: string;
   };
   publisher?: {
