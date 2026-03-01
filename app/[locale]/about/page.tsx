@@ -7,6 +7,8 @@ import { GoogleMapCompact } from "@/components/shared/google-map";
 import { getTranslations } from 'next-intl/server';
 import { getAlternates } from '@/lib/seo/metadata';
 import { swedishMeta } from '@/lib/seo/swedish-meta';
+import { SchemaScript } from '@/lib/schema/schema-script';
+import { idealIndiskaOrganizationSchemaFull } from '@/lib/schema';
 
 // ISR: Revalidate static pages every 24 hours
 export const revalidate = 86400;
@@ -275,6 +277,12 @@ export default async function AboutPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* Organization Schema — entity authority signal for Google & AI */}
+      <SchemaScript
+        id="about-organization-schema"
+        schema={idealIndiskaOrganizationSchemaFull('https://www.ideallivs.com', locale)}
+      />
     </main>
   );
 }

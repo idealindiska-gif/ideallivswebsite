@@ -406,6 +406,32 @@ export default async function RamadanBlogPost({
                         <article className="lg:col-span-8">
                             <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-headings:font-bold prose-headings:tracking-tight prose-p:text-muted-foreground prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline">
 
+                                {/* TL;DR — machine-liftable summary for Google AI Overview */}
+                                <div className="not-prose mb-10 p-6 rounded-2xl bg-primary/5 border border-primary/20">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
+                                        {c.isSv ? 'SAMMANFATTNING' : 'TL;DR — Quick Summary'}
+                                    </p>
+                                    <ul className="space-y-2 text-sm text-foreground">
+                                        {c.isSv ? (
+                                            <>
+                                                <li>🌙 <strong>Ramadan 2026</strong> börjar ca 1 mars och varar 30 dagar i Stockholm.</li>
+                                                <li>🍽️ <strong>Iftarens måsten:</strong> Petra jordanska dadlar, Rooh Afza, frysta samosas och seekh kebab.</li>
+                                                <li>☀️ <strong>Suhoors bas:</strong> Elephant Atta, Basmatiris, linser och kikärtsmjöl för uthållig energi.</li>
+                                                <li>🛒 <strong>Alla varor på rea</strong> under Ramadan Mega Savings hos Ideal Indiska LIVS.</li>
+                                                <li>🚚 <strong>Gratis Stockholmsleverans</strong> på beställningar över 500 kr — samma dag tillgänglig före 16:00.</li>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <li>🌙 <strong>Ramadan 2026</strong> starts around March 1st and lasts 30 days in Stockholm.</li>
+                                                <li>🍽️ <strong>Iftar essentials:</strong> Petra Jordanian dates, Rooh Afza, frozen samosas, and seekh kebabs.</li>
+                                                <li>☀️ <strong>Suhoor staples:</strong> Elephant Atta, Basmati rice, lentils, and gram flour for sustained energy.</li>
+                                                <li>🛒 <strong>All items on sale</strong> during Ramadan Mega Savings at Ideal Indiska LIVS.</li>
+                                                <li>🚚 <strong>Free Stockholm delivery</strong> on orders over 500 SEK — same-day available before 4 PM.</li>
+                                            </>
+                                        )}
+                                    </ul>
+                                </div>
+
                                 <p className="text-xl md:text-2xl text-foreground font-medium border-l-4 border-primary pl-6 py-1 not-italic leading-relaxed mb-10">
                                     {c.leadQuote}
                                 </p>

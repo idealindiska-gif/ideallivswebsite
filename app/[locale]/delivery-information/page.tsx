@@ -12,6 +12,24 @@ import { swedishMeta } from '@/lib/seo/swedish-meta';
 // ISR: Revalidate static pages every 24 hours
 export const revalidate = 86400;
 
+// ─── Delivery FAQ data ─────────────────────────────────────────────────────────
+
+const deliveryFaqsEn = [
+    { q: 'Is delivery free in Stockholm?', a: 'Yes. Orders of 500 SEK or more get free home delivery anywhere in Stockholm. Orders between 300–499 SEK have a flat 30 SEK delivery fee. The minimum order is 300 SEK.' },
+    { q: 'How fast is same-day delivery?', a: 'Same-day delivery is available to Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna, and Sundbyberg. Place your order before 4 PM (16:00) for same-day delivery.' },
+    { q: 'Do you deliver outside Stockholm?', a: 'Yes. We deliver to all of Sweden and across Europe via DHL. No customs duties apply within the EU. Rates are calculated at checkout based on your location and order weight.' },
+    { q: 'Can I pick up my order from the store?', a: 'Yes. Free in-store pickup is available at Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Select "Store Pickup" at checkout and we will prepare your order.' },
+    { q: 'What payment methods do you accept for online orders?', a: 'We accept Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay, and Cash on delivery for local Stockholm orders.' },
+];
+
+const deliveryFaqsSv = [
+    { q: 'Är leveransen gratis i Stockholm?', a: 'Ja. Beställningar på 500 kr eller mer får gratis hemleverans inom hela Stockholm. Beställningar på 300–499 kr kostar 30 kr. Minimibeställning är 300 kr.' },
+    { q: 'Hur snabb är samma-dagleveransen?', a: 'Samma-dagleverans finns till Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna och Sundbyberg. Lägg din beställning före kl. 16:00 för leverans samma dag.' },
+    { q: 'Levererar ni utanför Stockholm?', a: 'Ja. Vi levererar till hela Sverige och Europa via DHL. Inga tullavgifter inom EU. Priset beräknas i kassan baserat på din plats och beställningens vikt.' },
+    { q: 'Kan jag hämta min beställning i butiken?', a: 'Ja. Gratis upphämtning i butik finns på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Välj "Hämta i butik" i kassan så förbereder vi din beställning.' },
+    { q: 'Vilka betalningsmetoder accepterar ni för onlinebeställningar?', a: 'Vi accepterar Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay samt kontant betalning vid lokal Stockholmsleverans.' },
+];
+
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
@@ -178,6 +196,29 @@ export default async function DeliveryInformationPage({ params }: PageProps) {
                                 <p style={{ fontSize: '16px' }} className="text-muted-foreground">
                                     {t('commitmentText')}
                                 </p>
+                            </section>
+
+                            {/* FAQ Section — visible Q&A required for FAQPage rich results */}
+                            <section className="space-y-4">
+                                <h2 style={{ fontSize: '25px', fontWeight: 600 }}>
+                                    {locale === 'sv' ? 'Vanliga frågor om leverans' : 'Delivery FAQ'}
+                                </h2>
+                                <div className="divide-y divide-border">
+                                    {(locale === 'sv' ? deliveryFaqsSv : deliveryFaqsEn).map((item, i) => (
+                                        <details key={i} className="group py-4">
+                                            <summary className="flex items-center justify-between cursor-pointer list-none gap-4">
+                                                <span className="font-medium text-foreground" style={{ fontSize: '15.13px' }}>
+                                                    {item.q}
+                                                </span>
+                                                <span className="text-muted-foreground flex-shrink-0 text-lg font-light group-open:hidden">+</span>
+                                                <span className="text-muted-foreground flex-shrink-0 text-lg font-light hidden group-open:inline">−</span>
+                                            </summary>
+                                            <p className="mt-3 text-muted-foreground leading-relaxed" style={{ fontSize: '14.31px' }}>
+                                                {item.a}
+                                            </p>
+                                        </details>
+                                    ))}
+                                </div>
                             </section>
                         </div>
 

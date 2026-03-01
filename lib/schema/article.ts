@@ -42,6 +42,7 @@ export function articleSchema(article: ArticleInput): BlogPosting {
         inLanguage: article.language || 'sv-SE',
         author: {
             '@type': 'Person',
+            '@id': 'https://www.ideallivs.com/#ideal-chef',
             name: article.authorName,
         },
         publisher: {

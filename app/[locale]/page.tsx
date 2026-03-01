@@ -9,12 +9,111 @@ import type { Metadata } from "next";
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { webpageSchema } from "@/lib/schema/website";
 import { enhancedItemListSchema } from "@/lib/schema/collection";
+import { faqSchema } from "@/lib/schema/faq";
 import { setRequestLocale, getTranslations } from 'next-intl/server';
+import { ChevronDown } from "lucide-react";
 
 // ISR: Revalidate every 2 hours
 export const revalidate = 7200;
 
 const BASE_URL = "https://www.ideallivs.com";
+
+// ─── FAQ data (machine-liftable for Google AI Overview) ───────────────────────
+
+const enFaqs = [
+    {
+        question: "Where can I buy Indian and Pakistani groceries in Stockholm?",
+        answer: "Ideal Indiska LIVS is Stockholm's specialist Indian and Pakistani grocery store, located at Bandhagsplan 4 in Bandhagen. We stock over 1,500 authentic products including premium Basmati rice, spices, Halal meat, frozen snacks, and fresh produce — all available online with fast delivery.",
+    },
+    {
+        question: "Do you offer free delivery in Stockholm?",
+        answer: "Yes. Orders of 500 SEK or more receive free home delivery anywhere in Stockholm. Orders between 300–499 SEK have a flat 30 SEK delivery fee. Minimum order is 300 SEK. Same-day delivery is available to nearby areas (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for orders placed before 4 PM.",
+    },
+    {
+        question: "Do you deliver Indian groceries outside Stockholm and Sweden?",
+        answer: "Yes. We ship to all of Sweden and across Europe via DHL. There is no minimum order value for DHL delivery — rates are calculated at checkout based on your location and order weight. No customs duties apply within the EU since we ship from Sweden.",
+    },
+    {
+        question: "Are your products Halal certified?",
+        answer: "Yes. We carry a dedicated range of 100% Halal certified meat, poultry, and packaged food products. All Halal items are clearly labelled in our online store and in our Bandhagen shop.",
+    },
+    {
+        question: "What Indian and Pakistani brands do you stock?",
+        answer: "We carry over 150 trusted brands including India Gate, Guard, Shan, National Foods, Haldiram's, Ashoka, Ahmed Foods, Rooh Afza, MDH, TRS, and many more. Our range covers spices, rice, flours, lentils, pickles, frozen foods, snacks, and beverages.",
+    },
+    {
+        question: "What are your store opening hours?",
+        answer: "Our Bandhagen store is open Monday to Friday 10:00–20:00, and Saturday to Sunday 11:00–19:00. You can also shop online 24/7 at ideallivs.com.",
+    },
+];
+
+const svFaqs = [
+    {
+        question: "Var kan jag köpa indiska och pakistanska matvaror i Stockholm?",
+        answer: "Ideal Indiska LIVS är Stockholms specialbutik för indiska och pakistanska livsmedel, med adress Bandhagsplan 4 i Bandhagen. Vi har över 1 500 autentiska produkter — premium Basmati-ris, kryddor, halaltkött, frysta snacks och färska varor — tillgängliga online med snabb leverans.",
+    },
+    {
+        question: "Erbjuder ni fri leverans i Stockholm?",
+        answer: "Ja. Beställningar på 500 kr eller mer får gratis hemleverans inom hela Stockholm. Beställningar på 300–499 kr har en fast avgift på 30 kr. Minimibeställning är 300 kr. Samma-dagleverans finns till närliggande områden (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) för beställningar lagda före 16:00.",
+    },
+    {
+        question: "Levererar ni utanför Stockholm och Sverige?",
+        answer: "Ja. Vi skickar till hela Sverige och Europa via DHL. Inget minimivärde krävs för DHL-leverans — priset beräknas i kassan. Inga tullavgifter tillkommer inom EU eftersom vi skickar från Sverige.",
+    },
+    {
+        question: "Är era produkter Halal-certifierade?",
+        answer: "Ja. Vi har ett dedikerat sortiment av 100% Halal-certifierat kött, fjäderfä och förpackade livsmedel. Alla Halal-produkter är tydligt märkta i vår webbutik och i vår Bandhagen-butik.",
+    },
+    {
+        question: "Vilka indiska och pakistanska varumärken säljer ni?",
+        answer: "Vi har över 150 välkända varumärken, bland annat India Gate, Guard, Shan, National Foods, Haldiram's, Ashoka, Ahmed Foods, Rooh Afza, MDH och TRS. Sortimentet inkluderar kryddor, ris, mjöl, linser, pickles, fryst mat, snacks och drycker.",
+    },
+    {
+        question: "Vilka öppettider har er butik?",
+        answer: "Vår Bandhagen-butik har öppet måndag–fredag 10:00–20:00 och lördag–söndag 11:00–19:00. Du kan också handla online dygnet runt på ideallivs.com.",
+    },
+];
+
+// ─── HomeFAQ component ─────────────────────────────────────────────────────────
+
+function HomeFAQ({ locale }: { locale: string }) {
+    const isSv = locale === 'sv';
+    const faqs = isSv ? svFaqs : enFaqs;
+    const heading = isSv
+        ? 'Vanliga frågor om Ideal Indiska LIVS'
+        : 'Frequently Asked Questions';
+    const subheading = isSv
+        ? 'Allt du behöver veta om vår butik, leverans och sortiment.'
+        : 'Everything you need to know about our store, delivery, and products.';
+
+    return (
+        <section className="py-12 border-t bg-background">
+            <div className="container mx-auto px-4 max-w-3xl">
+                <h2 className="font-heading font-bold mb-2 text-foreground" style={{ fontSize: '25px' }}>
+                    {heading}
+                </h2>
+                <p className="text-muted-foreground mb-8" style={{ fontSize: '15.13px' }}>
+                    {subheading}
+                </p>
+                <div className="divide-y divide-border">
+                    {faqs.map((faq, i) => (
+                        <details key={i} className="group py-4">
+                            <summary className="flex items-center justify-between cursor-pointer list-none gap-4">
+                                <span className="font-medium text-foreground" style={{ fontSize: '15.13px' }}>
+                                    {faq.question}
+                                </span>
+                                <ChevronDown className="w-4 h-4 text-muted-foreground flex-shrink-0 transition-transform group-open:rotate-180" />
+                            </summary>
+                            <p className="mt-3 text-muted-foreground leading-relaxed" style={{ fontSize: '14.31px' }}>
+                                {faq.answer}
+                            </p>
+                        </details>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
 
 interface PageProps {
     params: Promise<{ locale: string }>;
@@ -148,11 +247,23 @@ export default async function LocaleHomePage({ params }: PageProps) {
             {/* 8. SEO & Brand Content */}
             <SeoContent />
 
+            {/* 9. FAQ Section — machine-liftable for Google AI Overview */}
+            <HomeFAQ locale={locale} />
+
             {/* 10. Features/Benefits Section */}
             <Features />
 
             {/* ========== SEO STRUCTURED DATA ========== */}
             {/* Note: Organization and WebSite schemas are in layout.tsx (global) */}
+
+            {/* FAQPage Schema */}
+            <SchemaScript
+                id="homepage-faq-schema"
+                schema={faqSchema({
+                    pageUrl: pageUrl,
+                    faqs: locale === 'sv' ? svFaqs : enFaqs,
+                })}
+            />
 
             {/* WebPage Schema - Homepage specific context */}
             <SchemaScript

@@ -120,6 +120,17 @@ export default async function IndianFikaPage() {
                     <div className="grid lg:grid-cols-12 gap-16">
                         {/* Article Content */}
                         <article className="lg:col-span-8">
+                            {/* TL;DR — machine-liftable summary for Google AI Overview */}
+                            <div className="mb-10 p-6 rounded-2xl bg-primary/5 border border-primary/20 not-prose">
+                                <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">TL;DR — Quick Summary</p>
+                                <ul className="space-y-2 text-sm text-foreground">
+                                    <li>☕ <strong>Indian Fika</strong> = Swedish coffee-break culture meets South Asian snack tradition.</li>
+                                    <li>🫚 <strong>5 best pairings:</strong> Samosas, Namkeen (sev mix), Chakli, Bhujia, and Khatta Meetha.</li>
+                                    <li>🛒 All snacks available at <strong>Ideal Indiska LIVS</strong>, Bandhagen or online.</li>
+                                    <li>🌿 Pair with masala chai, cardamom tea, or a rose syrup lassi.</li>
+                                    <li>⏱ Ready in under 15 minutes — perfect for spontaneous fika moments.</li>
+                                </ul>
+                            </div>
                             <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-headings:text-primary prose-headings:font-bold prose-p:text-muted-foreground prose-p:leading-relaxed prose-strong:text-foreground">
                                 <p className="text-2xl text-foreground font-medium mb-12 leading-relaxed border-l-4 border-primary pl-8 py-2 italic opacity-90">
                                     In Sweden, the concept of <em>Fika</em> is sacred. It&apos;s more than just a coffee break; it&apos;s a moment of pause, community, and indulgence. But what happens when you swap the cinnamon bun for a crispy Samosa, or the black coffee for a steaming cup of spiced Masala Chai?

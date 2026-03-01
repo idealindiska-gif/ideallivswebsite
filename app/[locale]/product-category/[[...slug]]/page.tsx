@@ -78,7 +78,12 @@ export async function generateMetadata({ params }: ProductCategoryPageProps): Pr
                 type: 'website',
             },
             alternates: {
-                canonical: `${siteConfig.site_domain}/product-category/${resolvedParams.slug?.join('/')}`,
+                canonical: `${siteConfig.site_domain}${resolvedParams.locale === 'sv' ? '/sv' : ''}/product-category/${resolvedParams.slug?.join('/')}`,
+                languages: {
+                    'en': `${siteConfig.site_domain}/product-category/${resolvedParams.slug?.join('/')}`,
+                    'sv': `${siteConfig.site_domain}/sv/product-category/${resolvedParams.slug?.join('/')}`,
+                    'x-default': `${siteConfig.site_domain}/product-category/${resolvedParams.slug?.join('/')}`,
+                },
             },
         };
     } catch {

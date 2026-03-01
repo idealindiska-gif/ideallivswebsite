@@ -25,6 +25,7 @@ export * from './collection';
 export * from './delivery';
 export * from './local-business';
 export * from './navigation';
+export * from './person';
 
 /**
  * QUICK START EXAMPLES

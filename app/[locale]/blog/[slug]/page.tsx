@@ -8,7 +8,7 @@ import { getPostBySlug, getAllPosts } from '@/lib/wordpress';
 import { getProducts } from '@/lib/woocommerce/products-direct';
 import { brandProfile } from '@/config/brand-profile';
 import { decodeHtmlEntities } from '@/lib/utils';
-import { wordPressArticleSchema, breadcrumbSchema, postBreadcrumbs } from '@/lib/schema';
+import { wordPressArticleSchema, breadcrumbSchema, postBreadcrumbs, idealChefPersonSchema } from '@/lib/schema';
 import { siteConfig } from '@/site.config';
 
 type Props = {
@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: Props) {
   const author = getAuthorInfo(post);
   const categories = getCategories(post);
   const decodedTitle = decodeHtmlEntities(post.title.rendered);
-  const currentUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://ideallivs.com'}/blog/${slug}`;
+  const currentUrl = `${siteConfig.site_domain}/blog/${slug}`;
 
   return (
     <div className="min-h-screen bg-background">
@@ -475,6 +475,13 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(wordPressArticleSchema(post, siteConfig.site_domain))
+        }}
+      />
+      {/* Ideal Chef Person schema — E-E-A-T author signal */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(idealChefPersonSchema(siteConfig.site_domain))
         }}
       />
       <script

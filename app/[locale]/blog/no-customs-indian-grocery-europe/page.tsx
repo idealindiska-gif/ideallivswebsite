@@ -48,6 +48,18 @@ export default function NoCustomsPostPage() {
             <section className="py-16">
                 <div className="container mx-auto px-4 max-w-3xl">
                     <article className="prose prose-lg dark:prose-invert max-w-none prose-p:text-muted-foreground/90 prose-headings:text-foreground">
+                        {/* TL;DR — machine-liftable summary for Google AI Overview */}
+                        <div className="not-prose mb-10 p-6 rounded-2xl bg-primary/5 border border-primary/20">
+                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">TL;DR — Quick Summary</p>
+                            <ul className="space-y-2 text-sm text-foreground">
+                                <li>✅ <strong>No customs duties</strong> — Sweden is in the EU, so orders ship duty-free to all 27 EU countries.</li>
+                                <li>✅ <strong>No import VAT surprises</strong> — unlike orders from the UK, US, or India.</li>
+                                <li>✅ <strong>Faster delivery</strong> — DHL from Stockholm reaches most of Europe in 3–7 business days.</li>
+                                <li>✅ <strong>1,500+ authentic products</strong> — Indian and Pakistani spices, rice, Halal meat, snacks, and more.</li>
+                                <li>✅ <strong>No minimum order</strong> for EU shipping — rates calculated at checkout.</li>
+                            </ul>
+                        </div>
+
                         <p className="lead text-xl">
                             If you live in Germany, the Netherlands, France, or any other EU country, you know the frustration of ordering authentic Indian groceries only to be hit with unexpected customs duties and long delays at the border.
                         </p>

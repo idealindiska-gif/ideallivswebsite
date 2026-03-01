@@ -181,7 +181,7 @@ export default async function RootLayout({
         />
 
         {/* Geo-Targeting Meta Tags */}
-        <GeoMetaTags />
+        <GeoMetaTags locale={locale} />
 
         {/* Hreflang Tags */}
         <HreflangTags path={currentPath} />

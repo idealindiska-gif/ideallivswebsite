@@ -148,6 +148,18 @@ export default async function RamadanGroceryChecklist() {
                         <article className="lg:col-span-8">
                             <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-headings:font-bold prose-headings:tracking-tight prose-p:text-muted-foreground prose-p:leading-relaxed prose-img:rounded-3xl prose-a:text-primary prose-a:no-underline hover:prose-a:underline">
 
+                                {/* TL;DR — machine-liftable summary for Google AI Overview */}
+                                <div className="not-prose mb-10 p-6 rounded-2xl bg-primary/5 border border-primary/20">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">TL;DR — Quick Summary</p>
+                                    <ul className="space-y-2 text-sm text-foreground">
+                                        <li>🌙 <strong>Suhoor essentials:</strong> Elephant Atta, Basmati rice, lentils, eggs, and yoghurt for sustained energy.</li>
+                                        <li>🍽️ <strong>Iftar must-haves:</strong> Petra Jordanian dates, Rooh Afza, frozen samosas, seekh kebabs, and Phulki.</li>
+                                        <li>🛒 <strong>All on sale</strong> during Ramadan Mega Savings at Ideal Indiska LIVS.</li>
+                                        <li>🚚 <strong>Free Stockholm delivery</strong> on orders over 500 SEK — same-day available before 4 PM.</li>
+                                        <li>🌍 <strong>EU shipping</strong> via DHL — no customs fees, delivered in 3–7 business days.</li>
+                                    </ul>
+                                </div>
+
                                 <p className="lead text-xl md:text-2xl text-foreground font-medium mb-12 border-l-4 border-primary pl-6 italic">
                                     Salam neighbor! 👋 Ramadan is just around the corner (starting Feb 17th!), and likely the long fasts in Stockholm mean you need <strong>real energy</strong> for Suhoor and <strong>quick, comforting bites</strong> for Iftar.
                                 </p>
