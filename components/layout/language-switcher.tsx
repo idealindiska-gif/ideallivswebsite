@@ -4,6 +4,14 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Globe } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { useCurrencyStore, type CurrencyCode } from '@/store/currency-store';
+
+const localeToCurrency: Record<string, CurrencyCode> = {
+    no: 'NOK',
+    da: 'DKK',
+    sv: 'SEK',
+    en: 'SEK',
+};
 
 interface LanguageSwitcherProps {
     className?: string;
@@ -22,6 +30,7 @@ export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwi
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const setCurrency = useCurrencyStore(s => s.setCurrency);
 
     // Determine current locale from pathname
     const currentLocale =
@@ -57,6 +66,11 @@ export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwi
 
         // Set cookie for language preference
         document.cookie = `NEXT_LOCALE=${langCode};path=/;max-age=31536000`;
+
+        // Sync currency to the selected language's default
+        if (localeToCurrency[langCode]) {
+            setCurrency(localeToCurrency[langCode]);
+        }
 
         router.push(newPath);
         setIsOpen(false);
