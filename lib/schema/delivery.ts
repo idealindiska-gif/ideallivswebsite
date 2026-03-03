@@ -235,6 +235,104 @@ export function goteborgMalmoDeliveryServiceSchema(baseUrl: string = 'https://ww
 }
 
 /**
+ * Generate Norway Delivery Service Schema
+ * For /norway-delivery page
+ */
+export function norwayDeliveryServiceSchema(baseUrl: string = 'https://www.ideallivs.com') {
+  const schema: Service = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${baseUrl}/#norway-delivery-service`,
+    name: 'Norway Grocery Delivery via DHL',
+    description: 'Authentic Indian & Pakistani groceries delivered to Norway via DHL. No minimum order, fully tracked shipments.',
+    provider: {
+      '@type': 'Organization',
+      '@id': `${baseUrl}/#organization`,
+      name: 'Ideal Indiska LIVS',
+    },
+    serviceType: 'International Grocery Delivery',
+    areaServed: {
+      '@type': 'Country',
+      name: 'Norway',
+    },
+    offers: {
+      '@type': 'Offer',
+      name: 'DHL Delivery to Norway',
+      description: 'DHL shipping to Norway. Rates calculated at checkout based on weight. No minimum order.',
+      priceCurrency: 'NOK',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: '0.00',
+        priceCurrency: 'NOK',
+        description: 'DHL rates calculated at checkout based on weight',
+      },
+    },
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: `${baseUrl}/shop`,
+      servicePhone: '+46728494801',
+      availableLanguage: ['Norwegian', 'Swedish', 'English'],
+    },
+    additionalType: 'https://schema.org/DeliveryEvent',
+    hoursAvailable: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    },
+  };
+
+  return cleanSchema(schema);
+}
+
+/**
+ * Generate Denmark Delivery Service Schema
+ * For /denmark-delivery page
+ */
+export function denmarkDeliveryServiceSchema(baseUrl: string = 'https://www.ideallivs.com') {
+  const schema: Service = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${baseUrl}/#denmark-delivery-service`,
+    name: 'Denmark Grocery Delivery via DHL',
+    description: 'Authentic Indian & Pakistani groceries delivered to Denmark via DHL. No minimum order, fully tracked shipments.',
+    provider: {
+      '@type': 'Organization',
+      '@id': `${baseUrl}/#organization`,
+      name: 'Ideal Indiska LIVS',
+    },
+    serviceType: 'International Grocery Delivery',
+    areaServed: {
+      '@type': 'Country',
+      name: 'Denmark',
+    },
+    offers: {
+      '@type': 'Offer',
+      name: 'DHL Delivery to Denmark',
+      description: 'DHL shipping to Denmark. Rates calculated at checkout based on weight. No minimum order.',
+      priceCurrency: 'DKK',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: '0.00',
+        priceCurrency: 'DKK',
+        description: 'DHL rates calculated at checkout based on weight',
+      },
+    },
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: `${baseUrl}/shop`,
+      servicePhone: '+46728494801',
+      availableLanguage: ['Danish', 'Swedish', 'English'],
+    },
+    additionalType: 'https://schema.org/DeliveryEvent',
+    hoursAvailable: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    },
+  };
+
+  return cleanSchema(schema);
+}
+
+/**
  * Generate FAQ Page Schema for Delivery
  */
 export function deliveryFAQSchema(baseUrl: string = 'https://www.ideallivs.com') {

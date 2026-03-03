@@ -8,6 +8,8 @@ export async function GET() {
         { url: "/no/delivery-information", priority: 0.9, changefreq: "weekly" },
         { url: "/no/delivery-goteborg-malmo", priority: 0.8, changefreq: "weekly" },
         { url: "/no/europe-delivery", priority: 0.8, changefreq: "weekly" },
+        { url: "/no/norway-delivery", priority: 0.9, changefreq: "weekly" },
+        { url: "/no/denmark-delivery", priority: 0.7, changefreq: "weekly" },
     ];
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

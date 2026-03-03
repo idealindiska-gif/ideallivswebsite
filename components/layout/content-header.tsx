@@ -121,6 +121,22 @@ export function ContentHeader() {
                     </li>
                     <li>
                       <Link
+                        href="/norway-delivery"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+                      >
+                        {nav('norwayDelivery')}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/denmark-delivery"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+                      >
+                        {nav('denmarkDelivery')}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
                         href="/delivery-goteborg-malmo"
                         className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
                       >
