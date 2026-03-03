@@ -42,7 +42,7 @@ export default function CheckoutPage() {
   const [billingData, setBillingData] = useState<BillingFormData | null>(null);
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod | null>(null);
   const [shippingCost, setShippingCost] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState('cod');
+  const [paymentMethod, setPaymentMethod] = useState('');
   const [sameAsShipping, setSameAsShipping] = useState(true);
   const [orderNotes, setOrderNotes] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -192,6 +192,11 @@ export default function CheckoutPage() {
 
     if (!shippingMethod) {
       setError('Please select a shipping method');
+      return;
+    }
+
+    if (!paymentMethod) {
+      setError('Please select a payment method');
       return;
     }
 
@@ -781,7 +786,7 @@ export default function CheckoutPage() {
                       size="lg"
                       className="rounded-full"
                       onClick={handlePlaceOrder}
-                      disabled={isProcessing || !shippingMethod}
+                      disabled={isProcessing || !shippingMethod || !paymentMethod}
                     >
                       {isProcessing ? (
                         <>

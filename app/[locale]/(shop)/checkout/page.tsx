@@ -50,7 +50,7 @@ export default function CheckoutPage() {
   const [billingData, setBillingData] = useState<BillingFormData | null>(null);
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod | null>(null);
   const [shippingCost, setShippingCost] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState('cod');
+  const [paymentMethod, setPaymentMethod] = useState('');
   const [sameAsShipping, setSameAsShipping] = useState(true);
   const [orderNotes, setOrderNotes] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -256,6 +256,7 @@ export default function CheckoutPage() {
   const handleInitStripePayment = async () => {
     if (!shippingData || !billingData) { setError(t('pleaseComplete')); return; }
     if (!shippingMethod) { setError(t('selectShipping')); return; }
+    if (!paymentMethod) { setError(t('selectPayment')); return; }
 
     setIsProcessing(true);
     setError(null);
@@ -430,6 +431,7 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     if (!shippingData || !billingData) { setError(t('pleaseComplete')); return; }
     if (!shippingMethod) { setError(t('selectShipping')); return; }
+    if (!paymentMethod) { setError(t('selectPayment')); return; }
 
     setIsProcessing(true);
     setError(null);
@@ -841,7 +843,7 @@ export default function CheckoutPage() {
                             size="lg"
                             className="rounded-full bg-green-600 hover:bg-green-700"
                             onClick={handleInitStripePayment}
-                            disabled={isProcessing || !shippingMethod}
+                            disabled={isProcessing || !shippingMethod || !paymentMethod}
                           >
                             {isProcessing ? (
                               <>
@@ -861,7 +863,7 @@ export default function CheckoutPage() {
                             size="lg"
                             className="rounded-full"
                             onClick={handlePlaceOrder}
-                            disabled={isProcessing || !shippingMethod}
+                            disabled={isProcessing || !shippingMethod || !paymentMethod}
                           >
                             {isProcessing ? (
                               <>

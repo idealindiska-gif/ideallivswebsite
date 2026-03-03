@@ -668,6 +668,7 @@
     "shippingRestrictions": "Shipping Restrictions",
     "pleaseComplete": "Please complete all required information",
     "selectShipping": "Please select a shipping method",
+    "selectPayment": "Please select a payment method",
     "selectShippingContinue": "Please select a shipping method before continuing",
     "itemsUnavailable": "Some items in your cart are no longer available",
     "itemsRestricted": "Some items in your cart cannot be shipped to this location. Please review the restrictions below.",

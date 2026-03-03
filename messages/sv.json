@@ -668,6 +668,7 @@
     "shippingRestrictions": "Fraktrestriktioner",
     "pleaseComplete": "Vänligen fyll i all obligatorisk information",
     "selectShipping": "Vänligen välj en fraktmetod",
+    "selectPayment": "Vänligen välj en betalningsmetod",
     "selectShippingContinue": "Vänligen välj en fraktmetod innan du fortsätter",
     "itemsUnavailable": "Vissa varor i din varukorg är inte längre tillgängliga",
     "itemsRestricted": "Vissa varor i din varukorg kan inte skickas till denna plats. Vänligen granska restriktionerna nedan.",
