@@ -116,7 +116,10 @@ export function middleware(request: NextRequest) {
   const response = intlMiddleware(request);
 
   // Explicitly set locale header so root layout can always detect it
-  const detectedLocale = pathname.startsWith('/sv') ? 'sv' : 'en';
+  const detectedLocale =
+    pathname.startsWith('/no') ? 'no' :
+    pathname.startsWith('/da') ? 'da' :
+    pathname.startsWith('/sv') ? 'sv' : 'en';
   response.headers.set('x-next-intl-locale', detectedLocale);
 
   return response;

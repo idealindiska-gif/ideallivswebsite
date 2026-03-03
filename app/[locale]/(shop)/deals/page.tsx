@@ -39,18 +39,19 @@ function getWeekValidity() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { locale } = await params;
 
+    const allLanguages = {
+        'en': `${siteConfig.site_domain}/deals`,
+        'sv': `${siteConfig.site_domain}/sv/deals`,
+        'nb': `${siteConfig.site_domain}/no/deals`,
+        'da': `${siteConfig.site_domain}/da/deals`,
+        'x-default': `${siteConfig.site_domain}/deals`,
+    };
+
     if (locale === 'sv') {
         return {
             title: `Veckans Erbjudanden på Indiska & Pakistanska Matvaror Stockholm | ${brandProfile.name}`,
             description: `Veckans bästa deals på autentiska indiska och pakistanska livsmedel i Stockholm. Rabatter på Basmati-ris, kryddor, halaltkött och snacks — uppdateras varje vecka.`,
-            alternates: {
-                canonical: `${siteConfig.site_domain}/sv/deals`,
-                languages: {
-                    'en': `${siteConfig.site_domain}/deals`,
-                    'sv': `${siteConfig.site_domain}/sv/deals`,
-                    'x-default': `${siteConfig.site_domain}/deals`,
-                },
-            },
+            alternates: { canonical: `${siteConfig.site_domain}/sv/deals`, languages: allLanguages },
             openGraph: {
                 title: `Veckans Erbjudanden — Ideal Indiska LIVS Stockholm`,
                 description: `Veckans bästa deals på autentiska indiska och pakistanska livsmedel i Stockholm.`,
@@ -62,17 +63,42 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         };
     }
 
+    if (locale === 'no') {
+        return {
+            title: `Ukens Tilbud på Indiske & Pakistanske Dagligvarer Stockholm | ${brandProfile.name}`,
+            description: `Ukens beste tilbud på autentiske indiske og pakistanske dagligvarer i Stockholm. Rabatter på Basmatiris, krydder, halaltkjøtt og snacks — oppdateres hver uke.`,
+            alternates: { canonical: `${siteConfig.site_domain}/no/deals`, languages: allLanguages },
+            openGraph: {
+                title: `Ukens Tilbud — Ideal Indiska LIVS Stockholm`,
+                description: `Ukens beste tilbud på autentiske indiske og pakistanske dagligvarer i Stockholm.`,
+                url: `${siteConfig.site_domain}/no/deals`,
+                siteName: 'Ideal Indiska LIVS',
+                locale: 'nb_NO',
+                type: 'website',
+            },
+        };
+    }
+
+    if (locale === 'da') {
+        return {
+            title: `Ugens Tilbud på Indiske & Pakistanske Dagligvarer Stockholm | ${brandProfile.name}`,
+            description: `Ugens bedste tilbud på autentiske indiske og pakistanske dagligvarer i Stockholm. Rabatter på Basmatiris, krydderier, halaltkød og snacks — opdateres hver uge.`,
+            alternates: { canonical: `${siteConfig.site_domain}/da/deals`, languages: allLanguages },
+            openGraph: {
+                title: `Ugens Tilbud — Ideal Indiska LIVS Stockholm`,
+                description: `Ugens bedste tilbud på autentiske indiske og pakistanske dagligvarer i Stockholm.`,
+                url: `${siteConfig.site_domain}/da/deals`,
+                siteName: 'Ideal Indiska LIVS',
+                locale: 'da_DK',
+                type: 'website',
+            },
+        };
+    }
+
     return {
         title: `Weekly Indian & Pakistani Grocery Deals Stockholm | ${brandProfile.name}`,
         description: `This week's best deals on authentic Indian and Pakistani groceries in Stockholm. Discounts on Basmati rice, spices, Halal meat, and snacks — updated every week.`,
-        alternates: {
-            canonical: `${siteConfig.site_domain}/deals`,
-            languages: {
-                'en': `${siteConfig.site_domain}/deals`,
-                'sv': `${siteConfig.site_domain}/sv/deals`,
-                'x-default': `${siteConfig.site_domain}/deals`,
-            },
-        },
+        alternates: { canonical: `${siteConfig.site_domain}/deals`, languages: allLanguages },
         openGraph: {
             title: `Weekly Deals — Ideal Indiska LIVS Stockholm`,
             description: `This week's best deals on authentic Indian and Pakistani groceries in Stockholm.`,
@@ -132,6 +158,52 @@ const dealsFaqsSv = [
     },
 ];
 
+const dealsFaqsNo = [
+    {
+        q: 'Hvor ofte oppdateres tilbudene?',
+        a: 'Vi oppdaterer ukenstilbudene jevnlig. Nye rabatter lanseres kontinuerlig på produkter som Basmatiris, krydder, linser, halaltkjøtt og frosne snacks. Bokmerk siden og kom tilbake hver uke for de siste tilbudene.',
+    },
+    {
+        q: 'Hvilke typer produkter er på salg hos Ideal Indiska LIVS?',
+        a: 'Ukenstilbudene dekker et bredt utvalg av indiske og pakistanske dagligvarer: Basmatiris, atta-mel, kryddblandinger (Shan, MDH, National Foods), linser, halaltkjøtt, frosne samosas og kebab, ferske grønnsaker, matolje og snacks.',
+    },
+    {
+        q: 'Tilbyr dere gratis levering på tilbudsbestillinger i Stockholm?',
+        a: 'Ja. Bestillinger på 500 SEK eller mer får gratis hjemlevering overalt i Stockholm. Bestillinger mellom 300–499 SEK koster 30 SEK. Samme-dag levering er tilgjengelig til nærliggende områder for bestillinger lagt inn før kl. 16:00.',
+    },
+    {
+        q: 'Kan jeg få tilbud levert i hele Europa?',
+        a: 'Ja. Vi sender til alle EU-land via DHL uten tollgebyrer. Ingen minimumsbestillingsverdi for EU-levering. Priser beregnes ved kassen basert på vekt og destination.',
+    },
+    {
+        q: 'Hvordan vet jeg at et produkt virkelig er rabattert?',
+        a: 'Hvert tilbud viser både originalprisen og rabattert salgspris slik at du ser nøyaktig hva du sparer. Alle tilbud hentes live fra vår butikk — kun produkter med aktivt salgspris vises på denne siden.',
+    },
+];
+
+const dealsFaqsDa = [
+    {
+        q: 'Hvor tit opdateres tilbuddene?',
+        a: 'Vi opdaterer ugenstilbuddene løbende. Nye rabatter lanceres jævnligt på produkter som Basmatiris, krydderier, linser, halaltkød og frosne snacks. Bogmærk siden og kom tilbage hver uge for de seneste tilbud.',
+    },
+    {
+        q: 'Hvilke typer produkter er på tilbud hos Ideal Indiska LIVS?',
+        a: 'Ugenstilbuddene dækker et bredt udvalg af indiske og pakistanske dagligvarer: Basmatiris, atta-mel, krydderiblandinger (Shan, MDH, National Foods), linser, halaltkød, frosne samosas og kebab, friske grøntsager, madolie og snacks.',
+    },
+    {
+        q: 'Tilbyder I gratis levering på tilbudsbestillinger i Stockholm?',
+        a: 'Ja. Bestillinger på 500 SEK eller mere får gratis hjemmelevering i hele Stockholm. Bestillinger mellem 300–499 SEK koster 30 SEK. Samme-dag levering er tilgængeligt til nærliggende områder for bestillinger afgivet inden kl. 16:00.',
+    },
+    {
+        q: 'Kan jeg få tilbud leveret i hele Europa?',
+        a: 'Ja. Vi sender til alle EU-lande via DHL uden toldsatser. Ingen minimumsbestillingsværdi for EU-levering. Priser beregnes ved kassen baseret på vægt og destination.',
+    },
+    {
+        q: 'Hvordan ved jeg, at et produkt virkelig er rabatteret?',
+        a: 'Hvert tilbud viser både originalprisen og den nedsatte salgspris, så du kan se den nøjagtige besparelse. Alle tilbud hentes live fra vores butik — kun produkter med en aktiv salgspris vises på denne side.',
+    },
+];
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 // NOTE: No <Suspense> wrapper — all content including schema renders in initial HTML
 // so Googlebot and AI crawlers (ChatGPT, Perplexity) index the full page on first pass.
@@ -146,11 +218,9 @@ export default async function DealsPage({ params }: PageProps) {
     ]);
 
     const { validFrom, validThrough } = getWeekValidity();
-    const isSv = locale === 'sv';
-    const pageUrl = isSv
-        ? `${siteConfig.site_domain}/sv/deals`
-        : `${siteConfig.site_domain}/deals`;
-    const faqs = isSv ? dealsFaqsSv : dealsFaqsEn;
+    const localePrefix = locale !== 'en' ? `/${locale}` : '';
+    const pageUrl = `${siteConfig.site_domain}${localePrefix}/deals`;
+    const faqs = locale === 'sv' ? dealsFaqsSv : locale === 'no' ? dealsFaqsNo : locale === 'da' ? dealsFaqsDa : dealsFaqsEn;
 
     return (
         <div className="min-h-screen w-full bg-background">
@@ -159,8 +229,8 @@ export default async function DealsPage({ params }: PageProps) {
             <SchemaScript
                 id="deals-breadcrumb"
                 schema={breadcrumbSchema([
-                    { name: isSv ? 'Hem' : 'Home', url: isSv ? `${siteConfig.site_domain}/sv` : siteConfig.site_domain },
-                    { name: isSv ? 'Veckans Erbjudanden' : 'Deals & Offers', url: pageUrl },
+                    { name: locale === 'sv' ? 'Hem' : locale === 'no' ? 'Hjem' : locale === 'da' ? 'Hjem' : 'Home', url: locale !== 'en' ? `${siteConfig.site_domain}/${locale}` : siteConfig.site_domain },
+                    { name: locale === 'sv' ? 'Veckans Erbjudanden' : locale === 'no' ? 'Ukens Tilbud' : locale === 'da' ? 'Ugens Tilbud' : 'Deals & Offers', url: pageUrl },
                 ])}
             />
 
@@ -168,11 +238,19 @@ export default async function DealsPage({ params }: PageProps) {
             <SchemaScript
                 id="deals-collection"
                 schema={collectionPageSchema({
-                    name: isSv
+                    name: locale === 'sv'
                         ? 'Veckans Erbjudanden på Indiska & Pakistanska Matvaror'
+                        : locale === 'no'
+                        ? 'Ukens Tilbud på Indiske & Pakistanske Dagligvarer'
+                        : locale === 'da'
+                        ? 'Ugens Tilbud på Indiske & Pakistanske Dagligvarer'
                         : 'Weekly Indian & Pakistani Grocery Deals',
-                    description: isSv
+                    description: locale === 'sv'
                         ? 'Veckovisa rabatter på autentiska indiska och pakistanska livsmedel i Stockholm.'
+                        : locale === 'no'
+                        ? 'Ukentlige rabatter på autentiske indiske og pakistanske dagligvarer i Stockholm.'
+                        : locale === 'da'
+                        ? 'Ugentlige rabatter på autentiske indiske og pakistanske dagligvarer i Stockholm.'
                         : 'Weekly discounts on authentic Indian and Pakistani groceries in Stockholm.',
                     url: pageUrl,
                     items: saleProducts.slice(0, 20).map(p => ({
@@ -189,11 +267,19 @@ export default async function DealsPage({ params }: PageProps) {
                 schema={{
                     '@context': 'https://schema.org',
                     '@type': 'OfferCatalog',
-                    name: isSv
+                    name: locale === 'sv'
                         ? `Veckans Erbjudanden — ${brandProfile.name}`
+                        : locale === 'no'
+                        ? `Ukens Tilbud — ${brandProfile.name}`
+                        : locale === 'da'
+                        ? `Ugens Tilbud — ${brandProfile.name}`
                         : `Weekly Deals — ${brandProfile.name}`,
-                    description: isSv
+                    description: locale === 'sv'
                         ? 'Veckovisa kampanjpriser på indiska och pakistanska livsmedel i Stockholm.'
+                        : locale === 'no'
+                        ? 'Ukentlige kampanjepriser på indiske og pakistanske dagligvarer i Stockholm.'
+                        : locale === 'da'
+                        ? 'Ugentlige kampagnepriser på indiske og pakistanske dagligvarer i Stockholm.'
                         : 'Weekly promotional prices on Indian and Pakistani groceries in Stockholm.',
                     url: pageUrl,
                     validFrom,
@@ -233,9 +319,13 @@ export default async function DealsPage({ params }: PageProps) {
                 schema={{
                     '@context': 'https://schema.org',
                     '@type': 'SaleEvent',
-                    name: isSv ? 'Veckans Erbjudanden — Ideal Indiska LIVS' : 'Weekly Deals — Ideal Indiska LIVS',
-                    description: isSv
+                    name: locale === 'sv' ? 'Veckans Erbjudanden — Ideal Indiska LIVS' : locale === 'no' ? 'Ukens Tilbud — Ideal Indiska LIVS' : locale === 'da' ? 'Ugens Tilbud — Ideal Indiska LIVS' : 'Weekly Deals — Ideal Indiska LIVS',
+                    description: locale === 'sv'
                         ? 'Veckovisa rabatter på indiska och pakistanska matvaror i Stockholm. Uppdateras varje vecka.'
+                        : locale === 'no'
+                        ? 'Ukentlige rabatter på indiske og pakistanske dagligvarer i Stockholm. Oppdateres hver uke.'
+                        : locale === 'da'
+                        ? 'Ugentlige rabatter på indiske og pakistanske dagligvarer i Stockholm. Opdateres hver uge.'
                         : 'Weekly discounts on Indian and Pakistani groceries in Stockholm. Updated every week.',
                     url: pageUrl,
                     startDate: validFrom,
@@ -269,9 +359,13 @@ export default async function DealsPage({ params }: PageProps) {
                 schema={{
                     '@context': 'https://schema.org',
                     '@type': 'ItemList',
-                    name: isSv ? 'Veckans Deals — Produkter på rea' : 'Weekly Deals — On Sale Products',
-                    description: isSv
+                    name: locale === 'sv' ? 'Veckans Deals — Produkter på rea' : locale === 'no' ? 'Ukens Tilbud — Produkter på salg' : locale === 'da' ? 'Ugens Tilbud — Produkter på tilbud' : 'Weekly Deals — On Sale Products',
+                    description: locale === 'sv'
                         ? 'Kampanjpriser på indiska och pakistanska matvaror i Stockholm.'
+                        : locale === 'no'
+                        ? 'Kampanjepriser på indiske og pakistanske dagligvarer i Stockholm.'
+                        : locale === 'da'
+                        ? 'Kampagnepriser på indiske og pakistanske dagligvarer i Stockholm.'
                         : 'Promotional prices on Indian and Pakistani groceries in Stockholm.',
                     numberOfItems: saleProducts.slice(0, 30).length,
                     itemListElement: saleProducts.slice(0, 30).map((p, index) => ({
@@ -310,7 +404,7 @@ export default async function DealsPage({ params }: PageProps) {
                 <div className="absolute inset-0 w-full h-full">
                     <Image
                         src="https://crm.ideallivs.com/wp-content/uploads/2026/02/Ideal-Ramadan-Savings-e1770765144207.jpg"
-                        alt={isSv ? 'Veckans erbjudanden på indiska och pakistanska matvaror i Stockholm' : 'Weekly deals on Indian and Pakistani groceries in Stockholm'}
+                        alt={locale === 'sv' ? 'Veckans erbjudanden på indiska och pakistanska matvaror i Stockholm' : locale === 'no' ? 'Ukens tilbud på indiske og pakistanske dagligvarer i Stockholm' : locale === 'da' ? 'Ugens tilbud på indiske og pakistanske dagligvarer i Stockholm' : 'Weekly deals on Indian and Pakistani groceries in Stockholm'}
                         fill
                         className="object-cover object-center"
                         priority
@@ -351,15 +445,27 @@ export default async function DealsPage({ params }: PageProps) {
                 <div className="container mx-auto px-4 max-w-screen-xl">
                     <div className="flex flex-col sm:flex-row gap-4 sm:items-start">
                         <p className="text-xs font-bold uppercase tracking-widest text-primary whitespace-nowrap pt-0.5">
-                            {isSv ? 'SNABBFAKTA' : 'QUICK FACTS'}
+                            {locale === 'sv' ? 'SNABBFAKTA' : locale === 'no' ? 'HURTIGFAKTA' : locale === 'da' ? 'HURTIGFAKTA' : 'QUICK FACTS'}
                         </p>
                         <div className="flex flex-wrap gap-x-6 gap-y-2">
-                            {(isSv ? [
+                            {(locale === 'sv' ? [
                                 '🏷️ Erbjudanden uppdateras varje vecka',
                                 '🛒 Ris, kryddor, halaltkött, snacks & mer',
                                 '🚚 Gratis Stockholmsleverans på beställningar över 500 kr',
                                 '🌍 DHL till hela Europa — inga tullavgifter',
                                 '📦 1 500+ autentiska produkter i lager',
+                            ] : locale === 'no' ? [
+                                '🏷️ Tilbud oppdateres hver uke',
+                                '🛒 Ris, krydder, halaltkjøtt, snacks & mer',
+                                '🚚 Gratis Stockholm-levering på bestillinger over 500 SEK',
+                                '🌍 DHL til hele Europa — ingen tollgebyrer',
+                                '📦 1 500+ autentiske produkter på lager',
+                            ] : locale === 'da' ? [
+                                '🏷️ Tilbud opdateres hver uge',
+                                '🛒 Ris, krydderier, halaltkød, snacks & mere',
+                                '🚚 Gratis Stockholm-levering på bestillinger over 500 SEK',
+                                '🌍 DHL til hele Europa — ingen toldsatser',
+                                '📦 1.500+ autentiske produkter på lager',
                             ] : [
                                 '🏷️ Deals updated every week',
                                 '🛒 Rice, spices, Halal meat, snacks & more',
@@ -407,8 +513,12 @@ export default async function DealsPage({ params }: PageProps) {
                             </ul>
                             <div className="mt-5 pt-4 border-t border-border flex items-center gap-2 text-sm text-muted-foreground">
                                 <Truck className="w-4 h-4 text-primary flex-shrink-0" />
-                                {isSv
+                                {locale === 'sv'
                                     ? 'Gratis frakt i Stockholm på beställningar över 500 kr'
+                                    : locale === 'no'
+                                    ? 'Gratis levering i Stockholm på bestillinger over 500 SEK'
+                                    : locale === 'da'
+                                    ? 'Gratis levering i Stockholm på bestillinger over 500 SEK'
                                     : 'Free Stockholm delivery on orders over 500 SEK'}
                             </div>
                         </div>
@@ -453,11 +563,15 @@ export default async function DealsPage({ params }: PageProps) {
             <section className="border-t bg-muted/20 py-12">
                 <div className="container mx-auto px-4 max-w-3xl">
                     <h2 className="font-heading font-bold mb-2 text-foreground" style={{ fontSize: '25px' }}>
-                        {isSv ? 'Vanliga frågor om våra erbjudanden' : 'Deals FAQ'}
+                        {locale === 'sv' ? 'Vanliga frågor om våra erbjudanden' : locale === 'no' ? 'Vanlige spørsmål om våre tilbud' : locale === 'da' ? 'Ofte stillede spørgsmål om vores tilbud' : 'Deals FAQ'}
                     </h2>
                     <p className="text-muted-foreground mb-8 text-sm">
-                        {isSv
+                        {locale === 'sv'
                             ? 'Allt du behöver veta om veckans deals, leverans och priser.'
+                            : locale === 'no'
+                            ? 'Alt du trenger å vite om ukens tilbud, levering og priser.'
+                            : locale === 'da'
+                            ? 'Alt hvad du behøver at vide om ugens tilbud, levering og priser.'
                             : 'Everything you need to know about our weekly deals, delivery, and pricing.'}
                     </p>
                     <div className="divide-y divide-border">

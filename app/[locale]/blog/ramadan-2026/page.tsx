@@ -25,9 +25,8 @@ const PUBLISH_DATE = '2026-02-12';
 
 function getContent(locale: string) {
     const isSv = locale === 'sv';
-    const articleUrl = isSv
-        ? `${siteConfig.site_domain}/sv/blog/ramadan-2026`
-        : `${siteConfig.site_domain}/blog/ramadan-2026`;
+    const localePrefix = locale !== 'en' ? `/${locale}` : '';
+    const articleUrl = `${siteConfig.site_domain}${localePrefix}/blog/ramadan-2026`;
 
     return {
         articleUrl,
@@ -36,9 +35,17 @@ function getContent(locale: string) {
         // Metadata
         metaTitle: isSv
             ? 'Din Kompletta Ramadan Matlista för Stockholm | Ideal Indiska'
+            : locale === 'no'
+            ? 'Din Komplette Ramadan Dagligvareliste for Stockholm | Ideal Indiska'
+            : locale === 'da'
+            ? 'Din Komplette Ramadan Indkøbsliste til Stockholm | Ideal Indiska'
             : 'Your Essential Ramadan Grocery Checklist for Stockholm | Ideal Indiska',
         metaDescription: isSv
             ? 'Förbered dig inför Ramadan i Stockholm! Vår kompletta matlista hjälper dig hitta dadlar, Rooh Afza, atta, ris, frysta samosas och kebab på Mega Savings hos Ideal Indiska.'
+            : locale === 'no'
+            ? 'Forbered deg til Ramadan i Stockholm! Vår komplette dagligvareliste hjelper deg finne dadler, Rooh Afza, atta, ris, frosne samosas og kebab hos Ideal Indiska.'
+            : locale === 'da'
+            ? 'Forbered dig til Ramadan i Stockholm! Vores komplette indkøbsliste hjælper dig med at finde dadler, Rooh Afza, atta, ris, frosne samosas og kebab hos Ideal Indiska.'
             : 'Getting ready for Ramadan in Stockholm? Our essential grocery checklist has you covered! Find dates, Rooh Afza, atta, rice, frozen samosas & kebabs on mega savings at Ideal Indiska.',
 
         // Hero
@@ -263,14 +270,19 @@ export async function generateMetadata({
     const { locale } = await params;
     const c = getContent(locale);
 
+    const canonicalPath = locale !== 'en' ? `/${locale}/blog/ramadan-2026` : '/blog/ramadan-2026';
+    const ogLocale = locale === 'sv' ? 'sv_SE' : locale === 'no' ? 'nb_NO' : locale === 'da' ? 'da_DK' : 'en_SE';
+
     return {
         title: c.metaTitle,
         description: c.metaDescription,
         alternates: {
-            canonical: locale === 'sv' ? '/sv/blog/ramadan-2026' : '/blog/ramadan-2026',
+            canonical: canonicalPath,
             languages: {
                 en: '/blog/ramadan-2026',
                 sv: '/sv/blog/ramadan-2026',
+                nb: '/no/blog/ramadan-2026',
+                da: '/da/blog/ramadan-2026',
             },
         },
         openGraph: {
@@ -278,7 +290,7 @@ export async function generateMetadata({
             description: c.metaDescription,
             images: [{ url: FEATURE_IMAGE, width: 1200, height: 630, alt: 'Ramadan 2026 – Ideal Indiska Livs' }],
             type: 'article',
-            locale: locale === 'sv' ? 'sv_SE' : 'en_SE',
+            locale: ogLocale,
         },
     };
 }
@@ -319,7 +331,7 @@ export default async function RamadanBlogPost({
         featuredImage: FEATURE_IMAGE,
     });
 
-    const shareText = c.isSv ? 'Kolla in den här Ramadan-guiden: ' : 'Check this Ramadan guide: ';
+    const shareText = locale === 'sv' ? 'Kolla in den här Ramadan-guiden: ' : locale === 'no' ? 'Se denne Ramadan-guiden: ' : locale === 'da' ? 'Se denne Ramadan-guide: ' : 'Check this Ramadan guide: ';
 
     return (
         <div className="min-h-screen bg-background">

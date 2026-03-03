@@ -30,6 +30,22 @@ const deliveryFaqsSv = [
     { q: 'Vilka betalningsmetoder accepterar ni för onlinebeställningar?', a: 'Vi accepterar Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay samt kontant betalning vid lokal Stockholmsleverans.' },
 ];
 
+const deliveryFaqsNo = [
+    { q: 'Er levering gratis i Stockholm?', a: 'Ja. Bestillinger på 500 SEK eller mer får gratis hjemlevering overalt i Stockholm. Bestillinger mellom 300–499 SEK har en fast avgift på 30 SEK. Minimumsbestilling er 300 SEK.' },
+    { q: 'Hvor rask er samme-dag levering?', a: 'Samme-dag levering er tilgjengelig til Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna og Sundbyberg. Legg inn bestillingen din før kl. 16:00 for levering samme dag.' },
+    { q: 'Leverer dere utenfor Stockholm?', a: 'Ja. Vi leverer til hele Sverige og Europa via DHL. Ingen tollgebyrer innen EU. Priser beregnes ved kassen basert på din plassering og bestillingens vekt.' },
+    { q: 'Kan jeg hente bestillingen min i butikken?', a: 'Ja. Gratis henting i butikk er tilgjengelig på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Velg «Hent i butikk» ved kassen, så forbereder vi bestillingen din.' },
+    { q: 'Hvilke betalingsmetoder aksepterer dere for nettbestillinger?', a: 'Vi aksepterer Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay og kontant betaling for lokale Stockholm-leveranser.' },
+];
+
+const deliveryFaqsDa = [
+    { q: 'Er levering gratis i Stockholm?', a: 'Ja. Bestillinger på 500 SEK eller mere får gratis hjemmelevering i hele Stockholm. Bestillinger mellem 300–499 SEK har et fast gebyr på 30 SEK. Minimumsbestilling er 300 SEK.' },
+    { q: 'Hvor hurtig er samme-dag levering?', a: 'Samme-dag levering er tilgængeligt til Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna og Sundbyberg. Afgiv din bestilling inden kl. 16:00 for levering samme dag.' },
+    { q: 'Leverer I uden for Stockholm?', a: 'Ja. Vi leverer til hele Sverige og Europa via DHL. Ingen toldsatser inden for EU. Priser beregnes ved kassen baseret på din placering og bestillingens vægt.' },
+    { q: 'Kan jeg hente min bestilling i butikken?', a: 'Ja. Gratis afhentning i butik er tilgængeligt på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Vælg «Afhent i butik» ved kassen, så forbereder vi din bestilling.' },
+    { q: 'Hvilke betalingsmetoder accepterer I for onlinebestillinger?', a: 'Vi accepterer Visa, Mastercard, Klarna, Swish, Apple Pay, Google Pay samt kontant betaling ved lokale Stockholm-leveringer.' },
+];
+
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
@@ -42,6 +58,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: svMeta.title,
       description: svMeta.description,
+      alternates: getAlternates('/delivery-information'),
+    };
+  }
+
+  if (locale === 'no') {
+    return {
+      title: "Gratis Dagligvarelevering Stockholm & Hele Sverige | Ideal Indiska Livs",
+      description: "Autentiske indiske og pakistanske dagligvarer med RASK levering. Gratis i Stockholm på bestillinger over 500 SEK. Samme-dag kveldlevering i Bandhagen og sørlige forsteder.",
+      alternates: getAlternates('/delivery-information'),
+    };
+  }
+
+  if (locale === 'da') {
+    return {
+      title: "Gratis Dagligvarelevering Stockholm & Hele Sverige | Ideal Indiska Livs",
+      description: "Autentiske indiske og pakistanske dagligvarer med HURTIG levering. Gratis i Stockholm på bestillinger over 500 SEK. Samme-dag aftenlevering i Bandhagen og sydlige forstæder.",
       alternates: getAlternates('/delivery-information'),
     };
   }
@@ -201,10 +233,10 @@ export default async function DeliveryInformationPage({ params }: PageProps) {
                             {/* FAQ Section — visible Q&A required for FAQPage rich results */}
                             <section className="space-y-4">
                                 <h2 style={{ fontSize: '25px', fontWeight: 600 }}>
-                                    {locale === 'sv' ? 'Vanliga frågor om leverans' : 'Delivery FAQ'}
+                                    {locale === 'sv' ? 'Vanliga frågor om leverans' : locale === 'no' ? 'Vanlige spørsmål om levering' : locale === 'da' ? 'Ofte stillede spørgsmål om levering' : 'Delivery FAQ'}
                                 </h2>
                                 <div className="divide-y divide-border">
-                                    {(locale === 'sv' ? deliveryFaqsSv : deliveryFaqsEn).map((item, i) => (
+                                    {(locale === 'sv' ? deliveryFaqsSv : locale === 'no' ? deliveryFaqsNo : locale === 'da' ? deliveryFaqsDa : deliveryFaqsEn).map((item, i) => (
                                         <details key={i} className="group py-4">
                                             <summary className="flex items-center justify-between cursor-pointer list-none gap-4">
                                                 <span className="font-medium text-foreground" style={{ fontSize: '15.13px' }}>

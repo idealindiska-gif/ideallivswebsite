@@ -74,16 +74,77 @@ const svFaqs = [
     },
 ];
 
+const noFaqs = [
+    {
+        question: "Hvor kan jeg kjøpe indiske og pakistanske matvarer i Stockholm?",
+        answer: "Ideal Indiska LIVS er Stockholms spesialbutikk for indiske og pakistanske dagligvarer, med adresse Bandhagsplan 4 i Bandhagen. Vi har over 1 500 autentiske produkter — premium Basmatiris, krydder, halaltkjøtt, frosne snacks og ferske varer — tilgjengelig online med rask levering.",
+    },
+    {
+        question: "Tilbyr dere gratis levering i Stockholm?",
+        answer: "Ja. Bestillinger på 500 SEK eller mer får gratis hjemlevering overalt i Stockholm. Bestillinger mellom 300–499 SEK har en fast avgift på 30 SEK. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgjengelig til nærliggende områder (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for bestillinger lagt inn før kl. 16:00.",
+    },
+    {
+        question: "Leverer dere indiske matvarer utenfor Stockholm og Sverige?",
+        answer: "Ja. Vi sender til hele Sverige og Europa via DHL. Ingen minimumsbestillingsverdi for DHL-levering — priser beregnes ved kassen basert på din plassering og bestillingens vekt. Ingen tollgebyrer innen EU siden vi sender fra Sverige.",
+    },
+    {
+        question: "Er produktene deres Halal-sertifiserte?",
+        answer: "Ja. Vi har et eget sortiment av 100% Halal-sertifisert kjøtt, fjærfe og pakkede matprodukter. Alle Halal-produkter er tydelig merket i nettbutikken og i vår Bandhagen-butikk.",
+    },
+    {
+        question: "Hvilke indiske og pakistanske merker selger dere?",
+        answer: "Vi har over 150 pålitelige merker inkludert India Gate, Guard, Shan, National Foods, Haldiram's, Ashoka, Ahmed Foods, Rooh Afza, MDH, TRS og mange fler. Sortimentet dekker krydder, ris, mel, linser, pickles, fryst mat, snacks og drikke.",
+    },
+    {
+        question: "Hva er åpningstidene deres?",
+        answer: "Vår Bandhagen-butikk har åpent mandag–fredag 10:00–20:00 og lørdag–søndag 11:00–19:00. Du kan også handle på nett 24/7 på ideallivs.com.",
+    },
+];
+
+const daFaqs = [
+    {
+        question: "Hvor kan jeg købe indiske og pakistanske dagligvarer i Stockholm?",
+        answer: "Ideal Indiska LIVS er Stockholms specialforretning for indiske og pakistanske dagligvarer, beliggende på Bandhagsplan 4 i Bandhagen. Vi har over 1.500 autentiske produkter — premium Basmatiris, krydderier, halaltkød, frosne snacks og friske varer — tilgængeligt online med hurtig levering.",
+    },
+    {
+        question: "Tilbyder I gratis levering i Stockholm?",
+        answer: "Ja. Bestillinger på 500 SEK eller mere får gratis hjemmelevering i hele Stockholm. Bestillinger mellem 300–499 SEK har et fast gebyr på 30 SEK. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgængeligt til nærliggende områder (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for bestillinger afgivet inden kl. 16:00.",
+    },
+    {
+        question: "Leverer I indiske dagligvarer uden for Stockholm og Sverige?",
+        answer: "Ja. Vi sender til hele Sverige og Europa via DHL. Der er ingen minimumsbestillingsværdi for DHL-levering — priser beregnes ved kassen baseret på din placering og bestillingens vægt. Ingen toldsatser inden for EU, da vi sender fra Sverige.",
+    },
+    {
+        question: "Er jeres produkter Halal-certificerede?",
+        answer: "Ja. Vi fører et dedikeret udvalg af 100% Halal-certificeret kød, fjerkræ og pakkede fødevarer. Alle Halal-produkter er tydeligt mærket i vores netbutik og i vores Bandhagen-butik.",
+    },
+    {
+        question: "Hvilke indiske og pakistanske mærker fører I?",
+        answer: "Vi fører over 150 betroede mærker, herunder India Gate, Guard, Shan, National Foods, Haldiram's, Ashoka, Ahmed Foods, Rooh Afza, MDH, TRS og mange flere. Sortimentet dækker krydderier, ris, mel, linser, pickles, frossen mad, snacks og drikkevarer.",
+    },
+    {
+        question: "Hvad er jeres åbningstider?",
+        answer: "Vores Bandhagen-butik har åbent mandag–fredag 10:00–20:00 og lørdag–søndag 11:00–19:00. Du kan også handle online 24/7 på ideallivs.com.",
+    },
+];
+
 // ─── HomeFAQ component ─────────────────────────────────────────────────────────
 
 function HomeFAQ({ locale }: { locale: string }) {
-    const isSv = locale === 'sv';
-    const faqs = isSv ? svFaqs : enFaqs;
-    const heading = isSv
+    const faqs = locale === 'sv' ? svFaqs : locale === 'no' ? noFaqs : locale === 'da' ? daFaqs : enFaqs;
+    const heading = locale === 'sv'
         ? 'Vanliga frågor om Ideal Indiska LIVS'
+        : locale === 'no'
+        ? 'Vanlige spørsmål om Ideal Indiska LIVS'
+        : locale === 'da'
+        ? 'Ofte stillede spørgsmål om Ideal Indiska LIVS'
         : 'Frequently Asked Questions';
-    const subheading = isSv
+    const subheading = locale === 'sv'
         ? 'Allt du behöver veta om vår butik, leverans och sortiment.'
+        : locale === 'no'
+        ? 'Alt du trenger å vite om vår butikk, levering og sortiment.'
+        : locale === 'da'
+        ? 'Alt hvad du behøver at vide om vores butik, levering og sortiment.'
         : 'Everything you need to know about our store, delivery, and products.';
 
     return (
@@ -131,6 +192,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
                 languages: {
                     'en': 'https://www.ideallivs.com',
                     'sv': 'https://www.ideallivs.com/sv',
+                    'nb': 'https://www.ideallivs.com/no',
+                    'da': 'https://www.ideallivs.com/da',
                 },
             },
             openGraph: {
@@ -139,6 +202,54 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
                 url: "https://www.ideallivs.com/sv",
                 siteName: "Ideal Indiska LIVS",
                 locale: "sv_SE",
+                type: "website",
+            },
+        };
+    }
+
+    if (locale === 'no') {
+        return {
+            title: "Indiske & Pakistanske Dagligvarer Stockholm | Ideal Indiska LIVS",
+            description: "Stockholms beste indiske & pakistanske dagligvarebutikk. Handle premium Basmatiris, krydder, halaltkjøtt & ferske varer. Rask levering i hele Europa.",
+            alternates: {
+                canonical: "https://www.ideallivs.com/no",
+                languages: {
+                    'en': 'https://www.ideallivs.com',
+                    'sv': 'https://www.ideallivs.com/sv',
+                    'nb': 'https://www.ideallivs.com/no',
+                    'da': 'https://www.ideallivs.com/da',
+                },
+            },
+            openGraph: {
+                title: "Ideal Indiska LIVS - Indiske & Pakistanske Dagligvarer i Stockholm",
+                description: "Din pålitelige kilde for autentiske indiske og pakistanske dagligvarer i Stockholm. Ferske varer, aromatiske krydder, premium Basmatiris og halaltkjøtt levert til din dør.",
+                url: "https://www.ideallivs.com/no",
+                siteName: "Ideal Indiska LIVS",
+                locale: "nb_NO",
+                type: "website",
+            },
+        };
+    }
+
+    if (locale === 'da') {
+        return {
+            title: "Indiske & Pakistanske Dagligvarer Stockholm | Ideal Indiska LIVS",
+            description: "Stockholms bedste indiske & pakistanske dagligvarebutik. Shop premium Basmatiris, krydderier, halaltkød & friske varer. Hurtig levering i hele Europa.",
+            alternates: {
+                canonical: "https://www.ideallivs.com/da",
+                languages: {
+                    'en': 'https://www.ideallivs.com',
+                    'sv': 'https://www.ideallivs.com/sv',
+                    'nb': 'https://www.ideallivs.com/no',
+                    'da': 'https://www.ideallivs.com/da',
+                },
+            },
+            openGraph: {
+                title: "Ideal Indiska LIVS - Indiske & Pakistanske Dagligvarer i Stockholm",
+                description: "Din pålidelige kilde til autentiske indiske og pakistanske dagligvarer i Stockholm. Friske varer, aromatiske krydderier, premium Basmatiris og halaltkød leveret til din dør.",
+                url: "https://www.ideallivs.com/da",
+                siteName: "Ideal Indiska LIVS",
+                locale: "da_DK",
                 type: "website",
             },
         };
@@ -153,6 +264,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             languages: {
                 'en': 'https://www.ideallivs.com',
                 'sv': 'https://www.ideallivs.com/sv',
+                'nb': 'https://www.ideallivs.com/no',
+                'da': 'https://www.ideallivs.com/da',
             },
         },
     };
@@ -195,8 +308,8 @@ export default async function LocaleHomePage({ params }: PageProps) {
     const freshProduceProducts = freshProduceRes?.data || [];
 
     // Locale-aware links
-    const linkPrefix = locale === 'sv' ? '/sv' : '';
-    const pageUrl = locale === 'sv' ? `${BASE_URL}/sv` : BASE_URL;
+    const linkPrefix = locale !== 'en' ? `/${locale}` : '';
+    const pageUrl = locale !== 'en' ? `${BASE_URL}/${locale}` : BASE_URL;
 
     return (
         <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
@@ -261,7 +374,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
                 id="homepage-faq-schema"
                 schema={faqSchema({
                     pageUrl: pageUrl,
-                    faqs: locale === 'sv' ? svFaqs : enFaqs,
+                    faqs: locale === 'sv' ? svFaqs : locale === 'no' ? noFaqs : locale === 'da' ? daFaqs : enFaqs,
                 })}
             />
 
@@ -269,13 +382,17 @@ export default async function LocaleHomePage({ params }: PageProps) {
             <SchemaScript
                 id="homepage-webpage-schema"
                 schema={webpageSchema({
-                    name: locale === 'sv' ? "Ideal Indiska LIVS - Hem" : "Ideal Indiska LIVS - Home",
+                    name: locale === 'sv' ? "Ideal Indiska LIVS - Hem" : locale === 'no' ? "Ideal Indiska LIVS - Hjem" : locale === 'da' ? "Ideal Indiska LIVS - Hjem" : "Ideal Indiska LIVS - Home",
                     url: pageUrl,
                     description: locale === 'sv'
                         ? "Stockholms bästa indiska & pakistanska livsmedelsbutik."
+                        : locale === 'no'
+                        ? "Stockholms beste indiske og pakistanske dagligvarebutikk."
+                        : locale === 'da'
+                        ? "Stockholms bedste indiske og pakistanske dagligvarebutik."
                         : "Stockholm's best Indian & Pakistani grocery store.",
                     websiteId: `${BASE_URL}/#website`,
-                    language: locale === 'sv' ? "sv-SE" : "en",
+                    language: locale === 'sv' ? "sv-SE" : locale === 'no' ? "nb-NO" : locale === 'da' ? "da-DK" : "en",
                 })}
             />
 
@@ -283,9 +400,13 @@ export default async function LocaleHomePage({ params }: PageProps) {
             <SchemaScript
                 id="homepage-categories-schema"
                 schema={enhancedItemListSchema({
-                    name: locale === 'sv' ? "Populära produktkategorier" : "Popular Product Categories",
+                    name: locale === 'sv' ? "Populära produktkategorier" : locale === 'no' ? "Populære produktkategorier" : locale === 'da' ? "Populære produktkategorier" : "Popular Product Categories",
                     description: locale === 'sv'
                         ? "Utforska våra mest populära kategorier"
+                        : locale === 'no'
+                        ? "Utforsk våre mest populære kategorier"
+                        : locale === 'da'
+                        ? "Udforsk vores mest populære kategorier"
                         : "Browse our most popular grocery categories",
                     url: pageUrl,
                     items: categories.slice(0, 6).map(c => ({

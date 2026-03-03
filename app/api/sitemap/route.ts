@@ -26,8 +26,10 @@ export async function GET() {
     sitemaps.push(`${baseUrl}/sitemap-products-${i}.xml`);
   }
 
-  // Swedish sitemap index (contains all /sv/ URLs)
+  // Locale sitemap indexes
   sitemaps.push(`${baseUrl}/sv/sitemap.xml`);
+  sitemaps.push(`${baseUrl}/no/sitemap.xml`);
+  sitemaps.push(`${baseUrl}/da/sitemap.xml`);
 
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -30,7 +30,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
       } else {
         // Last resort: detect from URL path
         const url = headersList.get('x-next-url') || headersList.get('x-invoke-path') || '';
-        if (url.startsWith('/sv')) {
+        if (url.startsWith('/no')) {
+          locale = 'no';
+        } else if (url.startsWith('/da')) {
+          locale = 'da';
+        } else if (url.startsWith('/sv')) {
           locale = 'sv';
         }
       }

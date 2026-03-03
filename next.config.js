@@ -132,6 +132,66 @@ const nextConfig = {
                 source: '/sv/sitemap-posts.xml',
                 destination: '/api/sitemap/sv-posts',
             },
+            // Norwegian sitemap index
+            {
+                source: '/no/sitemap.xml',
+                destination: '/api/sitemap/no',
+            },
+            // Norwegian sub-sitemaps
+            {
+                source: '/no/sitemap-pages.xml',
+                destination: '/api/sitemap/no-pages',
+            },
+            {
+                source: '/no/sitemap-products-:page.xml',
+                destination: '/api/sitemap/no-products/:page',
+            },
+            {
+                source: '/no/sitemap-delivery.xml',
+                destination: '/api/sitemap/no-delivery',
+            },
+            {
+                source: '/no/sitemap-product-categories.xml',
+                destination: '/api/sitemap/no-product-categories',
+            },
+            {
+                source: '/no/sitemap-product-brands.xml',
+                destination: '/api/sitemap/no-product-brands',
+            },
+            {
+                source: '/no/sitemap-posts.xml',
+                destination: '/api/sitemap/no-posts',
+            },
+            // Danish sitemap index
+            {
+                source: '/da/sitemap.xml',
+                destination: '/api/sitemap/da',
+            },
+            // Danish sub-sitemaps
+            {
+                source: '/da/sitemap-pages.xml',
+                destination: '/api/sitemap/da-pages',
+            },
+            {
+                source: '/da/sitemap-products-:page.xml',
+                destination: '/api/sitemap/da-products/:page',
+            },
+            {
+                source: '/da/sitemap-delivery.xml',
+                destination: '/api/sitemap/da-delivery',
+            },
+            {
+                source: '/da/sitemap-product-categories.xml',
+                destination: '/api/sitemap/da-product-categories',
+            },
+            {
+                source: '/da/sitemap-product-brands.xml',
+                destination: '/api/sitemap/da-product-brands',
+            },
+            {
+                source: '/da/sitemap-posts.xml',
+                destination: '/api/sitemap/da-posts',
+            },
         ];
     },
 };

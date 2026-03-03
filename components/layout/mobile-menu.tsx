@@ -32,6 +32,7 @@ import {
 } from '@/components/ui/sheet';
 import { getStoreStatus, type StoreStatus } from '@/lib/store-hours';
 import { MobileBrandLinks } from '@/components/layout/brands-dropdown';
+import { LanguageSwitcher } from '@/components/layout/language-switcher';
 
 export function MobileMenu() {
     const nav = useTranslations('navigation');
@@ -135,6 +136,12 @@ export function MobileMenu() {
                         );
                     })}
                 </nav>
+
+                {/* Language Switcher */}
+                <div className="border-t border-border/20 px-4 py-3 flex items-center justify-between">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Language</p>
+                    <LanguageSwitcher variant="compact" />
+                </div>
 
                 {/* Popular Brands Grid */}
                 <div className="border-t border-border/20">

@@ -13,6 +13,8 @@ interface LanguageSwitcherProps {
 const languages = [
     { code: 'en', name: 'English', flag: '🇬🇧', shortName: 'EN' },
     { code: 'sv', name: 'Svenska', flag: '🇸🇪', shortName: 'SV' },
+    { code: 'no', name: 'Norsk', flag: '🇳🇴', shortName: 'NO' },
+    { code: 'da', name: 'Dansk', flag: '🇩🇰', shortName: 'DA' },
 ];
 
 export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwitcherProps) {
@@ -22,7 +24,10 @@ export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwi
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     // Determine current locale from pathname
-    const currentLocale = pathname.startsWith('/sv') ? 'sv' : 'en';
+    const currentLocale =
+        pathname.startsWith('/no') ? 'no' :
+        pathname.startsWith('/da') ? 'da' :
+        pathname.startsWith('/sv') ? 'sv' : 'en';
     const currentLanguage = languages.find(l => l.code === currentLocale) || languages[0];
 
     // Close dropdown when clicking outside
@@ -37,18 +42,17 @@ export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwi
     }, []);
 
     const switchLanguage = (langCode: string) => {
-        let newPath = pathname;
+        // Strip any existing locale prefix to get the bare path
+        const barePath = pathname
+            .replace(/^\/sv(\/|$)/, '/')
+            .replace(/^\/no(\/|$)/, '/')
+            .replace(/^\/da(\/|$)/, '/') || '/';
 
-        if (langCode === 'sv') {
-            // Switch to Swedish
-            if (!pathname.startsWith('/sv')) {
-                newPath = `/sv${pathname === '/' ? '' : pathname}`;
-            }
+        let newPath: string;
+        if (langCode === 'en') {
+            newPath = barePath;
         } else {
-            // Switch to English (remove /sv prefix)
-            if (pathname.startsWith('/sv')) {
-                newPath = pathname.replace(/^\/sv/, '') || '/';
-            }
+            newPath = `/${langCode}${barePath === '/' ? '' : barePath}`;
         }
 
         // Set cookie for language preference

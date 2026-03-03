@@ -8,7 +8,10 @@ interface GeoMetaTagsProps {
 }
 
 export function GeoMetaTags({ locale = 'en' }: GeoMetaTagsProps) {
-  const contentLanguage = locale === 'sv' ? 'sv-SE' : 'en-GB';
+  const contentLanguage =
+    locale === 'sv' ? 'sv-SE' :
+    locale === 'no' ? 'nb-NO' :
+    locale === 'da' ? 'da-DK' : 'en-GB';
 
   return (
     <>
