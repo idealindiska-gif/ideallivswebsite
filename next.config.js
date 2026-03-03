@@ -62,7 +62,11 @@ const nextConfig = {
         ],
     },
     async rewrites() {
-        return [
+        // NOTE: All sitemap rewrites must be in `beforeFiles` so they are
+        // processed BEFORE the Next.js App Router tries to match locale-prefixed
+        // paths (e.g. /no/sitemap-pages.xml) as [locale] dynamic routes, which
+        // would result in a 404 before afterFiles rewrites ever run.
+        const sitemapRewrites = [
             // Main sitemap index
             {
                 source: '/sitemap.xml',
@@ -193,6 +197,8 @@ const nextConfig = {
                 destination: '/api/sitemap/da-posts',
             },
         ];
+
+        return { beforeFiles: sitemapRewrites };
     },
 };
 
