@@ -15,7 +15,7 @@ export const revalidate = 86400;
 // ─── Delivery FAQ data ─────────────────────────────────────────────────────────
 
 const deliveryFaqsEn = [
-    { q: 'Is delivery free in Stockholm?', a: 'Yes. Orders of 500 SEK or more get free home delivery anywhere in Stockholm. Orders between 300–499 SEK have a flat 30 SEK delivery fee. The minimum order is 300 SEK.' },
+    { q: 'How does delivery work in Stockholm?', a: 'We offer local delivery across all of Stockholm. A delivery fee applies to all orders. The minimum order is 300 SEK. Visit our Delivery Information page for current pricing details.' },
     { q: 'How fast is same-day delivery?', a: 'Same-day delivery is available to Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna, and Sundbyberg. Place your order before 4 PM (16:00) for same-day delivery.' },
     { q: 'Do you deliver outside Stockholm?', a: 'Yes. We deliver to all of Sweden and across Europe via DHL. No customs duties apply within the EU. Rates are calculated at checkout based on your location and order weight.' },
     { q: 'Can I pick up my order from the store?', a: 'Yes. Free in-store pickup is available at Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Select "Store Pickup" at checkout and we will prepare your order.' },
@@ -23,7 +23,7 @@ const deliveryFaqsEn = [
 ];
 
 const deliveryFaqsSv = [
-    { q: 'Är leveransen gratis i Stockholm?', a: 'Ja. Beställningar på 500 kr eller mer får gratis hemleverans inom hela Stockholm. Beställningar på 300–499 kr kostar 30 kr. Minimibeställning är 300 kr.' },
+    { q: 'Hur fungerar leveransen i Stockholm?', a: 'Vi erbjuder lokalleverans i hela Stockholm. Leveransavgift tillkommer på alla beställningar. Minimibeställning är 300 kr. Besök vår leveransinformationssida för aktuell prisinformation.' },
     { q: 'Hur snabb är samma-dagleveransen?', a: 'Samma-dagleverans finns till Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna och Sundbyberg. Lägg din beställning före kl. 16:00 för leverans samma dag.' },
     { q: 'Levererar ni utanför Stockholm?', a: 'Ja. Vi levererar till hela Sverige och Europa via DHL. Inga tullavgifter inom EU. Priset beräknas i kassan baserat på din plats och beställningens vikt.' },
     { q: 'Kan jag hämta min beställning i butiken?', a: 'Ja. Gratis upphämtning i butik finns på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Välj "Hämta i butik" i kassan så förbereder vi din beställning.' },
@@ -31,7 +31,7 @@ const deliveryFaqsSv = [
 ];
 
 const deliveryFaqsNo = [
-    { q: 'Er levering gratis i Stockholm?', a: 'Ja. Bestillinger på 500 SEK eller mer får gratis hjemlevering overalt i Stockholm. Bestillinger mellom 300–499 SEK har en fast avgift på 30 SEK. Minimumsbestilling er 300 SEK.' },
+    { q: 'Hvordan fungerer levering i Stockholm?', a: 'Vi tilbyr lokal levering i hele Stockholm. En leveringsavgift gjelder for alle bestillinger. Minimumsbestilling er 300 SEK. Besøk vår leveringsinformasjonsside for gjeldende priser.' },
     { q: 'Hvor rask er samme-dag levering?', a: 'Samme-dag levering er tilgjengelig til Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna og Sundbyberg. Legg inn bestillingen din før kl. 16:00 for levering samme dag.' },
     { q: 'Leverer dere utenfor Stockholm?', a: 'Ja. Vi leverer til hele Sverige og Europa via DHL. Ingen tollgebyrer innen EU. Priser beregnes ved kassen basert på din plassering og bestillingens vekt.' },
     { q: 'Kan jeg hente bestillingen min i butikken?', a: 'Ja. Gratis henting i butikk er tilgjengelig på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Velg «Hent i butikk» ved kassen, så forbereder vi bestillingen din.' },
@@ -39,7 +39,7 @@ const deliveryFaqsNo = [
 ];
 
 const deliveryFaqsDa = [
-    { q: 'Er levering gratis i Stockholm?', a: 'Ja. Bestillinger på 500 SEK eller mere får gratis hjemmelevering i hele Stockholm. Bestillinger mellem 300–499 SEK har et fast gebyr på 30 SEK. Minimumsbestilling er 300 SEK.' },
+    { q: 'Hvordan fungerer levering i Stockholm?', a: 'Vi tilbyder lokal levering i hele Stockholm. Et leveringsgebyr gælder for alle bestillinger. Minimumsbestilling er 300 SEK. Besøg vores leveringsinformationsside for aktuelle priser.' },
     { q: 'Hvor hurtig er samme-dag levering?', a: 'Samme-dag levering er tilgængeligt til Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna og Sundbyberg. Afgiv din bestilling inden kl. 16:00 for levering samme dag.' },
     { q: 'Leverer I uden for Stockholm?', a: 'Ja. Vi leverer til hele Sverige og Europa via DHL. Ingen toldsatser inden for EU. Priser beregnes ved kassen baseret på din placering og bestillingens vægt.' },
     { q: 'Kan jeg hente min bestilling i butikken?', a: 'Ja. Gratis afhentning i butik er tilgængeligt på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Vælg «Afhent i butik» ved kassen, så forbereder vi din bestilling.' },
@@ -64,23 +64,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (locale === 'no') {
     return {
-      title: "Gratis Dagligvarelevering Stockholm & Hele Sverige | Ideal Indiska Livs",
-      description: "Autentiske indiske og pakistanske dagligvarer med RASK levering. Gratis i Stockholm på bestillinger over 500 SEK. Samme-dag kveldlevering i Bandhagen og sørlige forsteder.",
+      title: "Dagligvarelevering Stockholm & Hele Sverige | Ideal Indiska Livs",
+      description: "Autentiske indiske og pakistanske dagligvarer med rask lokal levering i Stockholm. Samme-dag kveldlevering i Bandhagen og sørlige forsteder.",
       alternates: getAlternates('/delivery-information'),
     };
   }
 
   if (locale === 'da') {
     return {
-      title: "Gratis Dagligvarelevering Stockholm & Hele Sverige | Ideal Indiska Livs",
-      description: "Autentiske indiske og pakistanske dagligvarer med HURTIG levering. Gratis i Stockholm på bestillinger over 500 SEK. Samme-dag aftenlevering i Bandhagen og sydlige forstæder.",
+      title: "Dagligvarelevering Stockholm & Hele Sverige | Ideal Indiska Livs",
+      description: "Autentiske indiske og pakistanske dagligvarer med hurtig lokal levering i Stockholm. Samme-dag aftenlevering i Bandhagen og sydlige forstæder.",
       alternates: getAlternates('/delivery-information'),
     };
   }
 
   return {
-    title: "Free Grocery Delivery Stockholm & All Sweden | Ideal Indiska Livs",
-    description: "Authentic Indian & Pakistani groceries with FAST delivery. Free in Stockholm on orders over 500 SEK. Same-day evening delivery in Bandhagen & southern suburbs.",
+    title: "Grocery Delivery Stockholm & All Sweden | Ideal Indiska Livs",
+    description: "Authentic Indian & Pakistani groceries with fast local delivery across Stockholm. Same-day evening delivery in Bandhagen & southern suburbs.",
     alternates: getAlternates('/delivery-information'),
   };
 }

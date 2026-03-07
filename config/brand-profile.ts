@@ -158,7 +158,7 @@ export const brandProfile = {
 
     // Services & Features
     features: [
-        "Free delivery in Stockholm on orders over 500 SEK",
+        "Local delivery available across Stockholm",
         "Same-day evening delivery in Bandhagen area",
         "Fresh produce sourced directly",
         "Halal certified products",

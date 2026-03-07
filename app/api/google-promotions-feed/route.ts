@@ -64,16 +64,6 @@ export async function GET() {
             xml += `      <g:product_applicability>SPECIFIC_PRODUCTS</g:product_applicability>\n`;
             xml += `    </item>\n`;
 
-            // 2. Free Delivery Promotion (Store wide)
-            xml += `    <item>\n`;
-            xml += `      <g:promotion_id>FREE_DELIVERY_500</g:promotion_id>\n`;
-            xml += `      <g:long_title>${cdata('Free Delivery in Stockholm on orders over 500 SEK')}</g:long_title>\n`;
-            xml += `      <g:promotion_display_path>Free Shipping</g:promotion_display_path>\n`;
-            xml += `      <g:redemption_channel>ONLINE</g:redemption_channel>\n`;
-            xml += `      <g:offer_type>NO_CODE</g:offer_type>\n`;
-            xml += `      <g:promotion_effective_dates>${effectiveDates}</g:promotion_effective_dates>\n`;
-            xml += `      <g:product_applicability>ALL_PRODUCTS</g:product_applicability>\n`;
-            xml += `    </item>\n`;
         }
 
         xml += `  </channel>\n`;

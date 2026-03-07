@@ -63,8 +63,8 @@ const dealsFaqs = [
         a: 'Our weekly deals cover a wide range of Indian and Pakistani groceries including Basmati rice, atta flour, spice mixes (Shan, MDH, National Foods), lentils, Halal meat, frozen samosas and kebabs, fresh vegetables, cooking oils, and snacks.',
     },
     {
-        q: 'Do you offer free delivery on deals orders in Stockholm?',
-        a: 'Yes. Orders of 500 SEK or more get free home delivery anywhere in Stockholm. Orders between 300–499 SEK have a flat 30 SEK delivery fee. Same-day delivery is available to nearby areas for orders placed before 4 PM.',
+        q: 'Do you deliver deals orders in Stockholm?',
+        a: 'Yes. We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 SEK. Same-day delivery is available to nearby areas for orders placed before 4 PM.',
     },
     {
         q: 'Can I get deals delivered across Europe?',
@@ -273,7 +273,7 @@ export default async function DealsPage() {
                             {[
                                 '🏷️ Deals updated every week',
                                 '🛒 Rice, spices, Halal meat, snacks & more',
-                                '🚚 Free Stockholm delivery on orders over 500 SEK',
+                                '🚚 Local delivery available across Stockholm',
                                 '🌍 DHL to all of Europe — no customs fees',
                                 '📦 1,500+ authentic products in stock',
                             ].map((fact, i) => (
@@ -325,7 +325,7 @@ export default async function DealsPage() {
                             </ul>
                             <div className="mt-5 pt-4 border-t border-border flex items-center gap-2 text-sm text-muted-foreground">
                                 <Truck className="w-4 h-4 text-primary flex-shrink-0" />
-                                Free Stockholm delivery on orders over 500 SEK
+                                Local delivery available across Stockholm
                             </div>
                         </div>
                     </div>

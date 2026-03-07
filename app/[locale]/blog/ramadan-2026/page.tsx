@@ -430,7 +430,7 @@ export default async function RamadanBlogPost({
                                                 <li>🍽️ <strong>Iftarens måsten:</strong> Petra jordanska dadlar, Rooh Afza, frysta samosas och seekh kebab.</li>
                                                 <li>☀️ <strong>Suhoors bas:</strong> Elephant Atta, Basmatiris, linser och kikärtsmjöl för uthållig energi.</li>
                                                 <li>🛒 <strong>Alla varor på rea</strong> under Ramadan Mega Savings hos Ideal Indiska LIVS.</li>
-                                                <li>🚚 <strong>Gratis Stockholmsleverans</strong> på beställningar över 500 kr — samma dag tillgänglig före 16:00.</li>
+                                                <li>🚚 <strong>Lokalleverans</strong> i hela Stockholm — samma dag tillgänglig före 16:00.</li>
                                             </>
                                         ) : (
                                             <>
@@ -438,7 +438,7 @@ export default async function RamadanBlogPost({
                                                 <li>🍽️ <strong>Iftar essentials:</strong> Petra Jordanian dates, Rooh Afza, frozen samosas, and seekh kebabs.</li>
                                                 <li>☀️ <strong>Suhoor staples:</strong> Elephant Atta, Basmati rice, lentils, and gram flour for sustained energy.</li>
                                                 <li>🛒 <strong>All items on sale</strong> during Ramadan Mega Savings at Ideal Indiska LIVS.</li>
-                                                <li>🚚 <strong>Free Stockholm delivery</strong> on orders over 500 SEK — same-day available before 4 PM.</li>
+                                                <li>🚚 <strong>Local delivery</strong> across Stockholm — same-day available before 4 PM.</li>
                                             </>
                                         )}
                                     </ul>

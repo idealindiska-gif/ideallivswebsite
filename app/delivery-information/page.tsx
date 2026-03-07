@@ -8,7 +8,7 @@ import { GoogleMapCompact } from "@/components/shared/google-map";
 
 export const metadata: Metadata = {
     title: "Grocery Delivery Stockholm & Sweden | Ideal Indiska Livs",
-    description: "Get authentic Indian & Pakistani groceries with fast delivery. Free in Stockholm on orders over 500 SEK. Same-day delivery in southern suburbs.",
+    description: "Get authentic Indian & Pakistani groceries with fast local delivery across Stockholm. Same-day delivery available in southern suburbs.",
     alternates: {
         canonical: '/delivery-information',
     },
@@ -35,7 +35,7 @@ export default function DeliveryInformationPage() {
                             lineHeight: 1.52,
                             letterSpacing: '0.03em'
                         }}>
-                            From our store in Bandhagen to your door. We offer free delivery across all of Stockholm and fast shipping throughout Sweden and Europe.
+                            From our store in Bandhagen to your door. Fast local delivery across Stockholm and shipping throughout Sweden and Europe.
                         </p>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ export default function DeliveryInformationPage() {
                                     Welcome to Ideal Indiska Livs! We make it easier than ever to get your favourite authentic Indian and Pakistani groceries.
                                 </p>
                                 <p>
-                                    We are proud to offer FREE delivery across all of Stockholm on qualifying orders, as well as fast and flexible shipping options to every corner of Sweden through our trusted partner, DHL. Whether you are in Bandhagen, Södermalm, Kungsholmen, Norrmalm, Vasastan, Östermalm, Gamla Stan, or the surrounding suburbs, getting the taste of home is just a few clicks away.
+                                    We offer fast and reliable local delivery across all of Stockholm, as well as flexible shipping options to every corner of Sweden through our trusted partner, DHL. Whether you are in Bandhagen, Södermalm, Kungsholmen, Norrmalm, Vasastan, Östermalm, Gamla Stan, or the surrounding suburbs, getting the taste of home is just a few clicks away.
                                 </p>
                             </section>
 
@@ -78,8 +78,8 @@ export default function DeliveryInformationPage() {
                                         <div className="space-y-4 text-muted-foreground" style={{ fontSize: '15.13px' }}>
                                             <p>Enjoy our personalized local delivery service with great flexibility and value.</p>
                                             <ul className="list-disc pl-5 space-y-2">
-                                                <li><strong>FREE Delivery:</strong> On all orders of 500 kr or more across all of Stockholm.</li>
-                                                <li><strong>Standard Delivery:</strong> For orders between 300 kr and 499 kr, a flat delivery fee of just 30 kr applies.</li>
+                                                <li><strong>Delivery:</strong> Available for all orders across Stockholm. A delivery fee applies.</li>
+                                                <li><strong>Standard Delivery:</strong> For orders between 300 kr and 499 kr, a flat delivery fee of 30 kr applies.</li>
                                                 <li><strong>Minimum Order:</strong> The minimum order for our local delivery service is 300 kr.</li>
                                             </ul>
 

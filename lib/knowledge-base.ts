@@ -223,7 +223,7 @@ function getMenuInfo(): KnowledgeBaseResponse {
 
 function getDeliveryInfo(): KnowledgeBaseResponse {
     return {
-        answer: `**Yes, we deliver!**\n\n🚚 **Stockholm:** Free delivery on orders over 500kr\n✈️ **Europe:** Worldwide shipping via DHL\n\nOrder online through our [Shop](/shop) or call us at **${brandConfig.contact.phone}** for more details!`,
+        answer: `**Yes, we deliver!**\n\n🚚 **Stockholm:** Local delivery available (delivery fee applies)\n✈️ **Europe:** Worldwide shipping via DHL\n\nOrder online through our [Shop](/shop) or call us at **${brandConfig.contact.phone}** for more details!`,
         confidence: 'high',
         category: 'delivery'
     };
@@ -231,7 +231,7 @@ function getDeliveryInfo(): KnowledgeBaseResponse {
 
 function getPriceInfo(): KnowledgeBaseResponse {
     return {
-        answer: `We offer competitive prices on all ${brandConfig.cuisineDescription}! Prices are shown on each product page.\n\nFree delivery on Stockholm orders over **500kr**. Browse our [Shop](/shop) or contact us at **${brandConfig.contact.phone}** for bulk pricing!`,
+        answer: `We offer competitive prices on all ${brandConfig.cuisineDescription}! Prices are shown on each product page.\n\nLocal delivery available in Stockholm. Browse our [Shop](/shop) or contact us at **${brandConfig.contact.phone}** for bulk pricing!`,
         confidence: 'medium',
         category: 'pricing'
     };

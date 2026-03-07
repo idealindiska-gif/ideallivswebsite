@@ -16,7 +16,7 @@ export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://www.id
     '@type': 'Service',
     '@id': `${baseUrl}/#stockholm-delivery-service`,
     name: 'Stockholm Grocery Delivery Service',
-    description: 'Free delivery on orders over 500 SEK to all of Stockholm. Same-day delivery available to nearby areas.',
+    description: 'Local delivery to all of Stockholm. Delivery fee applies to all orders. Same-day delivery available to nearby areas.',
     provider: {
       '@type': 'Organization',
       '@id': `${baseUrl}/#organization`,
@@ -70,18 +70,6 @@ export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://www.id
       },
     ],
     offers: [
-      {
-        '@type': 'Offer',
-        name: 'FREE Stockholm Delivery',
-        description: 'Free delivery for orders 500 SEK and above',
-        price: '0',
-        priceCurrency: 'SEK',
-        eligibleTransactionVolume: {
-          '@type': 'PriceSpecification',
-          minPrice: 500,
-          priceCurrency: 'SEK',
-        },
-      },
       {
         '@type': 'Offer',
         name: 'Standard Stockholm Delivery',
@@ -345,7 +333,7 @@ export function deliveryFAQSchema(baseUrl: string = 'https://www.ideallivs.com')
         name: 'What is the minimum order for delivery in Stockholm?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The minimum order for our local delivery service in Stockholm is 300 SEK. Orders between 300-499 SEK have a flat delivery fee of 30 SEK. Orders 500 SEK and above get FREE delivery.',
+          text: 'The minimum order for our local delivery service in Stockholm is 300 SEK. A delivery fee applies to all orders. Visit our Delivery Information page for current pricing.',
         },
       },
       {

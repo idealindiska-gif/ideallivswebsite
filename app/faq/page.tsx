@@ -52,8 +52,8 @@ const faqs = [
                 a: "Absolutely! We offer our own local delivery service across all of Stockholm. We're proud to be a premier indisk mataffär offering matleverans i Stockholm. Visit our Delivery Information page for full details."
             },
             {
-                q: "Is there free delivery in Stockholm?",
-                a: "Yes! FREE local delivery on all orders of 500 kr or more anywhere in Stockholm. Orders between 300-499 kr have a flat 30 kr delivery fee."
+                q: "Do you deliver in Stockholm?",
+                a: "Yes! We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 kr. Visit our Delivery Information page for current pricing details."
             },
             {
                 q: "Do you deliver to the rest of Sweden?",

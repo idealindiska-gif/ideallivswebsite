@@ -65,8 +65,8 @@ export function idealIndiskaFAQSchema(baseUrl: string = 'https://www.ideallivs.c
                 answer: 'You can find the widest selection of authentic Indian and Pakistani spices at Ideal Indiska LIVS, both at our Bandhagen store and online. We stock brands like Shan, MDH, National Foods, and TRS.',
             },
             {
-                question: 'Do you offer free delivery in Stockholm?',
-                answer: 'Yes! We offer FREE delivery in Stockholm for orders over 500 SEK. For orders between 300-499 SEK, delivery costs 30 SEK. Minimum order is 300 SEK.',
+                question: 'Do you deliver in Stockholm?',
+                answer: 'Yes! We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 SEK. Visit our Delivery Information page for current pricing.',
             },
             {
                 question: 'Do you deliver outside Stockholm?',

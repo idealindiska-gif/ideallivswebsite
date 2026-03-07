@@ -116,7 +116,7 @@ export default async function TermsConditionsPage({ params }: PageProps) {
                     4. Delivery
                   </h2>
                   <ul className="list-disc pl-5 space-y-2 text-muted-foreground" style={{ fontSize: '15.13px' }}>
-                    <li>Free Stockholm delivery over 500 SEK.</li>
+                    <li>Local delivery available across Stockholm. Delivery fee applies.</li>
                     <li>EU shipping calculated by weight.</li>
                     <li>No fresh/frozen items for EU shipping.</li>
                   </ul>

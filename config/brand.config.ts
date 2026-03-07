@@ -32,7 +32,7 @@ export const brandConfig = {
     weekday: "Monday - Friday: 10:00 – 20:00",
     saturday: "Saturday: 11:00 – 19:00",
     sunday: "Sunday: 11:00 – 19:00",
-    delivery: "Free delivery from 500kr in Stockholm",
+    delivery: "Local delivery available in Stockholm",
     europe: "Europe-wide delivery with DHL",
   },
 
@@ -74,7 +74,7 @@ export const brandConfig = {
   seo: {
     defaultTitle: "Ideal Indiska LIVS - Indian & Pakistani Groceries Stockholm",
     titleTemplate: "%s | Ideal Indiska LIVS",
-    defaultDescription: "Shop Indian & Pakistani groceries in Stockholm. Premium Basmati rice, spices, halal products, frozen foods & more. Free delivery over 500kr.",
+    defaultDescription: "Shop Indian & Pakistani groceries in Stockholm. Premium Basmati rice, spices, halal products, frozen foods & more. Local delivery available.",
     keywords: [
       "indian grocery stockholm",
       "pakistani groceries sweden",

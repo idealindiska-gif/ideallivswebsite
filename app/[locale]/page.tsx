@@ -26,8 +26,8 @@ const enFaqs = [
         answer: "Ideal Indiska LIVS is Stockholm's specialist Indian and Pakistani grocery store, located at Bandhagsplan 4 in Bandhagen. We stock over 1,500 authentic products including premium Basmati rice, spices, Halal meat, frozen snacks, and fresh produce — all available online with fast delivery.",
     },
     {
-        question: "Do you offer free delivery in Stockholm?",
-        answer: "Yes. Orders of 500 SEK or more receive free home delivery anywhere in Stockholm. Orders between 300–499 SEK have a flat 30 SEK delivery fee. Minimum order is 300 SEK. Same-day delivery is available to nearby areas (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for orders placed before 4 PM.",
+        question: "Do you deliver in Stockholm?",
+        answer: "Yes. We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 SEK. Same-day delivery is available to nearby areas (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for orders placed before 4 PM. Visit our Delivery Information page for full pricing details.",
     },
     {
         question: "Do you deliver Indian groceries outside Stockholm and Sweden?",
@@ -53,8 +53,8 @@ const svFaqs = [
         answer: "Ideal Indiska LIVS är Stockholms specialbutik för indiska och pakistanska livsmedel, med adress Bandhagsplan 4 i Bandhagen. Vi har över 1 500 autentiska produkter — premium Basmati-ris, kryddor, halaltkött, frysta snacks och färska varor — tillgängliga online med snabb leverans.",
     },
     {
-        question: "Erbjuder ni fri leverans i Stockholm?",
-        answer: "Ja. Beställningar på 500 kr eller mer får gratis hemleverans inom hela Stockholm. Beställningar på 300–499 kr har en fast avgift på 30 kr. Minimibeställning är 300 kr. Samma-dagleverans finns till närliggande områden (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) för beställningar lagda före 16:00.",
+        question: "Levererar ni i Stockholm?",
+        answer: "Ja. Vi erbjuder lokalleverans i hela Stockholm. Leveransavgift tillkommer på alla beställningar. Minimibeställning är 300 kr. Samma-dagleverans finns till närliggande områden (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) för beställningar lagda före 16:00. Besök vår leveransinformationssida för aktuell prisinformation.",
     },
     {
         question: "Levererar ni utanför Stockholm och Sverige?",
@@ -80,8 +80,8 @@ const noFaqs = [
         answer: "Ideal Indiska LIVS er Stockholms spesialbutikk for indiske og pakistanske dagligvarer, med adresse Bandhagsplan 4 i Bandhagen. Vi har over 1 500 autentiske produkter — premium Basmatiris, krydder, halaltkjøtt, frosne snacks og ferske varer — tilgjengelig online med rask levering.",
     },
     {
-        question: "Tilbyr dere gratis levering i Stockholm?",
-        answer: "Ja. Bestillinger på 500 SEK eller mer får gratis hjemlevering overalt i Stockholm. Bestillinger mellom 300–499 SEK har en fast avgift på 30 SEK. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgjengelig til nærliggende områder (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for bestillinger lagt inn før kl. 16:00.",
+        question: "Leverer dere i Stockholm?",
+        answer: "Ja. Vi tilbyr lokal levering i hele Stockholm. En leveringsavgift gjelder for alle bestillinger. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgjengelig til nærliggende områder (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for bestillinger lagt inn før kl. 16:00. Besøk vår leveringsinformasjonsside for gjeldende priser.",
     },
     {
         question: "Leverer dere indiske matvarer utenfor Stockholm og Sverige?",
@@ -107,8 +107,8 @@ const daFaqs = [
         answer: "Ideal Indiska LIVS er Stockholms specialforretning for indiske og pakistanske dagligvarer, beliggende på Bandhagsplan 4 i Bandhagen. Vi har over 1.500 autentiske produkter — premium Basmatiris, krydderier, halaltkød, frosne snacks og friske varer — tilgængeligt online med hurtig levering.",
     },
     {
-        question: "Tilbyder I gratis levering i Stockholm?",
-        answer: "Ja. Bestillinger på 500 SEK eller mere får gratis hjemmelevering i hele Stockholm. Bestillinger mellem 300–499 SEK har et fast gebyr på 30 SEK. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgængeligt til nærliggende områder (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for bestillinger afgivet inden kl. 16:00.",
+        question: "Leverer I i Stockholm?",
+        answer: "Ja. Vi tilbyder lokal levering i hele Stockholm. Et leveringsgebyr gælder for alle bestillinger. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgængeligt til nærliggende områder (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for bestillinger afgivet inden kl. 16:00. Besøg vores leveringsinformationsside for aktuelle priser.",
     },
     {
         question: "Leverer I indiske dagligvarer uden for Stockholm og Sverige?",

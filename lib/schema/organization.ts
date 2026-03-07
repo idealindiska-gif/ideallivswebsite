@@ -101,8 +101,8 @@ export function organizationSchema(config: OrganizationInput): Organization {
  */
 export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.ideallivs.com', locale: string = 'en'): Organization {
   const descriptions = {
-    en: 'Indian & Pakistani Grocery Store in Stockholm, now delivering across Europe with DHL. Free delivery from 500kr in Stockholm (min. order 300kr with 30kr fee). Same-day delivery available.',
-    sv: 'Indisk & Pakistansk livsmedelsbutik i Stockholm, nu med leverans över hela Europa via DHL. Fri leverans från 500kr i Stockholm (min. beställning 300kr med 30kr avgift). Samma dag leverans finns tillgänglig.'
+    en: 'Indian & Pakistani Grocery Store in Stockholm, now delivering across Europe with DHL. Local delivery available in Stockholm (min. order 300kr). Same-day delivery available.',
+    sv: 'Indisk & Pakistansk livsmedelsbutik i Stockholm, nu med leverans över hela Europa via DHL. Lokalleverans tillgänglig i Stockholm (min. beställning 300kr). Samma dag leverans finns tillgänglig.'
   };
 
   const schema = organizationSchema({
@@ -296,59 +296,6 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
           },
           doesNotShip: false,
           shippingLabel: 'Stockholm Delivery (Under 500kr)',
-        },
-      },
-      // FREE Stockholm Delivery (500kr+)
-      {
-        '@type': 'Offer',
-        name: locale === 'sv' ? 'GRATIS Stockholmsleverans' : 'FREE Stockholm Delivery',
-        description: locale === 'sv'
-          ? 'Gratis leverans för beställningar från 500kr och uppåt'
-          : 'Free delivery for orders 500kr and above',
-        priceSpecification: {
-          '@type': 'DeliveryChargeSpecification',
-          price: '0.00',
-          priceCurrency: 'SEK',
-          eligibleTransactionVolume: {
-            '@type': 'PriceSpecification',
-            minPrice: 500,
-            priceCurrency: 'SEK',
-          },
-        },
-        areaServed: {
-          '@type': 'DefinedRegion',
-          addressCountry: 'SE',
-          addressRegion: 'Stockholm County',
-        },
-        shippingDetails: {
-          '@type': 'OfferShippingDetails',
-          shippingRate: {
-            '@type': 'MonetaryAmount',
-            value: '0.00',
-            currency: 'SEK',
-          },
-          deliveryTime: {
-            '@type': 'ShippingDeliveryTime',
-            businessDays: {
-              '@type': 'OpeningHoursSpecification',
-              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            },
-            cutoffTime: '20:00',
-            handlingTime: {
-              '@type': 'QuantitativeValue',
-              minValue: 0,
-              maxValue: 1,
-              unitCode: 'DAY',
-            },
-            transitTime: {
-              '@type': 'QuantitativeValue',
-              minValue: 1,
-              maxValue: 2,
-              unitCode: 'DAY',
-            },
-          },
-          doesNotShip: false,
-          shippingLabel: 'FREE Stockholm Delivery (500kr+)',
         },
       },
       // Same-Day Delivery

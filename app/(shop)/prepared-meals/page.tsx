@@ -354,7 +354,7 @@ export default function PreparedMealsPage() {
                 Do you offer biryani delivery across Stockholm?
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Yes, we offer delivery within the Stockholm metropolitan area. Delivery charges depend on your location, but it is free for orders over 500 SEK in many areas.
+                Yes, we offer delivery within the Stockholm metropolitan area. Delivery charges apply — visit our Delivery Information page for current pricing details.
               </p>
             </div>
           </div>

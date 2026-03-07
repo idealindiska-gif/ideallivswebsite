@@ -40,7 +40,7 @@ export function CartThresholdMessages({
           <AlertDescription>
             <div className="space-y-2">
               <p className="font-medium text-blue-800 dark:text-blue-300">
-                Free shipping in selected areas of Stockholm when you spend 500kr.
+                Local delivery available across Stockholm.
               </p>
               <p className="text-sm text-blue-700 dark:text-blue-400">
                 Add {formatPrice(amountToFree, 'SEK')} more to qualify!
@@ -61,7 +61,7 @@ export function CartThresholdMessages({
           <Gift className="h-4 w-4 text-green-600 dark:text-green-400" />
           <AlertDescription>
             <p className="font-semibold text-green-800 dark:text-green-300">
-              Congratulations! You qualify for free shipping to selected areas of Stockholm!
+              Your order qualifies for local delivery across Stockholm!
             </p>
           </AlertDescription>
         </Alert>

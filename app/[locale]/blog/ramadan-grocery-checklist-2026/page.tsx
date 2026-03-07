@@ -155,7 +155,7 @@ export default async function RamadanGroceryChecklist() {
                                         <li>🌙 <strong>Suhoor essentials:</strong> Elephant Atta, Basmati rice, lentils, eggs, and yoghurt for sustained energy.</li>
                                         <li>🍽️ <strong>Iftar must-haves:</strong> Petra Jordanian dates, Rooh Afza, frozen samosas, seekh kebabs, and Phulki.</li>
                                         <li>🛒 <strong>All on sale</strong> during Ramadan Mega Savings at Ideal Indiska LIVS.</li>
-                                        <li>🚚 <strong>Free Stockholm delivery</strong> on orders over 500 SEK — same-day available before 4 PM.</li>
+                                        <li>🚚 <strong>Local delivery</strong> across Stockholm — same-day available before 4 PM.</li>
                                         <li>🌍 <strong>EU shipping</strong> via DHL — no customs fees, delivered in 3–7 business days.</li>
                                     </ul>
                                 </div>

@@ -122,8 +122,8 @@ const dealsFaqsEn = [
         a: 'Our weekly deals cover a wide range of Indian and Pakistani groceries including Basmati rice, atta flour, spice mixes (Shan, MDH, National Foods), lentils, Halal meat, frozen samosas and kebabs, fresh vegetables, cooking oils, and snacks.',
     },
     {
-        q: 'Do you offer free delivery on deals orders in Stockholm?',
-        a: 'Yes. Orders of 500 SEK or more get free home delivery anywhere in Stockholm. Orders between 300–499 SEK have a flat 30 SEK delivery fee. Same-day delivery is available to nearby areas for orders placed before 4 PM.',
+        q: 'Do you deliver deals orders in Stockholm?',
+        a: 'Yes. We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 SEK. Same-day delivery is available to nearby areas for orders placed before 4 PM.',
     },
     {
         q: 'Can I get deals delivered across Europe?',
@@ -145,8 +145,8 @@ const dealsFaqsSv = [
         a: 'Veckans deals täcker ett brett sortiment av indiska och pakistanska livsmedel: Basmati-ris, atta-mjöl, kryddblandningar (Shan, MDH, National Foods), linser, halaltkött, frysta samosas och kebab, färska grönsaker, matolja och snacks.',
     },
     {
-        q: 'Erbjuder ni gratis leverans på dealbeställningar i Stockholm?',
-        a: 'Ja. Beställningar på 500 kr eller mer får gratis hemleverans inom hela Stockholm. Beställningar på 300–499 kr kostar 30 kr. Samma-dagleverans finns till närliggande områden för beställningar lagda före 16:00.',
+        q: 'Levererar ni dealbeställningar i Stockholm?',
+        a: 'Ja. Vi erbjuder lokalleverans i hela Stockholm. Leveransavgift tillkommer på alla beställningar. Minimibeställning är 300 kr. Samma-dagleverans finns till närliggande områden för beställningar lagda före 16:00.',
     },
     {
         q: 'Kan jag få deals levererade inom Europa?',
@@ -168,8 +168,8 @@ const dealsFaqsNo = [
         a: 'Ukenstilbudene dekker et bredt utvalg av indiske og pakistanske dagligvarer: Basmatiris, atta-mel, kryddblandinger (Shan, MDH, National Foods), linser, halaltkjøtt, frosne samosas og kebab, ferske grønnsaker, matolje og snacks.',
     },
     {
-        q: 'Tilbyr dere gratis levering på tilbudsbestillinger i Stockholm?',
-        a: 'Ja. Bestillinger på 500 SEK eller mer får gratis hjemlevering overalt i Stockholm. Bestillinger mellom 300–499 SEK koster 30 SEK. Samme-dag levering er tilgjengelig til nærliggende områder for bestillinger lagt inn før kl. 16:00.',
+        q: 'Leverer dere tilbudsbestillinger i Stockholm?',
+        a: 'Ja. Vi tilbyr lokal levering i hele Stockholm. En leveringsavgift gjelder for alle bestillinger. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgjengelig til nærliggende områder for bestillinger lagt inn før kl. 16:00.',
     },
     {
         q: 'Kan jeg få tilbud levert i hele Europa?',
@@ -191,8 +191,8 @@ const dealsFaqsDa = [
         a: 'Ugenstilbuddene dækker et bredt udvalg af indiske og pakistanske dagligvarer: Basmatiris, atta-mel, krydderiblandinger (Shan, MDH, National Foods), linser, halaltkød, frosne samosas og kebab, friske grøntsager, madolie og snacks.',
     },
     {
-        q: 'Tilbyder I gratis levering på tilbudsbestillinger i Stockholm?',
-        a: 'Ja. Bestillinger på 500 SEK eller mere får gratis hjemmelevering i hele Stockholm. Bestillinger mellem 300–499 SEK koster 30 SEK. Samme-dag levering er tilgængeligt til nærliggende områder for bestillinger afgivet inden kl. 16:00.',
+        q: 'Leverer I tilbudsbestillinger i Stockholm?',
+        a: 'Ja. Vi tilbyder lokal levering i hele Stockholm. Et leveringsgebyr gælder for alle bestillinger. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgængeligt til nærliggende områder for bestillinger afgivet inden kl. 16:00.',
     },
     {
         q: 'Kan jeg få tilbud leveret i hele Europa?',
@@ -451,25 +451,25 @@ export default async function DealsPage({ params }: PageProps) {
                             {(locale === 'sv' ? [
                                 '🏷️ Erbjudanden uppdateras varje vecka',
                                 '🛒 Ris, kryddor, halaltkött, snacks & mer',
-                                '🚚 Gratis Stockholmsleverans på beställningar över 500 kr',
+                                '🚚 Lokalleverans tillgänglig i hela Stockholm',
                                 '🌍 DHL till hela Europa — inga tullavgifter',
                                 '📦 1 500+ autentiska produkter i lager',
                             ] : locale === 'no' ? [
                                 '🏷️ Tilbud oppdateres hver uke',
                                 '🛒 Ris, krydder, halaltkjøtt, snacks & mer',
-                                '🚚 Gratis Stockholm-levering på bestillinger over 500 SEK',
+                                '🚚 Lokal levering tilgjengelig i hele Stockholm',
                                 '🌍 DHL til hele Europa — ingen tollgebyrer',
                                 '📦 1 500+ autentiske produkter på lager',
                             ] : locale === 'da' ? [
                                 '🏷️ Tilbud opdateres hver uge',
                                 '🛒 Ris, krydderier, halaltkød, snacks & mere',
-                                '🚚 Gratis Stockholm-levering på bestillinger over 500 SEK',
+                                '🚚 Lokal levering tilgængelig i hele Stockholm',
                                 '🌍 DHL til hele Europa — ingen toldsatser',
                                 '📦 1.500+ autentiske produkter på lager',
                             ] : [
                                 '🏷️ Deals updated every week',
                                 '🛒 Rice, spices, Halal meat, snacks & more',
-                                '🚚 Free Stockholm delivery on orders over 500 SEK',
+                                '🚚 Local delivery available across Stockholm',
                                 '🌍 DHL to all of Europe — no customs fees',
                                 '📦 1,500+ authentic products in stock',
                             ]).map((fact, i) => (
@@ -514,12 +514,12 @@ export default async function DealsPage({ params }: PageProps) {
                             <div className="mt-5 pt-4 border-t border-border flex items-center gap-2 text-sm text-muted-foreground">
                                 <Truck className="w-4 h-4 text-primary flex-shrink-0" />
                                 {locale === 'sv'
-                                    ? 'Gratis frakt i Stockholm på beställningar över 500 kr'
+                                    ? 'Lokalleverans tillgänglig i hela Stockholm'
                                     : locale === 'no'
-                                    ? 'Gratis levering i Stockholm på bestillinger over 500 SEK'
+                                    ? 'Lokal levering tilgjengelig i hele Stockholm'
                                     : locale === 'da'
-                                    ? 'Gratis levering i Stockholm på bestillinger over 500 SEK'
-                                    : 'Free Stockholm delivery on orders over 500 SEK'}
+                                    ? 'Lokal levering tilgængelig i hele Stockholm'
+                                    : 'Local delivery available across Stockholm'}
                             </div>
                         </div>
                     </div>
