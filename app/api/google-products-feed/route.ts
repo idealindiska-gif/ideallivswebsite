@@ -239,11 +239,13 @@ function generateProductXML(product: WooProduct): string {
     xml += `    <g:mpn>PRODUCT_${product.id}</g:mpn>\n`;
   }
 
-  // Weight
-  if (product.weight) {
-    const weight = `${product.weight} g`;
-    xml += `    <g:shipping_weight>${weight}</g:shipping_weight>\n`;
-    xml += `    <g:unit_pricing_measure>${weight}</g:unit_pricing_measure>\n`;
+  // Weight — shipping_weight requires a valid positive number + unit
+  // unit_pricing_measure is intentionally omitted: it requires a paired
+  // g:unit_pricing_base_measure value which we do not have, and submitting
+  // only one half causes feed errors in Google Merchant Center.
+  const weightNum = parseFloat(product.weight);
+  if (!isNaN(weightNum) && weightNum > 0) {
+    xml += `    <g:shipping_weight>${weightNum.toFixed(0)} g</g:shipping_weight>\n`;
   }
 
   // Shipping
