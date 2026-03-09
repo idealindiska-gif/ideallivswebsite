@@ -20,6 +20,7 @@ import { createOrderAction } from '@/app/actions/order';
 import { validateCartStockAction } from '@/app/actions/cart';
 import { getMinimumOrderAmount } from '@/app/actions/woocommerce-settings';
 import { validateShippingRestrictions } from '@/app/actions/shipping-restrictions';
+import { checkCustomerBlockedAction } from '@/app/actions/blocked-customers';
 import { formatPrice } from '@/lib/woocommerce';
 import { Loader2, CheckCircle2, AlertCircle, ShoppingBag } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -122,6 +123,16 @@ export default function CheckoutPage() {
   const handleShippingSubmit = async (data: ShippingFormData) => {
     setError(null);
     setShippingRestrictions([]);
+
+    // ── Check if this customer is blocked ────────────────────────────────────
+    const blockCheck = await checkCustomerBlockedAction({ email: data.email });
+    if (blockCheck.blocked) {
+      setError(
+        'We are unable to process orders for this account. ' +
+        'If you believe this is a mistake, please contact us at info@ideallivs.com.'
+      );
+      return;
+    }
 
     // Validate shipping restrictions
     const restrictionResult = await validateShippingRestrictions({

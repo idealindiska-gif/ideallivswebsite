@@ -266,8 +266,8 @@
     "reliablePartnerDesc": "Vi bruker DHL for å sikre at dagligvarene dine ankommer trygt og raskt hvor som helst i Sverige.",
     "calculatedRates": "Beregnede satser",
     "calculatedRatesDesc": "Avgifter er basert på vekt og sted, beregnet automatisk ved kassen.",
-    "pickupTitle": "Lokal henting – alltid gratis!",
-    "pickupText": "Du er alltid velkommen til å legge inn bestillingen din på nett og hente den fra butikken vår i Bandhagen uten ekstra kostnad.",
+    "pickupTitle": "Lokal henting — Hent i butikken",
+    "pickupText": "Du er alltid velkommen til å legge inn bestillingen din på nett og hente den fra butikken vår i Bandhagen. Ingen fraktgebyr — du henter den selv.",
     "pickupCost": "Kostnad: Gratis",
     "pickupLocation": "Sted: Bandhagsplan 4, 12432 Bandhagen Centrum",
     "pickupHow": "Slik fungerer det: Velg «Lokal henting» ved kassen. Du vil motta en e-post- eller SMS-varsling når bestillingen din er klar.",
@@ -650,12 +650,10 @@
   "shippingMethod": {
     "title": "Fraktmetode",
     "subtitle": "Frakt til {address}",
-    "freeShippingBar": "Gratis frakt ved {amount}",
-    "freeShippingToGo": "{amount} igjen!",
-    "congratsFreeShipping": "Gratulerer! Du kvalifiserer for gratis frakt!",
     "calculating": "Beregner fraktsatser...",
     "noMethods": "Ingen fraktmetoder tilgjengelig for adressen din.",
-    "poweredBy": "Drevet av DHL eCommerce Sweden"
+    "poweredBy": "Drevet av DHL eCommerce Sweden",
+    "localPickupNote": "Du henter bestillingen din i butikken vår på Bandhagsplan 4, 12432 Bandhagen, Stockholm. Vi varsler deg når bestillingen er klar til henting."
   },
   "paymentMethod": {
     "title": "Betalingsmetode",

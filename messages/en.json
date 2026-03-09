@@ -266,8 +266,8 @@
     "reliablePartnerDesc": "We use DHL to ensure your groceries arrive safely and promptly anywhere in Sweden.",
     "calculatedRates": "Calculated Rates",
     "calculatedRatesDesc": "Fees are based on weight and location, calculated automatically at checkout.",
-    "pickupTitle": "Local Pickup - Always Free!",
-    "pickupText": "You are always welcome to place your order online and collect it from our store in Bandhagen at no extra cost.",
+    "pickupTitle": "Local Pickup — Collect from Store",
+    "pickupText": "You are always welcome to place your order online and collect it from our store in Bandhagen. No shipping fee — you pick it up yourself.",
     "pickupCost": "Cost: Free",
     "pickupLocation": "Location: Bandhagsplan 4, 12432 Bandhagen Centrum",
     "pickupHow": "How it Works: Select \"Local Pickup\" at checkout. You will receive an email or SMS notification when your order is ready.",
@@ -650,12 +650,10 @@
   "shippingMethod": {
     "title": "Shipping Method",
     "subtitle": "Shipping to {address}",
-    "freeShippingBar": "Free shipping at {amount}",
-    "freeShippingToGo": "{amount} to go!",
-    "congratsFreeShipping": "Congratulations! You qualify for free shipping!",
     "calculating": "Calculating shipping rates...",
     "noMethods": "No shipping methods available for your address.",
-    "poweredBy": "Powered by DHL eCommerce Sweden"
+    "poweredBy": "Powered by DHL eCommerce Sweden",
+    "localPickupNote": "You will collect from our store at Bandhagsplan 4, 12432 Bandhagen, Stockholm. Please wait for a ready-to-collect notification before visiting."
   },
   "paymentMethod": {
     "title": "Payment Method",

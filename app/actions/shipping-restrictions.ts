@@ -1,10 +1,18 @@
 'use server';
 
 import { getWooCommerceUrl, getWooCommerceAuthHeader } from '@/lib/woocommerce/config';
+import { SHIPPING_RESTRICTIONS } from '@/config/commerce-rules';
 
 /**
- * Validate if cart items can be shipped to the provided postcode
- * Checks for Stockholm-specific shipping restrictions
+ * Validate if cart items can be shipped to the provided address.
+ *
+ * BUG FIXES (2026-03-10):
+ *  1. Category slugs now come from commerce-rules.ts (frozen-foods, fresh-produce,
+ *     tradional-sweets) instead of the wrong set ('perishable', 'fresh-food', 'catering').
+ *  2. isStockholmArea() checks country === 'SE' FIRST so non-Swedish orders are
+ *     correctly rejected regardless of their postcode.  Previously Rome's "001xx"
+ *     postcodes matched the 100-199 Stockholm range.
+ *  3. The 'stockholm-only' shipping-class check now also applies when country !== 'SE'.
  */
 export async function validateShippingRestrictions(params: {
     items: Array<{ productId: number; quantity: number }>;
@@ -20,6 +28,10 @@ export async function validateShippingRestrictions(params: {
             productName: string;
             reason: string;
         }> = [];
+
+        // Pre-compute once for the whole cart
+        const withinStockholm = isStockholmArea(postcode, country);
+        const withinSweden = (country || 'SE').toUpperCase() === 'SE';
 
         // Check each product for shipping restrictions
         for (const item of items) {
@@ -39,73 +51,63 @@ export async function validateShippingRestrictions(params: {
             }
 
             const product = await response.json();
+            const shippingClass = product.shipping_class as string | undefined;
+            const metaData: any[] = product.meta_data || [];
+            const categories: any[] = product.categories || [];
 
-            // Check if product has shipping restrictions
-            // This checks for:
-            // 1. Shipping class restrictions
-            // 2. Custom meta fields for regional restrictions
-            // 3. Product categories with restrictions
+            // ── 1. Shipping class: stockholm-only ─────────────────────────────
+            if (shippingClass === 'stockholm-only' && !withinStockholm) {
+                restrictedProducts.push({
+                    productId: product.id,
+                    productName: product.name,
+                    reason: 'This product can only be delivered within the Stockholm area',
+                });
+                continue; // No need to check further for this product
+            }
 
-            const shippingClass = product.shipping_class;
-            const metaData = product.meta_data || [];
+            // ── 2. Custom meta field _shipping_restriction ────────────────────
+            const shippingRestrictionMeta = metaData.find(
+                (meta) => meta.key === '_shipping_restriction'
+            );
 
-            // Check for Stockholm-only shipping class
-            if (shippingClass === 'stockholm-only') {
-                const isStockholm = isStockholmPostcode(postcode);
-                if (!isStockholm) {
+            if (shippingRestrictionMeta) {
+                const restriction = shippingRestrictionMeta.value;
+                if (restriction === 'stockholm_only' && !withinStockholm) {
                     restrictedProducts.push({
                         productId: product.id,
                         productName: product.name,
-                        reason: 'This product can only be shipped within Stockholm area',
+                        reason: 'This product can only be delivered within the Stockholm area',
                     });
+                    continue;
                 }
-            }
-
-            // Check for custom meta field restrictions
-            const shippingRestriction = metaData.find(
-                (meta: any) => meta.key === '_shipping_restriction'
-            );
-
-            if (shippingRestriction) {
-                const restriction = shippingRestriction.value;
-
-                if (restriction === 'stockholm_only') {
-                    const isStockholm = isStockholmPostcode(postcode);
-                    if (!isStockholm) {
-                        restrictedProducts.push({
-                            productId: product.id,
-                            productName: product.name,
-                            reason: 'This product can only be shipped within Stockholm area',
-                        });
-                    }
-                } else if (restriction === 'sweden_only' && country !== 'SE') {
+                if (restriction === 'sweden_only' && !withinSweden) {
                     restrictedProducts.push({
                         productId: product.id,
                         productName: product.name,
                         reason: 'This product can only be shipped within Sweden',
                     });
+                    continue;
                 }
             }
 
-            // Check for perishable items (common in restaurant/food businesses)
-            const categories = product.categories || [];
-            const hasPerishableCategory = categories.some(
-                (cat: any) =>
-                    cat.slug === 'perishable' ||
-                    cat.slug === 'fresh-food' ||
-                    cat.slug === 'catering'
+            // ── 3. Category-based restriction (frozen, fresh, sweets) ─────────
+            // Uses the canonical slugs from config/commerce-rules.ts
+            const productCategorySlugs = categories.map((c: any) => c.slug as string);
+
+            const hasRestrictedCategory = productCategorySlugs.some((slug) =>
+                SHIPPING_RESTRICTIONS.restrictedCategories.includes(slug)
             );
 
-            if (hasPerishableCategory) {
-                const isStockholm = isStockholmPostcode(postcode);
-                if (!isStockholm) {
-                    restrictedProducts.push({
-                        productId: product.id,
-                        productName: product.name,
-                        reason:
-                            'Perishable items can only be delivered within Stockholm area for freshness',
-                    });
-                }
+            // Also check specific product IDs if any are listed
+            const isRestrictedById = SHIPPING_RESTRICTIONS.restrictedProductIds.includes(product.id);
+
+            if ((hasRestrictedCategory || isRestrictedById) && !withinStockholm) {
+                const categoryLabel = getCategoryLabel(productCategorySlugs);
+                restrictedProducts.push({
+                    productId: product.id,
+                    productName: product.name,
+                    reason: `${categoryLabel} can only be delivered within the Stockholm area. They cannot be shipped to ${city || country || 'your location'}.`,
+                });
             }
         }
 
@@ -122,7 +124,9 @@ export async function validateShippingRestrictions(params: {
             success: false,
             error: error.message || 'Failed to validate shipping restrictions',
             data: {
-                valid: true, // Default to allowing shipping on error to not block checkout
+                // Fail CLOSED for category check — restrict on error for perishables
+                // (opposite of the old behaviour which failed open)
+                valid: false,
                 restrictedProducts: [],
             },
         };
@@ -130,29 +134,42 @@ export async function validateShippingRestrictions(params: {
 }
 
 /**
- * Check if a postcode is within Stockholm area
- * Stockholm postcodes typically start with 1 (100 00 - 199 99)
+ * Returns true only when the delivery address is within the Stockholm service area.
+ *
+ * Checks country FIRST so that non-Swedish orders (e.g. Italy) are always rejected
+ * before we ever look at the postcode.  This fixes the old bug where Italian
+ * postcodes starting with 1 (e.g. 00100 Rome) matched the 100-199 Stockholm range.
+ *
+ * Stockholm postcodes: 100 00 – 199 99
  */
-function isStockholmPostcode(postcode: string): boolean {
-    // Normalize postcode (remove spaces and convert to uppercase)
-    const normalized = postcode.replace(/\s/g, '').toUpperCase();
+function isStockholmArea(postcode: string, country?: string): boolean {
+    // Must be a Swedish address
+    const effectiveCountry = (country || 'SE').toUpperCase();
+    if (effectiveCountry !== 'SE') return false;
 
-    // Stockholm postcodes are in the range 100 00 - 199 99
-    // Extract first 3 digits
-    const prefix = normalized.substring(0, 3);
+    // Normalise Swedish postcode (remove spaces)
+    const normalized = postcode.replace(/\s/g, '');
 
-    if (prefix.length < 3 || !/^\d{3}$/.test(prefix)) {
-        return false;
-    }
+    if (normalized.length < 3 || !/^\d{3}/.test(normalized)) return false;
 
-    const prefixNum = parseInt(prefix, 10);
+    const prefixNum = parseInt(normalized.substring(0, 3), 10);
 
-    // Stockholm area: 100-199
+    // Stockholm area: 100–199
     return prefixNum >= 100 && prefixNum <= 199;
 }
 
 /**
- * Get shipping restriction info for display
+ * Return a human-friendly label for the restricted category
+ */
+function getCategoryLabel(slugs: string[]): string {
+    if (slugs.includes('frozen-foods')) return 'Frozen food items';
+    if (slugs.includes('fresh-produce')) return 'Fresh produce items';
+    if (slugs.includes('tradional-sweets')) return 'Traditional sweet items';
+    return 'These items';
+}
+
+/**
+ * Get shipping restriction info for a single product (used in product display)
  */
 export async function getProductShippingInfo(productId: number) {
     try {
@@ -171,26 +188,33 @@ export async function getProductShippingInfo(productId: number) {
         }
 
         const product = await response.json();
-        const metaData = product.meta_data || [];
-        const shippingClass = product.shipping_class;
+        const metaData: any[] = product.meta_data || [];
+        const shippingClass = product.shipping_class as string | undefined;
+        const categories: any[] = product.categories || [];
 
-        let restriction = null;
+        let restriction: string | null = null;
 
         if (shippingClass === 'stockholm-only') {
             restriction = 'Stockholm area only';
         }
 
-        const shippingRestriction = metaData.find(
-            (meta: any) => meta.key === '_shipping_restriction'
+        const shippingRestrictionMeta = metaData.find(
+            (meta) => meta.key === '_shipping_restriction'
         );
 
-        if (shippingRestriction) {
-            const value = shippingRestriction.value;
-            if (value === 'stockholm_only') {
-                restriction = 'Stockholm area only';
-            } else if (value === 'sweden_only') {
-                restriction = 'Sweden only';
-            }
+        if (shippingRestrictionMeta) {
+            const value = shippingRestrictionMeta.value;
+            if (value === 'stockholm_only') restriction = 'Stockholm area only';
+            else if (value === 'sweden_only') restriction = 'Sweden only';
+        }
+
+        // Category-based restriction
+        const categorySlugs = categories.map((c: any) => c.slug as string);
+        const hasRestrictedCategory = categorySlugs.some((slug) =>
+            SHIPPING_RESTRICTIONS.restrictedCategories.includes(slug)
+        );
+        if (hasRestrictedCategory && !restriction) {
+            restriction = 'Stockholm area only (perishable/frozen item)';
         }
 
         return {
@@ -208,3 +232,4 @@ export async function getProductShippingInfo(productId: number) {
         };
     }
 }
+

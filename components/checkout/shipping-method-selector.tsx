@@ -165,15 +165,7 @@ export function ShippingMethodSelector({
         </p>
       </div>
 
-      {/* Promo item notice */}
-      {hasPromoItem && (
-        <Alert className="border-orange-200 bg-orange-50 dark:border-orange-900 dark:bg-orange-950/20">
-          <AlertTriangle className="h-4 w-4 text-orange-600 dark:text-orange-400" />
-          <AlertDescription className="text-orange-800 dark:text-orange-300">
-            Free shipping is not available when your cart contains promotional items.
-          </AlertDescription>
-        </Alert>
-      )}
+      {/* Promo item notice — free shipping gone, no need for this alert */}
 
       {/* Shipping Methods */}
       <RadioGroup
@@ -231,6 +223,11 @@ export function ShippingMethodSelector({
                         className="cursor-pointer font-semibold text-primary-950 dark:text-primary-50"
                       >
                         {method.label}
+                        {method.method_id === 'local_pickup' && (
+                          <span className="ml-2 inline-block rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
+                            Collect from store
+                          </span>
+                        )}
                       </Label>
                       <span className="font-bold text-primary-700 dark:text-primary-400">
                         {method.cost === 0 ? (
@@ -242,6 +239,12 @@ export function ShippingMethodSelector({
                         )}
                       </span>
                     </div>
+                    {/* Store pickup clarification */}
+                    {method.method_id === 'local_pickup' && (
+                      <p className="mt-1.5 rounded-md border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs text-amber-800 dark:border-amber-800/40 dark:bg-amber-900/20 dark:text-amber-300">
+                        📍 <strong>You collect from our store:</strong> Bandhagsplan 4, 12432 Bandhagen, Stockholm. We will notify you when your order is ready to pick up.
+                      </p>
+                    )}
                     {/* Show DHL info if available */}
                     {method.method_id.includes('dhl') && (
                       <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">

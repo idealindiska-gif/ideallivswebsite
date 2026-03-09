@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       const base = `Buy ${parts.join(' ')} at Ideal Indiska LIVS Stockholm.`;
       const suffix = price
         ? ` Price: ${price}. Authentic Indian & Pakistani groceries with fast delivery across Sweden & EU. No customs duty.`
-        : ` Authentic Indian & Pakistani groceries delivered fast across Sweden & EU. Free shipping over 500 SEK. No customs duty.`;
+        : ` Authentic Indian & Pakistani groceries delivered fast across Sweden & EU. No customs duty.`;
       return (base + suffix).substring(0, 160);
     };
 
