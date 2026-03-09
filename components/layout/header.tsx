@@ -98,7 +98,8 @@ export function Header({ className, categories = [] }: HeaderProps) {
                 <NavLink href="/blog">{nav('foodBlog')}</NavLink>
                 <NavLink href="/about">{nav('ourStory')}</NavLink>
                 <NavLink href="/contact">{nav('visitUs')}</NavLink>
-                <NavLink href="/bookings">{nav('reservations')}</NavLink>
+                <NavLink href="/delivery-kalmar">{nav('kalmarDelivery')}</NavLink>
+                <NavLink href="/delivery-information">{nav('deliveryInfo')}</NavLink>
               </nav>
 
               {/* Extreme Right: Shop/Cart */}

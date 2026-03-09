@@ -18,7 +18,8 @@ import {
     Instagram,
     Youtube,
     Percent,
-    Heart
+    Heart,
+    Truck
 } from 'lucide-react';
 import { brandConfig } from '@/config/brand.config';
 import { brandProfile } from '@/config/brand-profile';
@@ -44,6 +45,8 @@ export function MobileMenu() {
         { href: '/deals', label: nav('dealsOffers'), icon: Percent },
         { href: '/shop', label: nav('shop'), icon: ShoppingBag },
         { href: '/brands', label: nav('shopByBrands'), icon: ShoppingBag },
+        { href: '/delivery-kalmar', label: nav('kalmarDelivery'), icon: Truck },
+        { href: '/delivery-information', label: nav('deliveryInfo'), icon: Truck },
         { href: '/blog', label: nav('blog'), icon: BookOpen },
         { href: '/about', label: nav('about'), icon: Info },
         { href: '/contact', label: nav('contact'), icon: Mail },

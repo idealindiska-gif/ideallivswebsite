@@ -371,3 +371,116 @@ export function deliveryFAQSchema(baseUrl: string = 'https://www.ideallivs.com')
     ],
   };
 }
+
+/**
+ * Generate Kalmar Delivery Service Schema
+ * For /delivery-kalmar page
+ */
+export function kalmarDeliveryServiceSchema(baseUrl: string = 'https://www.ideallivs.com') {
+  const schema: Service = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${baseUrl}/#kalmar-delivery-service`,
+    name: 'Indian & Pakistani Grocery Delivery to Kalmar via DHL',
+    description: 'Authentic Indian & Pakistani groceries shipped to Kalmar, Nybro, Borgholm and all of Kalmar County via DHL. Home delivery and DHL Service Point pickup available.',
+    provider: {
+      '@type': 'Organization',
+      '@id': `${baseUrl}/#organization`,
+      name: 'Ideal Indiska LIVS',
+    },
+    serviceType: 'DHL Grocery Delivery',
+    areaServed: [
+      {
+        '@type': 'City',
+        name: 'Kalmar',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Kalmar',
+          addressRegion: 'Kalmar County',
+          addressCountry: 'SE',
+        },
+      },
+      {
+        '@type': 'Place',
+        name: 'Nybro',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Nybro',
+          addressRegion: 'Kalmar County',
+          addressCountry: 'SE',
+        },
+      },
+      {
+        '@type': 'Place',
+        name: 'Borgholm',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Borgholm',
+          addressRegion: 'Kalmar County',
+          addressCountry: 'SE',
+        },
+      },
+      {
+        '@type': 'Place',
+        name: 'Emmaboda',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Emmaboda',
+          addressRegion: 'Kalmar County',
+          addressCountry: 'SE',
+        },
+      },
+      {
+        '@type': 'Place',
+        name: 'Mönsterås',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Mönsterås',
+          addressRegion: 'Kalmar County',
+          addressCountry: 'SE',
+        },
+      },
+    ],
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'DHL Home Delivery to Kalmar',
+        description: 'DHL Paket home delivery to Kalmar city and all Kalmar County postcodes (390–398xx). 2–4 business days.',
+        priceCurrency: 'SEK',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '0.00',
+          priceCurrency: 'SEK',
+          description: 'DHL shipping costs calculated at checkout based on order weight',
+        },
+      },
+      {
+        '@type': 'Offer',
+        name: 'DHL Service Point Pickup in Kalmar',
+        description: 'Pick up your parcel at a DHL Service Point near you in Kalmar — ICA Berga Centrum, Mekonomen, or Direkten Tobaksboden.',
+        priceCurrency: 'SEK',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '0.00',
+          priceCurrency: 'SEK',
+          description: 'DHL shipping costs calculated at checkout based on order weight',
+        },
+      },
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: `${baseUrl}/shop`,
+      servicePhone: '+46728494801',
+      availableLanguage: ['Swedish', 'English', 'Hindi', 'Urdu'],
+    },
+    additionalType: 'https://schema.org/DeliveryEvent',
+    hoursAvailable: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    },
+  };
+
+  return cleanSchema(schema);
+}
+
+
