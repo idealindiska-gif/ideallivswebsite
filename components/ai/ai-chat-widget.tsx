@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { Send, X, MessageCircle, Minimize2, Maximize2 } from 'lucide-react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Send, X, MessageCircle, Minimize2, Maximize2, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { searchKnowledgeBase, getGreeting } from '@/lib/knowledge-base';
+import { getGreeting } from '@/lib/knowledge-base';
 import { FeedbackForm } from '@/components/ai/feedback-form';
 import Image from 'next/image';
 
@@ -20,24 +20,61 @@ interface Message {
 // Ideal LIVS logo URL
 const LOGO_URL = 'https://crm.ideallivs.com/wp-content/uploads/2025/05/ideal-favicon.png';
 
-// Main export component that handles state and rendering
+// ─── Floating Launcher Button ─────────────────────────────────────────────────
+// Renders a persistent bubble bottom-right on every page
 export function AiChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
-    
+    const [hasNewMsg, setHasNewMsg] = useState(false);
+
+    // Show a notification dot after 8 seconds if user hasn't opened
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (!isOpen) setHasNewMsg(true);
+        }, 8000);
+        return () => clearTimeout(timer);
+    }, [isOpen]);
+
+    const handleOpen = () => {
+        setIsOpen(true);
+        setHasNewMsg(false);
+    };
+
     return (
         <>
+            {/* Floating Launcher Bubble — always visible */}
+            <AnimatePresence>
+                {!isOpen && (
+                    <motion.button
+                        key="launcher"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0, opacity: 0 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                        onClick={handleOpen}
+                        className="fixed bottom-5 right-5 z-50 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center justify-center"
+                        aria-label="Open Ideal Assistant chat"
+                    >
+                        <Bot className="h-6 w-6" />
+                        {/* Notification dot */}
+                        {hasNewMsg && (
+                            <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-green-500 border-2 border-background animate-pulse" />
+                        )}
+                    </motion.button>
+                )}
+            </AnimatePresence>
+
+            {/* Chat Panel */}
             <ChatWidget isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </>
     );
 }
 
-// Chat widget component
+// ─── Chat Panel ───────────────────────────────────────────────────────────────
 function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
     const [isMinimized, setIsMinimized] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
     const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
-    // Chat state
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
@@ -48,46 +85,73 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     ]);
     const [chatInput, setChatInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    // Auto-scroll chat
+    // Auto-scroll
     useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages, isTyping, isOpen]);
 
-    const handleSendMessage = async () => {
-        if (!chatInput.trim()) return;
+    // Focus input when opened
+    useEffect(() => {
+        if (isOpen && !isMinimized) {
+            setTimeout(() => inputRef.current?.focus(), 200);
+        }
+    }, [isOpen, isMinimized]);
 
+    // Build conversation history for the API (all messages so far)
+    const buildHistory = useCallback((msgs: Message[]): Array<{ role: 'user' | 'assistant'; content: string }> => {
+        return msgs
+            .filter(m => m.id !== '1') // Skip the static greeting
+            .map(m => ({ role: m.role, content: m.content }));
+    }, []);
+
+    const handleSendMessage = async () => {
+        if (!chatInput.trim() || isTyping) return;
+
+        const userText = chatInput.trim();
         const newUserMessage: Message = {
             id: Date.now().toString(),
             role: 'user',
-            content: chatInput,
+            content: userText,
             timestamp: new Date(),
         };
 
-        setMessages((prev) => [...prev, newUserMessage]);
+        setMessages(prev => [...prev, newUserMessage]);
         setChatInput('');
         setIsTyping(true);
+        setError(null);
 
-        // Simulate AI delay
-        setTimeout(() => {
-            const response = generateAIResponse(newUserMessage.content);
+        try {
+            // Build history including the new user message
+            const history = [...buildHistory(messages), { role: 'user' as const, content: userText }];
+
+            const res = await fetch('/api/ai/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ messages: history }),
+            });
+
+            const data = await res.json();
+
+            const aiText = data.answer || "Sorry, I couldn't get a response. Please try again or contact us on WhatsApp.";
+
             const newAiMessage: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'assistant',
-                content: response,
+                content: aiText,
                 timestamp: new Date(),
             };
-            setMessages((prev) => [...prev, newAiMessage]);
-            setIsTyping(false);
-        }, 1000);
-    };
+            setMessages(prev => [...prev, newAiMessage]);
 
-    const generateAIResponse = (input: string): string => {
-        const kbResponse = searchKnowledgeBase(input);
-        return kbResponse.answer;
+        } catch (err) {
+            console.error('Chat error:', err);
+            setError('Connection failed. Please try again.');
+        } finally {
+            setIsTyping(false);
+        }
     };
 
     const saveChatLogs = async () => {
@@ -116,7 +180,6 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         }
     };
 
-    // Save logs when closing
     useEffect(() => {
         if (!isOpen && messages.length > 1) {
             saveChatLogs();
@@ -127,7 +190,7 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3">
+        <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
             <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -135,10 +198,10 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                 transition={{ duration: 0.2 }}
                 className={cn(
                     "overflow-hidden rounded-xl border border-border bg-background shadow-xl flex flex-col",
-                    isMinimized ? "h-14 w-64" : "h-[450px] w-[300px]"
+                    isMinimized ? "h-14 w-72" : "h-[500px] w-[340px]"
                 )}
             >
-                {/* Header - Theme Primary Color (Red) */}
+                {/* Header */}
                 <div className="flex items-center gap-3 px-3 py-2.5 bg-primary shrink-0">
                     <div className="relative h-8 w-8 shrink-0 rounded-full overflow-hidden bg-white border-2 border-white/50">
                         <Image
@@ -150,7 +213,12 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                     </div>
                     <div className="flex-1 min-w-0 flex flex-col justify-center">
                         <h3 className="font-semibold text-sm text-primary-foreground truncate mb-0">Ideal Assistant</h3>
-                        {!isMinimized && <p className="text-[12px] text-primary-foreground/80 leading-none">Always here to help</p>}
+                        {!isMinimized && (
+                            <p className="text-[11px] text-primary-foreground/80 leading-none flex items-center gap-1">
+                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                                Powered by AI · Always here to help
+                            </p>
+                        )}
                     </div>
                     <div className="flex items-center shrink-0">
                         <Button
@@ -158,6 +226,7 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                             size="icon"
                             className="h-7 w-7 rounded-full hover:bg-primary-foreground/10 text-primary-foreground"
                             onClick={() => setIsMinimized(!isMinimized)}
+                            aria-label={isMinimized ? 'Expand chat' : 'Minimise chat'}
                         >
                             {isMinimized ? <Maximize2 className="h-3.5 w-3.5" /> : <Minimize2 className="h-3.5 w-3.5" />}
                         </Button>
@@ -166,6 +235,7 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                             size="icon"
                             className="h-7 w-7 rounded-full hover:bg-primary-foreground/10 text-primary-foreground"
                             onClick={onClose}
+                            aria-label="Close chat"
                         >
                             <X className="h-3.5 w-3.5" />
                         </Button>
@@ -197,9 +267,9 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                             key={msg.id}
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: index * 0.05 }}
+                                            transition={{ delay: index === messages.length - 1 ? 0 : 0 }}
                                             className={cn(
-                                                "flex w-max max-w-[85%] flex-col gap-0.5 rounded-xl px-3 py-2 text-sm",
+                                                "flex w-max max-w-[88%] flex-col gap-0.5 rounded-xl px-3 py-2 text-sm",
                                                 msg.role === 'assistant'
                                                     ? "self-start rounded-tl-sm bg-background text-foreground border border-border shadow-sm"
                                                     : "self-end rounded-tr-sm bg-primary text-primary-foreground shadow-sm"
@@ -210,8 +280,8 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                                 dangerouslySetInnerHTML={{
                                                     __html: msg.content
                                                         .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
-                                                        .replace(/\[(.*?)\]\((.*?)\)/g, `<a href="$2" class="underline underline-offset-2 hover:opacity-80 transition-opacity ${msg.role === 'assistant' ? 'text-primary' : 'text-white'}">$1</a>`)
-                                                        .replace(/\\n/g, '<br />')
+                                                        .replace(/\[(.*?)\]\((.*?)\)/g, `<a href="$2" target="_blank" rel="noopener" class="underline underline-offset-2 hover:opacity-80 transition-opacity ${msg.role === 'assistant' ? 'text-primary' : 'text-white'}">$1</a>`)
+                                                        .replace(/\n/g, '<br />')
                                                 }}
                                             />
                                             <span className={cn("text-[9px]", msg.role === 'assistant' ? 'text-muted-foreground' : 'text-white/70')}>
@@ -219,19 +289,45 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                             </span>
                                         </motion.div>
                                     ))}
+
+                                    {/* Typing indicator */}
                                     {isTyping && (
-                                        <div className="self-start rounded-xl rounded-tl-sm bg-background px-3 py-2 border border-border shadow-sm">
-                                            <div className="flex gap-1">
+                                        <div className="self-start rounded-xl rounded-tl-sm bg-background px-3 py-2.5 border border-border shadow-sm">
+                                            <div className="flex gap-1 items-center">
                                                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary [animation-delay:-0.3s]" />
                                                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary [animation-delay:-0.15s]" />
                                                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary" />
                                             </div>
                                         </div>
                                     )}
+
+                                    {/* Error */}
+                                    {error && (
+                                        <p className="text-xs text-red-500 text-center px-2">{error}</p>
+                                    )}
+
                                     <div ref={scrollRef} />
                                 </div>
 
-                                {/* Input Area */}
+                                {/* Quick Suggestions */}
+                                {messages.length === 1 && (
+                                    <div className="px-3 pb-2 flex flex-wrap gap-1.5">
+                                        {['Delivery info', 'Halal meat', 'Basmati rice', 'Track order'].map(s => (
+                                            <button
+                                                key={s}
+                                                onClick={() => {
+                                                    setChatInput(s);
+                                                    setTimeout(() => handleSendMessage(), 50);
+                                                }}
+                                                className="text-[11px] px-2.5 py-1 rounded-full border border-primary/30 text-primary hover:bg-primary/10 transition-colors"
+                                            >
+                                                {s}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Input */}
                                 <div className="p-2.5 bg-background border-t border-border shrink-0">
                                     <form
                                         onSubmit={(e) => {
@@ -241,17 +337,20 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                         className="flex gap-2"
                                     >
                                         <Input
+                                            ref={inputRef}
                                             value={chatInput}
                                             onChange={(e) => setChatInput(e.target.value)}
-                                            placeholder="Ask about menu, booking..."
+                                            placeholder="Ask about products, delivery..."
                                             className="flex-1 h-9 rounded-full bg-muted border-transparent text-sm focus:border-primary/50 focus:bg-background transition-all"
                                             disabled={isTyping}
+                                            maxLength={500}
                                         />
                                         <Button
                                             type="submit"
                                             size="icon"
                                             className="h-9 w-9 shrink-0 rounded-full bg-primary hover:bg-primary/90 shadow-sm"
                                             disabled={!chatInput.trim() || isTyping}
+                                            aria-label="Send message"
                                         >
                                             <Send className="h-4 w-4" />
                                         </Button>
@@ -275,19 +374,19 @@ function ChatWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     );
 }
 
-// Export a hook for managing chatbot state
+// ─── Hook for manual open/close control from header button ────────────────────
 export function useAIChat() {
     const [isOpen, setIsOpen] = useState(false);
-    
+
     const openChat = () => setIsOpen(true);
     const closeChat = () => setIsOpen(false);
-    const toggleChat = () => setIsOpen(!isOpen);
-    
+    const toggleChat = () => setIsOpen(prev => !prev);
+
     return {
         isOpen,
         openChat,
         closeChat,
         toggleChat,
-        ChatWidget: () => <ChatWidget isOpen={isOpen} onClose={closeChat} />
+        ChatWidget: () => <ChatWidget isOpen={isOpen} onClose={closeChat} />,
     };
 }

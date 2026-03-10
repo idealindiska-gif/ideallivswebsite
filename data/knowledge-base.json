@@ -1,73 +1,793 @@
 {
+  "store": {
+    "name": "Ideal Indiska LIVS",
+    "tagline": "Everything You Need. Just Around the Corner.",
+    "description": "Leading Indian and Pakistani grocery store in Stockholm, Sweden. 1500+ authentic products online and in-store.",
+    "address": "Bandhagsplan 4, 124 32 Bandhagen Centrum, Stockholm, Sweden",
+    "phone": "+46 728 494 801",
+    "whatsapp": "https://wa.me/46728494801",
+    "email": "hello@ideallivs.com",
+    "website": "https://www.ideallivs.com",
+    "shop": "https://www.ideallivs.com/shop",
+    "maps_directions": "https://g.co/kgs/5e3Ufch",
+    "maps_full": "https://www.google.com/maps/place/Ideal+Indiska+Livs+Bandhagen/@59.2700036,18.0486904,17z",
+    "google_rating": "4.7 / 5",
+    "social": {
+      "facebook": "https://www.facebook.com/Ideal.indiska.livs",
+      "instagram": "https://www.instagram.com/ideal_indiska_livs/",
+      "youtube": "https://www.youtube.com/@Idealindiska"
+    }
+  },
+  "hours": {
+    "monday_friday": "Monday – Friday: 10:00 – 20:00",
+    "saturday": "Saturday: 11:00 – 19:00",
+    "sunday": "Sunday: 11:00 – 19:00",
+    "note": "Hours may vary on public holidays. Call to confirm."
+  },
   "keywords": {
-    "organic": ["organic", "natural", "bio"],
-    "fresh": ["fresh", "freshness"],
-    "delivery": ["delivery", "deliver", "shipping"],
-    "sale": ["sale", "discount", "offer", "deal"],
-    "hours": ["hours", "open", "close", "timing"],
-    "location": ["location", "where", "address", "directions"]
+    "delivery": [
+      "delivery",
+      "deliver",
+      "shipping",
+      "ship",
+      "dhl",
+      "postcode",
+      "postnummer",
+      "frakt",
+      "leverans",
+      "send",
+      "dispatch"
+    ],
+    "halal": [
+      "halal",
+      "halaal",
+      "حلال",
+      "halal meat",
+      "halal chicken",
+      "halal certified"
+    ],
+    "rice": [
+      "rice",
+      "basmati",
+      "sella",
+      "biryani rice",
+      "chawal",
+      "ris"
+    ],
+    "spices": [
+      "spice",
+      "masala",
+      "curry",
+      "chilli",
+      "chili",
+      "powder",
+      "krydda",
+      "kryddor",
+      "shan",
+      "mdh",
+      "national",
+      "trs"
+    ],
+    "lentils": [
+      "lentil",
+      "dal",
+      "dhal",
+      "linser",
+      "chana",
+      "moong",
+      "urad",
+      "rajma",
+      "kidney bean",
+      "chickpea",
+      "chhole"
+    ],
+    "flour": [
+      "flour",
+      "atta",
+      "wheat",
+      "chapati",
+      "mjöl",
+      "roti flour"
+    ],
+    "frozen": [
+      "frozen",
+      "freeze",
+      "djupfryst"
+    ],
+    "snacks": [
+      "snack",
+      "chips",
+      "nimco",
+      "chanachur",
+      "haldiram",
+      "biscuit",
+      "parle",
+      "kurkure"
+    ],
+    "oil": [
+      "oil",
+      "ghee",
+      "mustard oil",
+      "coconut oil",
+      "olja",
+      "smör"
+    ],
+    "sweets": [
+      "sweet",
+      "mithai",
+      "dessert",
+      "kheer",
+      "custard",
+      "rooh afza",
+      "laziza",
+      "halwa"
+    ],
+    "brands": [
+      "brand",
+      "shaan",
+      "national",
+      "mdh",
+      "shan",
+      "trs",
+      "haldiram",
+      "india gate",
+      "lal qilla",
+      "falak",
+      "tilda",
+      "pataks",
+      "dabur",
+      "meswak",
+      "ahmed",
+      "laziza",
+      "guard",
+      "aashirvaad"
+    ],
+    "kalmar": [
+      "kalmar",
+      "nybro",
+      "borgholm",
+      "öland",
+      "emmaboda",
+      "mönsterås"
+    ],
+    "stockholm": [
+      "stockholm",
+      "bandhagen",
+      "södermalm",
+      "östermalm",
+      "norrmalm",
+      "kungsholmen",
+      "vasastan",
+      "gamla stan",
+      "solna",
+      "nacka"
+    ],
+    "goteborg": [
+      "göteborg",
+      "gothenburg",
+      "mölndal",
+      "partille",
+      "kungsbacka"
+    ],
+    "malmo": [
+      "malmö",
+      "malmo",
+      "lund",
+      "helsingborg",
+      "skåne",
+      "trelleborg"
+    ],
+    "norway": [
+      "norway",
+      "norge",
+      "norwegian",
+      "oslo",
+      "bergen"
+    ],
+    "europe": [
+      "europe",
+      "europe delivery",
+      "eu",
+      "germany",
+      "france",
+      "netherlands",
+      "finland",
+      "denmark",
+      "austria",
+      "italy",
+      "spain",
+      "portugal",
+      "poland",
+      "ireland",
+      "belgium"
+    ],
+    "hours": [
+      "hours",
+      "open",
+      "close",
+      "timing",
+      "öppet",
+      "stängt",
+      "opening times"
+    ],
+    "location": [
+      "location",
+      "where",
+      "address",
+      "directions",
+      "hitta",
+      "adress",
+      "karta",
+      "map",
+      "bandhagen"
+    ],
+    "price": [
+      "price",
+      "cost",
+      "how much",
+      "hur mycket",
+      "pris",
+      "kostar"
+    ],
+    "track": [
+      "track",
+      "tracking",
+      "spåra",
+      "track my order",
+      "where is my order",
+      "parcel",
+      "paket"
+    ],
+    "pickup": [
+      "pickup",
+      "pick up",
+      "collect",
+      "hämta",
+      "store pickup",
+      "click and collect"
+    ],
+    "contact": [
+      "contact",
+      "phone",
+      "call",
+      "whatsapp",
+      "email",
+      "kontakt"
+    ],
+    "south_indian": [
+      "south indian",
+      "dosa",
+      "idli",
+      "sambhar",
+      "rasam",
+      "kerala",
+      "tamil",
+      "curry leaves"
+    ],
+    "vegetarian": [
+      "vegetarian",
+      "veg",
+      "vegetarisk",
+      "veggie",
+      "plant-based",
+      "no meat"
+    ],
+    "vegan": [
+      "vegan",
+      "vegansk",
+      "plant based",
+      "dairy free"
+    ],
+    "organic": [
+      "organic",
+      "natural",
+      "bio",
+      "ekologisk"
+    ]
+  },
+  "delivery": {
+    "no_free_shipping": "We do not offer free shipping. Shipping costs are calculated at checkout based on order weight and destination.",
+    "stockholm_local": {
+      "type": "Own delivery service",
+      "minimum_order": "300 SEK",
+      "fee_300_499": "30 SEK flat fee",
+      "fee_500_plus": "Delivery fee applies (no free shipping)",
+      "same_day": {
+        "areas": [
+          "Bandhagen",
+          "Högdalen",
+          "Hagsätra",
+          "Rågsved",
+          "Stureby",
+          "Farsta",
+          "Älvsjö"
+        ],
+        "cutoff": "16:00 (4 PM)",
+        "window": "19:00 – 22:00 (7 PM – 10 PM)",
+        "days": "Mon – Sun"
+      },
+      "coverage": [
+        "All of Stockholm city",
+        "Södermalm",
+        "Östermalm",
+        "Norrmalm",
+        "Kungsholmen",
+        "Vasastan",
+        "Gamla Stan",
+        "Solna",
+        "Sundbyberg",
+        "Kista",
+        "Nacka",
+        "Huddinge",
+        "Botkyrka",
+        "Järfälla",
+        "Lidingö",
+        "Danderyd"
+      ]
+    },
+    "stockholm_dhl": {
+      "type": "DHL within Stockholm",
+      "note": "Customers can also choose DHL for heavier orders within Stockholm. Rates calculated by weight."
+    },
+    "store_pickup": {
+      "cost": "FREE — always free",
+      "address": "Bandhagsplan 4, 12432 Bandhagen Centrum",
+      "how": "Select 'Store Pickup' at checkout. You get an email/SMS when ready to collect."
+    },
+    "rest_of_sweden_dhl": {
+      "carrier": "DHL",
+      "minimum_order": "None",
+      "timing": "2–5 business days",
+      "example_kalmar": "Kalmar: 2–4 business days, all Kalmar County postcodes (390xx–398xx). DHL Service Points: ICA Berga Centrum, Mekonomen, Direkten Tobaksboden."
+    },
+    "europe": {
+      "carrier": "DHL Parcel Connect",
+      "customs": "NO customs duties or import taxes for EU countries — we ship from Sweden which is an EU member state. Customers in EU pay exactly what they see at checkout, nothing extra.",
+      "norway_note": "IMPORTANT: Norway is NOT an EU member. Norwegian customers may be charged customs duties and import VAT by Norwegian customs (Tollvesenet) upon arrival. We cannot predict or cover these costs. Please check Norway customs rules before ordering.",
+      "minimum_order": "None",
+      "timing": {
+        "scandinavia": "2–4 business days",
+        "rest_of_europe": "4–7 business days"
+      },
+      "countries": [
+        "Germany",
+        "France",
+        "Netherlands",
+        "Belgium",
+        "Denmark",
+        "Finland",
+        "Austria",
+        "Italy",
+        "Spain",
+        "Portugal",
+        "Poland",
+        "Ireland",
+        "Luxembourg",
+        "Norway (customs may apply)"
+      ],
+      "tracking": "All international shipments are fully tracked and insured. Tracking number sent by email."
+    },
+    "frozen_restriction": "IMPORTANT: Frozen foods and fresh produce CANNOT be shipped via DHL. They are ONLY available for Stockholm local delivery. All dry goods, spices, rice, lentils, oils, packaged snacks ship everywhere."
+  },
+  "products": {
+    "total": "1500+ products",
+    "categories": {
+      "rice_grains": {
+        "name": "Rice & Grains",
+        "top_brands": [
+          "India Gate",
+          "Lal Qilla",
+          "Falak",
+          "Tilda",
+          "Guard"
+        ],
+        "varieties": [
+          "Basmati",
+          "Sella / Parboiled",
+          "Long grain",
+          "Short grain"
+        ],
+        "sizes": [
+          "1 kg",
+          "5 kg",
+          "10 kg",
+          "20 kg bags"
+        ]
+      },
+      "spices_masalas": {
+        "name": "Spices & Masalas",
+        "top_brands": [
+          "Shaan",
+          "National",
+          "MDH",
+          "TRS",
+          "Shan",
+          "East End"
+        ],
+        "popular": [
+          "Biryani masala",
+          "Karahi masala",
+          "Korma mix",
+          "Tikka masala",
+          "Chilli powder",
+          "Turmeric",
+          "Cumin",
+          "Coriander",
+          "Garam masala",
+          "Tandoori",
+          "Haleem mix"
+        ]
+      },
+      "lentils_pulses": {
+        "name": "Lentils & Pulses (Dal)",
+        "top_brands": [
+          "TRS",
+          "East End"
+        ],
+        "varieties": [
+          "Red lentils (masoor)",
+          "Yellow moong dal",
+          "Chana dal",
+          "Urad dal",
+          "Kidney beans (rajma)",
+          "Chickpeas (chhole/kabuli)",
+          "Whole moong",
+          "Toor dal"
+        ]
+      },
+      "flour": {
+        "name": "Flour (Atta & Chakki)",
+        "top_brands": [
+          "Elephant Atta",
+          "Pride of India",
+          "Sunwhite",
+          "Aashirvaad"
+        ],
+        "types": [
+          "Chapati/roti atta",
+          "Wheat flour",
+          "Besan (chickpea flour)",
+          "Rice flour"
+        ],
+        "sizes": [
+          "5 kg",
+          "10 kg bags"
+        ]
+      },
+      "halal_meat_frozen": {
+        "name": "Frozen Foods & Halal Meat",
+        "note": "Stockholm local delivery only — cannot be shipped via DHL",
+        "items": [
+          "Frozen halal chicken (whole, pieces, fillets)",
+          "Frozen halal lamb",
+          "Frozen halal beef mince",
+          "Seekh kebabs",
+          "Marinated chicken wings",
+          "Frozen parathas",
+          "Frozen naan",
+          "Frozen samosas"
+        ]
+      },
+      "oils_ghee": {
+        "name": "Oils & Ghee",
+        "top_brands": [
+          "Dalda",
+          "Bake King",
+          "Parachute"
+        ],
+        "types": [
+          "Pure desi ghee (cow/buffalo)",
+          "Mustard oil",
+          "Coconut oil",
+          "Sesame oil",
+          "Sunflower oil (large sizes)"
+        ]
+      },
+      "snacks": {
+        "name": "Snacks & Biscuits",
+        "top_brands": [
+          "Haldiram's",
+          "Parle",
+          "Britannia",
+          "LU"
+        ],
+        "popular": [
+          "Nimco mix",
+          "Chanachur",
+          "Kurkure",
+          "Chevda",
+          "Haldiram's namkeen",
+          "Parle-G biscuits",
+          "Digestive biscuits",
+          "Rusk / Tost"
+        ]
+      },
+      "sweets_desserts": {
+        "name": "Sweets & Desserts",
+        "top_brands": [
+          "Haldiram's",
+          "Laziza",
+          "Ahmed"
+        ],
+        "popular": [
+          "Haldiram's mithai box",
+          "Laziza Kheer mix",
+          "Laziza Custard",
+          "Ahmed Custard powder",
+          "Rooh Afza sherbet",
+          "Vermicelli (seviyan)",
+          "Gulab jamun mix"
+        ]
+      },
+      "drinks_beverages": {
+        "name": "Drinks & Beverages",
+        "popular": [
+          "Rooh Afza",
+          "Mango juice",
+          "Tamarind (imli) drink",
+          "Rose water",
+          "Coconut milk",
+          "Condensed milk",
+          "Nido milk powder"
+        ]
+      },
+      "sauces_pastes": {
+        "name": "Sauces & Pastes",
+        "top_brands": [
+          "Patak's",
+          "TRS"
+        ],
+        "popular": [
+          "Ginger-garlic paste",
+          "Tamarind paste",
+          "Mango chutney",
+          "Mint sauce",
+          "Tikka paste",
+          "Curry paste"
+        ]
+      },
+      "south_indian": {
+        "name": "South Indian Products",
+        "popular": [
+          "Dosa mix",
+          "Idli mix",
+          "Sambhar powder",
+          "Rasam powder",
+          "Curry leaves (dried)",
+          "Coconut chutney mix",
+          "Appam mix"
+        ]
+      },
+      "personal_care": {
+        "name": "Personal Care & Health",
+        "top_brands": [
+          "Dabur",
+          "Himalaya",
+          "Meswak",
+          "Parachute"
+        ],
+        "popular": [
+          "Meswak toothpaste",
+          "Dabur Honey",
+          "Dabur Chyawanprash",
+          "Henna powder",
+          "Hair oil",
+          "Digestive products"
+        ]
+      }
+    }
   },
   "faqs": [
     {
-      "question": "Do you offer organic products?",
-      "answer": "Yes! We have a wide selection of organic products across all categories including fruits, vegetables, dairy, and pantry items.",
-      "category": "products"
-    },
-    {
-      "question": "What are your delivery options?",
-      "answer": "We offer same-day and next-day delivery. Delivery fees apply — see our Delivery Information page for details.",
+      "question": "Do you offer free shipping?",
+      "answer": "No, we do not offer free shipping. Shipping costs are calculated at checkout based on your order weight and delivery destination.",
       "category": "delivery"
     },
     {
-      "question": "Do you have fresh produce daily?",
-      "answer": "Yes! We receive fresh produce deliveries daily to ensure the highest quality.",
+      "question": "Do you ship to Europe?",
+      "answer": "Yes! We ship to all EU countries via DHL Parcel Connect with NO customs duties — since we ship from Sweden (EU), there are no hidden import taxes. Delivery takes 2–4 days to Scandinavia and 4–7 days to the rest of Europe.",
+      "category": "delivery"
+    },
+    {
+      "question": "Do you ship to Norway?",
+      "answer": "Yes, we ship to Norway. However, Norway is not an EU member, so Norwegian customs (Tollvesenet) may charge import duties and VAT on your parcel. These costs are outside our control. We recommend checking Norway's customs rules before ordering.",
+      "category": "delivery"
+    },
+    {
+      "question": "What is the minimum order?",
+      "answer": "For Stockholm local delivery: minimum order is 300 SEK. For DHL shipping to the rest of Sweden and Europe: no minimum order amount.",
+      "category": "delivery"
+    },
+    {
+      "question": "Can I pick up my order from the store?",
+      "answer": "Yes! Store pickup is always FREE. Select 'Store Pickup' at checkout and collect from Bandhagsplan 4, 12432 Bandhagen Centrum. You'll receive a notification when your order is ready.",
+      "category": "pickup"
+    },
+    {
+      "question": "Do you have halal products?",
+      "answer": "Yes! We stock a wide range of halal-certified products including halal chicken, lamb, beef, and many packaged goods. Our frozen halal meats are available for Stockholm local delivery only.",
+      "category": "halal"
+    },
+    {
+      "question": "Can I track my order?",
+      "answer": "Yes. All DHL orders come with a tracking number sent to your email once dispatched. Track your parcel at dhl.se or the DHL app.",
+      "category": "tracking"
+    },
+    {
+      "question": "Do you deliver frozen food to other cities?",
+      "answer": "No. Frozen foods and fresh produce can only be delivered within Stockholm via our local delivery service. We cannot ship frozen or fresh items via DHL to other cities or countries.",
+      "category": "frozen"
+    },
+    {
+      "question": "Where are you located?",
+      "answer": "We are at Bandhagsplan 4, 12432 Bandhagen Centrum, Stockholm. Get directions: https://g.co/kgs/5e3Ufch",
+      "category": "location"
+    },
+    {
+      "question": "What are your opening hours?",
+      "answer": "Monday–Friday: 10:00–20:00. Saturday: 11:00–19:00. Sunday: 11:00–19:00.",
+      "category": "hours"
+    },
+    {
+      "question": "Do you deliver to Kalmar?",
+      "answer": "Yes! We ship to Kalmar and all Kalmar County via DHL in 2–4 business days. You can choose home delivery or pick up from a DHL Service Point (ICA Berga Centrum, Mekonomen, Direkten Tobaksboden).",
+      "category": "delivery"
+    },
+    {
+      "question": "Do you sell south Indian groceries?",
+      "answer": "Yes! We stock dosa mix, idli mix, sambhar powder, rasam powder, dried curry leaves, coconut chutney mix, and more South Indian products.",
       "category": "products"
+    },
+    {
+      "question": "What rice brands do you carry?",
+      "answer": "We stock India Gate, Lal Qilla, Falak, Tilda, Guard and more — in sizes from 1 kg to 20 kg.",
+      "category": "products"
+    },
+    {
+      "question": "What spice brands do you stock?",
+      "answer": "We carry Shaan, National, MDH, TRS, Shan, East End and many more. Full ranges of masala mixes, whole spices, and ground spices.",
+      "category": "products"
+    },
+    {
+      "question": "Do you have atta / chapati flour?",
+      "answer": "Yes! We stock Elephant Atta, Pride of India, Sunwhite, and Aashirvaad in 5 kg and 10 kg bags.",
+      "category": "products"
+    },
+    {
+      "question": "How do I contact you?",
+      "answer": "Phone & WhatsApp: +46 728 494 801. Email: hello@ideallivs.com. WhatsApp chat: https://wa.me/46728494801",
+      "category": "contact"
+    },
+    {
+      "question": "Do you offer same-day delivery?",
+      "answer": "Yes — for Stockholm local delivery in nearby areas (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, Älvsjö). Order before 4 PM (16:00) for delivery 7 PM – 10 PM the same evening.",
+      "category": "delivery"
     }
   ],
   "popular_dishes": [
     {
-      "name": "Organic Apples",
-      "description": "Fresh organic apples from local farms",
-      "category": "produce",
-      "dietary": ["organic", "vegan"],
+      "name": "India Gate Basmati Rice",
+      "description": "Premium long-grain Basmati rice, perfect for biryani and pulao",
+      "category": "rice",
+      "dietary": [
+        "vegan",
+        "vegetarian",
+        "gluten-free"
+      ],
       "spice_level": "none"
     },
     {
-      "name": "Fresh Milk",
-      "description": "Farm-fresh whole milk delivered daily",
-      "category": "dairy",
-      "dietary": ["organic"],
+      "name": "Shaan Biryani Masala",
+      "description": "Ready-to-use spice mix for authentic Pakistani-style biryani",
+      "category": "spices",
+      "dietary": [
+        "vegetarian",
+        "vegan"
+      ],
+      "spice_level": "medium"
+    },
+    {
+      "name": "Haldiram's Namkeen Mix",
+      "description": "Classic Indian savoury snack mix — great for tea time",
+      "category": "snacks",
+      "dietary": [
+        "vegetarian"
+      ],
+      "spice_level": "mild"
+    },
+    {
+      "name": "Rooh Afza Sherbet",
+      "description": "Iconic rose-flavoured Pakistani drink concentrate, perfect for Ramadan and summer",
+      "category": "drinks",
+      "dietary": [
+        "vegan",
+        "vegetarian"
+      ],
       "spice_level": "none"
     },
     {
-      "name": "Artisan Bread",
-      "description": "Freshly baked artisan bread",
-      "category": "bakery",
-      "dietary": ["vegetarian"],
+      "name": "Elephant Atta Wheat Flour",
+      "description": "High-quality wholemeal chapati flour for soft rotis and parathas",
+      "category": "flour",
+      "dietary": [
+        "vegan",
+        "vegetarian"
+      ],
+      "spice_level": "none"
+    },
+    {
+      "name": "TRS Red Lentils (Masoor Dal)",
+      "description": "Split red lentils — quick to cook, great for dal tadka and soups",
+      "category": "lentils",
+      "dietary": [
+        "vegan",
+        "vegetarian",
+        "gluten-free"
+      ],
+      "spice_level": "none"
+    },
+    {
+      "name": "Laziza Kheer Mix",
+      "description": "Easy-to-make Pakistani rice pudding mix, ready in 15 minutes",
+      "category": "sweets",
+      "dietary": [
+        "vegetarian"
+      ],
+      "spice_level": "none"
+    },
+    {
+      "name": "Meswak Toothpaste",
+      "description": "Natural miswak herbal toothpaste, halal and fluoride-free",
+      "category": "personal_care",
+      "dietary": [
+        "halal"
+      ],
       "spice_level": "none"
     }
   ],
   "dietary_options": {
+    "halal": {
+      "available": true,
+      "description": "We stock a wide range of halal-certified products including frozen halal chicken, lamb, beef, and many packaged goods. Look for the halal certification label.",
+      "examples": [
+        "Frozen halal chicken",
+        "Halal lamb",
+        "National Foods Halal",
+        "Shan Halal products"
+      ],
+      "note": "Frozen halal meats are for Stockholm local delivery only and cannot be shipped via DHL."
+    },
     "vegetarian": {
       "available": true,
-      "description": "We have a wide range of vegetarian products including fresh produce, dairy, and plant-based alternatives.",
-      "examples": ["Fresh Vegetables", "Organic Fruits", "Plant-Based Milk", "Veggie Burgers"]
+      "description": "The vast majority of our dry goods, spices, rice, lentils, flours, and snacks are vegetarian-friendly.",
+      "examples": [
+        "All rice and grains",
+        "All spices and masalas",
+        "Lentils and pulses",
+        "Atta & flour",
+        "Most snacks and sweets"
+      ]
     },
     "vegan": {
       "available": true,
-      "description": "Explore our vegan section with plant-based alternatives and fresh produce.",
-      "examples": ["Almond Milk", "Tofu", "Vegan Cheese", "Plant-Based Meats"]
-    },
-    "organic": {
-      "available": true,
-      "description": "All our organic products are certified and sourced from trusted suppliers.",
-      "examples": ["Organic Produce", "Organic Dairy", "Organic Grains"],
-      "note": "Look for the green organic label!"
+      "description": "Many of our products are vegan — rice, lentils, spices, oils, and most dry goods contain no animal products.",
+      "examples": [
+        "All rice",
+        "All lentils",
+        "Most spices",
+        "Mustard oil, coconut oil",
+        "Papad / poppadoms"
+      ]
     },
     "gluten_free": {
       "available": true,
-      "description": "We stock a variety of gluten-free products.",
-      "examples": ["Gluten-Free Bread", "GF Pasta", "GF Snacks"]
+      "description": "We stock several gluten-free options including rice, lentils, and dedicated gluten-free products.",
+      "examples": [
+        "All rice varieties",
+        "All whole lentils",
+        "Besan (chickpea flour)",
+        "Rice flour"
+      ]
     }
   }
 }
