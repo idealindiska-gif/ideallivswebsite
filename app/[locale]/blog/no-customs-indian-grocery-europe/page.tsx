@@ -15,17 +15,31 @@ import { brandProfile } from '@/config/brand-profile';
 import { siteConfig } from '@/site.config';
 import { SchemaScript } from '@/lib/schema/schema-script';
 
-export const metadata: Metadata = {
-    title: "Ordering Indian Groceries in Europe: Why Shipping from Sweden is Smarter",
-    description: "Avoid customs duties and high shipping costs. Learn why ordering Indian and Pakistani groceries from within the EU (Ideal Indiska, Sweden) is faster and cheaper.",
-    openGraph: {
-        title: "No Customs Duty: Shop Indian Groceries Across Europe",
-        description: "Shopping from within the EU means zero hidden fees. Discover the best way to get authentic spices and rice delivered to your home.",
-        images: [{ url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80', width: 1200, height: 630, alt: 'Indian Spices Market' }],
-    },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    const localePrefix = locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : '';
+    return {
+        title: "Ordering Indian Groceries in Europe: Why Shipping from Sweden is Smarter",
+        description: "Avoid customs duties and high shipping costs. Learn why ordering Indian and Pakistani groceries from within the EU (Ideal Indiska, Sweden) is faster and cheaper.",
+        alternates: {
+            canonical: `https://www.ideallivs.com${localePrefix}/blog/no-customs-indian-grocery-europe`,
+            languages: {
+                'en': 'https://www.ideallivs.com/blog/no-customs-indian-grocery-europe',
+                'sv': 'https://www.ideallivs.com/sv/blog/no-customs-indian-grocery-europe',
+                'nb': 'https://www.ideallivs.com/no/blog/no-customs-indian-grocery-europe',
+                'da': 'https://www.ideallivs.com/da/blog/no-customs-indian-grocery-europe',
+                'x-default': 'https://www.ideallivs.com/blog/no-customs-indian-grocery-europe',
+            },
+        },
+        openGraph: {
+            title: "No Customs Duty: Shop Indian Groceries Across Europe",
+            description: "Shopping from within the EU means zero hidden fees. Discover the best way to get authentic spices and rice delivered to your home.",
+            images: [{ url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80', width: 1200, height: 630, alt: 'Indian Spices Market' }],
+        },
+    };
+}
 
-export default function NoCustomsPostPage() {
+export default function NoCustomsPostPage({ params }: { params: Promise<{ locale: string }> }) {
     const publishDate = "January 26, 2026";
     const title = "EU Shipping Guide: Why Buying Indian Groceries from Sweden Saves You Money";
 

@@ -280,7 +280,7 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
             images: ['https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg'],
         },
         alternates: {
-            canonical: `/en`,
+            canonical: `/`,
             languages: {
                 'en': '/',
                 'sv': '/sv',

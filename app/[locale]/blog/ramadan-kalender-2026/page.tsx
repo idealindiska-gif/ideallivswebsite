@@ -228,10 +228,13 @@ export async function generateMetadata({
         title: c.metaTitle,
         description: c.metaDescription,
         alternates: {
-            canonical: locale === 'sv' ? '/sv/blog/ramadan-kalender-2026' : '/blog/ramadan-kalender-2026',
+            canonical: locale === 'sv' ? '/sv/blog/ramadan-kalender-2026' : locale === 'no' ? '/no/blog/ramadan-kalender-2026' : locale === 'da' ? '/da/blog/ramadan-kalender-2026' : '/blog/ramadan-kalender-2026',
             languages: {
                 en: '/blog/ramadan-kalender-2026',
                 sv: '/sv/blog/ramadan-kalender-2026',
+                nb: '/no/blog/ramadan-kalender-2026',
+                da: '/da/blog/ramadan-kalender-2026',
+                'x-default': '/blog/ramadan-kalender-2026',
             },
         },
         openGraph: {

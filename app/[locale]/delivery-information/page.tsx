@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: svMeta.title,
       description: svMeta.description,
-      alternates: getAlternates('/delivery-information'),
+      alternates: getAlternates('/delivery-information', locale),
     };
   }
 
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: "Dagligvarelevering Stockholm & Hele Sverige | Ideal Indiska Livs",
       description: "Autentiske indiske og pakistanske dagligvarer med rask lokal levering i Stockholm. Samme-dag kveldlevering i Bandhagen og sørlige forsteder.",
-      alternates: getAlternates('/delivery-information'),
+      alternates: getAlternates('/delivery-information', locale),
     };
   }
 
@@ -74,14 +74,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: "Dagligvarelevering Stockholm & Hele Sverige | Ideal Indiska Livs",
       description: "Autentiske indiske og pakistanske dagligvarer med hurtig lokal levering i Stockholm. Samme-dag aftenlevering i Bandhagen og sydlige forstæder.",
-      alternates: getAlternates('/delivery-information'),
+      alternates: getAlternates('/delivery-information', locale),
     };
   }
 
   return {
     title: "Grocery Delivery Stockholm & All Sweden | Ideal Indiska Livs",
     description: "Authentic Indian & Pakistani groceries with fast local delivery across Stockholm. Same-day evening delivery in Bandhagen & southern suburbs.",
-    alternates: getAlternates('/delivery-information'),
+    alternates: getAlternates('/delivery-information', locale),
   };
 }
 

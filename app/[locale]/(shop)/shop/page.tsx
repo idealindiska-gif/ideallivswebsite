@@ -6,10 +6,28 @@ import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Shop Indian & Pakistani Groceries | Ideal Indiska LIVS',
-  description: 'Shop Indian & Pakistani groceries online. Premium Basmati rice, spices, halal products, frozen foods & more. Deliveries across Stockholm & Europe.',
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isSv = locale === 'sv';
+  return {
+    title: isSv
+      ? 'Handla Indiska & Pakistanska Livsmedel Online | Ideal Indiska LIVS'
+      : 'Shop Indian & Pakistani Groceries | Ideal Indiska LIVS',
+    description: isSv
+      ? 'Handla indiska och pakistanska livsmedel online. Premium basmatris, kryddor, halalprodukter, fryst mat & mer. Leveranser i Stockholm & Europa.'
+      : 'Shop Indian & Pakistani groceries online. Premium Basmati rice, spices, halal products, frozen foods & more. Deliveries across Stockholm & Europe.',
+    alternates: {
+      canonical: `https://www.ideallivs.com${locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : ''}/shop`,
+      languages: {
+        'en': 'https://www.ideallivs.com/shop',
+        'sv': 'https://www.ideallivs.com/sv/shop',
+        'nb': 'https://www.ideallivs.com/no/shop',
+        'da': 'https://www.ideallivs.com/da/shop',
+        'x-default': 'https://www.ideallivs.com/shop',
+      },
+    },
+  };
+}
 
 interface ShopPageProps {
   searchParams: Promise<{

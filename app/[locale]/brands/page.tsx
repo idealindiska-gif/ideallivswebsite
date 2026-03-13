@@ -24,7 +24,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         title: locale === 'sv' ? titleSv : titleEn,
         description: locale === 'sv' ? descriptionSv : descriptionEn,
         alternates: {
-            canonical: "https://www.ideallivs.com/brands",
+            canonical: `https://www.ideallivs.com${locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : ''}/brands`,
+            languages: {
+                'en': 'https://www.ideallivs.com/brands',
+                'sv': 'https://www.ideallivs.com/sv/brands',
+                'nb': 'https://www.ideallivs.com/no/brands',
+                'da': 'https://www.ideallivs.com/da/brands',
+                'x-default': 'https://www.ideallivs.com/brands',
+            },
         },
         keywords: [
             "top indian brands Stockholm",

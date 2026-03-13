@@ -12,7 +12,7 @@ import { wordPressArticleSchema, breadcrumbSchema, postBreadcrumbs, idealChefPer
 import { siteConfig } from '@/site.config';
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 };
 
 // Helper functions
@@ -65,7 +65,7 @@ function stripHtml(html: string): string {
 
 // Generate metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
 
   try {
     const post = await getPostBySlug(slug);
@@ -80,9 +80,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const imageUrl = getFeaturedImageUrl(post);
     const decodedTitle = decodeHtmlEntities(post.title.rendered);
 
+    const localePrefix = locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : '';
     return {
       title: `${decodedTitle} - ${brandProfile.name}`,
       description: excerpt,
+      alternates: {
+        canonical: `https://www.ideallivs.com${localePrefix}/blog/${slug}`,
+        languages: {
+          'en': `https://www.ideallivs.com/blog/${slug}`,
+          'sv': `https://www.ideallivs.com/sv/blog/${slug}`,
+          'nb': `https://www.ideallivs.com/no/blog/${slug}`,
+          'da': `https://www.ideallivs.com/da/blog/${slug}`,
+          'x-default': `https://www.ideallivs.com/blog/${slug}`,
+        },
+      },
       openGraph: {
         title: decodedTitle,
         description: excerpt,

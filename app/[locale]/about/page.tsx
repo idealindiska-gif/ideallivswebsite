@@ -25,14 +25,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: svMeta.title,
       description: svMeta.description,
-      alternates: getAlternates('/about'),
+      alternates: getAlternates('/about', locale),
     };
   }
 
   return {
     title: `About ${brandProfile.name} - Stockholm's Best Indian & Pakistani Grocery`,
     description: `Discover the story of ${brandProfile.name}. Since 2020, we have been Stockholm's most trusted source for authentic Indian and Pakistani groceries, premium Basmati rice, and Halal meat.`,
-    alternates: getAlternates('/about'),
+    alternates: getAlternates('/about', locale),
   };
 }
 

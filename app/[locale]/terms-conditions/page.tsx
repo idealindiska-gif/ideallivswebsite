@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: locale === 'sv'
       ? 'Villkor för användning av ideallivs.com. Läs om våra policyer för beställningar, betalningar, leverans och mer.'
       : 'Terms and conditions for using ideallivs.com. Learn about our policies on orders, payments, delivery, and more.',
-    alternates: getAlternates('/terms-conditions'),
+    alternates: getAlternates('/terms-conditions', locale),
   };
 }
 

@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     return {
         title: `${t('title')} | Ideal Indiska LIVS`,
         description: t('subtitle'),
-        alternates: getAlternates('/europe-delivery'),
+        alternates: getAlternates('/europe-delivery', locale),
     };
 }
 

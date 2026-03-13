@@ -17,17 +17,31 @@ import { getProducts } from '@/lib/woocommerce/products-direct';
 import { getAllPosts } from '@/lib/wordpress';
 import { decodeHtmlEntities } from '@/lib/utils';
 
-export const metadata: Metadata = {
-    title: "The Indian Fika: 5 Savory Snacks to Pair with Your Tea | Ideal Indiska",
-    description: "Discover how to blend Swedish Fika culture with authentic Indian snacks. From spicy Samosas to crispy Namkeen, here are the best pairings for your afternoon tea.",
-    openGraph: {
-        title: "The Indian Fika: Authentic Snacks for Your Coffee Break",
-        description: "Upgrade your Fika with a spicy twist. Explore the best Indian snacks available in Stockholm.",
-        images: [{ url: '/images/blog/indian-fika-hero.png', width: 1200, height: 630, alt: 'Indian Fika Setup' }],
-    },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    const localePrefix = locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : '';
+    return {
+        title: "The Indian Fika: 5 Savory Snacks to Pair with Your Tea | Ideal Indiska",
+        description: "Discover how to blend Swedish Fika culture with authentic Indian snacks. From spicy Samosas to crispy Namkeen, here are the best pairings for your afternoon tea.",
+        alternates: {
+            canonical: `https://www.ideallivs.com${localePrefix}/blog/the-indian-fika`,
+            languages: {
+                'en': 'https://www.ideallivs.com/blog/the-indian-fika',
+                'sv': 'https://www.ideallivs.com/sv/blog/the-indian-fika',
+                'nb': 'https://www.ideallivs.com/no/blog/the-indian-fika',
+                'da': 'https://www.ideallivs.com/da/blog/the-indian-fika',
+                'x-default': 'https://www.ideallivs.com/blog/the-indian-fika',
+            },
+        },
+        openGraph: {
+            title: "The Indian Fika: Authentic Snacks for Your Coffee Break",
+            description: "Upgrade your Fika with a spicy twist. Explore the best Indian snacks available in Stockholm.",
+            images: [{ url: '/images/blog/indian-fika-hero.png', width: 1200, height: 630, alt: 'Indian Fika Setup' }],
+        },
+    };
+}
 
-export default async function IndianFikaPage() {
+export default async function IndianFikaPage({ params }: { params: Promise<{ locale: string }> }) {
     const publishDate = "January 10, 2026";
     const title = "The Indian Fika: 5 Savory Snacks to Pair with Your Tea";
     const currentUrl = `${siteConfig.site_domain}/blog/the-indian-fika`;

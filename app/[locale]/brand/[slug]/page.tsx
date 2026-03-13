@@ -196,7 +196,14 @@ export async function generateMetadata({ params }: BrandArchivePageProps): Promi
             type: 'website',
         },
         alternates: {
-            canonical: `${siteConfig.site_domain}/brand/${resolvedParams.slug}`,
+            canonical: `${siteConfig.site_domain}${resolvedParams.locale === 'sv' ? '/sv' : resolvedParams.locale === 'no' ? '/no' : resolvedParams.locale === 'da' ? '/da' : ''}/brand/${resolvedParams.slug}`,
+            languages: {
+                'en': `${siteConfig.site_domain}/brand/${resolvedParams.slug}`,
+                'sv': `${siteConfig.site_domain}/sv/brand/${resolvedParams.slug}`,
+                'nb': `${siteConfig.site_domain}/no/brand/${resolvedParams.slug}`,
+                'da': `${siteConfig.site_domain}/da/brand/${resolvedParams.slug}`,
+                'x-default': `${siteConfig.site_domain}/brand/${resolvedParams.slug}`,
+            },
         },
     };
 }

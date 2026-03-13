@@ -127,7 +127,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
                     ? [product.images[0].src]
                     : [defaultImage.url],
             },
-            alternates: getAlternates(productPath),
+            alternates: getAlternates(productPath, locale),
             robots: {
                 index: true,
                 follow: true,

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         description: locale === 'sv'
             ? '14 dagars returpolicy för berättigade varor. Läs om vår returprocess för kunder i Sverige och Europa.'
             : '14-day return policy for eligible items. Learn about our return process for customers in Sweden and Europe.',
-        alternates: getAlternates('/refund-return'),
+        alternates: getAlternates('/refund-return', locale),
     };
 }
 

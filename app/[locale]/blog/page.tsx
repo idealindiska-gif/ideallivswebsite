@@ -16,6 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t('title')} - ${brandConfig.businessName}`,
     description: t('subtitle'),
+    alternates: {
+      canonical: `https://www.ideallivs.com${locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : ''}/blog`,
+      languages: {
+        'en': 'https://www.ideallivs.com/blog',
+        'sv': 'https://www.ideallivs.com/sv/blog',
+        'nb': 'https://www.ideallivs.com/no/blog',
+        'da': 'https://www.ideallivs.com/da/blog',
+        'x-default': 'https://www.ideallivs.com/blog',
+      },
+    },
   };
 }
 

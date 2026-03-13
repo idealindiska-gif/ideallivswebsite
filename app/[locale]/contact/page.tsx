@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t('title')} - Ideal Indiska LIVS | Grocery Store Bandhagen Stockholm`,
     description: t('subtitle'),
-    alternates: getAlternates('/contact'),
+    alternates: getAlternates('/contact', locale),
   };
 }
 

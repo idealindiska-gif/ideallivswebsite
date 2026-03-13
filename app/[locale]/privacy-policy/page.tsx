@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: locale === 'sv'
       ? 'Vårt åtagande att skydda din integritet och hantera dina personuppgifter med öppenhet och omsorg, i full GDPR-efterlevnad.'
       : 'Our commitment to protecting your privacy and handling your personal data with transparency and care, in full GDPR compliance.',
-    alternates: getAlternates('/privacy-policy'),
+    alternates: getAlternates('/privacy-policy', locale),
   };
 }
 

@@ -23,18 +23,32 @@ export const revalidate = 86400; // Daily revalidation
 const ARTICLE_URL = `${siteConfig.site_domain}/blog/ramadan-grocery-checklist-2026`;
 const PUBLISH_DATE = '2026-02-12';
 
-export const metadata: Metadata = {
-    title: 'Ramadan 2026 Grocery Shortlist: Essential Foods for Suhoor & Iftar | Ideal Indiska',
-    description: 'Stock up for Ramadan 2026 with our essential grocery checklist. From energy-boosting Suhoor staples to quick Iftar snacks, get everything you need at Ideal Indiska LIVS.',
-    openGraph: {
-        title: 'Ramadan 2026 Grocery Shortlist: Essential Foods for Suhoor & Iftar',
-        description: 'Stock up for Ramadan 2026 with our essential grocery checklist. From energy-boosting Suhoor staples to quick Iftar snacks.',
-        images: [{ url: 'https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg', width: 1200, height: 630, alt: 'Ramadan Suhoor Table' }],
-        type: 'article',
-    },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    const localePrefix = locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : '';
+    return {
+        title: 'Ramadan 2026 Grocery Shortlist: Essential Foods for Suhoor & Iftar | Ideal Indiska',
+        description: 'Stock up for Ramadan 2026 with our essential grocery checklist. From energy-boosting Suhoor staples to quick Iftar snacks, get everything you need at Ideal Indiska LIVS.',
+        alternates: {
+            canonical: `https://www.ideallivs.com${localePrefix}/blog/ramadan-grocery-checklist-2026`,
+            languages: {
+                'en': 'https://www.ideallivs.com/blog/ramadan-grocery-checklist-2026',
+                'sv': 'https://www.ideallivs.com/sv/blog/ramadan-grocery-checklist-2026',
+                'nb': 'https://www.ideallivs.com/no/blog/ramadan-grocery-checklist-2026',
+                'da': 'https://www.ideallivs.com/da/blog/ramadan-grocery-checklist-2026',
+                'x-default': 'https://www.ideallivs.com/blog/ramadan-grocery-checklist-2026',
+            },
+        },
+        openGraph: {
+            title: 'Ramadan 2026 Grocery Shortlist: Essential Foods for Suhoor & Iftar',
+            description: 'Stock up for Ramadan 2026 with our essential grocery checklist. From energy-boosting Suhoor staples to quick Iftar snacks.',
+            images: [{ url: 'https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg', width: 1200, height: 630, alt: 'Ramadan Suhoor Table' }],
+            type: 'article',
+        },
+    };
+}
 
-export default async function RamadanGroceryChecklist() {
+export default async function RamadanGroceryChecklist({ params }: { params: Promise<{ locale: string }> }) {
     const currentYear = 2026;
 
     // Fetch Sidebar Data (Promotions & Recent Posts)
