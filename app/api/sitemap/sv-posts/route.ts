@@ -15,6 +15,7 @@ export async function GET() {
         { slug: 'ramadan-grocery-checklist-2026', changefreq: 'weekly', priority: '0.8' },
         { slug: 'the-indian-fika', changefreq: 'monthly', priority: '0.7' },
         { slug: 'no-customs-indian-grocery-europe', changefreq: 'monthly', priority: '0.7' },
+        { slug: 'eid-al-fitr-2026-sweden', changefreq: 'weekly', priority: '0.9' },
     ];
 
     // Fetch WordPress posts for Swedish sitemap
