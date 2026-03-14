@@ -102,12 +102,12 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
       <section className="py-12 bg-muted/30 border-b">
         <div className="container px-4 md:px-6 space-y-8">
 
-          {/* Featured Static Post 1 (Ramadan) */}
+          {/* Featured Static Post 1 (Eid) */}
           <div className="flex flex-col md:flex-row gap-8 items-center bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6">
             <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
               <Image
-                src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
-                alt={t('ramadanTitle')}
+                src="https://crm.ideallivs.com/wp-content/uploads/2026/03/Eid-Celebration-in-Sweden.jpg"
+                alt={t('eidTitle')}
                 fill
                 className="object-cover"
               />
@@ -116,18 +116,43 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
               </div>
             </div>
             <div className="flex-1 space-y-4">
-              <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('seasonalGuide')}</div>
-              <h2 className="text-2xl md:text-3xl font-bold font-heading">{t('ramadanTitle')}</h2>
+              <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('eidFestivals')}</div>
+              <h2 className="text-2xl md:text-3xl font-bold font-heading">{t('eidTitle')}</h2>
               <p className="text-muted-foreground line-clamp-3">
-                {t('ramadanDescription')}
+                {t('eidDescription')}
               </p>
               <Button asChild className="rounded-full px-8">
-                <Link href="/blog/ramadan-2026">{t('viewChecklist')}</Link>
+                <Link href="/blog/eid-al-fitr-2026-sweden">{t('viewEidGuide')}</Link>
               </Button>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Ramadan */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
+                  alt={t('ramadanTitle')}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {t('seasonalGuide')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('seasonalGuide')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('ramadanTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('ramadanDescription')}
+                </p>
+                <Button asChild variant="outline" className="rounded-full w-full mt-auto">
+                  <Link href="/blog/ramadan-2026">{t('viewChecklist')}</Link>
+                </Button>
+              </div>
+            </div>
+
             {/* Indian Fika */}
             <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">

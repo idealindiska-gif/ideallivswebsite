@@ -465,8 +465,8 @@ export default async function EidPage({ params }: { params: Promise<{ locale: st
                                 </p>
 
                                 {/* Important note */}
-                                <div className="not-prose p-5 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 my-8">
-                                    <p className="text-sm text-amber-900 dark:text-amber-100">
+                                <div className="not-prose p-5 rounded-xl bg-muted/60 border border-border my-8">
+                                    <p className="text-sm text-muted-foreground">
                                         <strong className="font-bold">{c.noteLabel}</strong>{' '}{c.noteText}
                                     </p>
                                 </div>
