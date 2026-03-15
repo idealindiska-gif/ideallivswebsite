@@ -519,14 +519,14 @@ export default async function EidPage({ params }: { params: Promise<{ locale: st
                                 <div className="not-prose grid sm:grid-cols-2 gap-4 my-8">
                                     {(c.isSv ? [
                                         { emoji: '🍮', name: 'Sheer Khurma', desc: 'Den klassiska Eid-desserten med vermicelli, mjölk, dadlar och nötter — en tradition i varje pakistanskt och indiskt hem.' },
-                                        { emoji: '🍚', name: 'Biryani', desc: 'En aromatisk risprätt med kött och kryddor — ofta mittpunkten på Eid-middagen. Kräver premium basmatiris.' },
-                                        { emoji: '🍬', name: 'Mithai (sötsaker)', desc: 'Barfi, Gulab Jamun, Ladoo och Halwa — traditionella sötsaker att fira och dela med gäster.' },
-                                        { emoji: '🥟', name: 'Kebab & Samosas', desc: 'Populära förrätter till Eid-samlingar, perfekta att servera till gästerna under hela dagen.' },
+                                        { emoji: '🍚', name: 'Biryani', desc: 'En aromatisk risprätt med kryddor och basmatiris — ofta mittpunkten på Eid-middagen. Kräver premium basmatiris.' },
+                                        { emoji: '🍬', name: 'Mithai (sötsaker)', desc: 'Barfi, Gulab Jamun, Ladoo och Halwa — du hittar Anmol-sötsaker och andra traditionella märken hos oss i Bandhagen.' },
+                                        { emoji: '🥟', name: 'Frysta Snacks & Samosas', desc: 'Populära förrätter till Eid-samlingar — frysta samosas och snacks finns redo i vår frysdisk.' },
                                     ] : [
                                         { emoji: '🍮', name: 'Sheer Khurma', desc: 'The quintessential Eid dessert made with vermicelli, milk, dates and nuts — a tradition in every Pakistani and Indian household.' },
-                                        { emoji: '🍚', name: 'Biryani', desc: 'A fragrant rice dish with meat and aromatic spices — often the centrepiece of the Eid lunch or dinner. Requires premium basmati rice.' },
-                                        { emoji: '🍬', name: 'Mithai (Sweets)', desc: 'Barfi, Gulab Jamun, Ladoo and Halwa — traditional sweets for celebrating and sharing with guests.' },
-                                        { emoji: '🥟', name: 'Kebabs & Samosas', desc: 'Popular appetizers for Eid gatherings, perfect for serving guests throughout the day.' },
+                                        { emoji: '🍚', name: 'Biryani', desc: 'A fragrant rice dish with aromatic spices and premium basmati rice — often the centrepiece of the Eid lunch or dinner.' },
+                                        { emoji: '🍬', name: 'Mithai (Sweets)', desc: 'Barfi, Gulab Jamun, Ladoo and Halwa — you can find Anmol sweets and other traditional brands at our Bandhagen store.' },
+                                        { emoji: '🥟', name: 'Frozen Snacks & Samosas', desc: 'Popular appetizers for Eid gatherings — frozen samosas and snacks available ready-to-cook from our freezer aisle.' },
                                     ]).map((food, i) => (
                                         <div key={i} className="p-5 rounded-2xl bg-card border border-border/60 hover:border-primary/30 transition-colors">
                                             <p className="text-3xl mb-2">{food.emoji}</p>
@@ -548,12 +548,12 @@ export default async function EidPage({ params }: { params: Promise<{ locale: st
                                             </p>
                                             <div className="flex flex-wrap gap-2 mt-3">
                                                 {[
-                                                    { label: c.isSv ? 'Basmatiris' : 'Basmati Rice', href: '/product-category/rice' },
-                                                    { label: c.isSv ? 'Halalkött' : 'Halal Meat', href: '/product-category/meat' },
-                                                    { label: c.isSv ? 'Kryddor' : 'Spices', href: '/product-category/spices' },
-                                                    { label: c.isSv ? 'Dadlar & Nötter' : 'Dates & Nuts', href: '/product-category/dates-dry-fruits' },
-                                                    { label: c.isSv ? 'Frysta Samosas' : 'Frozen Samosas', href: '/product-category/frozen-food' },
-                                                    { label: c.isSv ? 'Sötsaker' : 'Indian Sweets', href: '/product-category/sweets-mithai' },
+                                                    { label: c.isSv ? 'Basmatiris' : 'Basmati Rice', href: '/product-category/basmati-rice' },
+                                                    { label: c.isSv ? 'Kryddor & Masala' : 'Spices & Masala', href: '/product-category/spice-blends' },
+                                                    { label: c.isSv ? 'Dadlar & Nötter' : 'Dates & Dry Fruits', href: '/product-category/dry-fruits' },
+                                                    { label: c.isSv ? 'Frysta Snacks' : 'Frozen Snacks', href: '/product-category/frozen-snacks' },
+                                                    { label: c.isSv ? 'Vermicelli' : 'Vermicelli', href: '/product-category/vermicelli' },
+                                                    { label: c.isSv ? 'Sötsaker' : 'Indian Sweets', href: '/product-category/sweets' },
                                                 ].map((item, i) => (
                                                     <Link key={i} href={item.href}
                                                         className="inline-flex items-center gap-1 text-xs font-semibold bg-primary/10 hover:bg-primary hover:text-white text-primary px-3 py-1.5 rounded-full transition-colors">
