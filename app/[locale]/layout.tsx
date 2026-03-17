@@ -68,13 +68,13 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
             metadataBase: new URL(siteConfig.site_domain),
             icons: {
                 icon: [
-                    { url: `${siteConfig.site_domain}/favicon.svg?v=2`, type: "image/svg+xml" },
-                    { url: `${siteConfig.site_domain}/favicon-32x32.png?v=2`, type: "image/png", sizes: "32x32" },
-                    { url: `${siteConfig.site_domain}/favicon-16x16.png?v=2`, type: "image/png", sizes: "16x16" },
-                    { url: `${siteConfig.site_domain}/favicon.ico?v=2`, sizes: "any" },
+                    { url: `${siteConfig.site_domain}/favicon.svg?v=3`, type: "image/svg+xml" },
+                    { url: `${siteConfig.site_domain}/favicon-32x32.png?v=3`, type: "image/png", sizes: "32x32" },
+                    { url: `${siteConfig.site_domain}/favicon-16x16.png?v=3`, type: "image/png", sizes: "16x16" },
+                    { url: `${siteConfig.site_domain}/favicon.ico?v=3`, sizes: "any" },
                 ],
-                shortcut: `${siteConfig.site_domain}/favicon.ico?v=2`,
-                apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=2`, sizes: "180x180", type: "image/png" }],
+                shortcut: `${siteConfig.site_domain}/favicon.ico?v=3`,
+                apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=3`, sizes: "180x180", type: "image/png" }],
             },
             alternates: {
                 canonical: `/sv`,
@@ -136,13 +136,13 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
             metadataBase: new URL(siteConfig.site_domain),
             icons: {
                 icon: [
-                    { url: `${siteConfig.site_domain}/favicon.svg?v=2`, type: "image/svg+xml" },
-                    { url: `${siteConfig.site_domain}/favicon-32x32.png?v=2`, type: "image/png", sizes: "32x32" },
-                    { url: `${siteConfig.site_domain}/favicon-16x16.png?v=2`, type: "image/png", sizes: "16x16" },
-                    { url: `${siteConfig.site_domain}/favicon.ico?v=2`, sizes: "any" },
+                    { url: `${siteConfig.site_domain}/favicon.svg?v=3`, type: "image/svg+xml" },
+                    { url: `${siteConfig.site_domain}/favicon-32x32.png?v=3`, type: "image/png", sizes: "32x32" },
+                    { url: `${siteConfig.site_domain}/favicon-16x16.png?v=3`, type: "image/png", sizes: "16x16" },
+                    { url: `${siteConfig.site_domain}/favicon.ico?v=3`, sizes: "any" },
                 ],
-                shortcut: `${siteConfig.site_domain}/favicon.ico?v=2`,
-                apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=2`, sizes: "180x180", type: "image/png" }],
+                shortcut: `${siteConfig.site_domain}/favicon.ico?v=3`,
+                apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=3`, sizes: "180x180", type: "image/png" }],
             },
             alternates: {
                 canonical: `/no`,
@@ -204,13 +204,13 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
             metadataBase: new URL(siteConfig.site_domain),
             icons: {
                 icon: [
-                    { url: `${siteConfig.site_domain}/favicon.svg?v=2`, type: "image/svg+xml" },
-                    { url: `${siteConfig.site_domain}/favicon-32x32.png?v=2`, type: "image/png", sizes: "32x32" },
-                    { url: `${siteConfig.site_domain}/favicon-16x16.png?v=2`, type: "image/png", sizes: "16x16" },
-                    { url: `${siteConfig.site_domain}/favicon.ico?v=2`, sizes: "any" },
+                    { url: `${siteConfig.site_domain}/favicon.svg?v=3`, type: "image/svg+xml" },
+                    { url: `${siteConfig.site_domain}/favicon-32x32.png?v=3`, type: "image/png", sizes: "32x32" },
+                    { url: `${siteConfig.site_domain}/favicon-16x16.png?v=3`, type: "image/png", sizes: "16x16" },
+                    { url: `${siteConfig.site_domain}/favicon.ico?v=3`, sizes: "any" },
                 ],
-                shortcut: `${siteConfig.site_domain}/favicon.ico?v=2`,
-                apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=2`, sizes: "180x180", type: "image/png" }],
+                shortcut: `${siteConfig.site_domain}/favicon.ico?v=3`,
+                apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=3`, sizes: "180x180", type: "image/png" }],
             },
             alternates: {
                 canonical: `/da`,
@@ -234,13 +234,13 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
         description: siteConfig.site_description,
         icons: {
             icon: [
-                { url: `${siteConfig.site_domain}/favicon.svg?v=2`, type: "image/svg+xml" },
-                { url: `${siteConfig.site_domain}/favicon-32x32.png?v=2`, type: "image/png", sizes: "32x32" },
-                { url: `${siteConfig.site_domain}/favicon-16x16.png?v=2`, type: "image/png", sizes: "16x16" },
-                { url: `${siteConfig.site_domain}/favicon.ico?v=2`, sizes: "any" },
+                { url: `${siteConfig.site_domain}/favicon.svg?v=3`, type: "image/svg+xml" },
+                { url: `${siteConfig.site_domain}/favicon-32x32.png?v=3`, type: "image/png", sizes: "32x32" },
+                { url: `${siteConfig.site_domain}/favicon-16x16.png?v=3`, type: "image/png", sizes: "16x16" },
+                { url: `${siteConfig.site_domain}/favicon.ico?v=3`, sizes: "any" },
             ],
-            shortcut: `${siteConfig.site_domain}/favicon.ico?v=2`,
-            apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=2`, sizes: "180x180", type: "image/png" }],
+            shortcut: `${siteConfig.site_domain}/favicon.ico?v=3`,
+            apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=3`, sizes: "180x180", type: "image/png" }],
         },
         keywords: [
             'Indian grocery store Stockholm',
