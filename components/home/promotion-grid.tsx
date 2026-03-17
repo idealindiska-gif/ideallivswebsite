@@ -77,30 +77,31 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                         </div>
                     </Link>
 
-                    {/* Card 2: Ramadan Mega Savings Promo */}
+                    {/* Card 2: Eid Special 2026 */}
                     <Link href="/deals" className="group">
-                        <div className="relative aspect-square overflow-hidden rounded-xl md:rounded-2xl bg-gradient-to-br from-green-950 via-emerald-900 to-teal-950 border border-emerald-800/30">
-                            {/* Decorative Elements */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-400/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                        <div className="relative aspect-square overflow-hidden rounded-xl md:rounded-2xl bg-gradient-to-br from-green-950 via-emerald-900 to-teal-950 border border-yellow-600/20">
+                            {/* Decorative glows — gold/amber for Eid */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/25 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-amber-500/15 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-yellow-300/10 rounded-full blur-2xl" />
 
                             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" />
 
                             <div className="absolute inset-0 p-3 sm:p-4 md:p-6 flex flex-col justify-between items-center text-center z-10">
                                 <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
-                                    <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-emerald-900/50 border border-emerald-500/30 text-emerald-200 text-[9px] md:text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                                        {t('ramadanSpecial')}
+                                    <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-yellow-400/10 border border-yellow-500/30 text-yellow-200 text-[9px] md:text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
+                                        ☪️ {t('ramadanSpecial')}
                                     </span>
-                                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 drop-shadow-sm leading-tight">
+                                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-amber-300 drop-shadow-sm leading-tight">
                                         {t('megaSavings')}
                                     </h2>
                                 </div>
 
                                 <div className="space-y-1.5 md:space-y-4 mb-1 md:mb-2 w-full px-1">
-                                    <p className="text-emerald-100/80 text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed line-clamp-2 md:line-clamp-none">
+                                    <p className="text-yellow-100/70 text-[10px] sm:text-xs md:text-sm font-medium leading-relaxed line-clamp-2 md:line-clamp-none">
                                         {t('exclusiveDiscounts')}
                                     </p>
-                                    <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-yellow-400 hover:bg-yellow-500 text-green-950 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-yellow-400/20 transition-all hover:scale-105">
+                                    <Button size="sm" className="h-7 sm:h-8 md:h-9 w-full sm:w-auto rounded-full bg-yellow-400 hover:bg-yellow-300 text-green-950 text-[10px] sm:text-xs md:text-sm font-bold px-4 md:px-6 shadow-lg shadow-yellow-400/25 transition-all hover:scale-105">
                                         {t('viewAllDeals')} <ArrowRight className="ml-1.5 h-3 w-3 md:h-3.5 md:w-3.5" />
                                     </Button>
                                 </div>

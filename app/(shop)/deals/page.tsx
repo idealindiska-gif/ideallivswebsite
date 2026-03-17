@@ -1,12 +1,11 @@
 import { Link } from '@/lib/navigation';
-import Image from 'next/image';
 import { Metadata } from 'next';
 import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
 import { getProductsByIds } from '@/lib/woocommerce';
 import { ProductCard } from '@/components/shop/product-card';
 import { BundleOfferCard } from '@/components/shop/bundle-offer';
 import { getBundlesForDealsPage, getBundleProductIds } from '@/config/bundles.config';
-import { Percent, TrendingDown, ChevronDown, Tag, Clock, Truck, Gift } from 'lucide-react';
+import { Percent, ChevronDown, Tag, Truck, Gift, Sparkles } from 'lucide-react';
 import { brandProfile } from '@/config/brand-profile';
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { collectionPageSchema } from "@/lib/schema/collection";
@@ -236,44 +235,74 @@ export default async function DealsPage() {
                 }}
             />
 
-            {/* ── Hero ── */}
-            {/* TODO: Replace hero image with a generic weekly-deals banner */}
-            <div className="relative w-full overflow-hidden bg-emerald-950 min-h-[480px] flex items-center">
-                <div className="absolute inset-0 w-full h-full">
-                    <Image
-                        src="https://crm.ideallivs.com/wp-content/uploads/2026/02/Ideal-Ramadan-Savings-e1770765144207.jpg"
-                        alt="Weekly deals on Indian and Pakistani groceries in Stockholm"
-                        fill
-                        className="object-cover object-center"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-950/60 to-transparent" />
+            {/* ── Eid Hero Banner ── */}
+            <div className="relative overflow-hidden py-14 sm:py-20 px-5 sm:px-8"
+                style={{ background: 'linear-gradient(135deg, #0a2e1a 0%, #0d3d2a 25%, #1a3a0a 50%, #2e1a00 80%, #0a2e1a 100%)' }}>
+                {/* Decorative glows */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-0 left-[5%] w-48 h-48 bg-yellow-400/15 rounded-full blur-3xl" />
+                    <div className="absolute top-1/2 -translate-y-1/2 left-[30%] w-72 h-72 bg-emerald-400/10 rounded-full blur-3xl" />
+                    <div className="absolute bottom-0 right-[15%] w-56 h-56 bg-amber-500/15 rounded-full blur-3xl" />
+                    <div className="absolute top-0 right-[5%] w-40 h-40 bg-yellow-300/15 rounded-full blur-3xl" />
                 </div>
+                <div className="absolute inset-0 bg-black/20" />
 
-                <div className="relative container mx-auto px-4 md:px-6 lg:px-8 max-w-screen-xl py-16 w-full">
-                    <div className="w-full md:w-1/2 space-y-6">
-                        <div className="inline-flex p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl">
-                            <Percent className="h-7 w-7 text-emerald-300" />
-                        </div>
-                        <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white drop-shadow-sm leading-tight">
-                            Weekly{' '}
-                            <span className="text-emerald-300">Deals & Offers</span>
-                        </h1>
-                        <p className="text-lg text-emerald-100/90 font-medium leading-relaxed max-w-lg">
-                            Stockholm&apos;s best weekly discounts on authentic Indian and Pakistani groceries. New deals added every week — bookmark this page!
-                        </p>
-                        <div className="flex flex-wrap items-center gap-3">
-                            <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-950/60 backdrop-blur-md border border-emerald-500/30 text-emerald-50">
-                                <TrendingDown className="h-4 w-4 text-emerald-400" />
-                                <span className="text-sm font-semibold">{saleProducts.length} Active Deals</span>
+                <div className="relative z-10 container mx-auto max-w-screen-xl">
+                    <div className="flex flex-col md:flex-row items-center gap-8">
+
+                        {/* Icon */}
+                        <div className="hidden md:flex items-center justify-center shrink-0">
+                            <div className="relative">
+                                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/40 via-amber-300/30 to-emerald-400/40 rounded-full blur-xl scale-150" />
+                                <div className="relative p-5 bg-gradient-to-br from-yellow-500/20 via-amber-400/15 to-emerald-500/20 rounded-full border border-yellow-400/30 backdrop-blur-sm">
+                                    <span className="text-5xl leading-none select-none">☪️</span>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-emerald-900 shadow-lg">
-                                <Clock className="h-4 w-4" />
-                                <span className="text-sm font-bold">Updated Every Week</span>
+                        </div>
+
+                        {/* Text */}
+                        <div className="flex-1 text-center md:text-left">
+                            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-3">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider"
+                                    style={{ background: 'linear-gradient(90deg, #d97706, #15803d)', color: '#fff' }}>
+                                    <Sparkles className="w-3 h-3" />
+                                    Eid Special 2026
+                                </span>
+                                <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-white/10 text-white/80 border border-white/20">
+                                    30+ deals live now
+                                </span>
+                            </div>
+
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold mb-4 leading-tight"
+                                style={{
+                                    background: 'linear-gradient(90deg, #fcd34d, #86efac, #fbbf24, #d1fae5)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    backgroundClip: 'text',
+                                }}>
+                                Eid Mubarak 2026 – Eid Deals & Offers
+                            </h1>
+
+                            <p className="text-white/80 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed mb-6">
+                                Celebrate Eid al-Fitr 2026 (March 20) with 30+ special offers on dates, vermicelli, kheer mix, jelly, cooking oil, atta flour, Shan spices and festive snacks — all at Ideal Indiska LIVS Stockholm.
+                            </p>
+
+                            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white border border-yellow-500/40 bg-yellow-500/10">
+                                    <Sparkles className="w-4 h-4 text-yellow-300" />
+                                    {saleProducts.length > 0 ? `${saleProducts.length} active deals` : 'Deals live now'}
+                                </div>
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold bg-white/10 text-white border border-white/20">
+                                    🌙 Eid al-Fitr March 20
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Bottom gold-green border */}
+                <div className="absolute bottom-0 left-0 right-0 h-1"
+                    style={{ background: 'linear-gradient(90deg, #d97706, #fcd34d, #15803d, #86efac, #d97706)' }} />
             </div>
 
             {/* ── TL;DR ── */}
@@ -341,23 +370,6 @@ export default async function DealsPage() {
                                 <Truck className="w-4 h-4 text-primary flex-shrink-0" />
                                 Local delivery available across Stockholm
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ── Eid 2026 Callout ── */}
-            <section className="bg-gradient-to-r from-amber-950 via-green-950 to-amber-950 border-y border-yellow-600/30 py-6">
-                <div className="container mx-auto px-4 max-w-screen-xl">
-                    <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-                        <span className="text-4xl select-none">☪️</span>
-                        <div>
-                            <h2 className="text-lg font-heading font-bold text-yellow-300">
-                                Eid Mubarak 2026 – Eid al-Fitr March 20
-                            </h2>
-                            <p className="text-sm text-yellow-100/80 mt-0.5">
-                                Celebrate with 30+ special offers on dates, vermicelli, kheer mix, jelly, cooking oil, atta flour, Shan spices and all your Eid essentials.
-                            </p>
                         </div>
                     </div>
                 </div>
