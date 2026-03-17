@@ -2,8 +2,11 @@ import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
+import { getProductsByIds } from '@/lib/woocommerce';
 import { ProductCard } from '@/components/shop/product-card';
-import { Percent, TrendingDown, ChevronDown, Tag, Clock, Truck } from 'lucide-react';
+import { BundleOfferCard } from '@/components/shop/bundle-offer';
+import { getBundlesForDealsPage, getBundleProductIds } from '@/config/bundles.config';
+import { Percent, TrendingDown, ChevronDown, Tag, Clock, Truck, Gift } from 'lucide-react';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { brandProfile } from '@/config/brand-profile';
 import { SchemaScript } from "@/lib/schema/schema-script";
@@ -49,12 +52,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (locale === 'sv') {
         return {
-            title: `Veckans Erbjudanden på Indiska & Pakistanska Matvaror Stockholm | ${brandProfile.name}`,
-            description: `Veckans bästa deals på autentiska indiska och pakistanska livsmedel i Stockholm. Rabatter på Basmati-ris, kryddor, halaltkött och snacks — uppdateras varje vecka.`,
+            title: `Eid Mubarak 2026 Erbjudanden – Indiska & Pakistanska Matvaror Stockholm | ${brandProfile.name}`,
+            description: `Eid Mubarak 2026! Fira med bästa deals på dadlar, vermicelli, Shan-kryddor, Basmati-ris, halaltkött & snacks. Uppdateras varje vecka hos Ideal Indiska LIVS Stockholm.`,
             alternates: { canonical: `${siteConfig.site_domain}/sv/deals`, languages: allLanguages },
             openGraph: {
-                title: `Veckans Erbjudanden — Ideal Indiska LIVS Stockholm`,
-                description: `Veckans bästa deals på autentiska indiska och pakistanska livsmedel i Stockholm.`,
+                title: `Eid 2026 Erbjudanden — Ideal Indiska LIVS Stockholm`,
+                description: `Eid Mubarak! Fira med bästa deals på dadlar, vermicelli, Shan-kryddor, Basmati-ris & halaltkött.`,
                 url: `${siteConfig.site_domain}/sv/deals`,
                 siteName: 'Ideal Indiska LIVS',
                 locale: 'sv_SE',
@@ -65,12 +68,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (locale === 'no') {
         return {
-            title: `Ukens Tilbud på Indiske & Pakistanske Dagligvarer Stockholm | ${brandProfile.name}`,
-            description: `Ukens beste tilbud på autentiske indiske og pakistanske dagligvarer i Stockholm. Rabatter på Basmatiris, krydder, halaltkjøtt og snacks — oppdateres hver uke.`,
+            title: `Eid Mubarak 2026 Tilbud – Indiske & Pakistanske Dagligvarer Stockholm | ${brandProfile.name}`,
+            description: `Eid Mubarak 2026! Feir med beste tilbud på dadler, vermicelli, Shan-krydder, Basmatiris & halaltkjøtt. Oppdateres hver uke hos Ideal Indiska LIVS Stockholm.`,
             alternates: { canonical: `${siteConfig.site_domain}/no/deals`, languages: allLanguages },
             openGraph: {
-                title: `Ukens Tilbud — Ideal Indiska LIVS Stockholm`,
-                description: `Ukens beste tilbud på autentiske indiske og pakistanske dagligvarer i Stockholm.`,
+                title: `Eid 2026 Tilbud — Ideal Indiska LIVS Stockholm`,
+                description: `Eid Mubarak! Feir med beste tilbud på dadler, vermicelli, Shan-krydder, Basmatiris & halaltkjøtt.`,
                 url: `${siteConfig.site_domain}/no/deals`,
                 siteName: 'Ideal Indiska LIVS',
                 locale: 'nb_NO',
@@ -81,12 +84,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (locale === 'da') {
         return {
-            title: `Ugens Tilbud på Indiske & Pakistanske Dagligvarer Stockholm | ${brandProfile.name}`,
-            description: `Ugens bedste tilbud på autentiske indiske og pakistanske dagligvarer i Stockholm. Rabatter på Basmatiris, krydderier, halaltkød og snacks — opdateres hver uge.`,
+            title: `Eid Mubarak 2026 Tilbud – Indiske & Pakistanske Dagligvarer Stockholm | ${brandProfile.name}`,
+            description: `Eid Mubarak 2026! Fejr med bedste tilbud på dadler, vermicelli, Shan-krydderier, Basmatiris & halaltkød. Opdateres hver uge hos Ideal Indiska LIVS Stockholm.`,
             alternates: { canonical: `${siteConfig.site_domain}/da/deals`, languages: allLanguages },
             openGraph: {
-                title: `Ugens Tilbud — Ideal Indiska LIVS Stockholm`,
-                description: `Ugens bedste tilbud på autentiske indiske og pakistanske dagligvarer i Stockholm.`,
+                title: `Eid 2026 Tilbud — Ideal Indiska LIVS Stockholm`,
+                description: `Eid Mubarak! Fejr med bedste tilbud på dadler, vermicelli, Shan-krydderier, Basmatiris & halaltkød.`,
                 url: `${siteConfig.site_domain}/da/deals`,
                 siteName: 'Ideal Indiska LIVS',
                 locale: 'da_DK',
@@ -96,12 +99,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     return {
-        title: `Weekly Indian & Pakistani Grocery Deals Stockholm | ${brandProfile.name}`,
-        description: `This week's best deals on authentic Indian and Pakistani groceries in Stockholm. Discounts on Basmati rice, spices, Halal meat, and snacks — updated every week.`,
+        title: `Eid Mubarak 2026 Deals – Indian & Pakistani Groceries Stockholm | ${brandProfile.name}`,
+        description: `Eid Mubarak 2026! Celebrate with the best deals on dates, vermicelli, Shan spice mixes, Basmati rice, Halal meat & snacks. Updated weekly at Ideal Indiska LIVS Stockholm.`,
         alternates: { canonical: `${siteConfig.site_domain}/deals`, languages: allLanguages },
         openGraph: {
-            title: `Weekly Deals — Ideal Indiska LIVS Stockholm`,
-            description: `This week's best deals on authentic Indian and Pakistani groceries in Stockholm.`,
+            title: `Eid 2026 Deals — Ideal Indiska LIVS Stockholm`,
+            description: `Eid Mubarak! Celebrate with deals on dates, vermicelli, Shan spices, Basmati rice & Halal meat.`,
             url: `${siteConfig.site_domain}/deals`,
             siteName: 'Ideal Indiska LIVS',
             locale: 'en_GB',
@@ -113,6 +116,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // ─── FAQ data (machine-liftable for Google AI Overview) ───────────────────────
 
 const dealsFaqsEn = [
+    {
+        q: 'Do you have Eid 2026 special offers?',
+        a: 'Yes! For Eid al-Fitr 2026 (March 20) we have over 30 special deals on popular Eid essentials including Shan Vermicelli, dates, kheer mix, jelly, cooking oil, atta flour, Basmati rice, Shan spice mixes, and festive snacks. Check the Bundle Deals section above for our exclusive 2-for-15 kr Shan Vermicelli offer.',
+    },
     {
         q: 'How often are the deals updated?',
         a: 'We update our weekly deals every week. New discounts go live regularly on products including Basmati rice, spices, lentils, Halal meat, and frozen snacks. Bookmark this page and check back every week for the latest offers.',
@@ -137,6 +144,10 @@ const dealsFaqsEn = [
 
 const dealsFaqsSv = [
     {
+        q: 'Har ni Eid 2026 specialerbjudanden?',
+        a: 'Ja! Till Eid al-Fitr 2026 (20 mars) har vi över 30 specialerbjudanden på populära Eid-essentials: Shan Vermicelli, dadlar, kheer-mix, gelé, matolja, atta-mjöl, Basmati-ris, Shan-kryddblandningar och festliga snacks. Se avsnittet Bunterbjudanden ovan för vårt exklusiva 2-för-15 kr-erbjudande på Shan Vermicelli.',
+    },
+    {
         q: 'Hur ofta uppdateras erbjudandena?',
         a: 'Vi uppdaterar veckans deals regelbundet. Nya rabatter lanseras kontinuerligt på produkter som Basmati-ris, kryddor, linser, halaltkött och frysta snacks. Bokmärk sidan och kom tillbaka varje vecka för de senaste erbjudandena.',
     },
@@ -160,6 +171,10 @@ const dealsFaqsSv = [
 
 const dealsFaqsNo = [
     {
+        q: 'Har dere Eid 2026 spesialtilbud?',
+        a: 'Ja! Til Eid al-Fitr 2026 (20. mars) har vi over 30 spesialtilbud på populære Eid-essensielle varer: Shan Vermicelli, dadler, kheer-mix, gelé, matolje, atta-mel, Basmatiris, Shan-kryddblandinger og festlige snacks. Se seksjonen Pakketilbud ovenfor for vårt eksklusive 2-for-15 kr-tilbud på Shan Vermicelli.',
+    },
+    {
         q: 'Hvor ofte oppdateres tilbudene?',
         a: 'Vi oppdaterer ukenstilbudene jevnlig. Nye rabatter lanseres kontinuerlig på produkter som Basmatiris, krydder, linser, halaltkjøtt og frosne snacks. Bokmerk siden og kom tilbake hver uke for de siste tilbudene.',
     },
@@ -182,6 +197,10 @@ const dealsFaqsNo = [
 ];
 
 const dealsFaqsDa = [
+    {
+        q: 'Har I Eid 2026 specialtilbud?',
+        a: 'Ja! Til Eid al-Fitr 2026 (20. marts) har vi over 30 specialtilbud på populære Eid-essentials: Shan Vermicelli, dadler, kheer-mix, gelé, madolie, atta-mel, Basmatiris, Shan-krydderiblandinger og festlige snacks. Se sektionen Pakketilbud ovenfor for vores eksklusive 2-for-15 kr-tilbud på Shan Vermicelli.',
+    },
     {
         q: 'Hvor tit opdateres tilbuddene?',
         a: 'Vi opdaterer ugenstilbuddene løbende. Nye rabatter lanceres jævnligt på produkter som Basmatiris, krydderier, linser, halaltkød og frosne snacks. Bogmærk siden og kom tilbage hver uge for de seneste tilbud.',
@@ -212,9 +231,13 @@ export default async function DealsPage({ params }: PageProps) {
     const { locale } = await params;
     setRequestLocale(locale);
 
-    const [t, saleProducts] = await Promise.all([
+    const dealBundles = getBundlesForDealsPage();
+    const bundleProductIds = getBundleProductIds(dealBundles);
+
+    const [t, saleProducts, bundleProducts] = await Promise.all([
         getTranslations('deals'),
         getOnSaleProducts(50),
+        bundleProductIds.length > 0 ? getProductsByIds(bundleProductIds) : Promise.resolve([]),
     ]);
 
     const { validFrom, validThrough } = getWeekValidity();
@@ -319,14 +342,14 @@ export default async function DealsPage({ params }: PageProps) {
                 schema={{
                     '@context': 'https://schema.org',
                     '@type': 'SaleEvent',
-                    name: locale === 'sv' ? 'Veckans Erbjudanden — Ideal Indiska LIVS' : locale === 'no' ? 'Ukens Tilbud — Ideal Indiska LIVS' : locale === 'da' ? 'Ugens Tilbud — Ideal Indiska LIVS' : 'Weekly Deals — Ideal Indiska LIVS',
+                    name: locale === 'sv' ? 'Eid 2026 & Veckans Erbjudanden — Ideal Indiska LIVS' : locale === 'no' ? 'Eid 2026 & Ukens Tilbud — Ideal Indiska LIVS' : locale === 'da' ? 'Eid 2026 & Ugens Tilbud — Ideal Indiska LIVS' : 'Eid al-Fitr 2026 & Weekly Deals — Ideal Indiska LIVS',
                     description: locale === 'sv'
-                        ? 'Veckovisa rabatter på indiska och pakistanska matvaror i Stockholm. Uppdateras varje vecka.'
+                        ? 'Eid Mubarak 2026! Specialerbjudanden och veckovisa rabatter på indiska och pakistanska matvaror i Stockholm.'
                         : locale === 'no'
-                        ? 'Ukentlige rabatter på indiske og pakistanske dagligvarer i Stockholm. Oppdateres hver uke.'
+                        ? 'Eid Mubarak 2026! Spesialtilbud og ukentlige rabatter på indiske og pakistanske dagligvarer i Stockholm.'
                         : locale === 'da'
-                        ? 'Ugentlige rabatter på indiske og pakistanske dagligvarer i Stockholm. Opdateres hver uge.'
-                        : 'Weekly discounts on Indian and Pakistani groceries in Stockholm. Updated every week.',
+                        ? 'Eid Mubarak 2026! Specialtilbud og ugentlige rabatter på indiske og pakistanske dagligvarer i Stockholm.'
+                        : 'Eid Mubarak 2026! Special festive offers and weekly discounts on Indian and Pakistani groceries in Stockholm.',
                     url: pageUrl,
                     startDate: validFrom,
                     endDate: validThrough,
@@ -449,29 +472,29 @@ export default async function DealsPage({ params }: PageProps) {
                         </p>
                         <div className="flex flex-wrap gap-x-6 gap-y-2">
                             {(locale === 'sv' ? [
-                                '🏷️ Erbjudanden uppdateras varje vecka',
-                                '🛒 Ris, kryddor, halaltkött, snacks & mer',
+                                '🌙 Eid Mubarak 2026 – specialerbjudanden live nu',
+                                '🏷️ Över 30 Eid-deals: kheer, gelé, olja, atta & mer',
+                                '🛒 Shan Vermicelli 2-för-15 kr – exklusivt bunterbjudande',
                                 '🚚 Lokalleverans tillgänglig i hela Stockholm',
                                 '🌍 DHL till hela Europa — inga tullavgifter',
-                                '📦 1 500+ autentiska produkter i lager',
                             ] : locale === 'no' ? [
-                                '🏷️ Tilbud oppdateres hver uke',
-                                '🛒 Ris, krydder, halaltkjøtt, snacks & mer',
+                                '🌙 Eid Mubarak 2026 – spesialtilbud live nå',
+                                '🏷️ Over 30 Eid-tilbud: kheer, gelé, olje, atta & mer',
+                                '🛒 Shan Vermicelli 2-for-15 kr – eksklusivt pakketilbud',
                                 '🚚 Lokal levering tilgjengelig i hele Stockholm',
                                 '🌍 DHL til hele Europa — ingen tollgebyrer',
-                                '📦 1 500+ autentiske produkter på lager',
                             ] : locale === 'da' ? [
-                                '🏷️ Tilbud opdateres hver uge',
-                                '🛒 Ris, krydderier, halaltkød, snacks & mere',
+                                '🌙 Eid Mubarak 2026 – specialtilbud live nu',
+                                '🏷️ Over 30 Eid-tilbud: kheer, gelé, olie, atta & mere',
+                                '🛒 Shan Vermicelli 2-for-15 kr – eksklusivt pakketilbud',
                                 '🚚 Lokal levering tilgængelig i hele Stockholm',
                                 '🌍 DHL til hele Europa — ingen toldsatser',
-                                '📦 1.500+ autentiske produkter på lager',
                             ] : [
-                                '🏷️ Deals updated every week',
-                                '🛒 Rice, spices, Halal meat, snacks & more',
+                                '🌙 Eid Mubarak 2026 – special offers live now',
+                                '🏷️ 30+ Eid deals: kheer, jelly, oil, atta, vermicelli & more',
+                                '🛒 Shan Vermicelli 2-for-15 kr – exclusive bundle offer',
                                 '🚚 Local delivery available across Stockholm',
                                 '🌍 DHL to all of Europe — no customs fees',
-                                '📦 1,500+ authentic products in stock',
                             ]).map((fact, i) => (
                                 <span key={i} className="text-sm text-foreground">{fact}</span>
                             ))}
@@ -525,6 +548,53 @@ export default async function DealsPage({ params }: PageProps) {
                     </div>
                 </div>
             </section>
+
+            {/* ── Eid 2026 Callout ── */}
+            <section className="bg-gradient-to-r from-amber-950 via-green-950 to-amber-950 border-y border-yellow-600/30 py-6">
+                <div className="container mx-auto px-4 max-w-screen-xl">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                        <span className="text-4xl select-none">☪️</span>
+                        <div>
+                            <h2 className="text-lg font-heading font-bold text-yellow-300">
+                                {locale === 'sv'
+                                    ? 'Eid Mubarak 2026 – Eid al-Fitr 20 mars'
+                                    : locale === 'no'
+                                    ? 'Eid Mubarak 2026 – Eid al-Fitr 20. mars'
+                                    : locale === 'da'
+                                    ? 'Eid Mubarak 2026 – Eid al-Fitr 20. marts'
+                                    : 'Eid Mubarak 2026 – Eid al-Fitr March 20'}
+                            </h2>
+                            <p className="text-sm text-yellow-100/80 mt-0.5">
+                                {locale === 'sv'
+                                    ? 'Fira med över 30 specialerbjudanden på dadlar, vermicelli, kheer-mix, gelé, matolja, atta-mjöl, Shan-kryddor och andra Eid-essentials.'
+                                    : locale === 'no'
+                                    ? 'Feir med over 30 spesialtilbud på dadler, vermicelli, kheer-mix, gelé, matolje, atta-mel, Shan-krydder og andre Eid-essensielle varer.'
+                                    : locale === 'da'
+                                    ? 'Fejr med over 30 specialtilbud på dadler, vermicelli, kheer-mix, gelé, madolie, atta-mel, Shan-krydderier og andre Eid-essentials.'
+                                    : 'Celebrate with 30+ special offers on dates, vermicelli, kheer mix, jelly, cooking oil, atta flour, Shan spices and all your Eid essentials.'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Bundle Deals ── */}
+            {dealBundles.length > 0 && (
+                <section className="container mx-auto px-4 max-w-screen-xl pt-12 pb-4">
+                    <h2 className="text-2xl font-bold text-foreground mb-1 flex items-center gap-2">
+                        <Gift className="h-6 w-6 text-primary" />
+                        {locale === 'sv' ? 'Bunterbjudanden' : locale === 'no' ? 'Pakketilbud' : locale === 'da' ? 'Pakketilbud' : 'Bundle Deals'}
+                    </h2>
+                    <p className="text-muted-foreground text-sm mb-6">
+                        {locale === 'sv' ? 'Köp mer och spara mer med våra specialpaket.' : locale === 'no' ? 'Kjøp mer og spar mer med våre spesialpakker.' : locale === 'da' ? 'Køb mere og spar mere med vores specialpakker.' : 'Buy more and save more with our special bundles.'}
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {dealBundles.map((bundle) => (
+                            <BundleOfferCard key={bundle.id} bundle={bundle} products={bundleProducts} />
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* ── Products Grid ── */}
             <section className="container mx-auto px-4 max-w-screen-xl py-12">

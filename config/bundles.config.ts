@@ -29,12 +29,27 @@ export interface BundleOffer {
   active: boolean;
   startsAt?: string;
   endsAt?: string;
+  /** Also feature this bundle on the /deals page */
+  showOnDeals?: boolean;
 }
 
 // ─── Bundle Definitions ───────────────────────────────────────────────
 // Update the productId values below with your actual WooCommerce product IDs.
 
 export const bundleOffers: BundleOffer[] = [
+  {
+    id: 'shan-vermicelli-eid-2pack',
+    name: 'Eid Special: 2 × Shan Vermicelli for 15 kr',
+    description: 'Perfect for Eid desserts — buy 2 and save 5 kr vs buying separately.',
+    badge: 'Eid Offer',
+    items: [
+      { productId: 540, quantity: 2 },
+    ],
+    fixedPrice: 15,
+    triggerProductIds: [540],
+    active: true,
+    showOnDeals: true,
+  },
   {
     id: 'national-chaat-masala-4pack',
     name: 'Buy 4 National Chaat Masala',
@@ -71,6 +86,20 @@ export function getBundlesForProduct(productId: number): BundleOffer[] {
   return bundleOffers.filter((bundle) => {
     if (!bundle.active) return false;
     if (!bundle.triggerProductIds.includes(productId)) return false;
+    if (bundle.startsAt && new Date(bundle.startsAt) > now) return false;
+    if (bundle.endsAt && new Date(bundle.endsAt) < now) return false;
+    return true;
+  });
+}
+
+/**
+ * Get all active bundles flagged to appear on the /deals page
+ */
+export function getBundlesForDealsPage(): BundleOffer[] {
+  const now = new Date();
+  return bundleOffers.filter((bundle) => {
+    if (!bundle.active) return false;
+    if (!bundle.showOnDeals) return false;
     if (bundle.startsAt && new Date(bundle.startsAt) > now) return false;
     if (bundle.endsAt && new Date(bundle.endsAt) < now) return false;
     return true;

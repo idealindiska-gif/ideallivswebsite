@@ -2,8 +2,11 @@ import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
+import { getProductsByIds } from '@/lib/woocommerce';
 import { ProductCard } from '@/components/shop/product-card';
-import { Percent, TrendingDown, ChevronDown, Tag, Clock, Truck } from 'lucide-react';
+import { BundleOfferCard } from '@/components/shop/bundle-offer';
+import { getBundlesForDealsPage, getBundleProductIds } from '@/config/bundles.config';
+import { Percent, TrendingDown, ChevronDown, Tag, Clock, Truck, Gift } from 'lucide-react';
 import { brandProfile } from '@/config/brand-profile';
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { collectionPageSchema } from "@/lib/schema/collection";
@@ -31,8 +34,8 @@ function getWeekValidity() {
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-    title: `Weekly Indian & Pakistani Grocery Deals Stockholm | ${brandProfile.name}`,
-    description: `This week's best deals on authentic Indian and Pakistani groceries in Stockholm. Discounts on Basmati rice, spices, Halal meat, and snacks — updated every week.`,
+    title: `Eid Mubarak 2026 Deals – Indian & Pakistani Groceries Stockholm | ${brandProfile.name}`,
+    description: `Eid Mubarak 2026! Celebrate with 30+ special deals on dates, vermicelli, kheer mix, jelly, cooking oil, atta flour, Shan spices & more. Updated weekly at Ideal Indiska LIVS Stockholm.`,
     alternates: {
         canonical: `${siteConfig.site_domain}/deals`,
         languages: {
@@ -42,8 +45,8 @@ export const metadata: Metadata = {
         },
     },
     openGraph: {
-        title: `Weekly Deals — Ideal Indiska LIVS Stockholm`,
-        description: `This week's best deals on authentic Indian and Pakistani groceries in Stockholm.`,
+        title: `Eid 2026 Deals — Ideal Indiska LIVS Stockholm`,
+        description: `Eid Mubarak! 30+ deals on dates, vermicelli, kheer, jelly, oil, atta & Shan spices.`,
         url: `${siteConfig.site_domain}/deals`,
         siteName: 'Ideal Indiska LIVS',
         locale: 'en_GB',
@@ -54,6 +57,10 @@ export const metadata: Metadata = {
 // ─── FAQ data ─────────────────────────────────────────────────────────────────
 
 const dealsFaqs = [
+    {
+        q: 'Do you have Eid 2026 special offers?',
+        a: 'Yes! For Eid al-Fitr 2026 (March 20) we have 30+ special deals on popular Eid essentials including Shan Vermicelli, dates, kheer mix, jelly, cooking oil, atta flour, Basmati rice, Shan spice mixes and festive snacks. Check the Bundle Deals section above for our exclusive 2-for-15 kr Shan Vermicelli offer.',
+    },
     {
         q: 'How often are the deals updated?',
         a: 'We update our weekly deals every week. New discounts go live regularly on products including Basmati rice, spices, lentils, Halal meat, and frozen snacks. Bookmark this page and check back every week for the latest offers.',
@@ -81,7 +88,14 @@ const dealsFaqs = [
 // Googlebot and AI crawlers (ChatGPT, Perplexity) index the full page on first pass.
 
 export default async function DealsPage() {
-    const saleProducts = await getOnSaleProducts(50);
+    const dealBundles = getBundlesForDealsPage();
+    const bundleProductIds = getBundleProductIds(dealBundles);
+
+    const [saleProducts, bundleProducts] = await Promise.all([
+        getOnSaleProducts(50),
+        bundleProductIds.length > 0 ? getProductsByIds(bundleProductIds) : Promise.resolve([]),
+    ]);
+
     const { validFrom, validThrough } = getWeekValidity();
     const pageUrl = `${siteConfig.site_domain}/deals`;
 
@@ -158,8 +172,8 @@ export default async function DealsPage() {
                 schema={{
                     '@context': 'https://schema.org',
                     '@type': 'SaleEvent',
-                    name: 'Weekly Deals — Ideal Indiska LIVS',
-                    description: 'Weekly discounts on Indian and Pakistani groceries in Stockholm. Updated every week.',
+                    name: 'Eid al-Fitr 2026 & Weekly Deals — Ideal Indiska LIVS',
+                    description: 'Eid Mubarak 2026! Special festive offers and weekly discounts on Indian and Pakistani groceries in Stockholm.',
                     url: pageUrl,
                     startDate: validFrom,
                     endDate: validThrough,
@@ -271,11 +285,11 @@ export default async function DealsPage() {
                         </p>
                         <div className="flex flex-wrap gap-x-6 gap-y-2">
                             {[
-                                '🏷️ Deals updated every week',
-                                '🛒 Rice, spices, Halal meat, snacks & more',
+                                '🌙 Eid Mubarak 2026 – special offers live now',
+                                '🏷️ 30+ Eid deals: kheer, jelly, oil, atta, vermicelli & more',
+                                '🛒 Shan Vermicelli 2-for-15 kr – exclusive bundle offer',
                                 '🚚 Local delivery available across Stockholm',
                                 '🌍 DHL to all of Europe — no customs fees',
-                                '📦 1,500+ authentic products in stock',
                             ].map((fact, i) => (
                                 <span key={i} className="text-sm text-foreground">{fact}</span>
                             ))}
@@ -331,6 +345,41 @@ export default async function DealsPage() {
                     </div>
                 </div>
             </section>
+
+            {/* ── Eid 2026 Callout ── */}
+            <section className="bg-gradient-to-r from-amber-950 via-green-950 to-amber-950 border-y border-yellow-600/30 py-6">
+                <div className="container mx-auto px-4 max-w-screen-xl">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                        <span className="text-4xl select-none">☪️</span>
+                        <div>
+                            <h2 className="text-lg font-heading font-bold text-yellow-300">
+                                Eid Mubarak 2026 – Eid al-Fitr March 20
+                            </h2>
+                            <p className="text-sm text-yellow-100/80 mt-0.5">
+                                Celebrate with 30+ special offers on dates, vermicelli, kheer mix, jelly, cooking oil, atta flour, Shan spices and all your Eid essentials.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Bundle Deals ── */}
+            {dealBundles.length > 0 && (
+                <section className="container mx-auto px-4 max-w-screen-xl pt-12 pb-4">
+                    <h2 className="text-2xl font-bold text-foreground mb-1 flex items-center gap-2">
+                        <Gift className="h-6 w-6 text-primary" />
+                        Bundle Deals
+                    </h2>
+                    <p className="text-muted-foreground text-sm mb-6">
+                        Buy more and save more with our special bundles.
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {dealBundles.map((bundle) => (
+                            <BundleOfferCard key={bundle.id} bundle={bundle} products={bundleProducts} />
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* ── Products Grid ── */}
             <section className="container mx-auto px-4 max-w-screen-xl py-12">

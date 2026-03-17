@@ -313,21 +313,21 @@ export default async function LocaleHomePage({ params }: PageProps) {
 
     return (
         <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
-            {/* 1. Promotion Cards (first card contains the page H1) */}
+            {/* 1. Eid Banner Strip */}
+            <BannerStrip />
+
+            {/* 2. Promotion Cards (first card contains the page H1) */}
             <PromotionGrid promotionProducts={dealProducts} />
 
-            {/* 2. Top Categories */}
+            {/* 3. Top Categories */}
             <CategoryGrid categories={categories} />
 
-            {/* 3. Special Offers */}
+            {/* 4. Special Offers */}
             <ProductShowcase
                 title={t('specialOffers')}
                 products={dealProducts}
                 moreLink={`${linkPrefix}/deals`}
             />
-
-            {/* 3. Banner Strip */}
-            <BannerStrip />
 
             {/* 4. Trending Products */}
             <ProductShowcase

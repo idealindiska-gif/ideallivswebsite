@@ -428,12 +428,11 @@
     "sunday": "Söndag"
   },
   "banner": {
-    "holiTag": "Holi Special",
-    "holiTitle": "Glad Holi – Fira med Färg!",
-    "holiDesc": "Gör din Holi-firande extra speciell med våra handplockade festliga produkter.",
-    "holiHighlight": "Shoppa bästa erbjudandena nu!",
-    "product1Cta": "Rang Barse Holi Colors Y",
-    "product2Cta": "Rang Barse Holi Colours"
+    "eidTag": "Eid Special",
+    "eidTitle": "Eid Mubarak – Fira i Stil!",
+    "eidDesc": "Gör din Eid-firande extra speciell med våra handplockade festliga produkter.",
+    "eidHighlight": "Shoppa alla Eid-kampanjer nu!",
+    "eidCta": "Visa Eid-kampanjer"
   },
   "promo": {
     "premiumQuality": "Premiumkvalitet",

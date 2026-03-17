@@ -428,12 +428,11 @@
     "sunday": "Søndag"
   },
   "banner": {
-    "holiTag": "Holi-special",
-    "holiTitle": "God Holi – fejr med farver!",
-    "holiDesc": "Gør din Holi-fejring ekstra speciel med vores håndplukkede festessentialer.",
-    "holiHighlight": "Shop de bedste tilbud nu!",
-    "product1Cta": "Rang Barse Holi-farver",
-    "product2Cta": "Rang Barse Holi-farver"
+    "eidTag": "Eid Special",
+    "eidTitle": "Eid Mubarak – Fejr med Stil!",
+    "eidDesc": "Gør din Eid-fejring ekstra speciel med vores håndplukkede festessentialer.",
+    "eidHighlight": "Shop alle Eid-kampagner nu!",
+    "eidCta": "Se Eid-kampagner"
   },
   "promo": {
     "premiumQuality": "Premiumkvalitet",

@@ -428,12 +428,11 @@
     "sunday": "Sunday"
   },
   "banner": {
-    "holiTag": "Holi Special",
-    "holiTitle": "Happy Holi – Celebrate with Colour!",
-    "holiDesc": "Make your Holi celebration extra special with our hand-picked festive essentials.",
-    "holiHighlight": "Shop the best deals now!",
-    "product1Cta": "Rang Barse Holi Colors Y",
-    "product2Cta": "Rang Barse Holi Colours"
+    "eidTag": "Eid Special",
+    "eidTitle": "Eid Mubarak – Celebrate in Style!",
+    "eidDesc": "Make your Eid celebration extra special with our hand-picked festive essentials.",
+    "eidHighlight": "Shop all Eid deals now!",
+    "eidCta": "View Eid Deals"
   },
   "promo": {
     "premiumQuality": "Premium Quality",
