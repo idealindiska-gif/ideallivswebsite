@@ -85,8 +85,8 @@ function getContent(locale: string) {
         outsideTitle: isSv ? 'Övriga Svenska Städer' : 'Other Swedish Cities',
         noteLabel: isSv ? 'Viktigt:' : 'Important:',
         noteText: isSv
-            ? 'Tiderna ovan är bekräftade eller baserade på 2025 års tider. Exakta tider för 2026 meddelas av respektive moské. Vi uppdaterar sidan kontinuerligt!'
-            : 'Timings above are confirmed or based on 2025 data. Exact 2026 timings will be announced by each mosque. We keep this page updated!',
+            ? 'Bekräftade tider är markerade med ✅. Övriga baseras på 2025 års schema — kontrollera din moskés webbplats kvällen före Eid för slutliga tider. Vi uppdaterar sidan löpande!'
+            : 'Timings marked ✅ are confirmed for 2026. Others are based on 2025 schedules — always check your mosque\'s website the evening before Eid for final times. We keep this page updated!',
 
         // Section: Prepare
         prepareTitle: isSv ? 'Så Förbereder Du Dig för Eid i Sverige' : 'How to Prepare for Eid in Sweden',
@@ -116,7 +116,7 @@ function getContent(locale: string) {
             },
             {
                 q: 'Vilka är bönetiderna för Eid i Stockholm 2026?',
-                a: 'Stockholms Moske (Medborgarplatsen) har bekräftat bönetiderna 07:00, 08:00 och 09:00. Aysha Moske förväntas ha böner kl. 08:00, 09:30 och 11:00, och Khadija Center Kista kl. 07:00, 08:00 och 09:00.'
+                a: 'Stockholms Moske (Medborgarplatsen) har bekräftat bönetiderna 07:00, 08:00 och 09:00. Imam Ali Islamic Center (Järfälla) har bekräftat 08:00 och 10:00 (Stora salen). Södertälje Moske (Västergård Arena) har bekräftat 08:00 och 09:00.'
             },
             {
                 q: 'Vilka är bönetiderna för Eid i Göteborg 2026?',
@@ -124,7 +124,7 @@ function getContent(locale: string) {
             },
             {
                 q: 'Vilka är bönetiderna för Eid i Malmö 2026?',
-                a: 'Malmö Moske (Jägersrovägen 90) förväntar sig bönetider kl. 07:30 baserat på 2025 års schema. Astronomiska beräkningar pekar på ca 07:07 för 2026.'
+                a: 'Malmö Islamiska Center (Jägersrovägen 90) har bekräftat bönetid kl. 07:00. Ahmadiyya Muslim Jamaat Malmö håller Eid-bön kl. 10:30.'
             },
             {
                 q: 'Var kan jag köpa autentisk Eid-mat i Stockholm?',
@@ -141,7 +141,7 @@ function getContent(locale: string) {
             },
             {
                 q: 'What are the Eid prayer timings in Stockholm 2026?',
-                a: 'Stockholm Grand Mosque (Medborgarplatsen) has confirmed prayer sessions at 07:00, 08:00, and 09:00. Aysha Mosque is expected at 08:00, 09:30, 11:00, and Khadija Center Kista at 07:00, 08:00, 09:00.'
+                a: 'Stockholm Grand Mosque (Medborgarplatsen) has confirmed prayer sessions at 07:00, 08:00, and 09:00. Imam Ali Islamic Center (Järfälla) has confirmed 08:00 and 10:00 (Stora salen). Södertälje Mosque (Västergård Arena) has confirmed 08:00 and 09:00.'
             },
             {
                 q: 'What are the Eid prayer timings in Gothenburg 2026?',
@@ -149,7 +149,7 @@ function getContent(locale: string) {
             },
             {
                 q: 'What are the Eid prayer timings in Malmö 2026?',
-                a: 'Malmö Mosque (Jägersrovägen 90) is expected around 07:30 based on 2025 schedules. Astronomical calculations suggest approximately 07:07 for 2026.'
+                a: 'Malmö Islamic Center (Jägersrovägen 90) has confirmed Eid prayers at 07:00. Ahmadiyya Muslim Jamaat Malmö holds Eid prayers at 10:30.'
             },
             {
                 q: 'Where can I buy authentic Eid groceries in Stockholm?',
@@ -203,6 +203,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const stockholmMosques = [
     { name: 'Stockholms Moske (Medborgarplatsen)', times: '07:00, 08:00, 09:00', note: '✅ Confirmed 2026', href: 'https://stockholmsmoske.se' },
+    { name: 'Imam Ali Islamic Center (Järfälla)', times: '08:00, 10:00 (Stora salen)', note: '✅ Confirmed 2026', href: 'https://imamalicenter.se' },
+    { name: 'Södertälje Moske (Västergård Arena, Västergatan 2)', times: '08:00, 09:00', note: '✅ Confirmed 2026', href: 'https://sodertaljemoske.se' },
     { name: 'Aysha Moske (Kista)', times: '08:00, 09:30, 11:00', note: 'Based on 2025', href: 'https://aysha.se' },
     { name: 'Khadija Center Kista', times: '07:00, 08:00, 09:00', note: 'Based on 2025', href: 'https://khadijacenter.se' },
     { name: 'Flemingsberg Mosque (Fleminghallen)', times: '09:45', note: 'Based on 2025', href: null },
@@ -210,12 +212,12 @@ const stockholmMosques = [
     { name: 'Alby Moske (Alby Idrottplats)', times: '09:00', note: 'Outdoor — bring mat', href: 'https://albymoske.se' },
     { name: 'Minhaj al Quran Norsborg', times: '09:30', note: 'Based on 2025', href: null },
     { name: 'Masjid Ahl al Bait Märsta (Valsta Sporthall)', times: '08:00', note: 'Bring prayer mat', href: null },
-    { name: 'Södertälje Moske (Mariekällskolan)', times: '08:00, 09:00', note: 'Bring prayer mat', href: 'https://sodertaljemoske.se' },
 ];
 
 const otherCities = [
     { name: 'Uppsala Mosque', times: '08:30, 09:30', note: 'Based on 2025', href: null },
-    { name: 'Malmö Mosque (Jägersrovägen 90)', times: '~07:07–07:30', note: 'Calc. 2026 ≈ 07:07', href: null },
+    { name: 'Malmö Islamic Center (Jägersrovägen 90)', times: '07:00', note: '✅ Confirmed 2026', href: 'https://mosken.se' },
+    { name: 'Ahmadiyya Muslim Jamaat Malmö', times: '10:30', note: '✅ Confirmed 2026', href: 'https://ahmadiyya-islam.org' },
     { name: 'Göteborg Mosque (Myntgatan 4)', times: '07:30, 08:15, 09:00, 09:45, 10:30', note: 'Bring mat & shoe bag', href: null },
 ];
 
@@ -534,6 +536,39 @@ export default async function EidPage({ params }: { params: Promise<{ locale: st
                                             <p className="text-sm text-muted-foreground">{food.desc}</p>
                                         </div>
                                     ))}
+                                </div>
+
+                                {/* EID Promotions — Deals */}
+                                <div className="not-prose my-8 p-6 rounded-2xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400 mb-3">
+                                        {c.isSv ? '🎉 Eid Erbjudanden — Handla Nu' : '🎉 Eid Special Offers — Shop Now'}
+                                    </p>
+                                    <p className="text-sm text-foreground font-semibold mb-4">
+                                        {c.isSv
+                                            ? 'Fira Eid med dina favoriter! Dessa populära produkter finns på rea just nu:'
+                                            : 'Celebrate Eid with your favourites! These popular products are on promotion right now:'}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {[
+                                            { label: 'Laziza Kheer Mix', emoji: '🍮' },
+                                            { label: 'Ahmed Kheer Mix', emoji: '🥛' },
+                                            { label: c.isSv ? 'Custard' : 'Custard', emoji: '🍮' },
+                                            { label: c.isSv ? 'Gelé & Jellies' : 'Jellies', emoji: '🍬' },
+                                            { label: 'Regal Rusks', emoji: '🍞' },
+                                            { label: 'Crown Kebabs', emoji: '🥩' },
+                                        ].map((item, i) => (
+                                            <Link key={i} href="/deals"
+                                                className="inline-flex items-center gap-1.5 text-sm font-semibold bg-amber-100 dark:bg-amber-900/40 hover:bg-primary hover:text-white text-amber-800 dark:text-amber-300 px-4 py-2 rounded-full transition-colors border border-amber-200 dark:border-amber-700/40">
+                                                <span>{item.emoji}</span> {item.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                    <p className="text-xs text-muted-foreground mt-4">
+                                        {c.isSv
+                                            ? <><Link href="/deals" className="text-primary font-semibold underline underline-offset-2">Se alla Eid-deals →</Link> Erbjudanden gäller medan lagret räcker.</>
+                                            : <><Link href="/deals" className="text-primary font-semibold underline underline-offset-2">View all Eid deals →</Link> Offers valid while stocks last.</>
+                                        }
+                                    </p>
                                 </div>
 
                                 {/* Shop CTA inline */}
