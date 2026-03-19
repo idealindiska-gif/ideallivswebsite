@@ -16,6 +16,7 @@ export const revalidate = 86400;
 
 const FEATURE_IMAGE = 'https://crm.ideallivs.com/wp-content/uploads/2026/03/Eid-Celebration-in-Sweden.jpg';
 const PUBLISH_DATE = '2026-03-15';
+const MODIFY_DATE = '2026-03-19';
 
 // ─── All translated content ───────────────────────────────────────────────────
 
@@ -116,15 +117,15 @@ function getContent(locale: string) {
             },
             {
                 q: 'Vilka är bönetiderna för Eid i Stockholm 2026?',
-                a: 'Stockholms Moske (Medborgarplatsen) har bekräftat bönetiderna 07:00, 08:00 och 09:00. Imam Ali Islamic Center (Järfälla) har bekräftat 08:00 och 10:00 (Stora salen). Södertälje Moske (Västergård Arena) har bekräftat 08:00 och 09:00.'
+                a: 'Stockholms Moske (Medborgarplatsen) har bekräftat bönetiderna 07:00, 08:00 och 09:00. Flemingsberg Moske: 06:15, 07:15, 08:15. Khadija Center Kista: 07:00, 07:30, 08:00. Alby Moske: 06:30, 07:15, 08:00, 08:45. Rågsved Moske: 06:30, 08:00, 09:30. Minhaj al Quran Norsborg: 07:30, 09:30. Se hela tabellen ovan för fler moskéer.'
             },
             {
                 q: 'Vilka är bönetiderna för Eid i Göteborg 2026?',
-                a: 'Göteborg Moske (Myntgatan 4) förväntas ha Eid-böner kl. 07:30, 08:15, 09:00, 09:45 och 10:30. Ta med din egen bönematta och en påse för skorna.'
+                a: 'Göteborg Moske (Myntgatan 4) har bekräftat Eid-böner kl. 07:00, 08:00, 09:00 och 10:00. Ta med din egen bönematta och en påse för skorna.'
             },
             {
                 q: 'Vilka är bönetiderna för Eid i Malmö 2026?',
-                a: 'Malmö Islamiska Center (Jägersrovägen 90) har bekräftat bönetid kl. 07:00. Ahmadiyya Muslim Jamaat Malmö håller Eid-bön kl. 10:30.'
+                a: 'Malmö Mosken (Jägersrovägen 90) har bekräftat bönetid kl. 07:00. Malmö Diyanet Camii (Sallerupsvägen 148) kl. 06:53. Ahmadiyya Muslim Jamaat Malmö håller Eid-bön kl. 10:30.'
             },
             {
                 q: 'Var kan jag köpa autentisk Eid-mat i Stockholm?',
@@ -141,15 +142,15 @@ function getContent(locale: string) {
             },
             {
                 q: 'What are the Eid prayer timings in Stockholm 2026?',
-                a: 'Stockholm Grand Mosque (Medborgarplatsen) has confirmed prayer sessions at 07:00, 08:00, and 09:00. Imam Ali Islamic Center (Järfälla) has confirmed 08:00 and 10:00 (Stora salen). Södertälje Mosque (Västergård Arena) has confirmed 08:00 and 09:00.'
+                a: 'Stockholm Grand Mosque (Medborgarplatsen) has confirmed prayer sessions at 07:00, 08:00, and 09:00. Flemingsberg Mosque: 06:15, 07:15, 08:15. Khadija Center Kista: 07:00, 07:30, 08:00. Alby Mosque: 06:30, 07:15, 08:00, 08:45. Rågsved Mosque: 06:30, 08:00, 09:30. Minhaj al Quran Norsborg: 07:30, 09:30. See the full table above for more mosques.'
             },
             {
                 q: 'What are the Eid prayer timings in Gothenburg 2026?',
-                a: 'Göteborg Mosque (Myntgatan 4) is expected to hold Eid prayers at 07:30, 08:15, 09:00, 09:45, and 10:30. Please bring your own prayer mat and a bag for shoes.'
+                a: 'Göteborg Mosque (Myntgatan 4) has confirmed Eid prayers at 07:00, 08:00, 09:00, and 10:00. Please bring your own prayer mat and a bag for shoes.'
             },
             {
                 q: 'What are the Eid prayer timings in Malmö 2026?',
-                a: 'Malmö Islamic Center (Jägersrovägen 90) has confirmed Eid prayers at 07:00. Ahmadiyya Muslim Jamaat Malmö holds Eid prayers at 10:30.'
+                a: 'Malmö Mosken (Jägersrovägen 90) has confirmed Eid prayers at 07:00. Malmö Diyanet Camii (Sallerupsvägen 148) holds prayers at 06:53. Ahmadiyya Muslim Jamaat Malmö holds Eid prayers at 10:30.'
             },
             {
                 q: 'Where can I buy authentic Eid groceries in Stockholm?',
@@ -203,22 +204,31 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const stockholmMosques = [
     { name: 'Stockholms Moske (Medborgarplatsen)', times: '07:00, 08:00, 09:00', note: '✅ Confirmed 2026', href: 'https://stockholmsmoske.se' },
+    { name: 'Flemingsberg Mosque (Prayer at moske)', times: '06:15, 07:15, 08:15', note: '✅ Confirmed 2026', href: null },
+    { name: 'Fisksätra Mosque (Fisksätra Multihallen)', times: '07:30', note: '✅ Confirmed 2026', href: null },
+    { name: 'Khadija Center Kista (near Kista Gallerian)', times: '07:00, 07:30, 08:00', note: '✅ Confirmed 2026', href: 'https://khadijacenter.se' },
+    { name: 'Fitja Moske', times: '06:36, 08:30', note: '✅ Confirmed 2026', href: null },
+    { name: 'Farsta Moske (Färnebogatan 64, Farsta)', times: '08:30, 09:30', note: '✅ Confirmed 2026', href: null },
+    { name: 'Rågsved Moske', times: '06:30, 08:00, 09:30', note: '✅ Confirmed 2026', href: null },
+    { name: 'Alby Moske (Alby Idrottplats, Albyvägen 16)', times: '06:30, 07:15, 08:00, 08:45', note: '✅ Confirmed — bring mat', href: 'https://albymoske.se' },
+    { name: 'Aysha Moske (Prayer at Aysha Masjid)', times: '07:00, 08:30, 10:00', note: '✅ Confirmed 2026', href: 'https://aysha.se' },
     { name: 'Imam Ali Islamic Center (Järfälla)', times: '08:00, 10:00 (Stora salen)', note: '✅ Confirmed 2026', href: 'https://imamalicenter.se' },
+    { name: 'Masjid Ahl al Bait Märsta (Valsta Sportshall)', times: '07:00', note: '✅ Confirmed 2026', href: null },
+    { name: 'Märsta Moske (Forum, Cabinen)', times: '09:00, 10:00', note: 'Follows Saudi Arabia (19 or 20 Mar)', href: null },
+    { name: 'Minhaj al Quran (Kumla Gårdsväg 26A, Norsborg)', times: '07:30, 09:30', note: '✅ Confirmed 2026', href: null },
+    { name: 'Järfälla Moske (Delfinparken)', times: '08:30', note: '✅ Confirmed 2026', href: null },
     { name: 'Södertälje Moske (Västergård Arena, Västergatan 2)', times: '08:00, 09:00', note: '✅ Confirmed 2026', href: 'https://sodertaljemoske.se' },
-    { name: 'Aysha Moske (Kista)', times: '08:00, 09:30, 11:00', note: 'Based on 2025', href: 'https://aysha.se' },
-    { name: 'Khadija Center Kista', times: '07:00, 08:00, 09:00', note: 'Based on 2025', href: 'https://khadijacenter.se' },
-    { name: 'Flemingsberg Mosque (Fleminghallen)', times: '09:45', note: 'Based on 2025', href: null },
-    { name: 'Fitja Moske', times: '07:30', note: 'Based on 2025', href: null },
-    { name: 'Alby Moske (Alby Idrottplats)', times: '09:00', note: 'Outdoor — bring mat', href: 'https://albymoske.se' },
-    { name: 'Minhaj al Quran Norsborg', times: '09:30', note: 'Based on 2025', href: null },
-    { name: 'Masjid Ahl al Bait Märsta (Valsta Sporthall)', times: '08:00', note: 'Bring prayer mat', href: null },
 ];
 
 const otherCities = [
-    { name: 'Uppsala Mosque', times: '08:30, 09:30', note: 'Based on 2025', href: null },
-    { name: 'Malmö Islamic Center (Jägersrovägen 90)', times: '07:00', note: '✅ Confirmed 2026', href: 'https://mosken.se' },
+    { name: 'Uppsala Mosque (Sportfältsvägen 1, Uppsala)', times: '08:30, 10:00', note: '✅ Confirmed 2026', href: null },
+    { name: 'Malmö Mosken (Jägersrovägen 90)', times: '07:00', note: '✅ Confirmed 2026', href: 'https://mosken.se' },
+    { name: 'Malmö Diyanet Camii (Sallerupsvägen 148, Malmö)', times: '06:53', note: '✅ Confirmed 2026', href: null },
     { name: 'Ahmadiyya Muslim Jamaat Malmö', times: '10:30', note: '✅ Confirmed 2026', href: 'https://ahmadiyya-islam.org' },
-    { name: 'Göteborg Mosque (Myntgatan 4)', times: '07:30, 08:15, 09:00, 09:45, 10:30', note: 'Bring mat & shoe bag', href: null },
+    { name: 'Göteborg Mosque (Myntgatan 4)', times: '07:00, 08:00, 09:00, 10:00', note: '✅ Confirmed — bring mat & shoe bag', href: null },
+    { name: 'Al-Rahma Moske Västerås (Malmabergsgatan 23-25)', times: '06:30, 07:30', note: '✅ Confirmed 2026', href: null },
+    { name: 'Karlstad Moske (Fröding Arena)', times: '08:00', note: '✅ Confirmed 2026', href: null },
+    { name: 'Sundsvalls Moske (Nordic Hallen)', times: '08:30', note: '✅ Confirmed 2026', href: null },
 ];
 
 // ─── Page Component ───────────────────────────────────────────────────────────
@@ -251,7 +261,7 @@ export default async function EidPage({ params }: { params: Promise<{ locale: st
         "headline": c.metaTitle,
         "image": FEATURE_IMAGE,
         "datePublished": PUBLISH_DATE,
-        "dateModified": PUBLISH_DATE,
+        "dateModified": MODIFY_DATE,
         "author": {
             "@type": "Organization",
             "@id": "https://www.ideallivs.com/#organization",
