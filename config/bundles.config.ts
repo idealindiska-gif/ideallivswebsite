@@ -47,7 +47,7 @@ export const bundleOffers: BundleOffer[] = [
     ],
     fixedPrice: 15,
     triggerProductIds: [540],
-    active: true,
+    active: false,
     showOnDeals: true,
   },
   {
