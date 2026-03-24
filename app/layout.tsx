@@ -63,13 +63,13 @@ export const metadata: Metadata = {
     // Absolute URLs ensure Google unambiguously associates the favicon with
     // https://www.ideallivs.com and not any previously cached domain.
     icon: [
-      { url: `${siteConfig.site_domain}/favicon.svg?v=3`, type: "image/svg+xml" },
-      { url: `${siteConfig.site_domain}/favicon-32x32.png?v=3`, type: "image/png", sizes: "32x32" },
-      { url: `${siteConfig.site_domain}/favicon-16x16.png?v=3`, type: "image/png", sizes: "16x16" },
-      { url: `${siteConfig.site_domain}/favicon.ico?v=3`, sizes: "any" },
+      { url: `${siteConfig.site_domain}/favicon.svg?v=4`, type: "image/svg+xml" },
+      { url: `${siteConfig.site_domain}/favicon-32x32.png?v=4`, type: "image/png", sizes: "32x32" },
+      { url: `${siteConfig.site_domain}/favicon-16x16.png?v=4`, type: "image/png", sizes: "16x16" },
+      { url: `${siteConfig.site_domain}/favicon.ico?v=4`, sizes: "any" },
     ],
-    shortcut: `${siteConfig.site_domain}/favicon.ico?v=3`,
-    apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=3`, sizes: "180x180", type: "image/png" }],
+    shortcut: `${siteConfig.site_domain}/favicon.ico?v=4`,
+    apple: [{ url: `${siteConfig.site_domain}/apple-icon.png?v=4`, sizes: "180x180", type: "image/png" }],
   },
   verification: {
     google: "JHCIpEz_IWYNdnNQGCkUKVQ8tiUre1hcCOqcSNhKlmQ",
