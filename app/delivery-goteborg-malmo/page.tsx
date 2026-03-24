@@ -110,7 +110,7 @@ export default function GoteborgMalmoDeliveryPage() {
                 <div className="grid sm:grid-cols-2 gap-4 text-muted-foreground">
                   {[
                     "Fresh Indian & Pakistani vegetables and herbs",
-                    "Halal meat and chicken selection",
+                    "Frozen foods and snacks selection",
                     "Premium rice varieties (Basmati, Sella)",
                     "South Indian specialties (dosa mix, sambhar powder)",
                     "Traditional Indian and Pakistani snacks and sweets"

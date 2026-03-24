@@ -50,13 +50,13 @@ function getContent(locale: string) {
             '🗓️ <strong>Datum:</strong> Fredagen den 20 mars 2026 (Eid al-Fitr 1447 AH) — bekräftat av islamiska förbundet.',
             '🕌 <strong>Stockholms Moske:</strong> Bönetider kl. 07:00, 08:00, 09:00 (bekräftade).',
             '🌅 <strong>Göteborg, Malmö, Uppsala:</strong> Bönetider från 07:07–10:30 beroende på moské (se tabell nedan).',
-            '🛍️ <strong>Handla Eid-mat:</strong> Basmatiris, halalkött, dadlar och kryddor finns hos <strong>Ideal Indiska Livs, Bandhagen</strong>.',
+            '🛍️ <strong>Handla Eid-mat:</strong> Basmatiris, dadlar, kryddor och snacks finns hos <strong>Ideal Indiska Livs, Bandhagen</strong>.',
             '📍 <strong>Kontrollera alltid</strong> din lokala moskés webbplats — exakta tider meddelas kvällen innan Eid.',
         ] : [
             '🗓️ <strong>Date:</strong> Friday, March 20, 2026 (Eid al-Fitr 1447 AH) — confirmed by Islamic authorities.',
             '🕌 <strong>Stockholm Grand Mosque:</strong> Prayer sessions at 07:00, 08:00, 09:00 (confirmed).',
             '🌅 <strong>Gothenburg, Malmö, Uppsala:</strong> Prayer times from 07:07–10:30 depending on mosque (see table below).',
-            '🛍️ <strong>Shop for Eid:</strong> Basmati rice, halal meat, dates & spices available at <strong>Ideal Indiska Livs, Bandhagen</strong>.',
+            '🛍️ <strong>Shop for Eid:</strong> Basmati rice, dates, spices & snacks available at <strong>Ideal Indiska Livs, Bandhagen</strong>.',
             '📍 <strong>Always verify</strong> with your local mosque website — exact times are announced the evening before Eid.',
         ],
 
@@ -129,7 +129,7 @@ function getContent(locale: string) {
             },
             {
                 q: 'Var kan jag köpa autentisk Eid-mat i Stockholm?',
-                a: 'Ideal Indiska Livs i Bandhagen, Stockholm erbjuder ett komplett sortiment av halalkött, basmatiris, dadlar, kryddor och Eid-godis. Du kan också beställa hem leverans online via ideallivs.com.'
+                a: 'Ideal Indiska Livs i Bandhagen, Stockholm erbjuder ett brett sortiment av basmatiris, dadlar, kryddor och Eid-godis. Du kan också beställa hem leverans online via ideallivs.com.'
             },
             {
                 q: 'Behöver jag ta med bönematta till Eid-bönen i Sverige?',
@@ -154,7 +154,7 @@ function getContent(locale: string) {
             },
             {
                 q: 'Where can I buy authentic Eid groceries in Stockholm?',
-                a: 'Ideal Indiska Livs in Bandhagen, Stockholm carries a full range of halal meat, basmati rice, dates, spices, and Eid sweets. You can also order online for delivery via ideallivs.com.'
+                a: 'Ideal Indiska Livs in Bandhagen, Stockholm carries a wide range of basmati rice, dates, spices, and Eid sweets. You can also order online for delivery via ideallivs.com.'
             },
             {
                 q: 'Do I need to bring a prayer mat to Eid prayers in Sweden?',

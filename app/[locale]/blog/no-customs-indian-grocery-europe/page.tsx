@@ -69,7 +69,7 @@ export default function NoCustomsPostPage({ params }: { params: Promise<{ locale
                                 <li>✅ <strong>No customs duties</strong> — Sweden is in the EU, so orders ship duty-free to all 27 EU countries.</li>
                                 <li>✅ <strong>No import VAT surprises</strong> — unlike orders from the UK, US, or India.</li>
                                 <li>✅ <strong>Faster delivery</strong> — DHL from Stockholm reaches most of Europe in 3–7 business days.</li>
-                                <li>✅ <strong>1,500+ authentic products</strong> — Indian and Pakistani spices, rice, Halal meat, snacks, and more.</li>
+                                <li>✅ <strong>1,500+ authentic products</strong> — Indian and Pakistani spices, rice, lentils, snacks, and more.</li>
                                 <li>✅ <strong>No minimum order</strong> for EU shipping — rates calculated at checkout.</li>
                             </ul>
                         </div>

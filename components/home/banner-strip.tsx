@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Link } from "@/lib/navigation";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from 'next-intl';
 
@@ -12,13 +12,13 @@ export function BannerStrip() {
         <section className="w-full py-6 md:py-8">
             <div className="container-wide mx-auto px-[var(--container-padding)]">
                 <Link href="/deals" className="block group relative overflow-hidden rounded-2xl">
-                    {/* Background: Eid theme – deep teal/gold */}
+                    {/* Background: forest green/gold gradient */}
                     <div className="relative overflow-hidden py-8 sm:py-10 md:py-12 px-5 sm:px-8 md:px-12"
                         style={{
                             background: 'linear-gradient(135deg, #0a2e1a 0%, #0d3d2a 25%, #1a3a0a 50%, #2e1a00 80%, #0a2e1a 100%)',
                         }}
                     >
-                        {/* Decorative radial glows – Eid gold & green palette */}
+                        {/* Decorative radial glows */}
                         <div className="absolute inset-0 pointer-events-none">
                             <div className="absolute top-0 left-[5%] w-40 h-40 bg-yellow-400/20 rounded-full blur-3xl" />
                             <div className="absolute top-1/2 -translate-y-1/2 left-[30%] w-56 h-56 bg-emerald-400/15 rounded-full blur-3xl" />
@@ -33,12 +33,12 @@ export function BannerStrip() {
                         {/* Content */}
                         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
 
-                            {/* Left: Eid crescent moon icon */}
+                            {/* Left: Weekly deals icon */}
                             <div className="hidden md:flex items-center justify-center shrink-0">
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/40 via-amber-300/30 to-emerald-400/40 rounded-full blur-xl scale-150" />
                                     <div className="relative p-4 bg-gradient-to-br from-yellow-500/20 via-amber-400/15 to-emerald-500/20 rounded-full border border-yellow-400/30 backdrop-blur-sm">
-                                        <span className="text-4xl leading-none select-none">☪️</span>
+                                        <Tag className="w-10 h-10 text-yellow-300" />
                                     </div>
                                 </div>
                             </div>

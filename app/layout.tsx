@@ -107,7 +107,7 @@ export const metadata: Metadata = {
     "Indian grocery store Stockholm",
     "Pakistani grocery online Sweden",
     "buy Indian groceries online",
-    "halal meat delivery Stockholm",
+    "Indian lentils dal Stockholm",
     "basmati rice Stockholm",
     "Indian spices online Sweden",
     "grocery delivery Stockholm",

@@ -10,7 +10,7 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: `About Ideal Indiska LIVS | Indian & Pakistani Groceries`,
-  description: `Discover Ideal Indiska LIVS. Since 2020, Stockholm's trusted source for Indian & Pakistani groceries, premium Basmati rice & Halal meat.`,
+  description: `Discover Ideal Indiska LIVS. Since 2020, Stockholm's trusted source for Indian & Pakistani groceries, premium Basmati rice & authentic spices.`,
   alternates: {
     canonical: '/about',
   },

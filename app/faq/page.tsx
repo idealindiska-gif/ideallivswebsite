@@ -90,7 +90,7 @@ const faqs = [
             },
             {
                 q: "Do you sell Halal meat?",
-                a: "Yes, we have a dedicated section for 100% Halal certified meat and poultry. Quality and authenticity are guaranteed for all our Halal products."
+                a: "We have currently paused our Halal meat selection. We still carry a wide range of halal-certified packaged goods, spices, rice and snacks."
             },
         ]
     },

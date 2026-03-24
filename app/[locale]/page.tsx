@@ -23,7 +23,7 @@ const BASE_URL = "https://www.ideallivs.com";
 const enFaqs = [
     {
         question: "Where can I buy Indian and Pakistani groceries in Stockholm?",
-        answer: "Ideal Indiska LIVS is Stockholm's specialist Indian and Pakistani grocery store, located at Bandhagsplan 4 in Bandhagen. We stock over 1,500 authentic products including premium Basmati rice, spices, Halal meat, frozen snacks, and fresh produce — all available online with fast delivery.",
+        answer: "Ideal Indiska LIVS is Stockholm's specialist Indian and Pakistani grocery store, located at Bandhagsplan 4 in Bandhagen. We stock over 1,500 authentic products including premium Basmati rice, spices, lentils, frozen snacks, and fresh produce — all available online with fast delivery.",
     },
     {
         question: "Do you deliver in Stockholm?",
@@ -50,7 +50,7 @@ const enFaqs = [
 const svFaqs = [
     {
         question: "Var kan jag köpa indiska och pakistanska matvaror i Stockholm?",
-        answer: "Ideal Indiska LIVS är Stockholms specialbutik för indiska och pakistanska livsmedel, med adress Bandhagsplan 4 i Bandhagen. Vi har över 1 500 autentiska produkter — premium Basmati-ris, kryddor, halaltkött, frysta snacks och färska varor — tillgängliga online med snabb leverans.",
+        answer: "Ideal Indiska LIVS är Stockholms specialbutik för indiska och pakistanska livsmedel, med adress Bandhagsplan 4 i Bandhagen. Vi har över 1 500 autentiska produkter — premium Basmati-ris, kryddor, linser, frysta snacks och färska varor — tillgängliga online med snabb leverans.",
     },
     {
         question: "Levererar ni i Stockholm?",
@@ -62,7 +62,7 @@ const svFaqs = [
     },
     {
         question: "Är era produkter Halal-certifierade?",
-        answer: "Ja. Vi har ett dedikerat sortiment av 100% Halal-certifierat kött, fjäderfä och förpackade livsmedel. Alla Halal-produkter är tydligt märkta i vår webbutik och i vår Bandhagen-butik.",
+        answer: "Ja. Vi erbjuder ett brett sortiment av Halal-certifierade förpackade livsmedel, kryddor och snacks. Observera att vi för tillfället inte erbjuder färskt eller fryst halaltkött.",
     },
     {
         question: "Vilka indiska och pakistanska varumärken säljer ni?",
@@ -77,7 +77,7 @@ const svFaqs = [
 const noFaqs = [
     {
         question: "Hvor kan jeg kjøpe indiske og pakistanske matvarer i Stockholm?",
-        answer: "Ideal Indiska LIVS er Stockholms spesialbutikk for indiske og pakistanske dagligvarer, med adresse Bandhagsplan 4 i Bandhagen. Vi har over 1 500 autentiske produkter — premium Basmatiris, krydder, halaltkjøtt, frosne snacks og ferske varer — tilgjengelig online med rask levering.",
+        answer: "Ideal Indiska LIVS er Stockholms spesialbutikk for indiske og pakistanske dagligvarer, med adresse Bandhagsplan 4 i Bandhagen. Vi har over 1 500 autentiske produkter — premium Basmatiris, krydder, linser, frosne snacks og ferske varer — tilgjengelig online med rask levering.",
     },
     {
         question: "Leverer dere i Stockholm?",
@@ -89,7 +89,7 @@ const noFaqs = [
     },
     {
         question: "Er produktene deres Halal-sertifiserte?",
-        answer: "Ja. Vi har et eget sortiment av 100% Halal-sertifisert kjøtt, fjærfe og pakkede matprodukter. Alle Halal-produkter er tydelig merket i nettbutikken og i vår Bandhagen-butikk.",
+        answer: "Ja. Vi tilbyr et bredt sortiment av Halal-sertifiserte pakkede varer, krydder og snacks. Vær oppmerksom på at vi for øyeblikket ikke fører fersk eller frossen halalkjøtt.",
     },
     {
         question: "Hvilke indiske og pakistanske merker selger dere?",
@@ -104,7 +104,7 @@ const noFaqs = [
 const daFaqs = [
     {
         question: "Hvor kan jeg købe indiske og pakistanske dagligvarer i Stockholm?",
-        answer: "Ideal Indiska LIVS er Stockholms specialforretning for indiske og pakistanske dagligvarer, beliggende på Bandhagsplan 4 i Bandhagen. Vi har over 1.500 autentiske produkter — premium Basmatiris, krydderier, halaltkød, frosne snacks og friske varer — tilgængeligt online med hurtig levering.",
+        answer: "Ideal Indiska LIVS er Stockholms specialforretning for indiske og pakistanske dagligvarer, beliggende på Bandhagsplan 4 i Bandhagen. Vi har over 1.500 autentiske produkter — premium Basmatiris, krydderier, linser, frosne snacks og friske varer — tilgængeligt online med hurtig levering.",
     },
     {
         question: "Leverer I i Stockholm?",
@@ -116,7 +116,7 @@ const daFaqs = [
     },
     {
         question: "Er jeres produkter Halal-certificerede?",
-        answer: "Ja. Vi fører et dedikeret udvalg af 100% Halal-certificeret kød, fjerkræ og pakkede fødevarer. Alle Halal-produkter er tydeligt mærket i vores netbutik og i vores Bandhagen-butik.",
+        answer: "Ja. Vi tilbyder et bredt udvalg af Halal-certificerede pakkede fødevarer, krydderier og snacks. Bemærk, at vi i øjeblikket ikke fører frisk eller frossen halalkød.",
     },
     {
         question: "Hvilke indiske og pakistanske mærker fører I?",
@@ -186,7 +186,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (locale === 'sv') {
         return {
             title: "Indiska & Pakistanska Matvaror Stockholm | Ideal Indiska LIVS",
-            description: "Stockholms bästa indiska & pakistanska livsmedelsbutik. Handla premium Basmati-ris, kryddor, halaltkött & färska produkter. Snabb leverans i hela Europa.",
+            description: "Stockholms bästa indiska & pakistanska livsmedelsbutik. Handla premium Basmati-ris, kryddor & färska produkter. Snabb leverans i hela Europa.",
             alternates: {
                 canonical: "https://www.ideallivs.com/sv",
                 languages: {
@@ -198,7 +198,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             },
             openGraph: {
                 title: "Ideal Indiska LIVS - Indiska & Pakistanska Matvaror i Stockholm",
-                description: "Din pålitliga källa för autentiska indiska och pakistanska livsmedel i Stockholm. Färska produkter, aromatiska kryddor, premium Basmati-ris och halaltkött levererat till din dörr.",
+                description: "Din pålitliga källa för autentiska indiska och pakistanska livsmedel i Stockholm. Färska produkter, aromatiska kryddor och premium Basmati-ris levererat till din dörr.",
                 url: "https://www.ideallivs.com/sv",
                 siteName: "Ideal Indiska LIVS",
                 locale: "sv_SE",
@@ -210,7 +210,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (locale === 'no') {
         return {
             title: "Indiske & Pakistanske Dagligvarer Stockholm | Ideal Indiska LIVS",
-            description: "Stockholms beste indiske & pakistanske dagligvarebutikk. Handle premium Basmatiris, krydder, halaltkjøtt & ferske varer. Rask levering i hele Europa.",
+            description: "Stockholms beste indiske & pakistanske dagligvarebutikk. Handle premium Basmatiris, krydder & ferske varer. Rask levering i hele Europa.",
             alternates: {
                 canonical: "https://www.ideallivs.com/no",
                 languages: {
@@ -222,7 +222,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             },
             openGraph: {
                 title: "Ideal Indiska LIVS - Indiske & Pakistanske Dagligvarer i Stockholm",
-                description: "Din pålitelige kilde for autentiske indiske og pakistanske dagligvarer i Stockholm. Ferske varer, aromatiske krydder, premium Basmatiris og halaltkjøtt levert til din dør.",
+                description: "Din pålitelige kilde for autentiske indiske og pakistanske dagligvarer i Stockholm. Ferske varer, aromatiske krydder og premium Basmatiris levert til din dør.",
                 url: "https://www.ideallivs.com/no",
                 siteName: "Ideal Indiska LIVS",
                 locale: "nb_NO",
@@ -234,7 +234,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (locale === 'da') {
         return {
             title: "Indiske & Pakistanske Dagligvarer Stockholm | Ideal Indiska LIVS",
-            description: "Stockholms bedste indiske & pakistanske dagligvarebutik. Shop premium Basmatiris, krydderier, halaltkød & friske varer. Hurtig levering i hele Europa.",
+            description: "Stockholms bedste indiske & pakistanske dagligvarebutik. Shop premium Basmatiris, krydderier & friske varer. Hurtig levering i hele Europa.",
             alternates: {
                 canonical: "https://www.ideallivs.com/da",
                 languages: {
@@ -246,7 +246,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             },
             openGraph: {
                 title: "Ideal Indiska LIVS - Indiske & Pakistanske Dagligvarer i Stockholm",
-                description: "Din pålidelige kilde til autentiske indiske og pakistanske dagligvarer i Stockholm. Friske varer, aromatiske krydderier, premium Basmatiris og halaltkød leveret til din dør.",
+                description: "Din pålidelige kilde til autentiske indiske og pakistanske dagligvarer i Stockholm. Friske varer, aromatiske krydderier og premium Basmatiris leveret til din dør.",
                 url: "https://www.ideallivs.com/da",
                 siteName: "Ideal Indiska LIVS",
                 locale: "da_DK",
@@ -258,7 +258,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     // English (default)
     return {
         title: "Indian & Pakistani Groceries Stockholm | Ideal Indiska LIVS",
-        description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, spices, Halal meat & fresh produce. Fast delivery Europe-wide.",
+        description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, spices & fresh produce. Fast delivery Europe-wide.",
         alternates: {
             canonical: "https://www.ideallivs.com",
             languages: {

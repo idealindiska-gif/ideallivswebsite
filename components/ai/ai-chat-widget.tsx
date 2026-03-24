@@ -300,7 +300,7 @@ function ChatWidget({ onClose }: { onClose: () => void }) {
                                 {/* Quick Suggestions */}
                                 {messages.length === 1 && (
                                     <div className="px-3 pb-2 flex flex-wrap gap-1.5">
-                                        {['Delivery info', 'Halal meat', 'Basmati rice', 'Track order'].map(s => (
+                                        {['Delivery info', 'Basmati rice', 'Spices', 'Track order'].map(s => (
                                             <button
                                                 key={s}
                                                 onClick={() => handleSendMessage(s)}

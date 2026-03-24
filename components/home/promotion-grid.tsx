@@ -90,7 +90,7 @@ export function PromotionGrid({ promotionProducts = [] }: PromotionGridProps) {
                             <div className="absolute inset-0 p-3 sm:p-4 md:p-6 flex flex-col justify-between items-center text-center z-10">
                                 <div className="space-y-1 md:space-y-2 mt-2 md:mt-4">
                                     <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-yellow-400/10 border border-yellow-500/30 text-yellow-200 text-[9px] md:text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                                        ☪️ {t('ramadanSpecial')}
+                                        🏷️ {t('ramadanSpecial')}
                                     </span>
                                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-amber-300 drop-shadow-sm leading-tight">
                                         {t('megaSavings')}

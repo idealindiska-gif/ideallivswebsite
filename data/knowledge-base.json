@@ -605,7 +605,7 @@
     },
     {
       "question": "Do you have halal products?",
-      "answer": "Yes! We stock a wide range of halal-certified products including halal chicken, lamb, beef, and many packaged goods. Our frozen halal meats are available for Stockholm local delivery only.",
+      "answer": "Yes! We stock a wide range of halal-certified packaged goods, spices, rice and snacks. Please note we have currently paused our fresh and frozen halal meat selection.",
       "category": "halal"
     },
     {
@@ -755,7 +755,7 @@
         "National Foods Halal",
         "Shan Halal products"
       ],
-      "note": "Frozen halal meats are for Stockholm local delivery only and cannot be shipped via DHL."
+      "note": "We have currently paused fresh and frozen halal meat. Halal-certified packaged goods are still available."
     },
     "vegetarian": {
       "available": true,

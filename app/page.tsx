@@ -17,13 +17,13 @@ const BASE_URL = "https://www.ideallivs.com";
 
 export const metadata: Metadata = {
   title: "Indian & Pakistani Grocery Store Stockholm | Buy Online | Ideal Livs",
-  description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, halal meat & fresh produce. Fast delivery across Sweden & Europe. Order now!",
+  description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, spices & fresh produce. Fast delivery across Sweden & Europe. Order now!",
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
     title: "Indian & Pakistani Grocery Store Stockholm | Buy Online | Ideal Livs",
-    description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, halal meat & fresh produce. Fast delivery across Sweden & Europe. Order now!",
+    description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, spices & fresh produce. Fast delivery across Sweden & Europe. Order now!",
     url: BASE_URL,
     siteName: "Ideal Indiska LIVS",
     images: [
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Indian & Pakistani Grocery Store Stockholm | Buy Online | Ideal Livs",
-    description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, halal meat & fresh produce. Fast delivery across Sweden & Europe. Order now!",
+    description: "Buy Indian & Pakistani groceries online in Stockholm. Basmati rice, spices, spices & fresh produce. Fast delivery across Sweden & Europe. Order now!",
     images: ["https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png"],
   },
   robots: {
@@ -153,7 +153,7 @@ export default async function HomePage() {
         schema={webpageSchema({
           name: "Ideal Indiska LIVS - Home",
           url: BASE_URL,
-          description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, aromatic spices, Halal meat, and fresh produce.",
+          description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, aromatic spices, lentils, and fresh produce.",
           websiteId: `${BASE_URL}/#website`,
           language: "sv-SE",
         })}
