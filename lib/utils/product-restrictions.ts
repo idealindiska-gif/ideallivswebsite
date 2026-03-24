@@ -140,17 +140,36 @@ export function validateCartQuantities(
  * (Use this if WordPress API doesn't expose restrictions yet)
  */
 export const HARDCODED_RESTRICTIONS: Record<number, QuantityRestriction> = {
-    215: {
+    215: {  // India Gate Sona Masoori Rice 5kg – SKU 122231 (promo Mar 24-29)
+        is_restricted: true,
+        max_quantity: 4,
+        message: '🚫 You can only purchase a maximum of 4 units of this promotional product.',
+    },
+    204: {  // India Gate Idli Rice 5kg – SKU 122239 (promo Mar 24-29)
+        is_restricted: true,
+        max_quantity: 4,
+        message: '🚫 You can only purchase a maximum of 4 units of this promotional product.',
+    },
+    4943: { // Annam Peanut Oil 1L – SKU 172239 (promo Mar 24-29)
         is_restricted: true,
         max_quantity: 3,
         message: '🚫 You can only purchase a maximum of 3 units of this promotional product.',
     },
-    204: {
+    3553: { // Idhiyam Sesam Oil 1L – SKU 172233 (promo Mar 24-29)
         is_restricted: true,
-        max_quantity: 3,
-        message: '🚫 You can only purchase a maximum of 3 units of this promotional product.',
+        max_quantity: 2,
+        message: '🚫 You can only purchase a maximum of 2 units of this promotional product.',
     },
-    // Add more product IDs as needed
+    5106: { // Bikano Gur Tea Rusks 600g – SKU 222274 (promo Mar 24-29)
+        is_restricted: true,
+        max_quantity: 2,
+        message: '🚫 You can only purchase a maximum of 2 units of this promotional product.',
+    },
+    5107: { // Bikano Saunf Tea Rusks 600g – SKU 222275 (promo Mar 24-29)
+        is_restricted: true,
+        max_quantity: 2,
+        message: '🚫 You can only purchase a maximum of 2 units of this promotional product.',
+    },
 };
 
 /**

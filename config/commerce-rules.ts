@@ -33,10 +33,13 @@ export interface ShippingRestriction {
  * UPDATED: 2025-05-24 to match WordPress plugin
  */
 export const QUANTITY_LIMITS: QuantityLimit[] = [
-  { productId: 215, maxQuantity: 3 },   // India Gate Sona Masoori Rice (PROMOTION ACTIVE)
-  { productId: 204, maxQuantity: 3 },   // India Gate Idli Rice 5 Kg (PROMOTION ACTIVE)
-  { productId: 193, maxQuantity: 2 },   // Product ID 193
-  { productId: 4943, maxQuantity: 3 },  // Product ID 4943
+  { productId: 215,  maxQuantity: 4 },  // India Gate Sona Masoori Rice 5kg  – SKU 122231 (promo Mar 24-29)
+  { productId: 204,  maxQuantity: 4 },  // India Gate Idli Rice 5kg           – SKU 122239 (promo Mar 24-29)
+  { productId: 193,  maxQuantity: 2 },  // Product ID 193
+  { productId: 4943, maxQuantity: 3 },  // Annam Peanut Oil 1L                – SKU 172239 (promo Mar 24-29)
+  { productId: 3553, maxQuantity: 2 },  // Idhiyam Sesam Oil 1L               – SKU 172233 (promo Mar 24-29)
+  { productId: 5106, maxQuantity: 2 },  // Bikano Gur Tea Rusks 600g          – SKU 222274 (promo Mar 24-29)
+  { productId: 5107, maxQuantity: 2 },  // Bikano Saunf Tea Rusks 600g        – SKU 222275 (promo Mar 24-29)
 ];
 
 /**
