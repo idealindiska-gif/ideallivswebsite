@@ -185,7 +185,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
             description: c.metaDescription,
             images: [{ url: FEATURE_IMAGE, width: 1200, height: 630, alt: 'Eid al-Fitr 2026 Sweden' }],
         },
-        keywords: isSv
+        keywords: locale === 'sv'
             ? ['eid bönestider Sverige 2026', 'eid al-fitr 2026 Sverige', 'eid bönetid Stockholm', 'när är eid 2026', 'eid firande Sverige']
             : ['eid prayer timings Sweden 2026', 'eid al-fitr 2026 Sweden', 'eid prayer time Stockholm', 'when is eid 2026 Sweden', 'eid celebration Sweden'],
     };

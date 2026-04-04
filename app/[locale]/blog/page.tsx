@@ -232,6 +232,56 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                 </Button>
               </div>
             </div>
+
+            {/* Diwali 2026 */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/04/diwali-2026-sverige-ideal-indiska.jpg"
+                  alt={t('diwaliTitle')}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {t('newGuide')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-orange-600 uppercase tracking-widest">{t('diwaliCategory')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('diwaliTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('diwaliDescription')}
+                </p>
+                <Button asChild variant="outline" className="rounded-full w-full mt-auto border-orange-200 hover:bg-orange-50 text-orange-700">
+                  <Link href="/blog/diwali-2026-sverige">{t('viewDiwaliGuide')}</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Denmark Delivery Guide */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/04/indisk-mad-online-danmark-ideal-indiska.jpg"
+                  alt={t('denmarkTitle')}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  🇩🇰 {t('denmarkCategory')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('denmarkCategory')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('denmarkTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('denmarkDescription')}
+                </p>
+                <Button asChild className="rounded-full w-full mt-auto">
+                  <Link href="/blog/indisk-mad-online-danmark">{t('viewDenmarkGuide')}</Link>
+                </Button>
+              </div>
+            </div>
           </div>
 
         </div>

@@ -29,11 +29,11 @@ function getContent(locale: string) {
             ? 'Diwali 2026 i Sverige – Datum, Firande & Indisk Mat | Ideal Indiska Livs'
             : 'Diwali 2026 in Sweden – Date, Celebration & Indian Food Guide',
         metaDescription: isSv
-            ? 'Diwali 2026 infaller den 20 oktober. Komplett guide för att fira Diwali i Sverige: traditioner, mat, sötsaker och var du handlar autentiska ingredienser i Stockholm.'
-            : 'Diwali 2026 falls on October 20. Complete guide to celebrating Diwali in Sweden: traditions, food, sweets, and where to shop authentic ingredients in Stockholm.',
+            ? 'Diwali 2026 infaller den 8 november. Komplett guide för att fira Diwali i Sverige: traditioner, mat, sötsaker och var du handlar autentiska ingredienser i Stockholm.'
+            : 'Diwali 2026 falls on November 8. Complete guide to celebrating Diwali in Sweden: traditions, food, sweets, and where to shop authentic ingredients in Stockholm.',
 
         // ── Hero ──────────────────────────────────────────────────────────────
-        heroBadge: isSv ? 'Diwali 2026 · 20 oktober' : 'Diwali 2026 · October 20',
+        heroBadge: isSv ? 'Diwali 2026 · 8 november' : 'Diwali 2026 · November 8',
         heroTitle: isSv
             ? 'Diwali 2026 i Sverige: Din Kompletta Guide till Ljusets Festival'
             : 'Diwali 2026 in Sweden: Your Complete Guide to the Festival of Lights',
@@ -44,13 +44,13 @@ function getContent(locale: string) {
         // ── TL;DR ─────────────────────────────────────────────────────────────
         tldrLabel: isSv ? 'Snabbfakta — Diwali 2026 Sverige' : 'Quick Facts — Diwali 2026 Sweden',
         tldrItems: isSv ? [
-            '🪔 <strong>Datum:</strong> Diwali 2026 infaller <strong>tisdagen den 20 oktober 2026</strong> (femte dagen = Bhai Dooj den 22 oktober).',
+            '🪔 <strong>Datum:</strong> Diwali 2026 infaller <strong>söndagen den 8 november 2026</strong> (femte dagen = Bhai Dooj den 10 november).',
             '✨ <strong>Vad är Diwali?</strong> Ljusets festival — fem dagar av lampor, böner, sötsaker och gemenskap. Firas av hinduer, sikher och jainer världen över.',
             '🍬 <strong>Klassiska Diwali-sötsaker:</strong> Kaju katli, gulab jamun, ladoo, barfi och kheer — alla ingredienser finns hos Ideal Indiska Livs.',
             '🛍️ <strong>Handla i Stockholm:</strong> Bandhagsplan 4, Bandhagen (mån–fre 10–20, lör–sön 11–19) eller beställ online med leverans till hela Sverige.',
             '📦 <strong>Leverans:</strong> Leverans till hela Sverige via DHL. Stockholmsleverans samma dag för beställningar innan kl. 16:00.',
         ] : [
-            '🪔 <strong>Date:</strong> Diwali 2026 falls on <strong>Tuesday, October 20, 2026</strong> (fifth day = Bhai Dooj on October 22).',
+            '🪔 <strong>Date:</strong> Diwali 2026 falls on <strong>Sunday, November 8, 2026</strong> (fifth day = Bhai Dooj on November 10).',
             '✨ <strong>What is Diwali?</strong> The Festival of Lights — five days of lamps, prayers, sweets, and togetherness. Celebrated by Hindus, Sikhs, and Jains worldwide.',
             '🍬 <strong>Classic Diwali sweets:</strong> Kaju katli, gulab jamun, ladoo, barfi, and kheer — all ingredients available at Ideal Indiska Livs.',
             '🛍️ <strong>Shop in Stockholm:</strong> Bandhagsplan 4, Bandhagen (Mon–Fri 10–20, Sat–Sun 11–19) or order online with delivery across Sweden.',
@@ -69,20 +69,20 @@ function getContent(locale: string) {
         // ── Dates ─────────────────────────────────────────────────────────────
         datesTitle: isSv ? 'När är Diwali 2026?' : 'When is Diwali 2026?',
         datesBody: isSv
-            ? 'Diwali infaller på den 15:e dagen i månaden Kartik i den hinduiska månkalendern, vilket varierar varje år i den gregorianska kalendern. År 2026 infaller Diwali <strong>tisdagen den 20 oktober 2026</strong>.'
-            : 'Diwali falls on the 15th day of the Hindu lunar month of Kartik, which varies each year in the Gregorian calendar. In 2026, Diwali falls on <strong>Tuesday, October 20, 2026</strong>.',
+            ? 'Diwali infaller på den 15:e dagen i månaden Kartik i den hinduiska månkalendern, vilket varierar varje år i den gregorianska kalendern. År 2026 infaller Diwali <strong>söndagen den 8 november 2026</strong>.'
+            : 'Diwali falls on the 15th day of the Hindu lunar month of Kartik, which varies each year in the Gregorian calendar. In 2026, Diwali falls on <strong>Sunday, November 8, 2026</strong>.',
         diwaliDays: isSv ? [
-            { day: 'Dag 1 — 16 okt', name: 'Dhanteras', desc: 'Köp av guld, silver och köksredskap för välstånd.' },
-            { day: 'Dag 2 — 17 okt', name: 'Choti Diwali (Naraka Chaturdashi)', desc: 'Rengöring, dekorationer och förberedelse av sötsaker.' },
-            { day: 'Dag 3 — 18–20 okt', name: 'Diwali Amavasya', desc: 'Huvudfirandet: lampor, Lakshmi-puja, fyrverkeri och festmåltider.' },
-            { day: 'Dag 4 — 21 okt', name: 'Govardhan Puja', desc: 'Tacksägelse för grödor och naturen.' },
-            { day: 'Dag 5 — 22 okt', name: 'Bhai Dooj', desc: 'Firande av bande mellan syskon — syskondag.' },
+            { day: 'Dag 1 — 5 nov', name: 'Dhanteras', desc: 'Köp av guld, silver och köksredskap för välstånd.' },
+            { day: 'Dag 2 — 6 nov', name: 'Choti Diwali (Naraka Chaturdashi)', desc: 'Rengöring, dekorationer och förberedelse av sötsaker.' },
+            { day: 'Dag 3 — 7–8 nov', name: 'Diwali Amavasya', desc: 'Huvudfirandet: lampor, Lakshmi-puja, fyrverkeri och festmåltider.' },
+            { day: 'Dag 4 — 9 nov', name: 'Govardhan Puja', desc: 'Tacksägelse för grödor och naturen.' },
+            { day: 'Dag 5 — 10 nov', name: 'Bhai Dooj', desc: 'Firande av bande mellan syskon — syskondag.' },
         ] : [
-            { day: 'Day 1 — Oct 16', name: 'Dhanteras', desc: 'Purchase of gold, silver, and utensils for prosperity.' },
-            { day: 'Day 2 — Oct 17', name: 'Choti Diwali (Naraka Chaturdashi)', desc: 'Cleaning, decorations, and preparing sweets.' },
-            { day: 'Day 3 — Oct 18–20', name: 'Diwali Amavasya', desc: 'Main celebration: lamps, Lakshmi puja, fireworks, and feasts.' },
-            { day: 'Day 4 — Oct 21', name: 'Govardhan Puja', desc: 'Thanksgiving for crops and nature.' },
-            { day: 'Day 5 — Oct 22', name: 'Bhai Dooj', desc: 'Celebration of the sibling bond — brother-sister day.' },
+            { day: 'Day 1 — Nov 5', name: 'Dhanteras', desc: 'Purchase of gold, silver, and utensils for prosperity.' },
+            { day: 'Day 2 — Nov 6', name: 'Choti Diwali (Naraka Chaturdashi)', desc: 'Cleaning, decorations, and preparing sweets.' },
+            { day: 'Day 3 — Nov 7–8', name: 'Diwali Amavasya', desc: 'Main celebration: lamps, Lakshmi puja, fireworks, and feasts.' },
+            { day: 'Day 4 — Nov 9', name: 'Govardhan Puja', desc: 'Thanksgiving for crops and nature.' },
+            { day: 'Day 5 — Nov 10', name: 'Bhai Dooj', desc: 'Celebration of the sibling bond — brother-sister day.' },
         ],
 
         // ── Food section ──────────────────────────────────────────────────────
@@ -195,16 +195,16 @@ function getContent(locale: string) {
             ? 'Diwali-firande i Sverige: Tips & Traditioner'
             : 'Celebrating Diwali in Sweden: Tips & Traditions',
         swedenBody: isSv
-            ? 'Att fira Diwali i Sverige innebär att kombinera autentiska traditioner med det svenska klimatets verklighet. I oktober är det mörkt tidigt — vilket faktiskt gör ljussättningen ännu mer magisk! Här är praktiska tips för att skapa en minnesvärd Diwali i Sverige.'
-            : 'Celebrating Diwali in Sweden means blending authentic traditions with the reality of the Swedish climate. In October, darkness falls early — which actually makes the lighting even more magical! Here are practical tips for creating a memorable Diwali in Sweden.',
+            ? 'Att fira Diwali i Sverige innebär att kombinera autentiska traditioner med det svenska klimatets verklighet. I november är det mörkt tidigt — vilket faktiskt gör ljussättningen ännu mer magisk! Här är praktiska tips för att skapa en minnesvärd Diwali i Sverige.'
+            : 'Celebrating Diwali in Sweden means blending authentic traditions with the reality of the Swedish climate. In November, darkness falls early — which actually makes the lighting even more magical! Here are practical tips for creating a memorable Diwali in Sweden.',
         tips: isSv ? [
             { icon: '🪔', title: 'Diyas och LED-ljus', desc: 'Traditionella lerlampor (diyas) med olja är svåra att hitta i Sverige — använd LED-ljus i orange och gult istället, eller beställ diyas online. Skapa ett vackert mönster (rangoli) av ris eller mjöl framför dörren.' },
-            { icon: '🎇', title: 'Fyrverkeri i Sverige', desc: 'Kontrollera lokala regler — i Stockholm är fyrverkeri tillåtet för privatpersoner den 20 oktober. Knallskott och bengaliska ljus är populära alternativ på balkongen.' },
+            { icon: '🎇', title: 'Fyrverkeri i Sverige', desc: 'Kontrollera lokala regler — i Stockholm är fyrverkeri tillåtet för privatpersoner den 8 november. Knallskott och bengaliska ljus är populära alternativ på balkongen.' },
             { icon: '🎁', title: 'Mithai-gåvor', desc: 'Paketera hemlagade sötsaker i dekorativa lådor — en älskad Diwali-tradition. Ge till grannar, kollegor och vänner. Haldiram\'s boxar med blandade sötsaker är ett perfekt köpt alternativ.' },
             { icon: '🙏', title: 'Lakshmi Puja', desc: 'Tvätta och dekorera hemmet väl. Tänd lampor vid ingången för att välkomna gudinnan Lakshmi av välstånd och lycka. Läs mantras eller spela bhajans hemma.' },
         ] : [
             { icon: '🪔', title: 'Diyas and LED lights', desc: 'Traditional clay oil lamps (diyas) are hard to find in Sweden — use LED lights in orange and yellow instead, or order diyas online. Create a beautiful rangoli pattern of rice or flour at the entrance.' },
-            { icon: '🎇', title: 'Fireworks in Sweden', desc: 'Check local rules — in Stockholm, fireworks are permitted for private individuals on October 20. Sparklers and Bengal lights are popular balcony alternatives.' },
+            { icon: '🎇', title: 'Fireworks in Sweden', desc: 'Check local rules — in Stockholm, fireworks are permitted for private individuals on November 8. Sparklers and Bengal lights are popular balcony alternatives.' },
             { icon: '🎁', title: 'Mithai gifts', desc: 'Pack homemade sweets in decorative boxes — a cherished Diwali tradition. Give to neighbours, colleagues, and friends. Haldiram\'s boxes of mixed sweets are a perfect ready-made option.' },
             { icon: '🙏', title: 'Lakshmi Puja', desc: 'Clean and decorate the home well. Light lamps at the entrance to welcome goddess Lakshmi of prosperity and good fortune. Recite mantras or play bhajans at home.' },
         ],
@@ -224,7 +224,7 @@ function getContent(locale: string) {
         faqs: isSv ? [
             {
                 q: 'När är Diwali 2026 i Sverige?',
-                a: 'Diwali 2026 infaller tisdagen den 20 oktober 2026. Femte dagen (Bhai Dooj) firas den 22 oktober.',
+                a: 'Diwali 2026 infaller söndagen den 8 november 2026. Femtedagarsfestivalen börjar den 5 november och avslutas med Bhai Dooj den 10 november.',
             },
             {
                 q: 'Vad äter man under Diwali?',
@@ -232,7 +232,7 @@ function getContent(locale: string) {
             },
             {
                 q: 'Kan man fira Diwali i Sverige med fyrverkeri?',
-                a: 'I Sverige är fyrverkeri för privatpersoner tillåtet under nyårsnatten och Diwali (20 oktober). Kontrollera alltid lokala regler i din kommun.',
+                a: 'I Sverige är fyrverkeri för privatpersoner tillåtet under nyårsnatten och Diwali (8 november). Kontrollera alltid lokala regler i din kommun.',
             },
             {
                 q: 'Var köper man indiska Diwali-ingredienser i Stockholm?',
@@ -245,7 +245,7 @@ function getContent(locale: string) {
         ] : [
             {
                 q: 'When is Diwali 2026 in Sweden?',
-                a: 'Diwali 2026 falls on Tuesday, October 20, 2026. The fifth day (Bhai Dooj) is celebrated on October 22.',
+                a: 'Diwali 2026 falls on Sunday, November 8, 2026. The five-day festival begins on November 5 and ends with Bhai Dooj on November 10.',
             },
             {
                 q: 'What do you eat during Diwali?',
@@ -253,7 +253,7 @@ function getContent(locale: string) {
             },
             {
                 q: 'Can you celebrate Diwali in Sweden with fireworks?',
-                a: 'In Sweden, fireworks for private individuals are permitted on New Year\'s Eve and Diwali (October 20). Always check local rules in your municipality.',
+                a: 'In Sweden, fireworks for private individuals are permitted on New Year\'s Eve and Diwali (November 8). Always check local rules in your municipality.',
             },
             {
                 q: 'Where can you buy Indian Diwali ingredients in Stockholm?',
@@ -320,14 +320,14 @@ export default async function DiwaliPage({ params }: { params: Promise<{ locale:
         '@context': 'https://schema.org',
         '@type': 'Event',
         name: c.isSv ? 'Diwali 2026 – Ljusets Festival' : 'Diwali 2026 – Festival of Lights',
-        startDate: '2026-10-20',
-        endDate: '2026-10-22',
+        startDate: '2026-11-05',
+        endDate: '2026-11-10',
         eventAttendanceMode: 'https://schema.org/MixedEventAttendanceMode',
         eventStatus: 'https://schema.org/EventScheduled',
         location: { '@type': 'Country', name: 'Sweden' },
         description: c.isSv
-            ? 'Diwali 2026 firas den 20–22 oktober i Sverige. Femdagarsfestivalen inkluderar böner, lampor, sötsaker och gemenskap.'
-            : 'Diwali 2026 is celebrated October 20–22 in Sweden. The five-day festival includes prayers, lights, sweets, and community.',
+            ? 'Diwali 2026 firas den 5–10 november i Sverige med huvuddagen den 8 november. Femdagarsfestivalen inkluderar böner, lampor, sötsaker och gemenskap.'
+            : 'Diwali 2026 is celebrated November 5–10 in Sweden, with the main day on November 8. The five-day festival includes prayers, lights, sweets, and community.',
         organizer: { '@type': 'Organization', name: 'Ideal Indiska LIVS', url: siteConfig.site_domain },
     };
 
