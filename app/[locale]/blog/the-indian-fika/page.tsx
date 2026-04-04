@@ -108,6 +108,9 @@ export default async function IndianFikaPage({ params }: { params: Promise<{ loc
                                     <Calendar className="h-4 w-4" />
                                     {publishDate}
                                 </p>
+                                <time dateTime="2026-01-10" className="text-xs text-white/50">
+                                    Last updated: January 10, 2026
+                                </time>
                             </div>
                         </div>
 

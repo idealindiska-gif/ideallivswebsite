@@ -8,6 +8,11 @@ import { Post } from '@/lib/wordpress.d';
 import { brandConfig } from '@/config/brand.config';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import { SchemaScript } from '@/lib/schema/schema-script';
+import { collectionPageSchema } from '@/lib/schema/collection';
+import { webpageSchema } from '@/lib/schema/website';
+import { breadcrumbSchema } from '@/lib/schema/breadcrumb';
+import { faqSchema } from '@/lib/schema/faq';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -334,6 +339,136 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           )}
         </div>
       </section>
+
+      {/* ── FAQ Section ── */}
+      <section className="py-16 bg-muted/30 border-t border-border">
+        <div className="container px-4 md:px-6 max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-2">
+            {t('faqTitle')}
+          </h2>
+          <p className="text-muted-foreground mb-10">{t('faqSubtitle')}</p>
+
+          <div className="space-y-6">
+            {/* FAQ 1 */}
+            <div className="rounded-2xl bg-card border border-border p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-2">{t('faq1Q')}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{t('faq1A')}</p>
+            </div>
+
+            {/* FAQ 2 */}
+            <div className="rounded-2xl bg-card border border-border p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-2">{t('faq2Q')}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{t('faq2A')}</p>
+            </div>
+
+            {/* FAQ 3 */}
+            <div className="rounded-2xl bg-card border border-border p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-2">{t('faq3Q')}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{t('faq3A')}</p>
+            </div>
+
+            {/* FAQ 4 */}
+            <div className="rounded-2xl bg-card border border-border p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-2">{t('faq4Q')}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{t('faq4A')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Schema: BreadcrumbList ── */}
+      <SchemaScript
+        id="blog-breadcrumb"
+        schema={breadcrumbSchema([
+          {
+            name: locale === 'sv' ? 'Hem' : locale === 'no' ? 'Hjem' : locale === 'da' ? 'Hjem' : 'Home',
+            url: locale !== 'en' ? `https://www.ideallivs.com/${locale}` : 'https://www.ideallivs.com',
+          },
+          {
+            name: locale === 'sv' ? 'Blogg' : 'Blog',
+            url: `https://www.ideallivs.com${locale !== 'en' ? `/${locale}` : ''}/blog`,
+          },
+        ])}
+      />
+
+      {/* ── Schema: WebPage ── */}
+      <SchemaScript
+        id="blog-webpage"
+        schema={webpageSchema({
+          name: locale === 'sv'
+            ? `Blogg — Recept, Kryddguider & Inspiration | ${brandConfig.businessName}`
+            : locale === 'no'
+            ? `Blogg — Oppskrifter, Krydderguider & Inspirasjon | ${brandConfig.businessName}`
+            : locale === 'da'
+            ? `Blog — Opskrifter, Krydderguider & Inspiration | ${brandConfig.businessName}`
+            : `Blog — Recipes, Spice Guides & Food Inspiration | ${brandConfig.businessName}`,
+          url: `https://www.ideallivs.com${locale !== 'en' ? `/${locale}` : ''}/blog`,
+          description: locale === 'sv'
+            ? 'Recept, kryddguider och matinspiration för indisk och pakistansk matlagning i Sverige.'
+            : locale === 'no'
+            ? 'Oppskrifter, krydderguider og matinspirajon for indisk og pakistansk matlaging i Norden.'
+            : locale === 'da'
+            ? 'Opskrifter, krydderguider og madinspirasjon til indisk og pakistansk madlavning i Norden.'
+            : 'Recipes, spice guides, and food inspiration for Indian and Pakistani cooking in Scandinavia.',
+          websiteId: 'https://www.ideallivs.com/#website',
+          language: locale === 'sv' ? 'sv-SE' : locale === 'no' ? 'nb-NO' : locale === 'da' ? 'da-DK' : 'en-US',
+        })}
+      />
+
+      {/* ── Schema: FAQPage ── */}
+      <SchemaScript
+        id="blog-faq"
+        schema={faqSchema({
+          pageUrl: `https://www.ideallivs.com${locale !== 'en' ? `/${locale}` : ''}/blog`,
+          faqs: [
+            {
+              question: t('faq1Q'),
+              answer: t('faq1A'),
+            },
+            {
+              question: t('faq2Q'),
+              answer: t('faq2A'),
+            },
+            {
+              question: t('faq3Q'),
+              answer: t('faq3A'),
+            },
+            {
+              question: t('faq4Q'),
+              answer: t('faq4A'),
+            },
+          ],
+        })}
+      />
+
+      {/* ── Schema: CollectionPage (blog post listing) ── */}
+      {posts.length > 0 && (
+        <SchemaScript
+          id="blog-collection"
+          schema={collectionPageSchema({
+            name: locale === 'sv'
+              ? 'Blogg — Indisk & Pakistansk Matinspiration'
+              : locale === 'no'
+              ? 'Blogg — Indisk & Pakistansk Matinspirasjon'
+              : locale === 'da'
+              ? 'Blog — Indisk & Pakistansk Madinspirasjon'
+              : 'Blog — Indian & Pakistani Food Inspiration',
+            description: locale === 'sv'
+              ? 'Guider, recept och råd om indisk och pakistansk matlagning i Sverige.'
+              : 'Guides, recipes, and tips on Indian and Pakistani cooking in Scandinavia.',
+            url: `https://www.ideallivs.com${locale !== 'en' ? `/${locale}` : ''}/blog`,
+            items: posts.slice(0, 10).map((post: any) => ({
+              url: `https://www.ideallivs.com${locale !== 'en' ? `/${locale}` : ''}/blog/${post.slug}`,
+              name: post.title.rendered.replace(/<[^>]*>/g, ''),
+              description: post.excerpt?.rendered
+                ? post.excerpt.rendered.replace(/<[^>]*>/g, '').trim().substring(0, 160)
+                : undefined,
+              image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url,
+            })),
+            totalItems: posts.length,
+          })}
+        />
+      )}
     </div>
   );
 }

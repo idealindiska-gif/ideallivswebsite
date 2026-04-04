@@ -601,8 +601,8 @@
     "returnHome": "Tillbaka till startsidan"
   },
   "blog": {
-    "title": "Vår Blogg",
-    "subtitle": "Upptäck autentiska recept, matlaggningstips och de rika kulinariska traditionerna från indiskt och pakistanskt kök i Sverige.",
+    "title": "Indisk Matblogg — Recept, Kultur & Handelstips",
+    "subtitle": "Din guide till autentisk indisk och pakistansk mat i Sverige. Recept, kulturella berättelser och handelstips för Stockholm, Göteborg och Malmö.",
     "newGuide": "Ny Guide",
     "popular": "Populär",
     "euGuide": "EU-Guide",
@@ -626,7 +626,17 @@
     "viewEidGuide": "Se Eid Guide",
     "noPostsFound": "Inga blogginlägg hittades. Kom tillbaka snart för nytt innehåll!",
     "errorLoading": "Kunde inte ladda blogginlägg. Försök igen senare.",
-    "readMore": "Läs Mer"
+    "readMore": "Läs Mer",
+    "faqTitle": "Vanliga frågor",
+    "faqSubtitle": "Allt du vill veta om indiska livsmedel i Skandinavien",
+    "faq1Q": "Vad handlar den här indiska matbloggen om?",
+    "faq1A": "Bloggen täcker tips, recept och matkultur kring indiska, pakistanska och internationella livsmedel för läsare i Sverige — bland annat Stockholm, Göteborg och Malmö — och i hela Skandinavien. Vi delar praktiska matlagningsguider, säsongsinspiration och kulturella berättelser för att hjälpa dig laga autentisk sydasyatisk mat var du än bor.",
+    "faq2Q": "Kan jag beställa indiska livsmedel online i Sverige?",
+    "faq2A": "Ja. Ideal Livs levererar 1 500+ autentiska indiska och pakistanska produkter över hela Sverige och internationellt till Norge, Danmark och alla EU-länder via DHL. Beställningar skickas från vårt lager i Stockholm och kommer vanligtvis fram inom 2–5 arbetsdagar i Skandinavien.",
+    "faq3Q": "Vilka indiska ingredienser är populära i Sverige?",
+    "faq3A": "De mest populära indiska ingredienserna bland våra kunder i Sverige är basmatiris, linser (dal), garam masala-kryddblandningar, ghee (klarat smör), färdiglagade rätter och atta (fullkornsmjöl). Märken som India Gate, Shan, MDH, Haldiram's och Rooh Afza är ständiga bästsäljare.",
+    "faq4Q": "Finns det halalmat i Ideal Livs butik?",
+    "faq4A": "Ja. Ideal Livs har ett brett sortiment av halal-certifierade förpackade varor inklusive kryddor, linser, ris, snacks och färdigrätter. Färskt och fryst halalkött finns för närvarande inte i webbutiken, men halal-certifierade förpackade produkter är tydligt märkta på produktsidorna."
   },
   "billingForm": {
     "title": "Faktureringsadress",

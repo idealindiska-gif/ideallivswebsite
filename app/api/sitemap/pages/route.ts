@@ -10,6 +10,8 @@ export async function GET() {
         { url: "/contact", priority: 0.8, changefreq: "monthly" },
         { url: "/faq", priority: 0.7, changefreq: "monthly" },
         { url: "/shop", priority: 0.9, changefreq: "daily" },
+        { url: "/deals", priority: 0.8, changefreq: "daily" },
+        { url: "/brands", priority: 0.7, changefreq: "weekly" },
         { url: "/blog", priority: 0.7, changefreq: "weekly" },
         { url: "/privacy-policy", priority: 0.3, changefreq: "yearly" },
         { url: "/refund-return", priority: 0.3, changefreq: "yearly" },

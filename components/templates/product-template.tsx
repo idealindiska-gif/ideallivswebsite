@@ -12,7 +12,7 @@ import { ProductGrid } from '@/components/shop/product-grid';
 import { ProductImageGallery } from '@/components/shop/product-image-gallery';
 import { ProductVariationSelector } from '@/components/shop/product-variation-selector';
 import { ProductReviews } from '@/components/shop/product-reviews';
-import { ProductSchema } from '@/components/shop/product-schema';
+// ProductSchema intentionally removed — rendered server-side in page.tsx for immediate JSON-LD injection
 import { StockIndicator } from '@/components/shop/stock-indicator';
 import { QuantitySelector } from '@/components/shop/quantity-selector';
 import { AiQuickSummary } from '@/components/product/ai-quick-summary';
@@ -89,9 +89,6 @@ export function ProductTemplate({
 
   return (
     <>
-      {/* SEO Schema */}
-      <ProductSchema product={product} reviews={reviews} />
-
       <div className="min-h-screen bg-background">
         <div className="container-wide mx-auto page-section">
           {/* Breadcrumbs */}

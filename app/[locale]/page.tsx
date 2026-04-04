@@ -194,11 +194,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
                     'sv': 'https://www.ideallivs.com/sv',
                     'nb': 'https://www.ideallivs.com/no',
                     'da': 'https://www.ideallivs.com/da',
+                    'x-default': 'https://www.ideallivs.com',
                 },
             },
             openGraph: {
                 title: "Ideal Indiska LIVS - Indiska & Pakistanska Matvaror i Stockholm",
-                description: "Din pålitliga källa för autentiska indiska och pakistanska livsmedel i Stockholm. Färska produkter, aromatiska kryddor och premium Basmati-ris levererat till din dörr.",
+                description: "Handla indisk, pakistansk och internationell mat online. Snabb leverans i Stockholm, Göteborg och Malmö — och med DHL till hela Sverige och Europa.",
                 url: "https://www.ideallivs.com/sv",
                 siteName: "Ideal Indiska LIVS",
                 locale: "sv_SE",
@@ -218,11 +219,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
                     'sv': 'https://www.ideallivs.com/sv',
                     'nb': 'https://www.ideallivs.com/no',
                     'da': 'https://www.ideallivs.com/da',
+                    'x-default': 'https://www.ideallivs.com',
                 },
             },
             openGraph: {
                 title: "Ideal Indiska LIVS - Indiske & Pakistanske Dagligvarer i Stockholm",
-                description: "Din pålitelige kilde for autentiske indiske og pakistanske dagligvarer i Stockholm. Ferske varer, aromatiske krydder og premium Basmatiris levert til din dør.",
+                description: "Bestill indisk, pakistansk og internasjonal mat på nett. Rask levering i Stockholm, Göteborg og Malmö — og med DHL til hele Sverige og Europa.",
                 url: "https://www.ideallivs.com/no",
                 siteName: "Ideal Indiska LIVS",
                 locale: "nb_NO",
@@ -242,11 +244,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
                     'sv': 'https://www.ideallivs.com/sv',
                     'nb': 'https://www.ideallivs.com/no',
                     'da': 'https://www.ideallivs.com/da',
+                    'x-default': 'https://www.ideallivs.com',
                 },
             },
             openGraph: {
                 title: "Ideal Indiska LIVS - Indiske & Pakistanske Dagligvarer i Stockholm",
-                description: "Din pålidelige kilde til autentiske indiske og pakistanske dagligvarer i Stockholm. Friske varer, aromatiske krydderier og premium Basmatiris leveret til din dør.",
+                description: "Bestil indisk, pakistansk og international mad online. Hurtig levering i Stockholm, Göteborg og Malmö — og med DHL til hele Sverige og Europa.",
                 url: "https://www.ideallivs.com/da",
                 siteName: "Ideal Indiska LIVS",
                 locale: "da_DK",
@@ -257,8 +260,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     // English (default)
     return {
-        title: "Indian & Pakistani Groceries Stockholm | Ideal Indiska LIVS",
-        description: "Stockholm's best Indian & Pakistani grocery store. Shop premium Basmati rice, spices & fresh produce. Fast delivery Europe-wide.",
+        title: "Indian Grocery Online Sweden — Shop & Delivery | Ideal Indiska LIVS",
+        description: "Buy authentic Indian & Pakistani groceries online in Stockholm. Premium Basmati rice, spices, lentils & snacks. Same-day delivery in Stockholm, DHL shipping to Gothenburg, Malmö & across Europe.",
         alternates: {
             canonical: "https://www.ideallivs.com",
             languages: {
@@ -266,6 +269,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
                 'sv': 'https://www.ideallivs.com/sv',
                 'nb': 'https://www.ideallivs.com/no',
                 'da': 'https://www.ideallivs.com/da',
+                'x-default': 'https://www.ideallivs.com',
             },
         },
     };

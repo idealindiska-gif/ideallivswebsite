@@ -473,6 +473,12 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       },
     ],
 
+    // Number of employees (approximate, small family business)
+    numberOfEmployees: {
+      '@type': 'QuantitativeValue',
+      value: 5,
+    },
+
     // Order action for shopping
     potentialAction: {
       '@type': 'OrderAction',

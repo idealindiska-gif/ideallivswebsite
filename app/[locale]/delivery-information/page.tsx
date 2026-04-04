@@ -79,8 +79,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: "Grocery Delivery Stockholm & All Sweden | Ideal Indiska Livs",
-    description: "Authentic Indian & Pakistani groceries with fast local delivery across Stockholm. Same-day evening delivery in Bandhagen & southern suburbs.",
+    title: "Indian Grocery Delivery Stockholm, Gothenburg & Malmö | Ideal Indiska Livs",
+    description: "Order authentic Indian & Pakistani groceries online in Sweden — fast local delivery across Stockholm, and DHL shipping to Gothenburg, Malmö, and all of Europe. No customs duties within the EU.",
     alternates: getAlternates('/delivery-information', locale),
   };
 }

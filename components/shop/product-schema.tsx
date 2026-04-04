@@ -2,17 +2,16 @@ import type { Product, ProductReview } from '@/types/woocommerce';
 import { wooCommerceProductSchema, breadcrumbSchema, productBreadcrumbs } from '@/lib/schema';
 import { siteConfig } from '@/site.config';
 import { brandConfig } from '@/config/brand.config';
-import { useLocale } from 'next-intl';
 
 interface ProductSchemaProps {
   product: Product;
   reviews?: ProductReview[];
   breadcrumbs?: Array<{ label: string; href?: string }>;
+  locale?: string;
 }
 
-export function ProductSchema({ product, reviews = [], breadcrumbs }: ProductSchemaProps) {
+export function ProductSchema({ product, reviews = [], breadcrumbs, locale = 'en' }: ProductSchemaProps) {
   const baseUrl = siteConfig.site_domain;
-  const locale = useLocale();
 
   // Generate product schema using standardized function
   const productSchema = wooCommerceProductSchema(product, {

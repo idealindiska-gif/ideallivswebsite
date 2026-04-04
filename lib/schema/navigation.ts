@@ -13,14 +13,13 @@ export function siteNavigationSchema(baseUrl: string = 'https://www.ideallivs.co
     { name: 'FAQ', url: `${baseUrl}/faq` },
   ];
 
-  return {
+  // SiteNavigationElement is emitted as individual nodes (not wrapped in ItemList)
+  // This is the structure Google recognizes for sitelinks enhancement
+  return navItems.map((item, index) => ({
     '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    itemListElement: navItems.map((item, index) => ({
-      '@type': 'SiteNavigationElement',
-      position: index + 1,
-      name: item.name,
-      url: item.url,
-    })),
-  };
+    '@type': 'SiteNavigationElement',
+    position: index + 1,
+    name: item.name,
+    url: item.url,
+  }));
 }

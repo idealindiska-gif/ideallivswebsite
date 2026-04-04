@@ -88,8 +88,25 @@ export function articleSchema(article: ArticleInput): BlogPosting {
  * @param baseUrl - Base URL of the site
  * @returns Complete Article schema object
  */
-export function wordPressArticleSchema(post: any, baseUrl: string = 'https://www.ideallivs.com'): BlogPosting {
-    const url = `${baseUrl}/${post.slug}`;
+export function wordPressArticleSchema(
+    post: any,
+    baseUrl: string = 'https://www.ideallivs.com',
+    options?: { locale?: string; localePrefix?: string }
+): BlogPosting {
+    // Build canonical URL including locale prefix and /blog/ segment
+    // e.g. https://www.ideallivs.com/blog/slug  (en)
+    //      https://www.ideallivs.com/sv/blog/slug (sv)
+    const localeSegment = options?.localePrefix ? `/${options.localePrefix}` : '';
+    const url = `${baseUrl}${localeSegment}/blog/${post.slug}`;
+
+    // Determine inLanguage from locale
+    const localeMap: Record<string, string> = {
+        sv: 'sv-SE',
+        en: 'en-US',
+        nb: 'nb-NO',
+        da: 'da-DK',
+    };
+    const language = localeMap[options?.locale || 'sv'] || 'sv-SE';
 
     // Extract featured image
     const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
@@ -118,7 +135,7 @@ export function wordPressArticleSchema(post: any, baseUrl: string = 'https://www
         category,
         tags,
         wordCount: countWords(post.content.rendered),
-        language: 'sv-SE',
+        language,
     });
 }
 

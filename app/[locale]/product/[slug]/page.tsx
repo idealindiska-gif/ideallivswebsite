@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getProductBySlug, getRelatedProducts, getProductsByIds } from '@/lib/woocommerce';
 import { ProductTemplate } from '@/components/templates';
+import { ProductSchema } from '@/components/shop/product-schema';
 import { getBundlesForProduct, getBundleProductIds } from '@/config/bundles.config';
 import { siteConfig } from '@/site.config';
 import { getSwedishProductMeta } from '@/lib/seo/swedish-meta';
@@ -148,7 +149,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-    const { slug } = await params;
+    const { slug, locale } = await params;
     let product;
 
     try {
@@ -182,12 +183,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
     ];
 
     return (
-        <ProductTemplate
-            product={product}
-            breadcrumbs={breadcrumbs}
-            relatedProducts={relatedProducts}
-            bundles={bundles}
-            bundleProducts={bundleProducts}
-        />
+        <>
+            {/* Product + Breadcrumb JSON-LD rendered server-side for immediate indexing */}
+            <ProductSchema product={product} breadcrumbs={breadcrumbs} locale={locale} />
+            <ProductTemplate
+                product={product}
+                breadcrumbs={breadcrumbs}
+                relatedProducts={relatedProducts}
+                bundles={bundles}
+                bundleProducts={bundleProducts}
+            />
+        </>
     );
 }

@@ -601,8 +601,8 @@
     "returnHome": "Return Home"
   },
   "blog": {
-    "title": "Our Blog",
-    "subtitle": "Discover authentic recipes, cooking tips, and the rich culinary traditions of Indian and Pakistani cuisine in Sweden.",
+    "title": "Indian Food Blog — Recipes, Culture & Grocery Tips",
+    "subtitle": "Your guide to authentic Indian and Pakistani cuisine in Sweden. Recipes, cultural stories, and grocery tips for Stockholm, Gothenburg, and Malmö.",
     "newGuide": "New Guide",
     "popular": "Popular",
     "euGuide": "EU Guide",
@@ -626,7 +626,17 @@
     "viewEidGuide": "View Eid Guide",
     "noPostsFound": "No blog posts found. Check back soon for new content!",
     "errorLoading": "Failed to load blog posts. Please try again later.",
-    "readMore": "Read More"
+    "readMore": "Read More",
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "Everything you want to know about Indian grocery in Scandinavia",
+    "faq1Q": "What is this Indian food blog about?",
+    "faq1A": "This blog covers Indian, Pakistani, and international grocery tips, recipes, and food culture for readers living in Sweden — including Stockholm, Gothenburg, and Malmö — and across Scandinavia. We share practical cooking guides, seasonal ingredient picks, and cultural stories to help you cook authentic South Asian food wherever you are.",
+    "faq2Q": "Can I order Indian grocery online in Sweden?",
+    "faq2A": "Yes. Ideal Livs ships 1,500+ authentic Indian and Pakistani products across Sweden and internationally to Norway, Denmark, and all EU countries via DHL. Orders are dispatched from our Stockholm warehouse and typically arrive within 2–5 business days for Scandinavia.",
+    "faq3Q": "What Indian ingredients are popular in Sweden?",
+    "faq3A": "The most popular Indian ingredients among our customers in Sweden are basmati rice, lentils (dal), garam masala spice blends, ghee (clarified butter), ready-to-eat meals, and atta (whole wheat flour). Brands like India Gate, Shan, MDH, Haldiram's, and Rooh Afza are consistent bestsellers.",
+    "faq4Q": "Is there halal food in the Ideal Livs shop?",
+    "faq4A": "Yes. Ideal Livs stocks a wide range of halal-certified packaged goods including spices, lentils, rice, snacks, and ready meals. Fresh and frozen halal meat are not currently available in the online shop, but halal-certified packaged products are clearly labelled on the product pages."
   },
   "billingForm": {
     "title": "Billing Address",

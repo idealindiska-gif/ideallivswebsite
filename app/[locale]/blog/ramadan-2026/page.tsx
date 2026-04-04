@@ -373,6 +373,9 @@ export default async function RamadanBlogPost({
                                     <Calendar className="h-3.5 w-3.5" />
                                     {new Date(PUBLISH_DATE).toLocaleDateString(c.isSv ? 'sv-SE' : 'en-SE', { year: 'numeric', month: 'long', day: 'numeric' })}
                                 </p>
+                                <time dateTime={PUBLISH_DATE} className="text-xs text-white/45">
+                                    {c.isSv ? 'Senast uppdaterad: 12 februari 2026' : 'Last updated: February 12, 2026'}
+                                </time>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">

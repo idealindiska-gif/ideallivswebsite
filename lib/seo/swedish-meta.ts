@@ -21,16 +21,16 @@ export const swedishMeta: Record<string, PageMeta> = {
     description: 'Spara stort på indiska & pakistanska matvaror i Stockholm. Exklusiva erbjudanden på basmatris, kryddor, halalkött & mer. Beställ online med snabb leverans.',
   },
   '/about': {
-    title: 'Om Ideal Indiska LIVS | Indisk Matbutik Stockholm',
-    description: 'Ideal Indiska LIVS - Stockholms pålitliga källa för indiska & pakistanska matvaror sedan 2020. Premium basmatris, kryddor & halalkött i Bandhagen.',
+    title: 'Om Ideal Indiska LIVS — Svensk Indisk Mataffär Grundad 2020',
+    description: 'Lär känna historien bakom Stockholms specialbutik för indiska matvaror. Grundad 2020 i Bandhagen med målet att erbjuda autentiska sydostasiatiska smaker — basmatris, kryddor och över 1 500 produkter — till svenska hem.',
   },
   '/contact': {
     title: 'Kontakta Ideal Indiska LIVS | Indisk Matbutik Stockholm',
     description: 'Besök Ideal Indiska LIVS i Bandhagen, Stockholm. Handla indiska & pakistanska matvaror med leverans och WhatsApp-support.',
   },
   '/delivery-information': {
-    title: 'Leverans Stockholm & Sverige | Ideal Indiska Livs',
-    description: 'Snabb leverans av indiska & pakistanska matvaror. Fri frakt i Stockholm vid beställning över 500 kr. Samma dag leverans i södra förorterna.',
+    title: 'Indisk Matleverans Stockholm, Göteborg & Malmö | Ideal Indiska Livs',
+    description: 'Beställ indiska & pakistanska matvaror online i Sverige — snabb lokalleverans i Stockholm och DHL-frakt till Göteborg, Malmö och hela Europa. Inga tullavgifter inom EU.',
   },
   '/delivery-goteborg-malmo': {
     title: 'Indisk Matleverans Göteborg & Malmö | Ideal Indiska Livs',
@@ -49,8 +49,8 @@ export const swedishMeta: Record<string, PageMeta> = {
     description: 'Utforska våra varumärken: MDH, Haldiram, Shan, National, TRS & fler. Autentiska indiska & pakistanska märken med snabb leverans i Sverige.',
   },
   '/blog': {
-    title: 'Blogg | Recept & Nyheter | Ideal Indiska LIVS',
-    description: 'Läs de senaste artiklarna, recepten och nyheterna från Ideal Indiska LIVS. Tips om autentisk indisk & pakistansk matlagning.',
+    title: 'Indisk Matblogg — Recept, Kultur & Handelstips | Ideal Indiska LIVS',
+    description: 'Recept, kulturartiklar och handelstips för indisk & pakistansk mat i Sverige. Läsning för dig i Stockholm, Göteborg och Malmö.',
   },
   '/cart': {
     title: 'Varukorg | Ideal Indiska LIVS',

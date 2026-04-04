@@ -111,7 +111,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
 
   let post: any = null;
   let promotionProducts: any[] = [];
@@ -485,7 +485,10 @@ export default async function BlogPostPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(wordPressArticleSchema(post, siteConfig.site_domain))
+          __html: JSON.stringify(wordPressArticleSchema(post, siteConfig.site_domain, {
+            locale,
+            localePrefix: locale !== 'en' ? locale : undefined,
+          }))
         }}
       />
       {/* Ideal Chef Person schema — E-E-A-T author signal */}

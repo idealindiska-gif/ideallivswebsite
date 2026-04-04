@@ -395,6 +395,7 @@ export interface ProductInput {
     saturatedFat?: string;
     carbs?: string;
     sugar?: string;
+    fiber?: string;
     protein?: string;
     salt?: string;
     servingSize?: string;

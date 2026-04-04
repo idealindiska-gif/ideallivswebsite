@@ -191,8 +191,8 @@ export default function OrderPayPage({ params }: { params: Promise<{ orderId: st
                     return;
                 }
 
-                // Check if order is valid for payment
-                if (order.status !== 'pending') {
+                // Check if order is valid for payment (pending = not yet attempted, failed = retry allowed)
+                if (order.status !== 'pending' && order.status !== 'failed') {
                     setError(`This order cannot be paid. Current status: ${order.status}`);
                     setIsLoading(false);
                     return;

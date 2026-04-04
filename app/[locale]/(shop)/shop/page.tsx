@@ -8,14 +8,19 @@ import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const isSv = locale === 'sv';
+  const titles: Record<string, string> = {
+    sv: 'Handla Indiska & Pakistanska Livsmedel Online | Ideal Indiska LIVS',
+    no: 'Handle Indiske & Pakistanske Dagligvarer Online | Ideal Indiska LIVS',
+    da: 'Køb Indiske & Pakistanske Dagligvarer Online | Ideal Indiska LIVS',
+  };
+  const descriptions: Record<string, string> = {
+    sv: 'Handla indiska och pakistanska livsmedel online. Premium basmatris, kryddor, halalprodukter, fryst mat & mer. Leveranser i Stockholm & Europa.',
+    no: 'Handle indiske og pakistanske dagligvarer på nett. Premium Basmatiris, krydder, halalprodukter, fryst mat & mer. Levering i Stockholm & Europa.',
+    da: 'Køb indiske og pakistanske dagligvarer online. Premium Basmatiris, krydderier, halalprodukter, frossen mad & mere. Levering i Stockholm & Europa.',
+  };
   return {
-    title: isSv
-      ? 'Handla Indiska & Pakistanska Livsmedel Online | Ideal Indiska LIVS'
-      : 'Shop Indian & Pakistani Groceries | Ideal Indiska LIVS',
-    description: isSv
-      ? 'Handla indiska och pakistanska livsmedel online. Premium basmatris, kryddor, halalprodukter, fryst mat & mer. Leveranser i Stockholm & Europa.'
-      : 'Shop Indian & Pakistani groceries online. Premium Basmati rice, spices, halal products, frozen foods & more. Deliveries across Stockholm & Europe.',
+    title: titles[locale] ?? 'Shop Indian & Pakistani Groceries | Ideal Indiska LIVS',
+    description: descriptions[locale] ?? 'Shop Indian & Pakistani groceries online. Premium Basmati rice, spices, halal products, frozen foods & more. Deliveries across Stockholm & Europe.',
     alternates: {
       canonical: `https://www.ideallivs.com${locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : ''}/shop`,
       languages: {

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getProductBySlug, getRelatedProducts, getProductsByIds } from '@/lib/woocommerce';
 import { ProductTemplate } from '@/components/templates';
+import { ProductSchema } from '@/components/shop/product-schema';
 import { getBundlesForProduct, getBundleProductIds } from '@/config/bundles.config';
 import { brandConfig } from '@/config/brand.config';
 import { siteConfig } from '@/site.config';
@@ -116,6 +117,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
             },
             alternates: {
                 canonical: url,
+                languages: {
+                    'en': url,
+                    'sv': `${siteConfig.site_domain}/sv/product/${resolvedParams.slug}`,
+                    'nb': `${siteConfig.site_domain}/no/product/${resolvedParams.slug}`,
+                    'da': `${siteConfig.site_domain}/da/product/${resolvedParams.slug}`,
+                    'x-default': url,
+                },
             },
             robots: {
                 index: true,
@@ -172,12 +180,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
     ];
 
     return (
-        <ProductTemplate
-            product={product}
-            breadcrumbs={breadcrumbs}
-            relatedProducts={relatedProducts}
-            bundles={bundles}
-            bundleProducts={bundleProducts}
-        />
+        <>
+            {/* Product + Breadcrumb JSON-LD rendered server-side for immediate indexing */}
+            <ProductSchema product={product} breadcrumbs={breadcrumbs} locale="en" />
+            <ProductTemplate
+                product={product}
+                breadcrumbs={breadcrumbs}
+                relatedProducts={relatedProducts}
+                bundles={bundles}
+                bundleProducts={bundleProducts}
+            />
+        </>
     );
 }

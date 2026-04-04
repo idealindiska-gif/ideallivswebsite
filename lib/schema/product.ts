@@ -247,7 +247,7 @@ export function productSchema(
       saturatedFatContent: product.nutrition.saturatedFat,
       carbohydrateContent: product.nutrition.carbs,
       sugarContent: product.nutrition.sugar,
-      fiberContent: product.nutrition.calories, // Mapped incorrectly in input but can be fixed if needed
+      fiberContent: product.nutrition.fiber,
       proteinContent: product.nutrition.protein,
       sodiumContent: product.nutrition.salt,
       servingSize: product.nutrition.servingSize,

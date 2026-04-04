@@ -133,6 +133,9 @@ export default async function RamadanGroceryChecklist({ params }: { params: Prom
                                     <Calendar className="h-4 w-4" />
                                     {new Date(PUBLISH_DATE).toLocaleDateString()}
                                 </p>
+                                <time dateTime="2026-02-12" className="text-xs text-white/50">
+                                    Last updated: February 12, 2026
+                                </time>
                             </div>
                         </div>
 

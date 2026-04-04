@@ -30,8 +30,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `About ${brandProfile.name} - Stockholm's Best Indian & Pakistani Grocery`,
-    description: `Discover the story of ${brandProfile.name}. Since 2020, we have been Stockholm's most trusted source for authentic Indian and Pakistani groceries, premium Basmati rice, and aromatic spices.`,
+    title: `About ${brandProfile.name} — Swedish Indian Grocery Store Est. 2020`,
+    description: `Discover the story behind Stockholm's specialist Indian grocery store. Founded in 2020 in Bandhagen, ${brandProfile.name} was built to bring authentic South Asian flavours — premium Basmati rice, spices, and over 1,500 products — to Swedish homes.`,
     alternates: getAlternates('/about', locale),
   };
 }

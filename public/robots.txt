@@ -126,6 +126,28 @@ Allow: /brands
 Allow: /delivery
 
 # ==================================================
+# AI Crawler Management (GEO / AI Search Visibility)
+# ==================================================
+# Allow AI search crawlers — being cited by AI systems drives brand awareness
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# ==================================================
 # Allow AdsBot for Merchant Center
 # ==================================================
 User-agent: AdsBot-Google
@@ -149,6 +171,12 @@ Sitemap: https://www.ideallivs.com/sitemap.xml
 
 # Swedish sitemap (explicitly listed for Google Search Console)
 Sitemap: https://www.ideallivs.com/sv/sitemap.xml
+
+# Norwegian sitemap
+Sitemap: https://www.ideallivs.com/nb/sitemap.xml
+
+# Danish sitemap
+Sitemap: https://www.ideallivs.com/da/sitemap.xml
 
 # ==================================================
 # Crawl Settings

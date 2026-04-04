@@ -16,13 +16,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
     const titleEn = `135+ Indian & Pakistani Grocery Brands Stockholm | ${brandProfile.name}`;
     const titleSv = `135+ Indiska & Pakistanska Matvaruvarumärken Stockholm | ${brandProfile.name}`;
+    const titleNo = `135+ Indiske & Pakistanske Dagligvaremerker Stockholm | ${brandProfile.name}`;
+    const titleDa = `135+ Indiske & Pakistanske Dagligvarebrands Stockholm | ${brandProfile.name}`;
 
     const descriptionEn = `Browse 135+ authentic Indian & Pakistani grocery brands in Stockholm. Shop Shan, MDH, Haldiram, National, MTR, TRS, Tilda, Aashirvaad & more at Ideal Indiska Livs. Fast delivery across Sweden.`;
     const descriptionSv = `Bläddra bland 135+ autentiska indiska och pakistanska matvaruvarumärken i Stockholm. Handla Shan, MDH, Haldiram, National, MTR, TRS, Tilda, Aashirvaad & mer hos Ideal Indiska Livs. Snabb leverans i hela Sverige.`;
+    const descriptionNo = `Bla gjennom 135+ autentiske indiske og pakistanske dagligvaremerker i Stockholm. Handle Shan, MDH, Haldiram, National, MTR, TRS, Tilda, Aashirvaad & mer hos Ideal Indiska Livs. Rask levering i hele Sverige.`;
+    const descriptionDa = `Gennemse 135+ autentiske indiske og pakistanske dagligvarebrands i Stockholm. Køb Shan, MDH, Haldiram, National, MTR, TRS, Tilda, Aashirvaad & mere hos Ideal Indiska Livs. Hurtig levering i hele Sverige.`;
+
+    const titleMap: Record<string, string> = { sv: titleSv, no: titleNo, da: titleDa };
+    const descMap: Record<string, string> = { sv: descriptionSv, no: descriptionNo, da: descriptionDa };
 
     return {
-        title: locale === 'sv' ? titleSv : titleEn,
-        description: locale === 'sv' ? descriptionSv : descriptionEn,
+        title: titleMap[locale] ?? titleEn,
+        description: descMap[locale] ?? descriptionEn,
         alternates: {
             canonical: `https://www.ideallivs.com${locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : ''}/brands`,
             languages: {

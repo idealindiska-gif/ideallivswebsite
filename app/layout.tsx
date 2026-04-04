@@ -237,7 +237,7 @@ export default async function RootLayout({
             idealIndiskaWebsiteSchema(siteConfig.site_domain, locale),
             idealIndiskaOrganizationSchemaFull(siteConfig.site_domain, locale),
             idealLivsLocalBusinessSchema(locale),
-            siteNavigationSchema(siteConfig.site_domain)
+            ...siteNavigationSchema(siteConfig.site_domain)
           )}
         />
       </body>

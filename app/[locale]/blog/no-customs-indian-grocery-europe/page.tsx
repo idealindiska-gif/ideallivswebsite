@@ -51,10 +51,15 @@ export default function NoCustomsPostPage({ params }: { params: Promise<{ locale
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground tracking-tight">
                         {title}
                     </h1>
-                    <div className="flex items-center justify-center gap-4 text-muted-foreground mb-8">
+                    <div className="flex items-center justify-center gap-4 text-muted-foreground mb-4">
                         <span className="flex items-center gap-1"><Calendar className="h-4 w-4" /> {publishDate}</span>
                         <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
                         <span>Logistics & Customs</span>
+                    </div>
+                    <div className="flex justify-center mb-8">
+                        <time dateTime="2026-01-26" className="text-sm text-muted-foreground">
+                            Last updated: January 26, 2026
+                        </time>
                     </div>
                 </div>
             </section>

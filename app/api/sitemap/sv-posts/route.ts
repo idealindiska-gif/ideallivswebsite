@@ -16,6 +16,7 @@ export async function GET() {
         { slug: 'the-indian-fika', changefreq: 'monthly', priority: '0.7' },
         { slug: 'no-customs-indian-grocery-europe', changefreq: 'monthly', priority: '0.7' },
         { slug: 'eid-al-fitr-2026-sweden', changefreq: 'weekly', priority: '0.9' },
+        { slug: 'ramadan-kalender-2026', changefreq: 'monthly', priority: '0.7' },
     ];
 
     // Fetch WordPress posts for Swedish sitemap
