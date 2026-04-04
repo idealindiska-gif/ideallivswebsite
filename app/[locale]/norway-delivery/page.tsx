@@ -185,10 +185,57 @@ export default async function NorwayDeliveryPage({ params }: { params: Promise<{
                 </div>
             </section>
 
+            {/* FAQ Section */}
+            <section className="py-12 border-t">
+                <div className="container mx-auto px-4 max-w-3xl">
+                    <h2 className="text-2xl font-heading font-bold text-foreground mb-6">
+                        {locale === 'no' ? 'Vanlige spørsmål — Levering til Norge' : locale === 'sv' ? 'Vanliga frågor — Leverans till Norge' : 'FAQ — Delivery to Norway'}
+                    </h2>
+                    <div className="space-y-4">
+                        {[
+                            {
+                                q: locale === 'no' ? 'Leverer dere indiske dagligvarer til Norge?' : locale === 'sv' ? 'Levererar ni indiska livsmedel till Norge?' : 'Do you deliver Indian groceries to Norway?',
+                                a: locale === 'no' ? 'Ja. Vi leverer til hele Norge via DHL fra vårt lager i Bandhagen, Stockholm. Forventet leveringstid er 2–4 virkedager.' : locale === 'sv' ? 'Ja. Vi levererar till hela Norge via DHL från vårt lager i Bandhagen, Stockholm. Förväntad leveranstid är 2–4 arbetsdagar.' : 'Yes. We deliver to all of Norway via DHL from our warehouse in Bandhagen, Stockholm. Estimated delivery time is 2–4 business days.',
+                            },
+                            {
+                                q: locale === 'no' ? 'Hva er minimumsordren for levering til Norge?' : locale === 'sv' ? 'Vad är minimibeställningen för leverans till Norge?' : 'What is the minimum order for delivery to Norway?',
+                                a: locale === 'no' ? 'Det er ingen minimumsordre for DHL-levering til Norge. Du kan bestille for akkurat det beløpet du ønsker.' : locale === 'sv' ? 'Det finns ingen minimibeställning för DHL-leverans till Norge. Du kan beställa för precis det belopp du önskar.' : 'There is no minimum order for DHL delivery to Norway. You can order for exactly the amount you need.',
+                            },
+                            {
+                                q: locale === 'no' ? 'Må jeg betale toll på indiske dagligvarer bestilt fra Sverige til Norge?' : locale === 'sv' ? 'Måste jag betala tull för indiska livsmedel beställda från Sverige till Norge?' : 'Do I pay customs duties on Indian groceries ordered from Sweden to Norway?',
+                                a: locale === 'no' ? 'Norge er utenfor EU, så norsk tollregelverk gjelder. Sendinger under NOK 350 er som regel tollfrie. For større ordrer kan toll og MVA påløpe. Se tolletaten.no for gjeldende grenser.' : locale === 'sv' ? 'Norge ligger utanför EU, så norska tullregler gäller. Försändelser under NOK 350 är vanligtvis tullfria. För större beställningar kan tull och moms tillkomma.' : 'Norway is outside the EU, so Norwegian customs rules apply. Shipments below NOK 350 are typically duty-free. For larger orders, customs duties and VAT may apply. Check tolletaten.no for current thresholds.',
+                            },
+                            {
+                                q: locale === 'no' ? 'Hvilke indiske merkevarer kan jeg bestille til Norge?' : locale === 'sv' ? 'Vilka indiska märken kan jag beställa till Norge?' : 'Which Indian brands can I order to Norway?',
+                                a: locale === 'no' ? 'Du kan bestille fra 150+ merkevarer inkludert India Gate, Shan, National Foods, Haldiram\'s, MDH, Ashoka, Rooh Afza, Gits og MTR. Hele sortimentet på 1500+ produkter er tilgjengelig på ideallivs.com.' : locale === 'sv' ? 'Du kan beställa från 150+ varumärken inklusive India Gate, Shan, National Foods, Haldiram\'s, MDH, Ashoka, Rooh Afza, Gits och MTR.' : 'You can order from 150+ brands including India Gate, Shan, National Foods, Haldiram\'s, MDH, Ashoka, Rooh Afza, Gits, and MTR. The full range of 1,500+ products is available at ideallivs.com.',
+                            },
+                        ].map((item, i) => (
+                            <div key={i} className="border rounded-xl p-5 bg-card">
+                                <p className="font-bold text-foreground text-sm mb-2">{item.q}</p>
+                                <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* SEO Structured Data */}
             <SchemaScript
                 id="norway-delivery-schema"
                 schema={norwayDeliveryServiceSchema()}
+            />
+            <SchemaScript
+                id="norway-delivery-faq-schema"
+                schema={{
+                    '@context': 'https://schema.org',
+                    '@type': 'FAQPage',
+                    mainEntity: [
+                        { '@type': 'Question', name: 'Do you deliver Indian groceries to Norway?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. We deliver to all of Norway via DHL from our warehouse in Bandhagen, Stockholm. Estimated delivery time is 2–4 business days.' } },
+                        { '@type': 'Question', name: 'What is the minimum order for delivery to Norway?', acceptedAnswer: { '@type': 'Answer', text: 'There is no minimum order for DHL delivery to Norway. You can order for exactly the amount you need.' } },
+                        { '@type': 'Question', name: 'Do I pay customs duties on Indian groceries ordered from Sweden to Norway?', acceptedAnswer: { '@type': 'Answer', text: 'Norway is outside the EU, so Norwegian customs rules apply. Shipments below NOK 350 are typically duty-free. For larger orders, customs duties and VAT may apply.' } },
+                        { '@type': 'Question', name: 'Which Indian brands can I order to Norway?', acceptedAnswer: { '@type': 'Answer', text: 'You can order from 150+ brands including India Gate, Shan, National Foods, Haldiram\'s, MDH, Ashoka, Rooh Afza, Gits, and MTR. The full range of 1,500+ products is available at ideallivs.com.' } },
+                    ],
+                }}
             />
         </main>
     );

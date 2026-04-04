@@ -185,10 +185,57 @@ export default async function DenmarkDeliveryPage({ params }: { params: Promise<
                 </div>
             </section>
 
+            {/* FAQ Section */}
+            <section className="py-12 border-t">
+                <div className="container mx-auto px-4 max-w-3xl">
+                    <h2 className="text-2xl font-heading font-bold text-foreground mb-6">
+                        {locale === 'da' ? 'Ofte stillede spørgsmål — Levering til Danmark' : locale === 'sv' ? 'Vanliga frågor — Leverans till Danmark' : 'FAQ — Delivery to Denmark'}
+                    </h2>
+                    <div className="space-y-4">
+                        {[
+                            {
+                                q: locale === 'da' ? 'Leverer I indiske dagligvarer til Danmark?' : locale === 'sv' ? 'Levererar ni indiska livsmedel till Danmark?' : 'Do you deliver Indian groceries to Denmark?',
+                                a: locale === 'da' ? 'Ja. Vi leverer til hele Danmark via DHL fra vores lager i Bandhagen, Stockholm. Forventet leveringstid er 2–4 hverdage.' : locale === 'sv' ? 'Ja. Vi levererar till hela Danmark via DHL från vårt lager i Bandhagen, Stockholm. Förväntad leveranstid är 2–4 arbetsdagar.' : 'Yes. We deliver to all of Denmark via DHL from our warehouse in Bandhagen, Stockholm. Estimated delivery time is 2–4 business days.',
+                            },
+                            {
+                                q: locale === 'da' ? 'Betaler jeg told på indiske dagligvarer bestilt fra Sverige til Danmark?' : locale === 'sv' ? 'Betalar jag tull på indiska livsmedel beställda från Sverige till Danmark?' : 'Do I pay customs duties on Indian groceries ordered from Sweden to Denmark?',
+                                a: locale === 'da' ? 'Nej. Da vi sender fra Sverige inden for EU, gælder der ingen told for varer leveret til Danmark. Du betaler kun for produkterne og forsendelsen.' : locale === 'sv' ? 'Nej. Eftersom vi skickar från Sverige inom EU gäller inga tullavgifter för varor levererade till Danmark. Du betalar bara för produkterna och frakten.' : 'No. Since we ship from Sweden within the EU, no customs duties apply for goods delivered to Denmark. You only pay for the products and shipping.',
+                            },
+                            {
+                                q: locale === 'da' ? 'Er der en minimumsordre for levering til Danmark?' : locale === 'sv' ? 'Finns det en minimibeställning för leverans till Danmark?' : 'Is there a minimum order for delivery to Denmark?',
+                                a: locale === 'da' ? 'Nej, der er ingen minimumsordre for DHL-levering til Danmark.' : locale === 'sv' ? 'Nej, det finns ingen minimibeställning för DHL-leverans till Danmark.' : 'No, there is no minimum order for DHL delivery to Denmark.',
+                            },
+                            {
+                                q: locale === 'da' ? 'Hvilke indiske mærker kan jeg bestille til Danmark?' : locale === 'sv' ? 'Vilka indiska märken kan jag beställa till Danmark?' : 'Which Indian brands can I order to Denmark?',
+                                a: locale === 'da' ? 'Du kan bestille fra 150+ mærker inklusiv India Gate, Shan, National Foods, Haldiram\'s, MDH, Ashoka, Rooh Afza, Gits og MTR. Se hele sortimentet på ideallivs.com.' : locale === 'sv' ? 'Du kan beställa från 150+ varumärken inklusive India Gate, Shan, National Foods, Haldiram\'s, MDH, Ashoka, Rooh Afza, Gits och MTR.' : 'You can order from 150+ brands including India Gate, Shan, National Foods, Haldiram\'s, MDH, Ashoka, Rooh Afza, Gits, and MTR. See the full range at ideallivs.com.',
+                            },
+                        ].map((item, i) => (
+                            <div key={i} className="border rounded-xl p-5 bg-card">
+                                <p className="font-bold text-foreground text-sm mb-2">{item.q}</p>
+                                <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* SEO Structured Data */}
             <SchemaScript
                 id="denmark-delivery-schema"
                 schema={denmarkDeliveryServiceSchema()}
+            />
+            <SchemaScript
+                id="denmark-delivery-faq-schema"
+                schema={{
+                    '@context': 'https://schema.org',
+                    '@type': 'FAQPage',
+                    mainEntity: [
+                        { '@type': 'Question', name: 'Do you deliver Indian groceries to Denmark?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. We deliver to all of Denmark via DHL from our warehouse in Bandhagen, Stockholm. Estimated delivery time is 2–4 business days.' } },
+                        { '@type': 'Question', name: 'Do I pay customs duties on Indian groceries ordered from Sweden to Denmark?', acceptedAnswer: { '@type': 'Answer', text: 'No. Since we ship from Sweden within the EU, no customs duties apply for goods delivered to Denmark. You only pay for the products and shipping.' } },
+                        { '@type': 'Question', name: 'Is there a minimum order for delivery to Denmark?', acceptedAnswer: { '@type': 'Answer', text: 'No, there is no minimum order for DHL delivery to Denmark.' } },
+                        { '@type': 'Question', name: 'Which Indian brands can I order to Denmark?', acceptedAnswer: { '@type': 'Answer', text: 'You can order from 150+ brands including India Gate, Shan, National Foods, Haldiram\'s, MDH, Ashoka, Rooh Afza, Gits, and MTR. The full range of 1,500+ products is available at ideallivs.com.' } },
+                    ],
+                }}
             />
         </main>
     );

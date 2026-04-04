@@ -632,6 +632,15 @@ export default async function RamadanCalendarPage({
             </section>
 
             <SchemaScript id="ramadan-calendar-article-schema" schema={schemaData} />
+            <SchemaScript id="ramadan-calendar-faq-schema" schema={{
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: c.faqs.map(f => ({
+                    '@type': 'Question',
+                    name: f.q,
+                    acceptedAnswer: { '@type': 'Answer', text: f.a },
+                })),
+            }} />
         </div>
     );
 }

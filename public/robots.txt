@@ -164,6 +164,12 @@ Allow: /images/
 Allow: /wp-content/uploads/
 
 # ==================================================
+# AI Discovery
+# ==================================================
+# llms.txt — machine-readable business context for AI crawlers (GPTBot, ClaudeBot, Perplexity etc.)
+llms.txt: https://www.ideallivs.com/llms.txt
+
+# ==================================================
 # Sitemaps
 # ==================================================
 # Main sitemap (includes all English content + Swedish sitemap index)
