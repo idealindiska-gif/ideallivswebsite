@@ -10,7 +10,8 @@ import { getAlternates } from '@/lib/seo/metadata';
 
 export const revalidate = 86400;
 
-const FEATURE_IMAGE = 'https://crm.ideallivs.com/wp-content/uploads/2026/04/diwali-2026-sverige-ideal-indiska.jpg';
+const FEATURE_IMAGE = 'https://crm.ideallivs.com/wp-content/uploads/2025/10/edited_3.png';
+const DIWALI_IMAGE = 'https://crm.ideallivs.com/wp-content/uploads/2025/04/happy-diwali-1.jpg';
 const PUBLISH_DATE = '2026-04-05';
 
 // ─── Bilingual content ────────────────────────────────────────────────────────
@@ -95,19 +96,19 @@ function getContent(locale: string) {
                 name: 'Besan Ladoo',
                 desc: 'Runda sötsaker gjorda på kikärtssmör, ghee och socker. En av de mest klassiska Diwali-sötsakerna — perfekt att göra hemma.',
                 ingredients: 'Besan (kikärtsmjöl), ghee, florsocker, kardemumma',
-                link: '/product-category/mjol-och-gryn',
+                link: '/product-category/flour',
             },
             {
                 name: 'Gulab Jamun',
                 desc: 'Mjuka degbollar dränkta i sockerlag med rosenvatten och saffran. Serveras varma eller ljumma.',
                 ingredients: 'Gulab jamun-mix (Gits eller MTR), mjölkpulver, ghee',
-                link: '/product-category/bakverk-och-desserter',
+                link: '/product-category/snacks',
             },
             {
                 name: 'Kheer (Risgrynspudding)',
                 desc: 'Krämig indisk rispudding med mjölk, socker, kardemumma och saffran — garnerad med mandel och pistage.',
                 ingredients: 'Basmatiris, helmjölk, socker, kardemumma, saffran, mandel',
-                link: '/product-category/ris',
+                link: '/product-category/rice-grains',
             },
             {
                 name: 'Mathri (Kryddiga kex)',
@@ -115,30 +116,42 @@ function getContent(locale: string) {
                 ingredients: 'Vetemjöl, ajwain, spiskummin, ghee',
                 link: '/product-category/snacks',
             },
+            {
+                name: 'Bikano Soan Papdi',
+                desc: 'Den klassiska Diwali-godsaken — lätt, flagnande och söt. Perfekt att ge bort som en Diwali-present till vänner och familj.',
+                ingredients: 'Gramsmjöl, socker, ghee, kardemumma, pistagenötter',
+                link: '/product/bikano-soan-papdi',
+            },
         ] : [
             {
                 name: 'Besan Ladoo',
                 desc: 'Round sweets made from chickpea flour, ghee, and sugar. One of the most classic Diwali sweets — perfect to make at home.',
                 ingredients: 'Besan (chickpea flour), ghee, powdered sugar, cardamom',
-                link: '/product-category/flour-and-grains',
+                link: '/product-category/flour',
             },
             {
                 name: 'Gulab Jamun',
                 desc: 'Soft dough balls soaked in sugar syrup with rose water and saffron. Served warm or at room temperature.',
                 ingredients: 'Gulab jamun mix (Gits or MTR), milk powder, ghee',
-                link: '/product-category/baking-and-desserts',
+                link: '/product-category/snacks',
             },
             {
                 name: 'Kheer (Rice Pudding)',
                 desc: 'Creamy Indian rice pudding with milk, sugar, cardamom, and saffron — garnished with almonds and pistachios.',
                 ingredients: 'Basmati rice, whole milk, sugar, cardamom, saffron, almonds',
-                link: '/product-category/rice',
+                link: '/product-category/rice-grains',
             },
             {
                 name: 'Mathri (Spiced Crackers)',
                 desc: 'Light, crispy crackers flavoured with ajwain and cumin — the perfect snack during Diwali celebrations.',
                 ingredients: 'Wheat flour, ajwain, cumin, ghee',
                 link: '/product-category/snacks',
+            },
+            {
+                name: 'Bikano Soan Papdi',
+                desc: 'The iconic Diwali gift sweet — light, flaky, and delicately sweet. Perfect to give to friends and family as a Diwali gift box.',
+                ingredients: 'Gram flour, sugar, ghee, cardamom, pistachio',
+                link: '/product/bikano-soan-papdi',
             },
         ],
 
@@ -149,44 +162,64 @@ function getContent(locale: string) {
         shoppingCategories: isSv ? [
             {
                 cat: 'Sötsaker & Desserter',
-                items: ['Gulab jamun-mix (Gits)', 'Rasgulla på burk', 'Haldiram\'s Kaju Katli', 'Haldiram\'s Soan Papdi'],
+                link: '/product-category/snacks',
+                items: ['Gulab jamun-mix (Gits)', 'Rasgulla på burk', 'Haldiram\'s Kaju Katli', 'Bikano Soan Papdi'],
             },
             {
                 cat: 'Basmati ris & Mjöl',
+                link: '/product-category/rice-grains',
                 items: ['India Gate Basmati (5 kg)', 'Besan (kikärtsmjöl)', 'Semolina (suji)', 'Vetemjöl (atta)'],
             },
             {
                 cat: 'Kryddor & Aromer',
+                link: '/product-category/spices-masalas',
                 items: ['Gröna kardemummakapslar', 'Saffran', 'Rosenvatten', 'Kardemummapulver', 'Muskotnöt'],
             },
             {
                 cat: 'Ghee & Oljor',
+                link: '/product-category/oils-ghee',
                 items: ['Amul Ghee (1 kg)', 'Gowardhan Ghee', 'Kokosolja för fritering'],
             },
             {
-                cat: 'Torkade frukter & Nötter',
-                items: ['Cashewnötter', 'Mandel', 'Pistage', 'Russin', 'Dadlar'],
+                cat: 'Linser & Baljväxter',
+                link: '/product-category/lentils-beans-dals',
+                items: ['Chana dal', 'Urad dal', 'Moong dal', 'Toor dal'],
+            },
+            {
+                cat: 'Diyas & Dekorationer',
+                link: '/product/diwali-diya-set',
+                items: ['Diwali Diya Set', 'LED-lampor i orange/gult', 'Rangoli-pulver', 'Rökelsepinnar'],
             },
         ] : [
             {
                 cat: 'Sweets & Desserts',
-                items: ['Gulab jamun mix (Gits)', 'Rasgulla (canned)', 'Haldiram\'s Kaju Katli', 'Haldiram\'s Soan Papdi'],
+                link: '/product-category/snacks',
+                items: ['Gulab jamun mix (Gits)', 'Rasgulla (canned)', 'Haldiram\'s Kaju Katli', 'Bikano Soan Papdi'],
             },
             {
                 cat: 'Basmati Rice & Flour',
+                link: '/product-category/rice-grains',
                 items: ['India Gate Basmati (5 kg)', 'Besan (chickpea flour)', 'Semolina (suji)', 'Wheat flour (atta)'],
             },
             {
                 cat: 'Spices & Aromatics',
+                link: '/product-category/spices-masalas',
                 items: ['Green cardamom pods', 'Saffron', 'Rose water', 'Cardamom powder', 'Nutmeg'],
             },
             {
                 cat: 'Ghee & Oils',
+                link: '/product-category/oils-ghee',
                 items: ['Amul Ghee (1 kg)', 'Gowardhan Ghee', 'Coconut oil for frying'],
             },
             {
-                cat: 'Dried Fruits & Nuts',
-                items: ['Cashew nuts', 'Almonds', 'Pistachios', 'Raisins', 'Dates'],
+                cat: 'Lentils & Dals',
+                link: '/product-category/lentils-beans-dals',
+                items: ['Chana dal', 'Urad dal', 'Moong dal', 'Toor dal'],
+            },
+            {
+                cat: 'Diyas & Decorations',
+                link: '/product/diwali-diya-set',
+                items: ['Diwali Diya Set', 'LED lights (orange/yellow)', 'Rangoli powder', 'Incense sticks'],
             },
         ],
 
@@ -445,6 +478,17 @@ export default async function DiwaliPage({ params }: { params: Promise<{ locale:
                                 </div>
                             </div>
 
+                            {/* Diwali image */}
+                            <div className="relative rounded-2xl overflow-hidden">
+                                <Image
+                                    src={DIWALI_IMAGE}
+                                    alt={c.isSv ? 'Glad Diwali – lampor och firande' : 'Happy Diwali – lights and celebration'}
+                                    width={800}
+                                    height={450}
+                                    className="w-full object-cover rounded-2xl"
+                                />
+                            </div>
+
                             {/* Food & Sweets */}
                             <div>
                                 <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4">{c.foodTitle}</h2>
@@ -470,8 +514,8 @@ export default async function DiwaliPage({ params }: { params: Promise<{ locale:
                                 <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4">{c.shoppingTitle}</h2>
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     {c.shoppingCategories.map((cat) => (
-                                        <div key={cat.cat} className="p-5 rounded-2xl border bg-card">
-                                            <p className="font-bold text-foreground text-sm mb-3 flex items-center gap-2">
+                                        <Link key={cat.cat} href={cat.link} className="block p-5 rounded-2xl border bg-card hover:border-primary/40 hover:shadow-md transition-all group">
+                                            <p className="font-bold text-foreground text-sm mb-3 flex items-center gap-2 group-hover:text-primary transition-colors">
                                                 <ShoppingBag className="h-4 w-4 text-primary" /> {cat.cat}
                                             </p>
                                             <ul className="space-y-1.5">
@@ -481,7 +525,7 @@ export default async function DiwaliPage({ params }: { params: Promise<{ locale:
                                                     </li>
                                                 ))}
                                             </ul>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                                 <div className="mt-6 text-center">

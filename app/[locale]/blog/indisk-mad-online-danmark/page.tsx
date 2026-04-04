@@ -10,7 +10,7 @@ import { getAlternates } from '@/lib/seo/metadata';
 
 export const revalidate = 86400;
 
-const FEATURE_IMAGE = 'https://crm.ideallivs.com/wp-content/uploads/2026/04/indisk-mad-online-danmark-ideal-indiska.jpg';
+const FEATURE_IMAGE = 'https://crm.ideallivs.com/wp-content/uploads/2025/10/ideal-indiska-delivers-in-goteborg.jpg';
 const PUBLISH_DATE = '2026-04-05';
 
 // ─── Bilingual content ────────────────────────────────────────────────────────
@@ -108,26 +108,26 @@ function getContent(locale: string) {
                 ? 'Populära kategorier till Danmark'
                 : 'Popular categories for Denmark',
         categories: isDa ? [
-            { name: 'Basmatiris', desc: 'India Gate, Guard, Kaalar — fra 1 kg til 10 kg poser', link: '/product-category/ris', emoji: '🍚' },
-            { name: 'Krydderier & Masala', desc: 'MDH, Shan, National Foods — komplette krydderiblande', link: '/product-category/krydderier', emoji: '🌶️' },
-            { name: 'Mel & Gryn', desc: 'Atta, besan, suji, semolina — alt til roti og bagning', link: '/product-category/mel', emoji: '🌾' },
-            { name: 'Frosne snacks', desc: 'Samosas, kebab, paratha — klar på minutter', link: '/product-category/frost', emoji: '🥟' },
-            { name: 'Drikke & Saft', desc: 'Rooh Afza, Tang, Rasna — klassiske smage fra sydasien', link: '/product-category/drikke', emoji: '🥤' },
-            { name: 'Dåsevarer & Saucer', desc: 'Kikærter, linser, tomatpuré, chutneys og pickles', link: '/product-category/daasevarer', emoji: '🥫' },
+            { name: 'Basmatiris', desc: 'India Gate, Guard, Kaalar — fra 1 kg til 10 kg poser', link: '/product-category/rice-grains', emoji: '🍚' },
+            { name: 'Krydderier & Masala', desc: 'MDH, Shan, National Foods — komplette krydderiblande', link: '/product-category/spices-masalas', emoji: '🌶️' },
+            { name: 'Mel & Gryn', desc: 'Atta, besan, suji, semolina — alt til roti og bagning', link: '/product-category/flour', emoji: '🌾' },
+            { name: 'Snacks & Frosne retter', desc: 'Samosas, kebab, paratha, chips og namkeen — klar på minutter', link: '/product-category/snacks', emoji: '🥟' },
+            { name: 'Linser & Bælgfrugter', desc: 'Chana dal, urad dal, moong dal, toor dal — basen i det indiske køkken', link: '/product-category/lentils-beans-dals', emoji: '🫘' },
+            { name: 'Pickles & Chutneys', desc: 'Mango pickle, lime pickle, tamarind chutney og meer', link: '/product-category/pickles-chutneys-pastes', emoji: '🥫' },
         ] : isSv ? [
-            { name: 'Basmatiris', desc: 'India Gate, Guard, Kaalar — från 1 kg till 10 kg', link: '/product-category/ris', emoji: '🍚' },
-            { name: 'Kryddor & Masala', desc: 'MDH, Shan, National Foods — kompletta kryddblandningar', link: '/product-category/kryddor', emoji: '🌶️' },
-            { name: 'Mjöl & Gryn', desc: 'Atta, besan, suji, semolina — allt till roti och bakning', link: '/product-category/mjol', emoji: '🌾' },
-            { name: 'Frysta snacks', desc: 'Samosas, kebab, paratha — klara på minuter', link: '/product-category/frost', emoji: '🥟' },
-            { name: 'Drycker & Saft', desc: 'Rooh Afza, Tang, Rasna — klassiska smaker från sydasien', link: '/product-category/drycker', emoji: '🥤' },
-            { name: 'Konserver & Såser', desc: 'Kikärtor, linser, tomatpuré, chutneys och pickles', link: '/product-category/konserver', emoji: '🥫' },
+            { name: 'Basmatiris', desc: 'India Gate, Guard, Kaalar — från 1 kg till 10 kg', link: '/product-category/rice-grains', emoji: '🍚' },
+            { name: 'Kryddor & Masala', desc: 'MDH, Shan, National Foods — kompletta kryddblandningar', link: '/product-category/spices-masalas', emoji: '🌶️' },
+            { name: 'Mjöl & Gryn', desc: 'Atta, besan, suji, semolina — allt till roti och bakning', link: '/product-category/flour', emoji: '🌾' },
+            { name: 'Snacks & Frysta rätter', desc: 'Samosas, kebab, paratha, chips och namkeen — klara på minuter', link: '/product-category/snacks', emoji: '🥟' },
+            { name: 'Linser & Baljväxter', desc: 'Chana dal, urad dal, moong dal, toor dal — basen i det indiska köket', link: '/product-category/lentils-beans-dals', emoji: '🫘' },
+            { name: 'Pickles & Chutneys', desc: 'Mango pickle, lime pickle, tamarind chutney och mer', link: '/product-category/pickles-chutneys-pastes', emoji: '🥫' },
         ] : [
-            { name: 'Basmati Rice', desc: 'India Gate, Guard, Kaalar — from 1 kg to 10 kg bags', link: '/product-category/rice', emoji: '🍚' },
-            { name: 'Spices & Masala', desc: 'MDH, Shan, National Foods — complete spice blends', link: '/product-category/spices', emoji: '🌶️' },
+            { name: 'Basmati Rice', desc: 'India Gate, Guard, Kaalar — from 1 kg to 10 kg bags', link: '/product-category/rice-grains', emoji: '🍚' },
+            { name: 'Spices & Masala', desc: 'MDH, Shan, National Foods — complete spice blends', link: '/product-category/spices-masalas', emoji: '🌶️' },
             { name: 'Flour & Grains', desc: 'Atta, besan, suji, semolina — everything for roti and baking', link: '/product-category/flour', emoji: '🌾' },
-            { name: 'Frozen Snacks', desc: 'Samosas, kebab, paratha — ready in minutes', link: '/product-category/frozen', emoji: '🥟' },
-            { name: 'Drinks & Cordials', desc: 'Rooh Afza, Tang, Rasna — classic South Asian flavours', link: '/product-category/drinks', emoji: '🥤' },
-            { name: 'Canned & Sauces', desc: 'Chickpeas, lentils, tomato purée, chutneys and pickles', link: '/product-category/canned', emoji: '🥫' },
+            { name: 'Snacks & Frozen', desc: 'Samosas, kebab, paratha, chips and namkeen — ready in minutes', link: '/product-category/snacks', emoji: '🥟' },
+            { name: 'Lentils & Dals', desc: 'Chana dal, urad dal, moong dal, toor dal — the base of Indian cooking', link: '/product-category/lentils-beans-dals', emoji: '🫘' },
+            { name: 'Pickles & Chutneys', desc: 'Mango pickle, lime pickle, tamarind chutney and more', link: '/product-category/pickles-chutneys-pastes', emoji: '🥫' },
         ],
 
         // How to order
