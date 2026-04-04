@@ -4,6 +4,18 @@ const WP_API_BASE = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://crm.id
 // Check server-side first, then public fallback
 const MCP_KEY = process.env.FOURLINES_MCP_KEY || process.env.NEXT_PUBLIC_FOURLINES_MCP_KEY;
 
+/**
+ * Local pickup is only available for customers in the Stockholm area
+ * (Swedish postcodes 100xx–199xx, which covers the store at 124 32 Bandhagen)
+ */
+function isStockholmPostcode(postcode: string): boolean {
+  const normalized = postcode.replace(/\s+/g, '');
+  const prefix = normalized.substring(0, 3);
+  if (prefix.length < 3 || !/^\d+$/.test(prefix)) return false;
+  const prefixNum = parseInt(prefix, 10);
+  return prefixNum >= 100 && prefixNum <= 199;
+}
+
 // Fallback shipping methods when API is unavailable
 const FALLBACK_SHIPPING_METHODS = [
   {
@@ -50,7 +62,7 @@ export async function POST(request: NextRequest) {
 
     if (!MCP_KEY) {
       console.warn('⚠️ [API Route] Missing MCP API key, using fallback shipping methods');
-      return createFallbackResponse(cartTotal);
+      return createFallbackResponse(cartTotal, postcode);
     }
 
     try {
@@ -103,7 +115,13 @@ export async function POST(request: NextRequest) {
       // So we trust the backend's response completely
       const apiCartTotal = data.cart_total || cartTotal;
       const freeShippingThreshold = data.free_shipping_threshold || 500;
-      const availableMethods = data.available_methods || [];
+      const rawMethods = data.available_methods || [];
+
+      // Only allow local_pickup for Stockholm-area postcodes
+      const pickupAllowed = postcode ? isStockholmPostcode(postcode) : false;
+      const availableMethods = pickupAllowed
+        ? rawMethods
+        : rawMethods.filter((m: any) => m.method_id !== 'local_pickup');
 
       return NextResponse.json({
         success: true,
@@ -118,7 +136,7 @@ export async function POST(request: NextRequest) {
     } catch (fetchError) {
       console.error('❌ [API Route] Fetch error:', fetchError);
       console.warn('⚠️ [API Route] Using fallback shipping methods due to network error');
-      return createFallbackResponse(cartTotal);
+      return createFallbackResponse(cartTotal, postcode);
     }
   } catch (error) {
     console.error('❌ [API Route] Error:', error);
@@ -133,9 +151,13 @@ export async function POST(request: NextRequest) {
 }
 
 // Create fallback response with standard shipping options
-function createFallbackResponse(cartTotal: number) {
+function createFallbackResponse(cartTotal: number, postcode?: string) {
   const freeShippingThreshold = 500;
-  let methods = [...FALLBACK_SHIPPING_METHODS];
+  // Only offer local pickup for Stockholm-area postcodes
+  const pickupAllowed = postcode ? isStockholmPostcode(postcode) : false;
+  let methods = FALLBACK_SHIPPING_METHODS.filter(
+    m => m.method_id !== 'local_pickup' || pickupAllowed
+  );
 
   // Add free shipping if cart qualifies
   if (cartTotal >= freeShippingThreshold) {

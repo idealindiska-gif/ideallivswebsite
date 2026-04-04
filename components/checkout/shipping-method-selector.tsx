@@ -5,12 +5,21 @@ import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertTriangle, Gift, Loader2, Truck, Package } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { AlertTriangle, Gift, Loader2, Truck, Package, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/lib/woocommerce';
 import { ShippingMethod } from '@/lib/shipping-service';
 import { CommerceRules } from '@/config/commerce-rules';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 export type { ShippingMethod };
@@ -45,6 +54,9 @@ export function ShippingMethodSelector({
     getSubtotal,
   } = useCartStore();
   const t = useTranslations('shippingMethod');
+
+  // Pending pickup selection — awaits confirmation dialog
+  const [pendingPickupMethod, setPendingPickupMethod] = useState<ShippingMethod | null>(null);
 
   // Use props if provided, otherwise fall back to cart store
   const effectivePostcode = postcode || shippingAddress?.postcode;
@@ -172,16 +184,17 @@ export function ShippingMethodSelector({
         value={selectedMethod || selectedShippingMethod?.id}
         onValueChange={(id) => {
           const method = visibleMethods.find((m) => m.id === id);
-          if (method) {
-            // Use callback props if provided, otherwise use cart store
-            if (onMethodChange) {
-              onMethodChange(method);
-              if (onShippingCostChange) {
-                onShippingCostChange(method.cost);
-              }
-            } else {
-              selectShippingMethod(method);
-            }
+          if (!method) return;
+          // Intercept local_pickup — require explicit confirmation first
+          if (method.method_id === 'local_pickup') {
+            setPendingPickupMethod(method);
+            return;
+          }
+          if (onMethodChange) {
+            onMethodChange(method);
+            if (onShippingCostChange) onShippingCostChange(method.cost);
+          } else {
+            selectShippingMethod(method);
           }
         }}
       >
@@ -196,11 +209,13 @@ export function ShippingMethodSelector({
                   : 'border-neutral-200 dark:border-neutral-800'
               )}
               onClick={() => {
+                if (method.method_id === 'local_pickup') {
+                  setPendingPickupMethod(method);
+                  return;
+                }
                 if (onMethodChange) {
                   onMethodChange(method);
-                  if (onShippingCostChange) {
-                    onShippingCostChange(method.cost);
-                  }
+                  if (onShippingCostChange) onShippingCostChange(method.cost);
                 } else {
                   selectShippingMethod(method);
                 }
@@ -258,6 +273,57 @@ export function ShippingMethodSelector({
           ))}
         </div>
       </RadioGroup>
+
+      {/* Store pickup confirmation dialog */}
+      <Dialog open={!!pendingPickupMethod} onOpenChange={(open) => { if (!open) setPendingPickupMethod(null); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <MapPin className="h-5 w-5 text-amber-600" />
+              Confirm Store Pickup
+            </DialogTitle>
+            <DialogDescription asChild>
+              <div className="space-y-3 pt-2 text-sm text-foreground">
+                <p>
+                  Store pickup is <strong>only available at our physical store</strong> in Stockholm.
+                  You must personally come to collect your order.
+                </p>
+                <div className="rounded-md border border-amber-200 bg-amber-50 p-3 text-amber-900 dark:border-amber-800/40 dark:bg-amber-900/20 dark:text-amber-200">
+                  <p className="font-semibold">📍 Store address:</p>
+                  <p>Bandhagsplan 4, 124 32 Bandhagen, Stockholm</p>
+                </div>
+                <p className="font-medium text-destructive">
+                  ⚠️ If you are not in Stockholm or cannot collect in person, please choose a delivery option. Orders placed as pickup and not collected will be cancelled, and a minimum cancellation fee of <strong>20 kr</strong> will be charged to cover Stripe payment processing costs.
+                </p>
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col gap-2 sm:flex-row">
+            <Button
+              variant="outline"
+              className="w-full sm:w-auto"
+              onClick={() => setPendingPickupMethod(null)}
+            >
+              Choose delivery instead
+            </Button>
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => {
+                if (!pendingPickupMethod) return;
+                if (onMethodChange) {
+                  onMethodChange(pendingPickupMethod);
+                  if (onShippingCostChange) onShippingCostChange(pendingPickupMethod.cost);
+                } else {
+                  selectShippingMethod(pendingPickupMethod);
+                }
+                setPendingPickupMethod(null);
+              }}
+            >
+              Yes, I will collect from the store
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
