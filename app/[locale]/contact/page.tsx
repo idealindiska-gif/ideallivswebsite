@@ -257,8 +257,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           "@type": "LocalBusiness",
           "@id": "https://www.ideallivs.com/#organization",
           "name": "Ideal Indiska Livs",
-          "telephone": brandProfile.phone,
-          "email": brandProfile.email,
+          "telephone": brandProfile.contact.phone,
+          "email": brandProfile.contact.email,
           "address": {
             "@type": "PostalAddress",
             "streetAddress": brandProfile.address.street,
