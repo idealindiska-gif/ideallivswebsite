@@ -270,8 +270,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             {
               "@type": "ContactPoint",
               "contactType": "customer service",
-              "telephone": brandProfile.phone,
-              "email": brandProfile.email,
+              "telephone": brandProfile.contact.phone,
+              "email": brandProfile.contact.email,
               "availableLanguage": ["English", "Swedish"],
               "hoursAvailable": {
                 "@type": "OpeningHoursSpecification",
