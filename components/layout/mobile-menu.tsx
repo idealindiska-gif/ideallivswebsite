@@ -17,6 +17,8 @@ import {
     Facebook,
     Instagram,
     Youtube,
+    Twitter,
+    Star,
     Percent,
     Heart,
     Truck
@@ -196,6 +198,36 @@ export function MobileMenu() {
                                 <Youtube className="h-4.5 w-4.5 text-primary group-hover:scale-110 transition-transform duration-300" />
                             </a>
                         )}
+                        {brandProfile.social.tiktok && (
+                            <a
+                                href={brandProfile.social.tiktok}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary/10 to-primary/5 hover:from-primary/20 hover:to-primary/10 transition-all duration-300 hover:scale-110 group"
+                                aria-label="TikTok"
+                            >
+                                <svg className="h-4 w-4 text-primary group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z"/></svg>
+                            </a>
+                        )}
+                        {brandProfile.social.twitter && (
+                            <a
+                                href={brandProfile.social.twitter}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary/10 to-primary/5 hover:from-primary/20 hover:to-primary/10 transition-all duration-300 hover:scale-110 group"
+                            >
+                                <Twitter className="h-4.5 w-4.5 text-primary group-hover:scale-110 transition-transform duration-300" />
+                            </a>
+                        )}
+                        <a
+                            href={brandProfile.google.reviewUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400/20 to-yellow-400/10 hover:from-yellow-400/30 hover:to-yellow-400/20 transition-all duration-300 hover:scale-110 group"
+                            aria-label="Leave a Google Review"
+                        >
+                            <Star className="h-4.5 w-4.5 text-yellow-500 group-hover:scale-110 transition-transform duration-300" />
+                        </a>
                     </div>
 
                     {/* Quick Info */}

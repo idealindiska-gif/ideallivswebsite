@@ -61,7 +61,7 @@ export const brandConfig = {
     instagram: "https://www.instagram.com/ideal_indiska_livs/",
     twitter: "",
     youtube: "https://www.youtube.com/@Idealindiska",
-    tiktok: "",
+    tiktok: "https://www.tiktok.com/@idealindiskalivs",
   },
 
   // Currency

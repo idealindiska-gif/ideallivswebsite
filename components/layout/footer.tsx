@@ -2,7 +2,7 @@ import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 import Script from 'next/script';
 import { brandProfile } from '@/config/brand-profile';
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Clock, Youtube, ExternalLink, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Clock, Youtube, ExternalLink, Linkedin, Star } from 'lucide-react';
 import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
 import { getTranslations } from 'next-intl/server';
 
@@ -151,6 +151,32 @@ export async function Footer() {
                     </a>
                   </li>
                 )}
+                {brandProfile.social.tiktok && (
+                  <li>
+                    <a href={brandProfile.social.tiktok} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                      <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z"/></svg> TikTok
+                    </a>
+                  </li>
+                )}
+                {brandProfile.social.twitter && (
+                  <li>
+                    <a href={brandProfile.social.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                      <Twitter className="h-3.5 w-3.5" /> X (Twitter)
+                    </a>
+                  </li>
+                )}
+                {brandProfile.social.linkedin && (
+                  <li>
+                    <a href={brandProfile.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
+                      <Linkedin className="h-3.5 w-3.5" /> LinkedIn
+                    </a>
+                  </li>
+                )}
+                <li>
+                  <a href={brandProfile.google.reviewUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs text-yellow-300/80 hover:text-yellow-200">
+                    <Star className="h-3.5 w-3.5" /> Leave a Google Review
+                  </a>
+                </li>
               </ul>
             </nav>
             <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{nav('support')}</h2>

@@ -6,6 +6,7 @@ import { getAlternates } from "@/lib/seo/metadata";
 import { MapPin, Phone, Mail, Clock, MessageSquare, ExternalLink } from "lucide-react";
 import { ContactForm } from "@/components/forms/contact-form";
 import { GoogleMapCompact } from "@/components/shared/google-map";
+import { SchemaScript } from "@/lib/schema/schema-script";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -135,7 +136,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       {t('visitDesc')}
                     </p>
                     <a
-                      href="https://maps.google.com/?q=Bandhagsplan+4,+12432+Bandhagen"
+                      href={brandProfile.google.mapsCidUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline font-medium inline-flex items-center gap-1"
@@ -213,7 +214,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                       {brandProfile.address.street}, {brandProfile.address.postalCode} {brandProfile.address.area}
                     </p>
                     <a
-                      href="https://maps.google.com/?q=Bandhagsplan+4,+12432+Bandhagen"
+                      href={brandProfile.google.mapsCidUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs font-medium text-primary hover:underline flex items-center justify-center gap-1"
@@ -228,7 +229,60 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* Note: Organization schema is in layout.tsx (global) - no need to duplicate */}
+      {/* Google Review CTA */}
+      <section className="border-t bg-muted/20">
+        <div className="container mx-auto px-4 py-8 max-w-xl text-center">
+          <p className="text-sm font-semibold text-foreground mb-1">Happy with your experience?</p>
+          <p className="text-xs text-muted-foreground mb-4">Leave us a review on Google — it helps other shoppers find us.</p>
+          <a
+            href={brandProfile.google.reviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-primary/90 transition-colors"
+          >
+            ⭐ Leave a Google Review
+          </a>
+          <p className="text-xs text-muted-foreground mt-3">{brandProfile.google.rating.value} / 5 · {brandProfile.google.rating.count} reviews</p>
+        </div>
+      </section>
+
+      <SchemaScript id="contact-page-schema" schema={{
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "@id": "https://www.ideallivs.com/contact#webpage",
+        "name": "Contact Ideal Indiska Livs",
+        "url": "https://www.ideallivs.com/contact",
+        "description": "Contact Ideal Indiska Livs — Stockholm's Indian grocery store. Visit us in Bandhagen or reach us by phone, email, or social media.",
+        "mainEntity": {
+          "@type": "LocalBusiness",
+          "@id": "https://www.ideallivs.com/#organization",
+          "name": "Ideal Indiska Livs",
+          "telephone": brandProfile.phone,
+          "email": brandProfile.email,
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": brandProfile.address.street,
+            "addressLocality": brandProfile.address.city,
+            "postalCode": brandProfile.address.postalCode,
+            "addressCountry": "SE",
+          },
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "telephone": brandProfile.phone,
+              "email": brandProfile.email,
+              "availableLanguage": ["English", "Swedish"],
+              "hoursAvailable": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "10:00",
+                "closes": "20:00",
+              },
+            },
+          ],
+        },
+      }} />
     </main>
   );
 }

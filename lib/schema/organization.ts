@@ -5,6 +5,7 @@
 
 import type { Organization, OrganizationInput } from './types';
 import { generateSchemaId, formatOpeningHours, cleanSchema } from './base';
+import { brandProfile } from '@/config/brand-profile';
 
 /**
  * Generate Organization Schema (GroceryStore, LocalBusiness, etc.)
@@ -135,6 +136,7 @@ export function idealIndiskaOrganizationSchema(baseUrl: string = 'https://www.id
       'https://www.facebook.com/Ideal.indiska.livs',
       'https://www.instagram.com/ideal_indiska_livs/',
       'https://www.youtube.com/@Idealindiska',
+      'https://www.tiktok.com/@idealindiskalivs',
       'https://x.com/idealindiska',
       'https://www.linkedin.com/in/ideal-indiska-596215378/',
       // Google Business Profile - Multiple formats for maximum linking
@@ -446,12 +448,11 @@ export function idealIndiskaOrganizationSchemaFull(baseUrl: string = 'https://ww
       { '@type': 'LocationFeatureSpecification', name: 'Online Shopping', value: true },
     ],
 
-    // Aggregate rating from Google Business Profile (real GBP reviews)
-    // Last updated: 2026-01-21 - Update periodically from your GBP dashboard
+    // Aggregate rating from Google Business Profile — update brandProfile.google.rating to refresh
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: 4.7,
-      reviewCount: 17,
+      ratingValue: brandProfile.google.rating.value,
+      reviewCount: brandProfile.google.rating.count,
       bestRating: 5,
       worstRating: 1,
     },

@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { articleSchema } from '@/lib/schema/article';
 import { siteConfig } from '@/site.config';
 import { SchemaScript } from '@/lib/schema/schema-script';
+import { getAlternates } from '@/lib/seo/metadata';
 
 export const revalidate = 86400;
 
@@ -46,6 +47,22 @@ function getContent(locale: string) {
             : 'Based on Masjid Ayesha Sweden\'s official prayer schedule',
 
         // ── Intro ─────────────────────────────────────────────────────────────
+        // ── TL;DR ──────────────────────────────────────────────────────────────
+        tldrLabel: isSv ? 'Snabbfakta — Ramadan Kalender 2026 Stockholm' : 'Quick Facts — Ramadan Calendar 2026 Stockholm',
+        tldrItems: isSv ? [
+            '🌙 <strong>Ramadan 2026:</strong> Börjar ca 1 mars 2026 — bekräftas av Islamiska Förbundet och lokal månobservation.',
+            '🕌 <strong>Baserad på:</strong> Masjid Ayesha Sveriges officiella bönetider för Stockholm.',
+            '🌅 <strong>Iftar & Suhoor:</strong> Dagliga tider för Fajr (Suhoor-slut) och Maghrib (Iftar-start) för hela månaden.',
+            '📥 <strong>Gratis nedladdning:</strong> Spara eller skriv ut Ramadan Kalender 2026 direkt från den här sidan.',
+            '🛍️ <strong>Handla inför Ramadan:</strong> Dadlar, Rooh Afza, samosas, basmatiris och mer hos <strong>Ideal Indiska Livs, Bandhagen</strong>.',
+        ] : [
+            '🌙 <strong>Ramadan 2026:</strong> Expected to start around March 1, 2026 — confirmed by Islamic Association of Sweden and moon sighting.',
+            '🕌 <strong>Based on:</strong> Masjid Ayesha Sweden\'s official prayer schedule for Stockholm.',
+            '🌅 <strong>Iftar & Suhoor:</strong> Daily Fajr (end of Suhoor) and Maghrib (Iftar start) times for the full month.',
+            '📥 <strong>Free to download:</strong> Save or print the Ramadan Calendar 2026 directly from this page.',
+            '🛍️ <strong>Shop for Ramadan:</strong> Dates, Rooh Afza, samosas, basmati rice and more at <strong>Ideal Indiska Livs, Bandhagen</strong>.',
+        ],
+
         introTitle: isSv ? 'Om Ramadan Kalender 2026' : 'About the Ramadan Calendar 2026',
         introBody1: isSv
             ? 'Ramadan 2026 är en helig och välsignad månad för muslimer världen över. Under denna månad fastar man dagligen från gryning (Fajr) till solnedgång (Maghrib). Att följa rätt tider är avgörande för att fastan ska vara giltig.'
@@ -227,16 +244,7 @@ export async function generateMetadata({
     return {
         title: c.metaTitle,
         description: c.metaDescription,
-        alternates: {
-            canonical: locale === 'sv' ? '/sv/blog/ramadan-kalender-2026' : locale === 'no' ? '/no/blog/ramadan-kalender-2026' : locale === 'da' ? '/da/blog/ramadan-kalender-2026' : '/blog/ramadan-kalender-2026',
-            languages: {
-                en: '/blog/ramadan-kalender-2026',
-                sv: '/sv/blog/ramadan-kalender-2026',
-                nb: '/no/blog/ramadan-kalender-2026',
-                da: '/da/blog/ramadan-kalender-2026',
-                'x-default': '/blog/ramadan-kalender-2026',
-            },
-        },
+        alternates: getAlternates('/blog/ramadan-kalender-2026', locale),
         openGraph: {
             title: c.metaTitle,
             description: c.metaDescription,
@@ -374,6 +382,16 @@ export default async function RamadanCalendarPage({
                         {/* ── Article ── */}
                         <article className="lg:col-span-8">
                             <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-headings:font-bold prose-headings:tracking-tight prose-p:text-muted-foreground prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline">
+
+                                {/* ── TL;DR ── */}
+                                <div className="not-prose mb-10 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/40 rounded-2xl p-6">
+                                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">{c.tldrLabel}</p>
+                                    <ul className="space-y-2">
+                                        {c.tldrItems.map((item, i) => (
+                                            <li key={i} className="text-sm text-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />
+                                        ))}
+                                    </ul>
+                                </div>
 
                                 {/* ── Intro ── */}
                                 <CalendarSection

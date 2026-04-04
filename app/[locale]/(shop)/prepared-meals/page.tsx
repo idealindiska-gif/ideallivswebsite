@@ -12,24 +12,26 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { brandProfile } from '@/config/brand-profile';
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { breadcrumbSchema } from "@/lib/schema/breadcrumb";
+import { getAlternates } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: `Best Chicken & Vegetable Biryani Stockholm | ${brandProfile.name}`,
-  description: 'Authentic Chicken Biryani and Vegetable Biryani in Stockholm. Freshly prepared for weekend pickup/delivery. We also accept bulk orders for events and catering delivery any day of the week.',
-  keywords: [
-    'biryani stockholm',
-    'chicken biryani stockholm',
-    'vegetable biryani stockholm',
-    'best biryani near me',
-    'halal biryani stockholm',
-    'indian catering stockholm',
-    'bulk biryani order sweden',
-    'weekend biryani stockholm',
-  ].join(', '),
-  alternates: {
-    canonical: 'https://www.ideallivs.com/prepared-meals',
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: `Best Chicken & Vegetable Biryani Stockholm | ${brandProfile.name}`,
+    description: 'Authentic Chicken Biryani and Vegetable Biryani in Stockholm. Freshly prepared for weekend pickup/delivery. We also accept bulk orders for events and catering delivery any day of the week.',
+    keywords: [
+      'biryani stockholm',
+      'chicken biryani stockholm',
+      'vegetable biryani stockholm',
+      'best biryani near me',
+      'halal biryani stockholm',
+      'indian catering stockholm',
+      'bulk biryani order sweden',
+      'weekend biryani stockholm',
+    ].join(', '),
+    alternates: getAlternates('/prepared-meals', locale),
+  };
+}
 
 export default function PreparedMealsPage() {
   const biryaniSchema = {

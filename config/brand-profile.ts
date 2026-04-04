@@ -52,8 +52,8 @@ export const brandProfile = {
     social: {
         facebook: "https://www.facebook.com/Ideal.indiska.livs",
         instagram: "https://www.instagram.com/ideal_indiska_livs/",
-        youtube: "https://www.youtube.com/channel/UCMDZD4WhYMFny9CRhp1WyxA",
-        tiktok: "",
+        youtube: "https://www.youtube.com/@Idealindiska",
+        tiktok: "https://www.tiktok.com/@idealindiskalivs",
         twitter: "https://x.com/idealindiska",
         linkedin: "https://www.linkedin.com/in/ideal-indiska-596215378/",
     },

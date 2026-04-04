@@ -12,6 +12,7 @@ import { getProducts } from '@/lib/woocommerce/products-direct';
 import { articleSchema } from '@/lib/schema/article';
 import { siteConfig } from '@/site.config';
 import { SchemaScript } from '@/lib/schema/schema-script';
+import { getAlternates } from '@/lib/seo/metadata';
 import { decodeHtmlEntities } from '@/lib/utils';
 import { ProductCarousel } from './ProductCarousel';
 
@@ -270,21 +271,12 @@ export async function generateMetadata({
     const { locale } = await params;
     const c = getContent(locale);
 
-    const canonicalPath = locale !== 'en' ? `/${locale}/blog/ramadan-2026` : '/blog/ramadan-2026';
     const ogLocale = locale === 'sv' ? 'sv_SE' : locale === 'no' ? 'nb_NO' : locale === 'da' ? 'da_DK' : 'en_SE';
 
     return {
         title: c.metaTitle,
         description: c.metaDescription,
-        alternates: {
-            canonical: canonicalPath,
-            languages: {
-                en: '/blog/ramadan-2026',
-                sv: '/sv/blog/ramadan-2026',
-                nb: '/no/blog/ramadan-2026',
-                da: '/da/blog/ramadan-2026',
-            },
-        },
+        alternates: getAlternates('/blog/ramadan-2026', locale),
         openGraph: {
             title: c.metaTitle,
             description: c.metaDescription,

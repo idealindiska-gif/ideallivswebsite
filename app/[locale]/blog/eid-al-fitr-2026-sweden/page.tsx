@@ -8,6 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/site.config';
 import { SchemaScript } from '@/lib/schema/schema-script';
+import { getAlternates } from '@/lib/seo/metadata';
 import { getProducts } from '@/lib/woocommerce/products-direct';
 import { getAllPosts } from '@/lib/wordpress';
 import { decodeHtmlEntities } from '@/lib/utils';
@@ -175,20 +176,10 @@ function getContent(locale: string) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
     const c = getContent(locale);
-    const isSv = locale === 'sv';
-    const localePrefix = isSv ? '/sv' : '';
-
     return {
         title: c.metaTitle,
         description: c.metaDescription,
-        alternates: {
-            canonical: `${siteConfig.site_domain}${localePrefix}/blog/eid-al-fitr-2026-sweden`,
-            languages: {
-                'en': `${siteConfig.site_domain}/blog/eid-al-fitr-2026-sweden`,
-                'sv': `${siteConfig.site_domain}/sv/blog/eid-al-fitr-2026-sweden`,
-                'x-default': `${siteConfig.site_domain}/blog/eid-al-fitr-2026-sweden`,
-            },
-        },
+        alternates: getAlternates('/blog/eid-al-fitr-2026-sweden', locale),
         openGraph: {
             title: c.metaTitle,
             description: c.metaDescription,
@@ -263,10 +254,10 @@ export default async function EidPage({ params }: { params: Promise<{ locale: st
         "datePublished": PUBLISH_DATE,
         "dateModified": MODIFY_DATE,
         "author": {
-            "@type": "Organization",
-            "@id": "https://www.ideallivs.com/#organization",
-            "name": "Ideal Indiska Livs",
-            "url": siteConfig.site_domain,
+            "@type": "Person",
+            "@id": "https://www.ideallivs.com/#ideal-chef",
+            "name": "Ideal Chef",
+            "url": `${siteConfig.site_domain}/about`,
         },
         "publisher": {
             "@type": "Organization",

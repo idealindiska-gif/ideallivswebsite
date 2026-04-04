@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Indian Grocery Delivery Europe | No Customs Duty | Ideal Indiska',
     description: 'Order Indian & Pakistani groceries across Europe with NO customs duty. Fast DHL shipping from Sweden to Germany, Netherlands, France & more. Shop 1500+ items.',
     alternates: {
-        canonical: '/europe-delivery',
+        canonical: 'https://www.ideallivs.com/europe-delivery',
     },
 };
 

@@ -146,19 +146,21 @@ export default async function AboutPage({ params }: PageProps) {
                     {
                       text: "Glad att jag hittade denna butik! Bra sortiment, hittade allt jag beh\u00F6vde och mer. V\u00E4nlig och hj\u00E4lpsam personal.",
                       author: "Linda",
-                      source: "Google Reviews"
+                      source: "Google Reviews",
+                      sourceUrl: brandProfile.google.mapsCidUrl,
                     },
                     {
                       text: "Kul med ett annat sortiment \u00E4n det som finns p\u00E5 vanliga matbutikskedjorna. Kommer tvekl\u00F6st \u00E5terkomma!",
                       author: "Michaela Svanberg",
-                      source: "Google Reviews"
+                      source: "Google Reviews",
+                      sourceUrl: brandProfile.google.mapsCidUrl,
                     }
                   ].map((review, i) => (
                     <div key={i} className="p-6 rounded-2xl border bg-muted/10 italic">
                       <p className="text-muted-foreground mb-4" style={{ fontSize: '15.13px' }}>&quot;{review.text}&quot;</p>
                       <div className="not-italic">
                         <p className="font-semibold" style={{ fontSize: '14.31px' }}>{review.author}</p>
-                        <p className="text-xs text-muted-foreground">{review.source}</p>
+                        <a href={review.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">{review.source} ↗</a>
                       </div>
                     </div>
                   ))}

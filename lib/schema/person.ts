@@ -67,6 +67,7 @@ export function idealChefPersonSchema(baseUrl: string = 'https://www.ideallivs.c
         'https://www.instagram.com/ideal_indiska_livs/',
         'https://www.facebook.com/Ideal.indiska.livs',
         'https://www.youtube.com/@Idealindiska',
+        'https://www.tiktok.com/@idealindiskalivs',
         'https://www.linkedin.com/in/ideal-indiska-596215378/',
       ],
       worksFor: { name: 'Ideal Indiska LIVS' },
