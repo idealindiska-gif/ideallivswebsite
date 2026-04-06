@@ -67,9 +67,15 @@ export function ShippingMethodSelector({
   const hasPromoItem = items.some(item =>
     CommerceRules.isPromotionalProduct(item.product.tags || [])
   );
-  const visibleMethods = hasPromoItem
+  const visibleMethods = (hasPromoItem
     ? availableShippingMethods.filter(m => m.method_id !== 'free_shipping')
-    : availableShippingMethods;
+    : availableShippingMethods
+  ).slice().sort((a, b) => {
+    // Always show store pickup last — it is not a delivery option
+    if (a.method_id === 'local_pickup') return 1;
+    if (b.method_id === 'local_pickup') return -1;
+    return 0;
+  });
 
   // FIX: Auto-notify parent when cart store selects free shipping AND customer qualifies
   useEffect(() => {
@@ -256,9 +262,10 @@ export function ShippingMethodSelector({
                     </div>
                     {/* Store pickup clarification */}
                     {method.method_id === 'local_pickup' && (
-                      <p className="mt-1.5 rounded-md border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs text-amber-800 dark:border-amber-800/40 dark:bg-amber-900/20 dark:text-amber-300">
-                        📍 <strong>You collect from our store:</strong> Bandhagsplan 4, 12432 Bandhagen, Stockholm. We will notify you when your order is ready to pick up.
-                      </p>
+                      <div className="mt-1.5 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-800/40 dark:bg-amber-900/20 dark:text-amber-300 space-y-1">
+                        <p>📍 <strong>You collect from our store:</strong> Bandhagsplan 4, 124 32 Bandhagen, Stockholm. We will notify you when your order is ready.</p>
+                        <p className="font-semibold text-red-700 dark:text-red-400">⚠️ Cancellation fee: Due to increasing misuse of free store pickup to avoid delivery charges, a <strong>20 kr cancellation fee</strong> will be deducted if your order is cancelled after placing (e.g. requesting delivery instead, or failing to collect).</p>
+                      </div>
                     )}
                     {/* Show DHL info if available */}
                     {method.method_id.includes('dhl') && (
@@ -293,7 +300,7 @@ export function ShippingMethodSelector({
                   <p>Bandhagsplan 4, 124 32 Bandhagen, Stockholm</p>
                 </div>
                 <p className="font-medium text-destructive">
-                  ⚠️ If you are not in Stockholm or cannot collect in person, please choose a delivery option. Orders placed as pickup and not collected will be cancelled, and a minimum cancellation fee of <strong>20 kr</strong> will be charged to cover Stripe payment processing costs.
+                  ⚠️ <strong>Important:</strong> Due to increasing misuse of free store pickup to avoid delivery charges, we now enforce a <strong>20 kr cancellation fee</strong> on any pickup order that is cancelled — including requests to switch to delivery, or failure to collect. This covers our Stripe payment processing costs. If you need delivery, please choose a delivery option below instead.
                 </p>
               </div>
             </DialogDescription>

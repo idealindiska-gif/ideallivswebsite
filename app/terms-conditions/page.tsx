@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { brandProfile } from '@/config/brand-profile';
-import { FileText, ShoppingCart, CreditCard, Truck, Scale, Shield, Mail, MessageCircle, MapPin } from 'lucide-react';
+import { FileText, ShoppingCart, CreditCard, Truck, Scale, Shield, Mail, MessageCircle, MapPin, Package } from 'lucide-react';
 import { Link } from '@/lib/navigation';
 
 export const metadata: Metadata = {
@@ -46,7 +46,7 @@ export default function TermsConditionsPage() {
             <div className="lg:col-span-2 space-y-12">
               {/* Introduction */}
               <div>
-                <p className="text-muted-foreground mb-4" style={{ fontSize: '14.31px' }}>Last Updated: May 29, 2025</p>
+                <p className="text-muted-foreground mb-4" style={{ fontSize: '14.31px' }}>Last Updated: April 6, 2026</p>
                 <div className="space-y-6 text-muted-foreground" style={{
                   fontSize: '16px',
                   fontWeight: 400,
@@ -112,6 +112,35 @@ export default function TermsConditionsPage() {
                   </ul>
                 </section>
               </div>
+
+              {/* Store Pickup & Cancellation */}
+              <section className="space-y-4">
+                <h2 style={{ fontSize: '25px', fontWeight: 600 }} className="flex items-center gap-3">
+                  <Package className="h-6 w-6 text-primary" />
+                  4a. Store Pickup &amp; Cancellation Policy
+                </h2>
+                <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-5 space-y-3 dark:border-amber-800/40 dark:bg-amber-900/10">
+                  <p className="font-semibold text-foreground" style={{ fontSize: '15.13px' }}>Store pickup is available free of charge at our physical store:</p>
+                  <p className="flex items-center gap-2 text-muted-foreground" style={{ fontSize: '15.13px' }}>
+                    <MapPin className="h-4 w-4 text-primary shrink-0" />
+                    Bandhagsplan 4, 124 32 Bandhagen, Stockholm
+                  </p>
+                  <ul className="list-disc pl-5 space-y-2 text-muted-foreground" style={{ fontSize: '15.13px' }}>
+                    <li>Store pickup is intended for customers who will personally collect their order from our store.</li>
+                    <li>
+                      <strong className="text-foreground">Cancellation fee — 20 kr:</strong> Due to a significant increase in misuse of the free store pickup option to avoid delivery charges, we have introduced a mandatory cancellation fee of <strong>20 kr (SEK)</strong>. This fee is deducted from any refund if:
+                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                        <li>You cancel after placing a pickup order and request delivery instead.</li>
+                        <li>You fail to collect your order from the store.</li>
+                        <li>You request a cancellation for any reason after a pickup order has been processed.</li>
+                      </ul>
+                    </li>
+                    <li>The 20 kr fee covers the non-refundable Stripe payment processing costs incurred at the time of payment.</li>
+                    <li>If you require delivery, please select a delivery option at checkout — do not place a pickup order intending to request delivery later.</li>
+                    <li>We notify you via SMS/email when your order is ready for collection.</li>
+                  </ul>
+                </div>
+              </section>
 
               {/* Intellectual Property */}
               <section className="space-y-6">
