@@ -1,33 +1,24 @@
 /**
- * Google Merchant Center - Local Inventory Feed
+ * Google Merchant Center — Local Inventory Feed
  * Generates XML feed for local inventory ads (Sweden physical store)
  * Feed URL: /api/google-local-inventory-feed
+ *
+ * Uses shared lib/feeds/feed-utils.ts for XML helpers.
  */
 
 import { NextResponse } from 'next/server';
 import { siteConfig } from '@/site.config';
 import { fetchWooCommerceCached } from '@/lib/woocommerce/api';
-import { WC_API_CONFIG } from '@/lib/woocommerce/config';
+import { cdata, parsePriceNum } from '@/lib/feeds/feed-utils';
 
-// Settings (match WordPress snippet defaults)
+// Settings
 const STORE_CODE = '12397410391306859227'; // Google Merchant store code
 const CURRENCY = 'SEK';
 
-// Strip characters that are illegal in XML 1.0
-function stripInvalidXmlChars(str: string): string {
-  // eslint-disable-next-line no-control-regex
-  return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\uFFFE\uFFFF]/g, '');
-}
-
-// Safe CDATA wrap
-function cdata(str: string): string {
-  return `<![CDATA[${stripInvalidXmlChars(str).replace(/\]\]>/g, ']]]]><![CDATA[>')}]]>`;
-}
-
-// Format price with 2 decimal places
+// Format price for local inventory feed
 function formatPrice(price: string | number): string {
-  const num = typeof price === 'string' ? parseFloat(price) : price;
-  if (!num || isNaN(num) || num <= 0) return '';
+  const num = parsePriceNum(price);
+  if (num <= 0) return '';
   return num.toFixed(2);
 }
 

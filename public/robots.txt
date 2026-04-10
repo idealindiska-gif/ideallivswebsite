@@ -147,6 +147,12 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Bytespider
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 # ==================================================
 # Allow AdsBot for Merchant Center
 # ==================================================
@@ -179,7 +185,7 @@ Sitemap: https://www.ideallivs.com/sitemap.xml
 Sitemap: https://www.ideallivs.com/sv/sitemap.xml
 
 # Norwegian sitemap
-Sitemap: https://www.ideallivs.com/nb/sitemap.xml
+Sitemap: https://www.ideallivs.com/no/sitemap.xml
 
 # Danish sitemap
 Sitemap: https://www.ideallivs.com/da/sitemap.xml

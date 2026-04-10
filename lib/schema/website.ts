@@ -123,7 +123,7 @@ export function idealIndiskaWebsiteSchema(baseUrl: string = 'https://www.idealli
     url: baseUrl,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
     organizationId: generateSchemaId(baseUrl, 'organization'),
-    searchUrl: `${baseUrl}/shop`,
+    searchUrl: `${baseUrl}/api/search`,
   });
 }
 

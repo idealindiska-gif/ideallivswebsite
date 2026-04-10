@@ -73,9 +73,10 @@ export async function generateMetadata({ params }: ProductCategoryPageProps): Pr
                         alt: category.name,
                     }]
                     : [defaultImage],
-                url: `${siteConfig.site_domain}/product-category/${resolvedParams.slug?.join('/')}`,
+                url: `${siteConfig.site_domain}${resolvedParams.locale === 'sv' ? '/sv' : resolvedParams.locale === 'no' ? '/no' : resolvedParams.locale === 'da' ? '/da' : ''}/product-category/${resolvedParams.slug?.join('/')}`,
                 siteName: 'Ideal Indiska LIVS',
                 type: 'website',
+                locale: resolvedParams.locale === 'sv' ? 'sv_SE' : resolvedParams.locale === 'no' ? 'nb_NO' : resolvedParams.locale === 'da' ? 'da_DK' : 'en_US',
             },
             alternates: {
                 canonical: `${siteConfig.site_domain}${resolvedParams.locale === 'sv' ? '/sv' : resolvedParams.locale === 'no' ? '/no' : resolvedParams.locale === 'da' ? '/da' : ''}/product-category/${resolvedParams.slug?.join('/')}`,

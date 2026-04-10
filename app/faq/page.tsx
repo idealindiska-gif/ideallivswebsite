@@ -14,7 +14,18 @@ export const metadata: Metadata = {
     title: 'Frequently Asked Questions | Ideal Indiska LIVS',
     description: 'Get answers to common questions about ordering Indian & Pakistani groceries in Stockholm, delivery across Sweden & Europe, payments, and our products.',
     alternates: {
-        canonical: '/faq',
+        canonical: 'https://www.ideallivs.com/faq',
+        languages: {
+            'en': 'https://www.ideallivs.com/faq',
+            'sv': 'https://www.ideallivs.com/sv/faq',
+            'no': 'https://www.ideallivs.com/no/faq',
+            'da': 'https://www.ideallivs.com/da/faq',
+            'x-default': 'https://www.ideallivs.com/faq',
+        },
+    },
+    openGraph: {
+        url: 'https://www.ideallivs.com/faq',
+        locale: 'en_US',
     },
 };
 

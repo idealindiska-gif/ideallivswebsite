@@ -6,6 +6,7 @@
 
 import { NextResponse } from 'next/server';
 import { siteConfig } from '@/site.config';
+import { escapeXml, cdata } from '@/lib/feeds/feed-utils';
 
 interface WPPost {
   id: number;
@@ -33,27 +34,6 @@ interface WPPost {
       name: string;
     }>;
   };
-}
-
-// Strip characters that are illegal in XML 1.0
-function stripInvalidXmlChars(str: string): string {
-  // eslint-disable-next-line no-control-regex
-  return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\uFFFE\uFFFF]/g, '');
-}
-
-// Escape XML special characters
-function escapeXml(unsafe: string): string {
-  return stripInvalidXmlChars(unsafe)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
-
-// Safe CDATA wrap — escapes the ]]> sequence that would break CDATA sections
-function cdata(str: string): string {
-  return `<![CDATA[${stripInvalidXmlChars(str).replace(/\]\]>/g, ']]]]><![CDATA[>')}]]>`;
 }
 
 // Strip HTML tags but preserve basic formatting

@@ -194,6 +194,8 @@ export async function generateMetadata({ params }: BrandArchivePageProps): Promi
             description: description.substring(0, 160),
             siteName: 'Ideal Indiska LIVS',
             type: 'website',
+            url: `${siteConfig.site_domain}${resolvedParams.locale === 'sv' ? '/sv' : resolvedParams.locale === 'no' ? '/no' : resolvedParams.locale === 'da' ? '/da' : ''}/brand/${resolvedParams.slug}`,
+            locale: resolvedParams.locale === 'sv' ? 'sv_SE' : resolvedParams.locale === 'no' ? 'nb_NO' : resolvedParams.locale === 'da' ? 'da_DK' : 'en_US',
         },
         alternates: {
             canonical: `${siteConfig.site_domain}${resolvedParams.locale === 'sv' ? '/sv' : resolvedParams.locale === 'no' ? '/no' : resolvedParams.locale === 'da' ? '/da' : ''}/brand/${resolvedParams.slug}`,

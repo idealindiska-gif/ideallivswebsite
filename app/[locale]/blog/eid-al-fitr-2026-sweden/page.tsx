@@ -275,12 +275,16 @@ export default async function EidPage({ params }: { params: Promise<{ locale: st
 
     const faqSchema = {
         "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": c.faqs.map(faq => ({
-            "@type": "Question",
-            "name": faq.q,
-            "acceptedAnswer": { "@type": "Answer", "text": faq.a }
-        }))
+        "@type": "CollectionPage",
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": c.faqs.map((faq, i) => ({
+                "@type": "ListItem",
+                "position": i + 1,
+                "name": faq.q,
+                "description": faq.a,
+            })),
+        },
     };
 
     const eventSchema = {

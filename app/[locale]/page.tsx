@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { webpageSchema } from "@/lib/schema/website";
 import { enhancedItemListSchema } from "@/lib/schema/collection";
-import { faqSchema } from "@/lib/schema/faq";
+import { faqCollectionPageSchema } from "@/lib/schema/faq";
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { ChevronDown } from "lucide-react";
 
@@ -373,10 +373,10 @@ export default async function LocaleHomePage({ params }: PageProps) {
             {/* ========== SEO STRUCTURED DATA ========== */}
             {/* Note: Organization and WebSite schemas are in layout.tsx (global) */}
 
-            {/* FAQPage Schema */}
+            {/* CollectionPage Q&A Schema (replaces FAQPage — restricted to gov/health since Aug 2023) */}
             <SchemaScript
                 id="homepage-faq-schema"
-                schema={faqSchema({
+                schema={faqCollectionPageSchema({
                     pageUrl: pageUrl,
                     faqs: locale === 'sv' ? svFaqs : locale === 'no' ? noFaqs : locale === 'da' ? daFaqs : enFaqs,
                 })}

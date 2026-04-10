@@ -300,12 +300,16 @@ export default async function IndiskMadDanmarkPage({ params }: { params: Promise
 
     const faqSchema = {
         '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: c.faqs.map(f => ({
-            '@type': 'Question',
-            name: f.q,
-            acceptedAnswer: { '@type': 'Answer', text: f.a },
-        })),
+        '@type': 'CollectionPage',
+        mainEntity: {
+            '@type': 'ItemList',
+            itemListElement: c.faqs.map((f, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: f.q,
+                description: f.a,
+            })),
+        },
     };
 
     return (

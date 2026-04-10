@@ -9,7 +9,18 @@ export const metadata: Metadata = {
   title: "Contact Ideal Indiska LIVS | Indian Grocery Stockholm",
   description: "Visit Ideal Indiska LIVS in Bandhagen, Stockholm. Shop authentic Indian & Pakistani groceries with local delivery and WhatsApp support.",
   alternates: {
-    canonical: '/contact',
+    canonical: 'https://www.ideallivs.com/contact',
+    languages: {
+      'en': 'https://www.ideallivs.com/contact',
+      'sv': 'https://www.ideallivs.com/sv/contact',
+      'no': 'https://www.ideallivs.com/no/contact',
+      'da': 'https://www.ideallivs.com/da/contact',
+      'x-default': 'https://www.ideallivs.com/contact',
+    },
+  },
+  openGraph: {
+    url: 'https://www.ideallivs.com/contact',
+    locale: 'en_US',
   },
 };
 

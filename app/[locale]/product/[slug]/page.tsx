@@ -92,7 +92,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
             }
         }
 
-        const url = `${siteConfig.site_domain}${locale === 'sv' ? '/sv' : ''}${productPath}`;
+        const localePrefix = locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : '';
+        const url = `${siteConfig.site_domain}${localePrefix}${productPath}`;
 
         return {
             title: customTitle,
@@ -118,7 +119,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
                     : [defaultImage],
                 url,
                 siteName: 'Ideal Indiska LIVS',
-                locale: locale === 'sv' ? 'sv_SE' : 'en_SE',
+                locale: locale === 'sv' ? 'sv_SE' : locale === 'no' ? 'nb_NO' : locale === 'da' ? 'da_DK' : 'en_US',
             },
             twitter: {
                 card: 'summary_large_image',

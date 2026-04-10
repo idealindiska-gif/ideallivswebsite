@@ -1,6 +1,10 @@
 /**
  * FAQ Schema Generator
- * Framework-agnostic function for generating FAQPage schema
+ *
+ * NOTE: FAQPage schema is RESTRICTED by Google (Aug 2023) to government and
+ * healthcare sites only. E-commerce FAQ pages should use CollectionPage instead.
+ * The faqSchema() function is kept for legacy reference but should NOT be used
+ * in production — use faqCollectionPageSchema() instead.
  */
 
 import type { FAQPage, Question } from './types';
@@ -19,10 +23,34 @@ export interface FAQInput {
 }
 
 /**
- * Generate FAQPage Schema
- *
- * @param config - FAQ configuration
- * @returns Complete FAQPage schema object
+ * Generate CollectionPage schema for FAQ pages (e-commerce safe replacement).
+ * FAQPage rich results are restricted to gov/health sites as of Aug 2023.
+ * CollectionPage with Q&A ItemList keeps content machine-readable for AI crawlers
+ * without triggering Google quality flags.
+ */
+export function faqCollectionPageSchema(config: FAQInput): Record<string, unknown> {
+    return cleanSchema({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        '@id': generateSchemaId(config.pageUrl, 'collectionpage'),
+        name: config.name,
+        description: config.description,
+        url: config.pageUrl,
+        mainEntity: {
+            '@type': 'ItemList',
+            itemListElement: config.faqs.map((faq, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: faq.question,
+                description: faq.answer,
+            })),
+        },
+    });
+}
+
+/**
+ * @deprecated FAQPage is restricted to government/healthcare sites (Aug 2023).
+ * Use faqCollectionPageSchema() for e-commerce FAQ pages.
  */
 export function faqSchema(config: FAQInput): FAQPage {
     const schema: FAQPage = {
@@ -51,11 +79,11 @@ export function faqSchema(config: FAQInput): FAQPage {
 }
 
 /**
- * Pre-configured FAQ for Ideal Indiska LIVS
- * Common questions about delivery, products, and services
+ * Pre-configured CollectionPage schema for Ideal Indiska LIVS FAQ page.
+ * Uses faqCollectionPageSchema (e-commerce safe) instead of restricted FAQPage.
  */
-export function idealIndiskaFAQSchema(baseUrl: string = 'https://www.ideallivs.com'): FAQPage {
-    return faqSchema({
+export function idealIndiskaFAQSchema(baseUrl: string = 'https://www.ideallivs.com'): Record<string, unknown> {
+    return faqCollectionPageSchema({
         pageUrl: `${baseUrl}/faq`,
         name: 'Frequently Asked Questions - Ideal Indiska LIVS',
         description: 'Common questions about our products, delivery, and services',

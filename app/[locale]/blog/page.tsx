@@ -12,17 +12,19 @@ import { SchemaScript } from '@/lib/schema/schema-script';
 import { collectionPageSchema } from '@/lib/schema/collection';
 import { webpageSchema } from '@/lib/schema/website';
 import { breadcrumbSchema } from '@/lib/schema/breadcrumb';
-import { faqSchema } from '@/lib/schema/faq';
+import { faqCollectionPageSchema } from '@/lib/schema/faq';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'blog' });
 
+  const localePrefix = locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : '';
+  const canonicalUrl = `https://www.ideallivs.com${localePrefix}/blog`;
   return {
     title: `${t('title')} - ${brandConfig.businessName}`,
     description: t('subtitle'),
     alternates: {
-      canonical: `https://www.ideallivs.com${locale === 'sv' ? '/sv' : locale === 'no' ? '/no' : locale === 'da' ? '/da' : ''}/blog`,
+      canonical: canonicalUrl,
       languages: {
         'en': 'https://www.ideallivs.com/blog',
         'sv': 'https://www.ideallivs.com/sv/blog',
@@ -30,6 +32,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         'da': 'https://www.ideallivs.com/da/blog',
         'x-default': 'https://www.ideallivs.com/blog',
       },
+    },
+    openGraph: {
+      title: `${t('title')} - ${brandConfig.businessName}`,
+      description: t('subtitle'),
+      type: 'website',
+      url: canonicalUrl,
+      locale: locale === 'sv' ? 'sv_SE' : locale === 'nb' ? 'nb_NO' : locale === 'da' ? 'da_DK' : 'en_US',
+      images: [{ url: 'https://www.ideallivs.com/images/blog-og.jpg', width: 1200, height: 630, alt: 'Ideal Indiska LIVS Blog' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${t('title')} - ${brandConfig.businessName}`,
+      description: t('subtitle'),
+      images: ['https://www.ideallivs.com/images/blog-og.jpg'],
     },
   };
 }
@@ -465,10 +481,10 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
         })}
       />
 
-      {/* ── Schema: FAQPage ── */}
+      {/* ── Schema: CollectionPage Q&A (replaces FAQPage — restricted to gov/health since Aug 2023) ── */}
       <SchemaScript
         id="blog-faq"
-        schema={faqSchema({
+        schema={faqCollectionPageSchema({
           pageUrl: `https://www.ideallivs.com${locale !== 'en' ? `/${locale}` : ''}/blog`,
           faqs: [
             {

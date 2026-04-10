@@ -15,6 +15,17 @@ export const metadata: Metadata = {
     description: `Browse 135+ authentic Indian & Pakistani grocery brands. Shop Shan, MDH, Haldiram, MTR & more at Ideal Indiska Livs. Fast delivery across Sweden.`,
     alternates: {
         canonical: "https://www.ideallivs.com/brands",
+        languages: {
+            'en': 'https://www.ideallivs.com/brands',
+            'sv': 'https://www.ideallivs.com/sv/brands',
+            'no': 'https://www.ideallivs.com/no/brands',
+            'da': 'https://www.ideallivs.com/da/brands',
+            'x-default': 'https://www.ideallivs.com/brands',
+        },
+    },
+    openGraph: {
+        url: 'https://www.ideallivs.com/brands',
+        locale: 'en_US',
     },
     keywords: [
         "top indian brands Stockholm",

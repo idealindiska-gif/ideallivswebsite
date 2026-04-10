@@ -100,6 +100,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         type: 'article',
         publishedTime: post.date,
         modifiedTime: post.modified,
+        locale: locale === 'sv' ? 'sv_SE' : locale === 'nb' ? 'nb_NO' : locale === 'da' ? 'da_DK' : 'en_US',
+        url: `https://www.ideallivs.com${localePrefix}/blog/${slug}`,
+        images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630, alt: decodedTitle }] : [],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: decodedTitle,
+        description: excerpt,
         images: imageUrl ? [imageUrl] : [],
       },
     };

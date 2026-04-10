@@ -1,25 +1,20 @@
 /**
- * Google Merchant Center - Promotions Feed
+ * Google Merchant Center — Promotions Feed
  * Generates XML feed for Google Merchant Promotions
  * Feed URL: /api/google-promotions-feed
+ *
+ * Fix: removed g:discount_type from WEEKLY_DEALS — PERCENT_OFF requires a
+ * g:percent_off value; omitting it causes Google to reject the promotion entry.
+ * Since our weekly discounts vary per product, we omit discount_type and let
+ * the sale_price on individual product items convey the discount amount.
  */
 
 import { NextResponse } from 'next/server';
 import { siteConfig } from '@/site.config';
 import { fetchWooCommerceCached } from '@/lib/woocommerce/api';
+import { cdata } from '@/lib/feeds/feed-utils';
 
 const CURRENCY = 'SEK';
-
-// Strip characters that are illegal in XML 1.0
-function stripInvalidXmlChars(str: string): string {
-    // eslint-disable-next-line no-control-regex
-    return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\uFFFE\uFFFF]/g, '');
-}
-
-// Safe CDATA wrap
-function cdata(str: string): string {
-    return `<![CDATA[${stripInvalidXmlChars(str).replace(/\]\]>/g, ']]]]><![CDATA[>')}]]>`;
-}
 
 interface WooProduct {
     id: number;
@@ -61,7 +56,8 @@ export async function GET() {
             xml += `      <g:long_title>${cdata('Weekly Specials: Indian & Pakistani Grocery Deals')}</g:long_title>\n`;
             xml += `      <g:redemption_channel>ONLINE</g:redemption_channel>\n`;
             xml += `      <g:offer_type>NO_CODE</g:offer_type>\n`;
-            xml += `      <g:discount_type>PERCENT_OFF</g:discount_type>\n`;
+            // No g:discount_type here — PERCENT_OFF requires a paired g:percent_off value.
+            // Discounts vary per product; the sale_price on each product item carries the amount.
             xml += `      <g:promotion_effective_dates>${effectiveDates}</g:promotion_effective_dates>\n`;
             xml += `      <g:product_applicability>ALL_PRODUCTS</g:product_applicability>\n`;
             xml += `    </item>\n`;

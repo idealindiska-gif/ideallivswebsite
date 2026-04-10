@@ -12,7 +12,18 @@ export const metadata: Metadata = {
   title: `About Ideal Indiska LIVS | Indian & Pakistani Groceries`,
   description: `Discover Ideal Indiska LIVS. Since 2020, Stockholm's trusted source for Indian & Pakistani groceries, premium Basmati rice & authentic spices.`,
   alternates: {
-    canonical: '/about',
+    canonical: 'https://www.ideallivs.com/about',
+    languages: {
+      'en': 'https://www.ideallivs.com/about',
+      'sv': 'https://www.ideallivs.com/sv/about',
+      'no': 'https://www.ideallivs.com/no/about',
+      'da': 'https://www.ideallivs.com/da/about',
+      'x-default': 'https://www.ideallivs.com/about',
+    },
+  },
+  openGraph: {
+    url: 'https://www.ideallivs.com/about',
+    locale: 'en_US',
   },
 };
 
