@@ -39,10 +39,12 @@ export function offerSchema(
     availability: formatAvailability(product.availability || product.inStock),
   };
 
-  // Handle variable products (with price ranges)
-  if (isVariable && product.lowPrice !== undefined && product.highPrice !== undefined) {
-    offer.lowPrice = formatSchemaPrice(product.lowPrice);
-    offer.highPrice = formatSchemaPrice(product.highPrice);
+  // Handle variable products (AggregateOffer requires lowPrice)
+  if (isVariable) {
+    const low = product.lowPrice ?? product.price ?? product.regularPrice;
+    const high = product.highPrice ?? product.lowPrice ?? product.price ?? product.regularPrice;
+    offer.lowPrice = formatSchemaPrice(low ?? '0.00');
+    offer.highPrice = formatSchemaPrice(high ?? '0.00');
     offer.offerCount = product.offerCount || 1;
   } else {
     // Single price product
