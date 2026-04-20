@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
-import { getProductBySlug, getRelatedProducts, getProductsByIds } from '@/lib/woocommerce';
+import { getProductBySlug, getRelatedProducts, getProductsByIds, getReviewsByProductId } from '@/lib/woocommerce';
 import { ProductTemplate } from '@/components/templates';
 import { ProductSchema } from '@/components/shop/product-schema';
 import { getBundlesForProduct, getBundleProductIds } from '@/config/bundles.config';
 import { brandConfig } from '@/config/brand.config';
 import { siteConfig } from '@/site.config';
+import { getProductFAQs, faqPageSchema } from '@/lib/seo/product-faqs';
+import { SchemaScript } from '@/lib/schema/schema-script';
 import type { Metadata } from 'next';
 
 // ISR: Revalidate product pages every 2 hours
@@ -101,7 +103,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
                         url: img.src,
                         width: 800,
                         height: 800,
-                        alt: img.alt || product.name,
+                        alt: img.alt || `${product.name} - Buy Online at Ideal Livs Stockholm`,
                     }))
                     : [defaultImage],
                 url: url,
@@ -158,7 +160,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
         notFound();
     }
 
-    const relatedProducts = await getRelatedProducts(product.id);
+    const [relatedProducts, reviews] = await Promise.all([
+        getRelatedProducts(product.id),
+        getReviewsByProductId(product.id),
+    ]);
 
     // Fetch bundle offers for this product
     const bundles = getBundlesForProduct(product.id);
@@ -167,8 +172,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
       ? await getProductsByIds(bundleProductIds)
       : [];
 
-    // Build breadcrumbs with new URL structure
     const breadcrumbs = [
+        { label: 'Home', href: '/' },
         { label: 'Shop', href: '/shop' },
         ...(product.categories && product.categories.length > 0
             ? [{
@@ -179,16 +184,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
         { label: product.name },
     ];
 
+    const faqs = getProductFAQs(product.name, product.categories || []);
+    const productUrl = `${siteConfig.site_domain}/product/${resolvedParams.slug}`;
+
     return (
         <>
-            {/* Product + Breadcrumb JSON-LD rendered server-side for immediate indexing */}
-            <ProductSchema product={product} breadcrumbs={breadcrumbs} locale="en" />
+            <ProductSchema product={product} breadcrumbs={breadcrumbs} locale="en" reviews={reviews} />
+            <SchemaScript id="product-faq-schema" schema={faqPageSchema(faqs, productUrl)} />
             <ProductTemplate
                 product={product}
                 breadcrumbs={breadcrumbs}
                 relatedProducts={relatedProducts}
+                reviews={reviews}
                 bundles={bundles}
                 bundleProducts={bundleProducts}
+                locale="en"
+                faqs={faqs}
             />
         </>
     );

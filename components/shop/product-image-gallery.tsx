@@ -11,12 +11,14 @@ import type { ProductImage } from '@/types/woocommerce';
 interface ProductImageGalleryProps {
   images: ProductImage[];
   productName: string;
+  categoryName?: string;
   className?: string;
 }
 
 export function ProductImageGallery({
   images,
   productName,
+  categoryName,
   className,
 }: ProductImageGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -55,7 +57,7 @@ export function ProductImageGallery({
               >
                 <OptimizedImage
                   src={currentImage.src}
-                  alt={`${currentImage.alt || productName} | Ideal Indiska LIVS`}
+                  alt={currentImage.alt || `${productName}${categoryName ? ` - ${categoryName}` : ''} - Buy Online Stockholm | Ideal Indiska LIVS`}
                   fill
                   className="object-contain p-4"
                   priority
@@ -145,7 +147,7 @@ export function ProductImageGallery({
               >
                 <OptimizedImage
                   src={image.src}
-                  alt={`${image.alt || productName} - Image ${index + 1} | Ideal Indiska LIVS`}
+                  alt={image.alt || `${productName}${categoryName ? ` - ${categoryName}` : ''} | Ideal Indiska LIVS`}
                   fill
                   className="object-contain p-1 transition-transform group-hover:scale-110"
                   sizes="(max-width: 768px) 20vw, 10vw"
@@ -175,7 +177,7 @@ export function ProductImageGallery({
             <div className="relative aspect-square w-full md:aspect-video">
               <OptimizedImage
                 src={currentImage.src}
-                alt={`${currentImage.alt || productName} | Ideal Indiska LIVS`}
+                alt={currentImage.alt || `${productName}${categoryName ? ` - ${categoryName}` : ''} | Ideal Indiska LIVS`}
                 fill
                 className={cn(
                   'object-contain transition-transform duration-300',
@@ -230,7 +232,7 @@ export function ProductImageGallery({
                     >
                       <OptimizedImage
                         src={image.src}
-                        alt={`${image.alt || productName} - Thumbnail ${index + 1} | Ideal Indiska LIVS`}
+                        alt={image.alt || `${productName}${categoryName ? ` - ${categoryName}` : ''} | Ideal Indiska LIVS`}
                         fill
                         className="object-cover"
                         sizes="80px"

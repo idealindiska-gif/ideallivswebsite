@@ -331,9 +331,10 @@ export function wooCommerceProductSchema(
     availability = 'BackOrder';
   }
 
-  // Build product URL
+  // Build product URL (locale-aware so /sv/product/ pages get the correct @id)
+  const localePrefix = options?.locale && options.locale !== 'en' ? `/${options.locale}` : '';
   const productUrl = options?.baseUrl
-    ? `${options.baseUrl}/product/${wooProduct.slug}`
+    ? `${options.baseUrl}${localePrefix}/product/${wooProduct.slug}`
     : undefined;
 
   // Determine if variable product

@@ -28,6 +28,7 @@ import { useCartStore } from '@/store/cart-store';
 import { CurrencyPrice, CurrencySalePrice } from '@/components/ui/currency-price';
 import { BundleOffers } from '@/components/shop/bundle-offer';
 import type { BundleOffer as BundleOfferType } from '@/config/bundles.config';
+import type { ProductFAQ } from '@/lib/seo/product-faqs';
 import type { Product, ProductReview, ProductVariation } from '@/types/woocommerce';
 
 interface ProductTemplateProps {
@@ -38,6 +39,8 @@ interface ProductTemplateProps {
   additionalContent?: ReactNode;
   bundles?: BundleOfferType[];
   bundleProducts?: Product[];
+  locale?: string;
+  faqs?: ProductFAQ[];
 }
 
 export function ProductTemplate({
@@ -48,6 +51,8 @@ export function ProductTemplate({
   additionalContent,
   bundles = [],
   bundleProducts = [],
+  locale = 'en',
+  faqs = [],
 }: ProductTemplateProps) {
   const discount = getDiscountPercentage(product);
   const hasVariations = product.type === 'variable' && product.variations.length > 0;
@@ -112,7 +117,7 @@ export function ProductTemplate({
                         key={relatedProduct.id}
                         className="group relative bg-background border border-border hover:border-primary/30 rounded-lg p-3 transition-all duration-300 hover:shadow-md"
                       >
-                        <a href={`/product/${relatedProduct.slug}`} className="flex gap-3">
+                        <a href={`${locale !== 'en' ? `/${locale}` : ''}/product/${relatedProduct.slug}`} className="flex gap-3">
                           {/* Product Image */}
                           <div className="relative w-20 h-20 flex-shrink-0 overflow-hidden rounded-md bg-muted">
                             {relatedProduct.images && relatedProduct.images[0] ? (
@@ -164,7 +169,7 @@ export function ProductTemplate({
 
                             if (hasVariations) {
                               // Redirect to product page to select variations
-                              window.location.href = `/product/${relatedProduct.slug}`;
+                              window.location.href = `${locale !== 'en' ? `/${locale}` : ''}/product/${relatedProduct.slug}`;
                             } else {
                               // Add simple product directly to cart
                               const cartStore = useCartStore.getState();
@@ -184,7 +189,7 @@ export function ProductTemplate({
                         key={relatedProduct.id}
                         className="group relative bg-background border border-border hover:border-primary/30 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md"
                       >
-                        <a href={`/product/${relatedProduct.slug}`} className="block">
+                        <a href={`${locale !== 'en' ? `/${locale}` : ''}/product/${relatedProduct.slug}`} className="block">
                           {/* Product Image */}
                           <div className="relative aspect-square overflow-hidden bg-muted">
                             {relatedProduct.images && relatedProduct.images[0] ? (
@@ -236,7 +241,7 @@ export function ProductTemplate({
 
                             if (hasVariations) {
                               // Redirect to product page to select variations
-                              window.location.href = `/product/${relatedProduct.slug}`;
+                              window.location.href = `${locale !== 'en' ? `/${locale}` : ''}/product/${relatedProduct.slug}`;
                             } else {
                               // Add simple product directly to cart
                               const cartStore = useCartStore.getState();
@@ -259,6 +264,7 @@ export function ProductTemplate({
                 <ProductImageGallery
                   images={product.images || []}
                   productName={product.name}
+                  categoryName={product.categories?.[0]?.name}
                 />
               </div>
             </div>
@@ -697,7 +703,7 @@ export function ProductTemplate({
             )}
 
             {/* 2. Description Section */}
-            {product.description && product.description.trim() !== '' && (
+            {product.description && product.description.trim() !== '' ? (
               <section className="border-t border-border pt-8">
                 <h2 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-6 text-foreground">
                   Product Description
@@ -735,6 +741,8 @@ export function ProductTemplate({
                   dangerouslySetInnerHTML={{ __html: product.description }}
                 />
               </section>
+            ) : (
+              <AboutProductSection product={product} locale={locale} />
             )}
 
             {/* 3. Reviews Section */}
@@ -756,6 +764,11 @@ export function ProductTemplate({
               />
             </section>
 
+            {/* 4. FAQ Section */}
+            {faqs.length > 0 && (
+              <ProductFAQSection faqs={faqs} productName={product.name} locale={locale} />
+            )}
+
           </div>
         </div>
       </div>
@@ -767,6 +780,78 @@ export function ProductTemplate({
         </div>
       </div>
     </>
+  );
+}
+
+// ─── About section (shown when WooCommerce description is empty) ──────────────
+function AboutProductSection({ product, locale }: { product: Product; locale: string }) {
+  const brand = product.brands?.[0]?.name;
+  const category = product.categories?.[0]?.name;
+  const weight = product.weight ? (parseFloat(product.weight) >= 1000
+    ? `${parseFloat(product.weight) / 1000}kg`
+    : `${product.weight}g`) : null;
+
+  const isSv = locale === 'sv';
+
+  const intro = isSv
+    ? `${product.name} är en ${category ? `${category.toLowerCase()}-produkt` : 'produkt'}${brand ? ` från ${brand}` : ''}${weight ? ` med en nettovikt på ${weight}` : ''}. Köp ${product.name} online hos Ideal Indiska LIVS i Stockholm med snabb leverans i hela Sverige och Europa.`
+    : `${product.name} is a${category ? ` ${category.toLowerCase()} product` : 'n authentic product'}${brand ? ` by ${brand}` : ''}${weight ? ` with a net weight of ${weight}` : ''}. Available for online purchase at Ideal Indiska LIVS, Stockholm's trusted Indian and Pakistani grocery store, with fast delivery across Sweden and Europe.`;
+
+  const delivery = isSv
+    ? `Vi erbjuder hemleverans i Stockholm, Göteborg, Malmö och hela Sverige. Beställ enkelt online och få ${product.name} levererat direkt till din dörr.`
+    : `We deliver to Stockholm, Gothenburg, Malmö, and throughout Sweden. Order online and receive ${product.name} at your door, typically within 1–3 business days.`;
+
+  return (
+    <section className="border-t border-border pt-8">
+      <h2 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-4 text-foreground">
+        {isSv ? `Om ${product.name}` : `About ${product.name}`}
+      </h2>
+      <div className="space-y-3 text-muted-foreground" style={{ fontSize: '15px', lineHeight: 1.7 }}>
+        <p>{intro}</p>
+        <p>{delivery}</p>
+        {category && (
+          <p>
+            {isSv
+              ? `Ideal Indiska LIVS är din specialistbutik för indiska och pakistanska matvaror i Stockholm. Vi erbjuder ett brett sortiment av ${category.toLowerCase()}, kryddor, basmatris, linser, frysta livsmedel och mycket mer.`
+              : `Ideal Indiska LIVS is your specialist store for Indian and Pakistani groceries in Stockholm. We stock a wide range of ${category.toLowerCase()}, spices, basmati rice, lentils, frozen foods, and much more.`}
+          </p>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ─── FAQ Section ─────────────────────────────────────────────────────────────
+function ProductFAQSection({
+  faqs,
+  productName,
+  locale,
+}: {
+  faqs: { question: string; answer: string }[];
+  productName: string;
+  locale: string;
+}) {
+  const isSv = locale === 'sv';
+  const heading = isSv ? `Vanliga frågor om ${productName}` : `Frequently Asked Questions`;
+
+  return (
+    <section className="border-t border-border pt-8">
+      <h2 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-6 text-foreground">
+        {heading}
+      </h2>
+      <div className="space-y-4">
+        {faqs.map((faq, i) => (
+          <div key={i} className="border border-border rounded-lg p-5 bg-muted/20">
+            <h3 style={{ fontSize: '15px', fontWeight: 600, lineHeight: 1.5 }} className="text-foreground mb-2">
+              {faq.question}
+            </h3>
+            <p style={{ fontSize: '14px', lineHeight: 1.7 }} className="text-muted-foreground">
+              {faq.answer}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

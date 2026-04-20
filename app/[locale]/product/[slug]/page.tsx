@@ -1,11 +1,13 @@
 import { notFound } from 'next/navigation';
-import { getProductBySlug, getRelatedProducts, getProductsByIds } from '@/lib/woocommerce';
+import { getProductBySlug, getRelatedProducts, getProductsByIds, getReviewsByProductId } from '@/lib/woocommerce';
 import { ProductTemplate } from '@/components/templates';
 import { ProductSchema } from '@/components/shop/product-schema';
 import { getBundlesForProduct, getBundleProductIds } from '@/config/bundles.config';
 import { siteConfig } from '@/site.config';
 import { getSwedishProductMeta } from '@/lib/seo/swedish-meta';
 import { getAlternates } from '@/lib/seo/metadata';
+import { getProductFAQs, faqPageSchema } from '@/lib/seo/product-faqs';
+import { SchemaScript } from '@/lib/schema/schema-script';
 import type { Metadata } from 'next';
 
 export const revalidate = 7200;
@@ -114,7 +116,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
                         url: img.src,
                         width: 800,
                         height: 800,
-                        alt: img.alt || product.name,
+                        alt: img.alt || `${product.name} - Ideal Livs Stockholm`,
                     }))
                     : [defaultImage],
                 url,
@@ -163,7 +165,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
         notFound();
     }
 
-    const relatedProducts = await getRelatedProducts(product.id);
+    const [relatedProducts, reviews] = await Promise.all([
+        getRelatedProducts(product.id),
+        getReviewsByProductId(product.id),
+    ]);
 
     // Fetch bundle offers for this product
     const bundles = getBundlesForProduct(product.id);
@@ -172,8 +177,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
       ? await getProductsByIds(bundleProductIds)
       : [];
 
+    const localePrefix = locale !== 'en' ? `/${locale}` : '';
     const breadcrumbs = [
-        { label: 'Shop', href: '/shop' },
+        { label: locale === 'sv' ? 'Hem' : locale === 'no' ? 'Hjem' : locale === 'da' ? 'Hjem' : 'Home', href: '/' },
+        { label: locale === 'sv' ? 'Butik' : 'Shop', href: '/shop' },
         ...(product.categories && product.categories.length > 0
             ? [{
                 label: product.categories[0].name,
@@ -183,16 +190,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
         { label: product.name },
     ];
 
+    const faqs = getProductFAQs(product.name, product.categories || []);
+    const productUrl = `${siteConfig.site_domain}${localePrefix}/product/${slug}`;
+
     return (
         <>
-            {/* Product + Breadcrumb JSON-LD rendered server-side for immediate indexing */}
-            <ProductSchema product={product} breadcrumbs={breadcrumbs} locale={locale} />
+            <ProductSchema product={product} breadcrumbs={breadcrumbs} locale={locale} reviews={reviews} />
+            <SchemaScript id="product-faq-schema" schema={faqPageSchema(faqs, productUrl)} />
             <ProductTemplate
                 product={product}
                 breadcrumbs={breadcrumbs}
                 relatedProducts={relatedProducts}
+                reviews={reviews}
                 bundles={bundles}
                 bundleProducts={bundleProducts}
+                locale={locale}
+                faqs={faqs}
             />
         </>
     );

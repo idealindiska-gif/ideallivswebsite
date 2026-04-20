@@ -92,7 +92,26 @@ export function getSwedishProductMeta(productName: string, price?: string, categ
     title = `${productName} | Ideal Livs Stockholm`;
   }
 
-  const description = `Handla ${productName} online hos Ideal Livs Stockholm.${categoryName ? ` ${categoryName}.` : ''} Snabb leverans i Sverige & Europa. Indiska & pakistanska matvaror.`;
+  // Category-specific description for better keyword targeting
+  const categorySlug = categoryName?.toLowerCase() || '';
+  let categoryContext = '';
+  if (categorySlug.includes('rice') || categorySlug.includes('ris') || categorySlug.includes('basmati')) {
+    categoryContext = 'Autentiskt basmatris för biryani, pulao och vardagsmat.';
+  } else if (categorySlug.includes('spice') || categorySlug.includes('masala') || categorySlug.includes('krydda')) {
+    categoryContext = 'Äkta indiska kryddor och masala.';
+  } else if (categorySlug.includes('lentil') || categorySlug.includes('dal') || categorySlug.includes('linser')) {
+    categoryContext = 'Protein- och fiberrik linser och bönor.';
+  } else if (categorySlug.includes('flour') || categorySlug.includes('atta')) {
+    categoryContext = 'Äkta chakki-malet vetemjöl för rotis och chapatis.';
+  } else if (categorySlug.includes('frozen') || categorySlug.includes('fryst')) {
+    categoryContext = 'Frysta indiska rätter och snacks.';
+  } else if (categorySlug.includes('ghee') || categorySlug.includes('oil') || categorySlug.includes('olja')) {
+    categoryContext = 'Traditionellt klarifierat smör och matoljor.';
+  } else if (categoryName) {
+    categoryContext = `${categoryName} från Indien och Pakistan.`;
+  }
+
+  const description = `Handla ${productName} online hos Ideal Livs Stockholm.${categoryContext ? ` ${categoryContext}` : ''} Snabb leverans i hela Sverige & Europa. Fri frakt från 499 kr.`;
 
   return { title, description: description.substring(0, 160) };
 }

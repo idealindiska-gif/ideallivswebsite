@@ -45,11 +45,27 @@ export async function GET() {
     const productImageEntries = allProducts
         .filter((p) => p.images?.length > 0)
         .map((p) => {
+            const categoryName = p.categories?.[0]?.name || 'Indian Grocery';
+            const price = p.sale_price || p.price;
+            const priceStr = price ? ` ${price} kr.` : '';
             const imageLines = p.images
-                .slice(0, 10) // Google supports up to 1000 per URL; 10 is plenty for a product
-                .map((img: { src: string; alt?: string; name?: string }) => {
-                    const title = img.alt || img.name || p.name;
-                    return `    <image:image>\n      <image:loc>${escapeXml(img.src)}</image:loc>\n      <image:title>${escapeXml(title)}</image:title>\n    </image:image>`;
+                .slice(0, 10)
+                .map((img: { src: string; alt?: string; name?: string }, idx: number) => {
+                    // Title: keyword-rich, specific to product
+                    const title = img.alt
+                        ? `${img.alt} | Ideal Indiska LIVS Stockholm`
+                        : `${p.name} | Buy Online Stockholm | Ideal Livs`;
+                    // Caption: full sentence with buying keywords for image search
+                    const caption = idx === 0
+                        ? `${p.name} — authentic ${categoryName} available online at Ideal Indiska LIVS Stockholm.${priceStr} Buy Indian & Pakistani groceries with fast delivery across Sweden.`
+                        : `${p.name} — ${categoryName} at Ideal Indiska LIVS Stockholm. Order online, fast delivery Sweden & Europe.`;
+                    return [
+                        `    <image:image>`,
+                        `      <image:loc>${escapeXml(img.src)}</image:loc>`,
+                        `      <image:title>${escapeXml(title)}</image:title>`,
+                        `      <image:caption>${escapeXml(caption)}</image:caption>`,
+                        `    </image:image>`,
+                    ].join('\n');
                 })
                 .join("\n");
             return `  <url>\n    <loc>${baseUrl}/product/${p.slug}</loc>\n${imageLines}\n  </url>`;
@@ -60,7 +76,17 @@ export async function GET() {
         .filter((p) => (p as any)._embedded?.["wp:featuredmedia"]?.[0]?.source_url)
         .map((p) => {
             const media = (p as any)._embedded["wp:featuredmedia"][0];
-            return `  <url>\n    <loc>${baseUrl}/blog/${p.slug}</loc>\n    <image:image>\n      <image:loc>${escapeXml(media.source_url)}</image:loc>\n      <image:title>${escapeXml(p.title.rendered)}</image:title>\n    </image:image>\n  </url>`;
+            const caption = `${p.title.rendered} — Indian & Pakistani food blog by Ideal Indiska LIVS Stockholm.`;
+            return [
+                `  <url>`,
+                `    <loc>${baseUrl}/blog/${p.slug}</loc>`,
+                `    <image:image>`,
+                `      <image:loc>${escapeXml(media.source_url)}</image:loc>`,
+                `      <image:title>${escapeXml(p.title.rendered)} | Ideal Indiska LIVS</image:title>`,
+                `      <image:caption>${escapeXml(caption)}</image:caption>`,
+                `    </image:image>`,
+                `  </url>`,
+            ].join('\n');
         })
         .join("\n");
 

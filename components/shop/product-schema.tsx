@@ -12,6 +12,7 @@ interface ProductSchemaProps {
 
 export function ProductSchema({ product, reviews = [], breadcrumbs, locale = 'en' }: ProductSchemaProps) {
   const baseUrl = siteConfig.site_domain;
+  const localePrefix = locale !== 'en' ? `/${locale}` : '';
 
   // Generate product schema using standardized function
   const productSchema = wooCommerceProductSchema(product, {
@@ -45,7 +46,7 @@ export function ProductSchema({ product, reviews = [], breadcrumbs, locale = 'en
   if (breadcrumbs && breadcrumbs.length > 0) {
     const breadcrumbItems = breadcrumbs.map(crumb => ({
       name: crumb.label,
-      url: crumb.href ? `${baseUrl}${crumb.href}` : undefined,
+      url: crumb.href ? `${baseUrl}${localePrefix}${crumb.href}` : undefined,
     }));
     breadcrumbJsonLd = breadcrumbSchema(breadcrumbItems);
   } else if (product.categories && product.categories.length > 0) {
