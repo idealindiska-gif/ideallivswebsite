@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
-import { getProductBySlug, getRelatedProducts } from '@/lib/woocommerce';
+import { getProductBySlug, getRelatedProducts, getReviewsByProductId } from '@/lib/woocommerce';
 import { ProductTemplate } from '@/components/templates';
+import { ProductSchema } from '@/components/shop/product-schema';
 import { brandConfig } from '@/config/brand.config';
 import { siteConfig } from '@/site.config';
 import type { Metadata } from 'next';
@@ -184,7 +185,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
-  const relatedProducts = await getRelatedProducts(product.id);
+  const [relatedProducts, reviews] = await Promise.all([
+    getRelatedProducts(product.id),
+    getReviewsByProductId(product.id)
+  ]);
 
   // Build breadcrumbs
   const breadcrumbs = [
@@ -196,10 +200,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
   ];
 
   return (
-    <ProductTemplate
-      product={product}
-      breadcrumbs={breadcrumbs}
-      relatedProducts={relatedProducts}
-    />
+    <>
+      <ProductSchema
+        product={product}
+        breadcrumbs={breadcrumbs}
+        locale={resolvedParams.locale}
+        reviews={reviews}
+      />
+      <ProductTemplate
+        product={product}
+        breadcrumbs={breadcrumbs}
+        relatedProducts={relatedProducts}
+        locale={resolvedParams.locale}
+        reviews={reviews}
+      />
+    </>
   );
 }
