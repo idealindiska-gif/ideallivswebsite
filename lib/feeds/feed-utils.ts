@@ -172,13 +172,22 @@ const WEIGHT_META_KEYS = ['_weight', 'weight_value', '_net_weight', 'net_weight'
  * The caller decides whether to apply a category-based default.
  */
 export function extractWeightGrams(product: WooFeedProduct): number | null {
-  // 1. Native WC weight field (stored in the store's weight unit — typically kg or g)
+  // 1. Native WC weight field.
+  //
+  //    This store's WooCommerce weight unit is GRAMS (g), so the stored value
+  //    is already in grams — e.g. a 500 g product is stored as "500".
+  //
+  //    The ONLY exception is decimal values (e.g. "0.5", "1.5") which almost
+  //    certainly represent kg entered accidentally in the wrong unit — those
+  //    we convert to grams via ×1000.
+  //
+  //    DO NOT apply a generic "< 10 → kg" heuristic: it breaks products like
+  //    "1 g" (salt packets) or "5 g" (spice sachets) by inflating them ×1000.
   const wc = parseFloat(product.weight);
   if (!isNaN(wc) && wc > 0) {
-    // WooCommerce default weight unit is kg; values < 10 are almost certainly kg
-    // Values >= 10 are almost certainly already in grams
-    // This heuristic covers the vast majority of grocery products
-    if (wc < 10) return Math.round(wc * 1000);
+    // Decimal → likely entered in kg by mistake (e.g. 0.5 = 500 g)
+    if (!Number.isInteger(wc) && wc < 10) return Math.round(wc * 1000);
+    // All integer values (and decimals ≥ 10) are already in grams
     return Math.round(wc);
   }
 
@@ -188,12 +197,13 @@ export function extractWeightGrams(product: WooFeedProduct): number | null {
     if (meta?.value) {
       const v = parseFloat(String(meta.value));
       if (!isNaN(v) && v > 0) {
-        return v < 10 ? Math.round(v * 1000) : Math.round(v);
+        if (!Number.isInteger(v) && v < 10) return Math.round(v * 1000);
+        return Math.round(v);
       }
     }
   }
 
-  // 3. Parse product name/title for weight patterns
+  // 3. Parse product name/title for weight patterns (e.g. "Basmati Rice 5kg")
   const text = `${product.name} ${product.short_description}`;
   return parseWeightFromText(text);
 }
@@ -269,10 +279,10 @@ export type AvailabilityStatus = 'in_stock' | 'out_of_stock' | 'backorder';
 
 export function getAvailability(product: WooFeedProduct): AvailabilityStatus {
   switch (product.stock_status) {
-    case 'instock':     return 'in_stock';
-    case 'outofstock':  return 'out_of_stock';
+    case 'instock': return 'in_stock';
+    case 'outofstock': return 'out_of_stock';
     case 'onbackorder': return 'backorder';
-    default:            return 'out_of_stock';
+    default: return 'out_of_stock';
   }
 }
 

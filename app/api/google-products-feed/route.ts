@@ -177,9 +177,20 @@ function generateProductXML(product: WooFeedProduct, parent?: WooFeedProduct): s
     }
   }
 
-  // --- Shipping weight (only when we have a valid value) ---
+  // --- Weight fields (only when we have a valid value) ---
+  // g:shipping_weight      → used by Google to calculate shipping costs
+  // g:product_weight       → actual labeled product weight shown on listings
+  // g:unit_pricing_measure → EU legally required for food/grocery products:
+  //   the actual measure of the product (e.g. 500 g)
+  // g:unit_pricing_base_measure → paired reference unit for per-unit price comparison
+  //   (e.g. 100 g = show price per 100g on listing). Both fields required together.
   if (weightGrams !== null && weightGrams > 0) {
     xml += `    <g:shipping_weight>${weightGrams} g</g:shipping_weight>\n`;
+    xml += `    <g:product_weight>${weightGrams} g</g:product_weight>\n`;
+    xml += `    <g:unit_pricing_measure>${weightGrams} g</g:unit_pricing_measure>\n`;
+    // Base measure: use 1 kg for items >= 1000 g, otherwise 100 g
+    const baseMeasure = weightGrams >= 1000 ? '1 kg' : '100 g';
+    xml += `    <g:unit_pricing_base_measure>${baseMeasure}</g:unit_pricing_base_measure>\n`;
   }
 
   // --- Shipping rules ---
@@ -277,6 +288,10 @@ export async function GET() {
     xml += `    <title>${cdata(`${siteConfig.site_name} — Product Feed`)}</title>\n`;
     xml += `    <link>${escapeXml(siteConfig.site_domain)}</link>\n`;
     xml += `    <description>${cdata('Google Merchant Center product feed — Europe-wide shipping')}</description>\n`;
+    // Declare feed language — MUST match the language set in your Merchant Center
+    // data source (Products > Data sources > Edit). Change to 'sv' if you switch
+    // the data source back to Swedish.
+    xml += `    <language>en</language>\n`;
 
     let emitted = 0;
     for (const { product, parent } of feedProducts) {
