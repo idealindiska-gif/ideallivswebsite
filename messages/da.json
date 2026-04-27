@@ -634,7 +634,17 @@
     "viewDenmarkGuide": "Bestil & Lever til Danmark",
     "noPostsFound": "Ingen blogindlæg fundet. Tjek tilbage snart for nyt indhold!",
     "errorLoading": "Kunne ikke indlæse blogindlæg. Prøv igen senere.",
-    "readMore": "Læs mere"
+    "readMore": "Læs mere",
+    "faqTitle": "Ofte stillede spørgsmål",
+    "faqSubtitle": "Alt du vil vide om indisk mad i Skandinavien",
+    "faq1Q": "Hvad handler denne indiske madblog om?",
+    "faq1A": "Bloggen dækker tips, opskrifter og madkultur omkring indisk, pakistansk og international mad for læsere i Sverige — herunder Stockholm, Göteborg og Malmö — og i hele Skandinavien. Vi deler praktiske madlavningsguider, sæsonsinspiration og kulturelle historier for at hjælpe dig med at lave autentisk sydasiatisk mad, uanset hvor du bor.",
+    "faq2Q": "Kan jeg bestille indiske madvarer online i Sverige?",
+    "faq2A": "Ja. Ideal Livs leverer 1.500+ autentiske indiske og pakistanske produkter over hele Sverige og internationalt til Norge, Danmark og alle EU-lande via DHL. Bestillinger sendes fra vores lager i Stockholm og ankommer typisk inden for 2–5 hverdage i Skandinavien.",
+    "faq3Q": "Hvilke indiske ingredienser er populære i Sverige?",
+    "faq3A": "De mest populære indiske ingredienser blandt vores kunder i Sverige er basmatiris, linser (dal), garam masala-krydderblandinger, ghee (klaret smør), færdiglavet mad og atta (fuldkornsmel). Mærker som India Gate, Shan, MDH, Haldiram's og Rooh Afza er konstante bestsellere.",
+    "faq4Q": "Er der halalfødevarer i Ideal Livs-butikken?",
+    "faq4A": "Ja. Ideal Livs fører et bredt udvalg af halal-certificerede pakkede varer, herunder krydderier, linser, ris, snacks og færdigretter. Frisk og frossen halalkød er i øjeblikket ikke tilgængeligt i webbutikken, men halal-certificerede pakkede produkter er tydeligt mærket på produktsiderne."
   },
   "billingForm": {
     "title": "Faktureringsadresse",

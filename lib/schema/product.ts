@@ -303,6 +303,9 @@ export function wooCommerceProductSchema(
     price?: string | number;
     regular_price?: string | number;
     sale_price?: string | number;
+    date_on_sale_to?: string | null;
+    date_on_sale_to_gmt?: string | null;
+    on_sale?: boolean;
     sku?: string;
     images?: Array<{ src: string; alt?: string }>;
     categories?: Array<{ name: string }>;
@@ -361,6 +364,12 @@ export function wooCommerceProductSchema(
     highPrice: isVariable ? (wooProduct.high_price || wooProduct.price) : undefined,
     offerCount: isVariable ? (Array.isArray(wooProduct.variations) ? wooProduct.variations.length : 1) : 1,
     weight: wooProduct.weight,
+    // Use the WooCommerce sale-end date as priceValidUntil so Google knows the
+    // offer price expires then and will re-crawl promptly. Falls back to the
+    // default 12-month window for non-sale prices.
+    priceValidUntil: wooProduct.on_sale && wooProduct.date_on_sale_to_gmt
+      ? wooProduct.date_on_sale_to_gmt.split('T')[0]
+      : undefined,
   };
 
   // Attempt to extract AI-critical fields from attributes

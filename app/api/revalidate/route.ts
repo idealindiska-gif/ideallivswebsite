@@ -159,6 +159,7 @@ export async function POST(request: NextRequest) {
         if (contentId) {
           if (slug) {
             revalidatePath(`/product/${slug}`);
+            revalidatePath(`/sv/product/${slug}`);
           }
           revalidateTag(`product-${contentId}`);
         }
