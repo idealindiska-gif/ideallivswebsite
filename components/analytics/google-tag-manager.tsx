@@ -1,16 +1,36 @@
 /**
  * Google Tag Manager Component
- * Integrates GTM tracking for the entire site
+ * Integrates GTM with Consent Mode v2 — consent defaults to 'denied' until
+ * the user accepts via the CookieConsentBanner.
  */
 
 import Script from 'next/script';
 
-export function GoogleTagManager() {
-  const GTM_ID = 'GTM-NMWTPV89';
+const GTM_ID = 'GTM-NMWTPV89';
 
+export function GoogleTagManager() {
   return (
     <>
-      {/* Google Tag Manager Script - Deferred for better performance */}
+      {/* Consent Mode v2 defaults — MUST run before GTM initialises */}
+      <Script
+        id="gtm-consent-defaults"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+window.dataLayer=window.dataLayer||[];
+function gtag(){window.dataLayer.push(arguments);}
+gtag('consent','default',{
+  analytics_storage:'denied',
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  wait_for_update:500
+});
+          `,
+        }}
+      />
+
+      {/* Google Tag Manager */}
       <Script
         id="gtm-script"
         strategy="afterInteractive"
@@ -29,8 +49,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
 export function GoogleTagManagerNoScript() {
-  const GTM_ID = 'GTM-NMWTPV89';
-
   return (
     <noscript>
       <iframe

@@ -9,7 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TopInfoBar } from "@/components/layout/top-info-bar";
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { idealIndiskaWebsiteSchema, schemaGraph, idealIndiskaOrganizationSchemaFull, idealLivsLocalBusinessSchema, siteNavigationSchema } from "@/lib/schema";
-import { GoogleTagManager, GoogleTagManagerNoScript, FacebookPixel } from "@/components/analytics";
+import { GoogleTagManager, GoogleTagManagerNoScript, FacebookPixel, CookieConsentBanner } from "@/components/analytics";
 import { VerticalSidebar } from "@/components/layout/vertical-sidebar";
 import { ContentHeader } from "@/components/layout/content-header";
 import { Footer } from "@/components/layout/footer";
@@ -224,6 +224,7 @@ export default async function RootLayout({
             <WishlistDrawer />
             <Toaster />
             <ExitSurveyWrapper />
+            <CookieConsentBanner />
           </ThemeProvider>
         </NextIntlClientProvider>
         <Analytics />

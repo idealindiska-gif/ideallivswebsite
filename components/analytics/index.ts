@@ -6,3 +6,4 @@
 export { GoogleTagManager, GoogleTagManagerNoScript } from './google-tag-manager';
 export { FacebookPixel } from './facebook-pixel';
 export { GoogleCustomerReviews } from './google-customer-reviews';
+export { CookieConsentBanner } from './cookie-consent-banner';

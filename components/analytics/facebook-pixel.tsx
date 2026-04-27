@@ -1,55 +1,56 @@
 /**
  * Facebook Pixel Component
- * Integrates Meta/Facebook Pixel tracking with deferred loading
+ * Only loads after the user grants cookie consent.
  */
 
 'use client';
 
 import Image from 'next/image';
 import { useEffect } from 'react';
+import { useCookieConsent } from '@/hooks/use-cookie-consent';
+
+const PIXEL_ID = '651966044655390';
+
+function initPixel() {
+  const w = window as any;
+  if (w.fbq) return;
+
+  // eslint-disable-next-line prefer-rest-params
+  const n: any = (w.fbq = function () {
+    n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+  });
+  if (!w._fbq) w._fbq = n;
+  n.push = n;
+  n.loaded = true;
+  n.version = '2.0';
+  n.queue = [];
+
+  const t = document.createElement('script');
+  t.async = true;
+  t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+  const s = document.getElementsByTagName('script')[0];
+  s.parentNode!.insertBefore(t, s);
+
+  w.fbq('init', PIXEL_ID);
+  w.fbq('track', 'PageView');
+}
 
 export function FacebookPixel() {
-  const PIXEL_ID = '651966044655390';
+  const { status } = useCookieConsent();
 
   useEffect(() => {
-    // Defer Facebook Pixel loading until after page is interactive
-    const loadFacebookPixel = () => {
-      if (typeof window !== 'undefined' && !(window as any).fbq) {
-        const f = window as any;
-        const b = document;
-        const e = 'script';
-        const v = 'https://connect.facebook.net/en_US/fbevents.js';
-        let n: any, t: any, s: any;
+    if (status !== 'accepted') return;
 
-        if (f.fbq) return;
-        n = f.fbq = function (...args: any[]) {
-          n.callMethod ? n.callMethod.apply(n, args) : n.queue.push(args);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = true;
-        n.version = '2.0';
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = true;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-
-        f.fbq('init', PIXEL_ID);
-        f.fbq('track', 'PageView');
-      }
-    };
-
-    // Use requestIdleCallback for better performance, fallback to setTimeout
     if ('requestIdleCallback' in window) {
-      const idleCallback = requestIdleCallback(loadFacebookPixel, { timeout: 3000 });
-      return () => cancelIdleCallback(idleCallback);
+      const id = requestIdleCallback(initPixel, { timeout: 3000 });
+      return () => cancelIdleCallback(id);
     } else {
-      const timer = setTimeout(loadFacebookPixel, 2000);
-      return () => clearTimeout(timer);
+      const id = setTimeout(initPixel, 2000);
+      return () => clearTimeout(id);
     }
-  }, []);
+  }, [status]);
+
+  if (status !== 'accepted') return null;
 
   return (
     <noscript>
