@@ -67,6 +67,30 @@ const nextConfig = {
         // paths (e.g. /no/sitemap-pages.xml) as [locale] dynamic routes, which
         // would result in a 404 before afterFiles rewrites ever run.
         const sitemapRewrites = [
+            // Next-Intl Favicon Fallback Fix
+            // Browsers often implicitly request /sv/favicon.ico without looking at HTML meta tags.
+            // These rewrites ensure they get the correct root icon instead of a 404 HTML page.
+            {
+                source: '/:locale(sv|no|da)/favicon.ico',
+                destination: '/favicon.ico',
+            },
+            {
+                source: '/:locale(sv|no|da)/favicon.svg',
+                destination: '/favicon.svg',
+            },
+            {
+                source: '/:locale(sv|no|da)/apple-icon.png',
+                destination: '/apple-icon.png',
+            },
+            {
+                source: '/:locale(sv|no|da)/favicon-:size.png',
+                destination: '/favicon-:size.png',
+            },
+            {
+                source: '/:locale(sv|no|da)/apple-touch-icon.png',
+                destination: '/apple-icon.png',
+            },
+
             // Main sitemap index
             {
                 source: '/sitemap.xml',

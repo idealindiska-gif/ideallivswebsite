@@ -123,57 +123,32 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
       <section className="py-12 bg-muted/30 border-b">
         <div className="container px-4 md:px-6 space-y-8">
 
-          {/* Featured Static Post 1 (Eid) */}
+          {/* Featured Static Post 1 (Diwali – next major upcoming festival) */}
           <div className="flex flex-col md:flex-row gap-8 items-center bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6">
             <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
               <Image
-                src="https://crm.ideallivs.com/wp-content/uploads/2026/03/Eid-Celebration-in-Sweden.jpg"
-                alt={t('eidTitle')}
+                src="https://crm.ideallivs.com/wp-content/uploads/2026/04/diwali-2026-sverige-ideal-indiska.jpg"
+                alt={t('diwaliTitle')}
                 fill
                 className="object-cover"
               />
-              <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              <div className="absolute top-4 left-4 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                 {t('newGuide')}
               </div>
             </div>
             <div className="flex-1 space-y-4">
-              <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('eidFestivals')}</div>
-              <h2 className="text-2xl md:text-3xl font-bold font-heading">{t('eidTitle')}</h2>
+              <div className="text-sm font-medium text-orange-600 uppercase tracking-widest">{t('diwaliCategory')}</div>
+              <h2 className="text-2xl md:text-3xl font-bold font-heading">{t('diwaliTitle')}</h2>
               <p className="text-muted-foreground line-clamp-3">
-                {t('eidDescription')}
+                {t('diwaliDescription')}
               </p>
-              <Button asChild className="rounded-full px-8">
-                <Link href="/blog/eid-al-fitr-2026-sweden">{t('viewEidGuide')}</Link>
+              <Button asChild className="rounded-full px-8 bg-orange-600 hover:bg-orange-700">
+                <Link href="/blog/diwali-2026-sverige">{t('viewDiwaliGuide')}</Link>
               </Button>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Ramadan */}
-            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
-              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
-                <Image
-                  src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
-                  alt={t('ramadanTitle')}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {t('seasonalGuide')}
-                </div>
-              </div>
-              <div className="flex-1 space-y-4">
-                <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('seasonalGuide')}</div>
-                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('ramadanTitle')}</h2>
-                <p className="text-muted-foreground line-clamp-2 text-sm">
-                  {t('ramadanDescription')}
-                </p>
-                <Button asChild variant="outline" className="rounded-full w-full mt-auto">
-                  <Link href="/blog/ramadan-2026">{t('viewChecklist')}</Link>
-                </Button>
-              </div>
-            </div>
-
             {/* Indian Fika */}
             <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
@@ -195,31 +170,6 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                 </p>
                 <Button asChild variant="outline" className="rounded-full w-full mt-auto">
                   <Link href="/blog/the-indian-fika">{t('readGuide')}</Link>
-                </Button>
-              </div>
-            </div>
-
-            {/* Ramadan Calendar */}
-            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
-              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
-                <Image
-                  src="https://crm.ideallivs.com/wp-content/uploads/2026/02/Ramadan-Calendar-A4-ideal.jpg"
-                  alt={t('calendarTitle')}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {t('newGuide')}
-                </div>
-              </div>
-              <div className="flex-1 space-y-4">
-                <div className="text-sm font-medium text-emerald-600 uppercase tracking-widest">{t('seasonalGuide')}</div>
-                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('calendarTitle')}</h2>
-                <p className="text-muted-foreground line-clamp-2 text-sm">
-                  {t('calendarDescription')}
-                </p>
-                <Button asChild variant="outline" className="rounded-full w-full mt-auto border-emerald-200 hover:bg-emerald-50 text-emerald-700">
-                  <Link href="/blog/ramadan-kalender-2026">{t('viewCalendar')}</Link>
                 </Button>
               </div>
             </div>
@@ -249,31 +199,6 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
               </div>
             </div>
 
-            {/* Diwali 2026 */}
-            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
-              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
-                <Image
-                  src="https://crm.ideallivs.com/wp-content/uploads/2026/04/diwali-2026-sverige-ideal-indiska.jpg"
-                  alt={t('diwaliTitle')}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 left-4 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {t('newGuide')}
-                </div>
-              </div>
-              <div className="flex-1 space-y-4">
-                <div className="text-sm font-medium text-orange-600 uppercase tracking-widest">{t('diwaliCategory')}</div>
-                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('diwaliTitle')}</h2>
-                <p className="text-muted-foreground line-clamp-2 text-sm">
-                  {t('diwaliDescription')}
-                </p>
-                <Button asChild variant="outline" className="rounded-full w-full mt-auto border-orange-200 hover:bg-orange-50 text-orange-700">
-                  <Link href="/blog/diwali-2026-sverige">{t('viewDiwaliGuide')}</Link>
-                </Button>
-              </div>
-            </div>
-
             {/* Denmark Delivery Guide */}
             <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
@@ -295,6 +220,81 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                 </p>
                 <Button asChild className="rounded-full w-full mt-auto">
                   <Link href="/blog/indisk-mad-online-danmark">{t('viewDenmarkGuide')}</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Eid al-Fitr */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/03/Eid-Celebration-in-Sweden.jpg"
+                  alt={t('eidTitle')}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {t('seasonalGuide')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('eidFestivals')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('eidTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('eidDescription')}
+                </p>
+                <Button asChild variant="outline" className="rounded-full w-full mt-auto">
+                  <Link href="/blog/eid-al-fitr-2026-sweden">{t('viewEidGuide')}</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Ramadan */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/02/sahur-table.jpg"
+                  alt={t('ramadanTitle')}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {t('seasonalGuide')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('seasonalGuide')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('ramadanTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('ramadanDescription')}
+                </p>
+                <Button asChild variant="outline" className="rounded-full w-full mt-auto">
+                  <Link href="/blog/ramadan-2026">{t('viewChecklist')}</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Ramadan Calendar */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/02/Ramadan-Calendar-A4-ideal.jpg"
+                  alt={t('calendarTitle')}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {t('newGuide')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-emerald-600 uppercase tracking-widest">{t('seasonalGuide')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('calendarTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('calendarDescription')}
+                </p>
+                <Button asChild variant="outline" className="rounded-full w-full mt-auto border-emerald-200 hover:bg-emerald-50 text-emerald-700">
+                  <Link href="/blog/ramadan-kalender-2026">{t('viewCalendar')}</Link>
                 </Button>
               </div>
             </div>

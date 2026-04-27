@@ -46,7 +46,11 @@ export function ProductSchema({ product, reviews = [], breadcrumbs, locale = 'en
   if (breadcrumbs && breadcrumbs.length > 0) {
     const breadcrumbItems = breadcrumbs.map(crumb => ({
       name: crumb.label,
-      url: crumb.href ? `${baseUrl}${localePrefix}${crumb.href}` : undefined,
+      url: crumb.href
+        ? crumb.href === '/'
+          ? `${baseUrl}${localePrefix}` // e.g. https://www.ideallivs.com/sv (no trailing slash)
+          : `${baseUrl}${localePrefix}${crumb.href}`
+        : undefined,
     }));
     breadcrumbJsonLd = breadcrumbSchema(breadcrumbItems);
   } else if (product.categories && product.categories.length > 0) {

@@ -4,14 +4,15 @@ import { NextResponse } from "next/server";
 
 // Static blog posts that are built as Next.js pages (not from WordPress)
 const staticBlogPosts = [
-    { slug: 'ramadan-2026', changefreq: 'weekly', priority: '0.8' },
-    { slug: 'ramadan-grocery-checklist-2026', changefreq: 'weekly', priority: '0.8' },
-    { slug: 'the-indian-fika', changefreq: 'monthly', priority: '0.7' },
-    { slug: 'no-customs-indian-grocery-europe', changefreq: 'monthly', priority: '0.7' },
-    { slug: 'eid-al-fitr-2026-sweden', changefreq: 'weekly', priority: '0.9' },
-    { slug: 'ramadan-kalender-2026', changefreq: 'monthly', priority: '0.7' },
     { slug: 'diwali-2026-sverige', changefreq: 'weekly', priority: '0.9' },
+    { slug: 'the-indian-fika', changefreq: 'monthly', priority: '0.8' },
+    { slug: 'no-customs-indian-grocery-europe', changefreq: 'monthly', priority: '0.8' },
     { slug: 'indisk-mad-online-danmark', changefreq: 'monthly', priority: '0.8' },
+    // Seasonal posts — noindexed until next season
+    // { slug: 'eid-al-fitr-2026-sweden', changefreq: 'yearly', priority: '0.4' },
+    // { slug: 'ramadan-2026', changefreq: 'yearly', priority: '0.4' },
+    // { slug: 'ramadan-grocery-checklist-2026', changefreq: 'yearly', priority: '0.4' },
+    // { slug: 'ramadan-kalender-2026', changefreq: 'yearly', priority: '0.4' },
 ];
 
 export async function GET() {

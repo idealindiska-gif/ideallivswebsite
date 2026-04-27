@@ -179,6 +179,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     return {
         title: c.metaTitle,
         description: c.metaDescription,
+        robots: { index: false, follow: true },
         alternates: getAlternates('/blog/eid-al-fitr-2026-sweden', locale),
         openGraph: {
             title: c.metaTitle,

@@ -141,10 +141,10 @@ export function productSchema(
     name: product.name,
   };
 
-  // Add language metadata
-  if (options?.locale) {
-    schema.inLanguage = options.locale === 'sv' ? 'sv-SE' : 'en-US';
-  }
+  // Product content from WooCommerce is always in English regardless of display locale.
+  // Setting inLanguage based on locale would create a language mismatch that fails Google's
+  // schema validator (NLP detects English but schema claims Swedish/other).
+  schema.inLanguage = 'en';
 
   // Generate product ID if baseUrl provided
   if (options?.baseUrl && product.url) {

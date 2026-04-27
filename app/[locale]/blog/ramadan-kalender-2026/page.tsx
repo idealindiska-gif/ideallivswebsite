@@ -244,6 +244,7 @@ export async function generateMetadata({
     return {
         title: c.metaTitle,
         description: c.metaDescription,
+        robots: { index: false, follow: true },
         alternates: getAlternates('/blog/ramadan-kalender-2026', locale),
         openGraph: {
             title: c.metaTitle,

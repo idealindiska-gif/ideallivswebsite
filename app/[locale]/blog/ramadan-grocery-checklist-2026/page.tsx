@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     return {
         title: 'Ramadan 2026 Grocery Shortlist: Essential Foods for Suhoor & Iftar | Ideal Indiska',
         description: 'Stock up for Ramadan 2026 with our essential grocery checklist. From energy-boosting Suhoor staples to quick Iftar snacks, get everything you need at Ideal Indiska LIVS.',
+        robots: { index: false, follow: true },
         alternates: {
             canonical: `https://www.ideallivs.com${localePrefix}/blog/ramadan-grocery-checklist-2026`,
             languages: {
