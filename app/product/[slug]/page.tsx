@@ -122,8 +122,6 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
                 languages: {
                     'en': url,
                     'sv': `${siteConfig.site_domain}/sv/product/${resolvedParams.slug}`,
-                    'nb': `${siteConfig.site_domain}/no/product/${resolvedParams.slug}`,
-                    'da': `${siteConfig.site_domain}/da/product/${resolvedParams.slug}`,
                     'x-default': url,
                 },
             },

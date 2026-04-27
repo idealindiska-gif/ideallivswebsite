@@ -5,7 +5,6 @@ import { ProductSchema } from '@/components/shop/product-schema';
 import { getBundlesForProduct, getBundleProductIds } from '@/config/bundles.config';
 import { siteConfig } from '@/site.config';
 import { getSwedishProductMeta } from '@/lib/seo/swedish-meta';
-import { getAlternates } from '@/lib/seo/metadata';
 import { getProductFAQs, faqPageSchema } from '@/lib/seo/product-faqs';
 import { SchemaScript } from '@/lib/schema/schema-script';
 import type { Metadata } from 'next';
@@ -131,7 +130,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
                     ? [product.images[0].src]
                     : [defaultImage.url],
             },
-            alternates: getAlternates(productPath, locale),
+            alternates: {
+                canonical: url,
+                languages: {
+                    'en': `${siteConfig.site_domain}${productPath}`,
+                    'sv': `${siteConfig.site_domain}/sv${productPath}`,
+                    'x-default': `${siteConfig.site_domain}${productPath}`,
+                },
+            },
             robots: {
                 index: true,
                 follow: true,

@@ -85,6 +85,11 @@ export async function generateMetadata({ params, searchParams }: BrandArchivePag
         },
         alternates: {
             canonical: `${siteConfig.site_domain}/brand/${resolvedParams.slug}`,
+            languages: {
+                'en': `${siteConfig.site_domain}/brand/${resolvedParams.slug}`,
+                'sv': `${siteConfig.site_domain}/sv/brand/${resolvedParams.slug}`,
+                'x-default': `${siteConfig.site_domain}/brand/${resolvedParams.slug}`,
+            },
         },
     };
 }

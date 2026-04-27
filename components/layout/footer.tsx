@@ -1,4 +1,5 @@
 import { Link } from '@/lib/navigation';
+import NextLink from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
 import { brandProfile } from '@/config/brand-profile';
@@ -202,15 +203,15 @@ export async function Footer() {
               © {new Date().getFullYear()} Ideal Indiska Livs. {t('allRightsReserved')}.
             </p>
 
-            {/* Locale links — plain <a> tags so Googlebot can crawl all locale versions */}
+            {/* Locale links — NextLink so Googlebot can crawl all locale versions without auto-prefixing */}
             <nav aria-label="Language versions" className="flex items-center gap-2 text-white/50 font-sans col-span-2 md:col-span-1">
-              <a href="/" className="hover:text-white transition-colors" hrefLang="en">EN</a>
+              <NextLink href="/" className="hover:text-white transition-colors" hrefLang="en">EN</NextLink>
               <span aria-hidden="true">·</span>
-              <a href="/sv" className="hover:text-white transition-colors" hrefLang="sv">SV</a>
+              <NextLink href="/sv" className="hover:text-white transition-colors" hrefLang="sv">SV</NextLink>
               <span aria-hidden="true">·</span>
-              <a href="/no" className="hover:text-white transition-colors" hrefLang="nb">NO</a>
+              <NextLink href="/no" className="hover:text-white transition-colors" hrefLang="nb">NO</NextLink>
               <span aria-hidden="true">·</span>
-              <a href="/da" className="hover:text-white transition-colors" hrefLang="da">DA</a>
+              <NextLink href="/da" className="hover:text-white transition-colors" hrefLang="da">DA</NextLink>
             </nav>
 
             {/* Payment Icons */}
