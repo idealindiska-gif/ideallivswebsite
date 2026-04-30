@@ -66,7 +66,7 @@ export default async function HomePage() {
     getProducts({ per_page: 8, orderby: 'popularity' }),
     getProducts({ per_page: 8, orderby: 'date' }),
     getProducts({ per_page: 8, on_sale: true }),
-    getProducts({ per_page: 8, brand: 'haldiram' }),
+    getProducts({ per_page: 8, brand: 'hr' }),
     getProducts({ per_page: 8, category: 'fresh-produce' }),
   ]);
 
@@ -123,7 +123,7 @@ export default async function HomePage() {
       <ProductShowcase
         title="Haldiram's - Authentic Indian Snacks"
         products={haldiramProducts}
-        moreLink="/brand/haldiram"
+        moreLink="/brand/hr"
       />
 
       {/* 7. Fresh Produce */}

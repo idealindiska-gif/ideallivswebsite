@@ -3,17 +3,17 @@ import { ArrowRight } from "lucide-react";
 
 const BRANDS = [
   { name: "Shan", slug: "shan" },
-  { name: "National", slug: "national-foods" },
-  { name: "Haldiram's", slug: "haldirams" },
+  { name: "National", slug: "national" },
+  { name: "Haldiram's", slug: "hr" },
   { name: "MTR", slug: "mtr" },
   { name: "Tilda", slug: "tilda" },
-  { name: "TRS", slug: "trs" },
+  { name: "TRS Foods", slug: "trs" },
   { name: "Aashirvaad", slug: "aashirvaad" },
-  { name: "India Gate", slug: "india-gate" },
+  { name: "India Gate", slug: "ig" },
   { name: "MDH", slug: "mdh" },
   { name: "Guard", slug: "guard" },
-  { name: "Ahmed Foods", slug: "ahmed-foods" },
-  { name: "Rooh Afza", slug: "rooh-afza" },
+  { name: "Ahmed", slug: "ahmed" },
+  { name: "Bikano", slug: "bikano" },
 ];
 
 export function BrandsStrip() {

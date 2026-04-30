@@ -144,7 +144,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const categories = await getProductCategories({ parent: 0 });
+  const categories = await getProductCategories({ parent: 0 }).catch(() => []);
 
   // Detect locale from next-intl (en = no prefix, sv = /sv/ prefix)
   const locale = await getLocale();

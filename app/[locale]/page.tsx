@@ -292,7 +292,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
         getProducts({ per_page: 8, orderby: 'popularity' }),
         getProducts({ per_page: 8, orderby: 'date' }),
         getProducts({ per_page: 8, on_sale: true }),
-        getProducts({ per_page: 8, brand: 'haldiram' }),
+        getProducts({ per_page: 8, brand: 'hr' }),
         getProducts({ per_page: 8, category: 'fresh-produce' }),
     ]);
 
@@ -346,7 +346,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
             <ProductShowcase
                 title={t('haldiramSection')}
                 products={haldiramProducts}
-                moreLink={`${linkPrefix}/brand/haldiram`}
+                moreLink={`${linkPrefix}/brand/hr`}
             />
 
             {/* 7. Fresh Produce */}
