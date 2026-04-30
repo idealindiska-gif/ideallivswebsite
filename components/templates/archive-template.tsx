@@ -21,6 +21,7 @@ interface ArchiveTemplateProps {
   sidebar?: ReactNode;
   filterBar?: ReactNode;
   gridColumns?: 2 | 3 | 4 | 5;
+  headerContent?: ReactNode;
 }
 
 export function ArchiveTemplate({
@@ -35,10 +36,14 @@ export function ArchiveTemplate({
   sidebar,
   filterBar,
   gridColumns = 3,
+  headerContent,
 }: ArchiveTemplateProps) {
   return (
     <div className="min-h-screen bg-background">
       <div className="container-wide mx-auto page-section">
+        {/* Category hero / custom header */}
+        {headerContent && <div className="mb-0">{headerContent}</div>}
+
         {/* Archive Header - Responsive Layout */}
         <div className="mb-8 md:mb-12">
           {/* Mobile: Two Column Layout */}

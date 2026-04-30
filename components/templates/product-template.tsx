@@ -101,165 +101,11 @@ export function ProductTemplate({
             <Breadcrumbs items={breadcrumbs} className="mb-4" />
           )}
 
-          {/* Product Content - 3 Column Layout (Always in One Row) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
-            {/* Column 1: Related Products (LEFT) - Last on mobile, first on desktop */}
-            {relatedProducts && relatedProducts.length > 0 && (
-              <div className="lg:col-span-3 order-3 lg:order-1">
-                <div className="lg:sticky lg:top-24 space-y-3">
-                  <h3 style={{ fontSize: '18px', fontWeight: 600, lineHeight: 1.52, letterSpacing: '0.025em' }} className="text-foreground border-b border-border/50 pb-2">
-                    You May Also Like
-                  </h3>
-                  {/* Desktop: Vertical list */}
-                  <div className="hidden lg:block space-y-3">
-                    {relatedProducts.slice(0, 4).map((relatedProduct) => (
-                      <div
-                        key={relatedProduct.id}
-                        className="group relative bg-background border border-border hover:border-primary/30 rounded-lg p-3 transition-all duration-300 hover:shadow-md"
-                      >
-                        <a href={`${locale !== 'en' ? `/${locale}` : ''}/product/${relatedProduct.slug}`} className="flex gap-3">
-                          {/* Product Image */}
-                          <div className="relative w-20 h-20 flex-shrink-0 overflow-hidden rounded-md bg-muted">
-                            {relatedProduct.images && relatedProduct.images[0] ? (
-                              <Image
-                                src={relatedProduct.images[0].src}
-                                alt={relatedProduct.name}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                sizes="80px"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
-                                No Image
-                              </div>
-                            )}
-                          </div>
+          {/* Product Content - 2 Column Layout: Gallery | Info */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 lg:gap-10">
 
-                          {/* Product Info */}
-                          <div className="flex-1 min-w-0">
-                            <h4 style={{ fontSize: '15px', fontWeight: 500, lineHeight: 1.57, letterSpacing: '0.02em' }} className="text-foreground line-clamp-2 group-hover:text-foreground/70 transition-colors">
-                              {decodeHtmlEntities(relatedProduct.name)}
-                            </h4>
-                            <div className="mt-1">
-                              {relatedProduct.on_sale && relatedProduct.sale_price && relatedProduct.sale_price !== '' ? (
-                                <CurrencySalePrice
-                                  salePrice={relatedProduct.sale_price}
-                                  regularPrice={relatedProduct.regular_price}
-                                />
-                              ) : (
-                                <span style={{ fontSize: '14.31px', fontWeight: 600, lineHeight: 1.57, letterSpacing: '0.03em' }} className="text-primary">
-                                  <CurrencyPrice price={relatedProduct.price} />
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </a>
-                        {/* Add to Cart Plus Button */}
-                        <Button
-                          size="icon"
-                          className="absolute bottom-3 right-3 h-8 w-8 rounded-full bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:scale-105 transition-all"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-
-                            // Check if product has variations
-                            const hasVariations = relatedProduct.type === 'variable' &&
-                              relatedProduct.variations &&
-                              relatedProduct.variations.length > 0;
-
-                            if (hasVariations) {
-                              // Redirect to product page to select variations
-                              window.location.href = `${locale !== 'en' ? `/${locale}` : ''}/product/${relatedProduct.slug}`;
-                            } else {
-                              // Add simple product directly to cart
-                              const cartStore = useCartStore.getState();
-                              cartStore.addItem(relatedProduct, 1);
-                            }
-                          }}
-                        >
-                          <Plus className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  {/* Mobile: 2 per row grid */}
-                  <div className="grid grid-cols-2 gap-3 lg:hidden">
-                    {relatedProducts.slice(0, 4).map((relatedProduct) => (
-                      <div
-                        key={relatedProduct.id}
-                        className="group relative bg-background border border-border hover:border-primary/30 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md"
-                      >
-                        <a href={`${locale !== 'en' ? `/${locale}` : ''}/product/${relatedProduct.slug}`} className="block">
-                          {/* Product Image */}
-                          <div className="relative aspect-square overflow-hidden bg-muted">
-                            {relatedProduct.images && relatedProduct.images[0] ? (
-                              <Image
-                                src={relatedProduct.images[0].src}
-                                alt={relatedProduct.name}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                sizes="(max-width: 768px) 50vw, 25vw"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
-                                No Image
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Product Info */}
-                          <div className="p-2">
-                            <h4 className="text-xs font-medium text-foreground line-clamp-2 mb-1">
-                              {decodeHtmlEntities(relatedProduct.name)}
-                            </h4>
-                            <div>
-                              {relatedProduct.on_sale && relatedProduct.sale_price && relatedProduct.sale_price !== '' ? (
-                                <CurrencySalePrice
-                                  salePrice={relatedProduct.sale_price}
-                                  regularPrice={relatedProduct.regular_price}
-                                />
-                              ) : (
-                                <span className="text-sm font-semibold text-primary">
-                                  <CurrencyPrice price={relatedProduct.price} />
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </a>
-                        {/* Add to Cart Plus Button */}
-                        <Button
-                          size="icon"
-                          className="absolute bottom-2 right-2 h-7 w-7 rounded-full bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:scale-105 transition-all z-10"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-
-                            // Check if product has variations
-                            const hasVariations = relatedProduct.type === 'variable' &&
-                              relatedProduct.variations &&
-                              relatedProduct.variations.length > 0;
-
-                            if (hasVariations) {
-                              // Redirect to product page to select variations
-                              window.location.href = `${locale !== 'en' ? `/${locale}` : ''}/product/${relatedProduct.slug}`;
-                            } else {
-                              // Add simple product directly to cart
-                              const cartStore = useCartStore.getState();
-                              cartStore.addItem(relatedProduct, 1);
-                            }
-                          }}
-                        >
-                          <Plus className="h-3.5 w-3.5" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Column 2: Product Images (CENTER) - First on mobile */}
-            <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-5 order-1 lg:order-2" : "lg:col-span-6 order-1"}>
+            {/* Column 1: Product Images */}
+            <div>
               <div className="lg:sticky lg:top-24">
                 <ProductImageGallery
                   images={product.images || []}
@@ -269,8 +115,8 @@ export function ProductTemplate({
               </div>
             </div>
 
-            {/* Column 3: Product Info (RIGHT) - Second on mobile */}
-            <div className={relatedProducts && relatedProducts.length > 0 ? "lg:col-span-4 space-y-2 order-2 lg:order-3" : "lg:col-span-6 space-y-2 order-2"}>
+            {/* Column 2: Product Info */}
+            <div className="space-y-2">
               {/* Categories & Badges */}
               <div className="flex flex-wrap items-center gap-2">
                 {product.categories && product.categories.length > 0 && (
@@ -587,6 +433,68 @@ export function ProductTemplate({
               </div>
             </div>
           </div>
+
+          {/* Related Products — horizontal scroll strip */}
+          {relatedProducts && relatedProducts.length > 0 && (
+            <div className="mt-10 pt-8 border-t border-border">
+              <h2 className="font-heading font-bold text-[18px] text-foreground tracking-[-0.3px] mb-5">
+                You May Also Like
+              </h2>
+              <div
+                className="flex gap-3 overflow-x-auto pb-2"
+                style={{ scrollbarWidth: "none" }}
+              >
+                {relatedProducts.slice(0, 8).map((relatedProduct) => (
+                  <div key={relatedProduct.id} className="flex-none w-[170px]">
+                    <a
+                      href={`${locale !== "en" ? `/${locale}` : ""}/product/${relatedProduct.slug}`}
+                      className="group block bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-md transition-all duration-200"
+                    >
+                      <div className="relative aspect-square bg-muted/20">
+                        {relatedProduct.images?.[0] ? (
+                          <Image
+                            src={relatedProduct.images[0].src}
+                            alt={relatedProduct.name}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            sizes="170px"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-muted/30" />
+                        )}
+                      </div>
+                      <div className="p-3">
+                        <p className="text-[12px] font-semibold text-foreground line-clamp-2 leading-tight mb-2 group-hover:text-primary transition-colors">
+                          {decodeHtmlEntities(relatedProduct.name)}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-[14px] font-bold text-primary">
+                            <CurrencyPrice price={relatedProduct.sale_price || relatedProduct.price} />
+                          </span>
+                          <Button
+                            size="icon"
+                            className="h-7 w-7 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 shrink-0"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              const hasVars = relatedProduct.type === "variable" && relatedProduct.variations?.length > 0;
+                              if (hasVars) {
+                                window.location.href = `${locale !== "en" ? `/${locale}` : ""}/product/${relatedProduct.slug}`;
+                              } else {
+                                useCartStore.getState().addItem(relatedProduct, 1);
+                              }
+                            }}
+                          >
+                            <Plus className="h-3.5 w-3.5" />
+                          </Button>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Product Sections - No Tabs */}
           <div className="mt-8 md:mt-12 space-y-12">
