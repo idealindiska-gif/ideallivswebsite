@@ -47,13 +47,12 @@ export function MobileMenu() {
         { href: '/deals', label: nav('dealsOffers'), icon: Percent },
         { href: '/shop', label: nav('shop'), icon: ShoppingBag },
         { href: '/brands', label: nav('shopByBrands'), icon: ShoppingBag },
-        { href: '/delivery-kalmar', label: nav('kalmarDelivery'), icon: Truck },
+        { href: '/wishlist', label: nav('wishlist'), icon: Heart },
         { href: '/delivery-information', label: nav('deliveryInfo'), icon: Truck },
         { href: '/blog', label: nav('blog'), icon: BookOpen },
         { href: '/about', label: nav('about'), icon: Info },
         { href: '/contact', label: nav('contact'), icon: Mail },
         { href: '/my-account', label: nav('myAccount'), icon: Crown },
-        { href: '#wishlist', label: nav('wishlistComingSoon'), icon: Heart, comingSoon: true },
     ];
 
     useEffect(() => {
@@ -101,42 +100,26 @@ export function MobileMenu() {
                 <nav className="flex flex-col gap-1 px-4 py-3 overflow-y-auto max-h-[calc(100vh-240px)]">
                     {menuItems.map((item, index) => {
                         const Icon = item.icon;
-                        const isComingSoon = item.comingSoon;
 
                         return (
                             <Link
                                 key={item.href}
-                                href={isComingSoon ? '#' : item.href}
-                                onClick={(e) => {
-                                    if (isComingSoon) {
-                                        e.preventDefault();
-                                    } else {
-                                        setOpen(false);
-                                    }
-                                }}
-                                className={`group relative flex items-center gap-4 px-4 py-3.5 rounded-xl text-foreground transition-all duration-300 ${isComingSoon
-                                    ? 'opacity-60 cursor-not-allowed'
-                                    : 'hover:text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/5 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]'
-                                    }`}
+                                href={item.href}
+                                onClick={() => setOpen(false)}
+                                className="group relative flex items-center gap-4 px-4 py-3.5 rounded-xl text-foreground transition-all duration-300 hover:text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/5 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
                                 style={{
                                     animationDelay: `${index * 50}ms`,
                                 }}
                             >
-                                {/* Icon with gradient background */}
-                                <div className={`relative flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 transition-all duration-300 ${!isComingSoon && 'group-hover:from-primary/20 group-hover:to-primary/10 group-hover:scale-110 group-hover:rotate-3'
-                                    }`}>
-                                    <Icon className={`h-5 w-5 text-primary transition-transform duration-300 ${!isComingSoon && 'group-hover:scale-110'}`} />
+                                <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 transition-all duration-300 group-hover:from-primary/20 group-hover:to-primary/10 group-hover:scale-110 group-hover:rotate-3">
+                                    <Icon className="h-5 w-5 text-primary transition-transform duration-300 group-hover:scale-110" />
                                 </div>
 
-                                {/* Label */}
                                 <span className="text-base font-medium tracking-wide">
                                     {item.label}
                                 </span>
 
-                                {/* Hover indicator */}
-                                {!isComingSoon && (
-                                    <div className="absolute right-4 w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                )}
+                                <div className="absolute right-4 w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </Link>
                         );
                     })}

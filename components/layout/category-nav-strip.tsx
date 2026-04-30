@@ -3,7 +3,7 @@
 import { Link } from "@/lib/navigation";
 import { usePathname } from "next/navigation";
 import { Percent } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, decodeHtmlEntities } from "@/lib/utils";
 import type { ProductCategoryFull } from "@/types/woocommerce";
 
 interface CategoryNavStripProps {
@@ -58,7 +58,7 @@ export function CategoryNavStrip({ categories }: CategoryNavStripProps) {
                   : "text-muted-foreground border-transparent hover:text-primary hover:border-primary/40"
               )}
             >
-              {cat.name}
+              {decodeHtmlEntities(cat.name)}
             </Link>
           ))}
       </div>

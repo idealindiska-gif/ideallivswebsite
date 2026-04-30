@@ -4,6 +4,7 @@ import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { decodeHtmlEntities } from "@/lib/utils";
 
 interface Category {
   id: number;
@@ -100,13 +101,13 @@ function CategoryCard({ cat, index }: { cat: Category; index: number }) {
           />
         ) : (
           <span className="absolute inset-0 flex items-center justify-center font-heading font-bold text-[22px] text-foreground/30">
-            {cat.name.charAt(0)}
+            {decodeHtmlEntities(cat.name).charAt(0)}
           </span>
         )}
       </div>
 
       <span className="text-[11px] font-semibold text-foreground text-center leading-tight line-clamp-2 group-hover:text-primary transition-colors">
-        {cat.name}
+        {decodeHtmlEntities(cat.name)}
       </span>
     </Link>
   );
