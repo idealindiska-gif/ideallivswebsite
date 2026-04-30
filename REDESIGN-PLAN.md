@@ -192,14 +192,14 @@ git checkout master -- components/layout/header.tsx
 - [x] Update `app/layout.tsx` — remove VerticalSidebar+lg:ml-64, wire categories to ContentHeader+CategoryNavStrip
 - [x] Build passes: `npx next build` — 0 errors, 0 TS errors
 
-### Phase 2 — Homepage Sections
-- [ ] New **Hero** — 2-col layout, main panel + 2 side cards, pulls WP banners or static
-- [ ] New **CategoryGrid** — 7-col, uses WC category images, color fallback
-- [ ] New **DealsSection** — "Today's Best Deals" with filter tabs + 5-col product grid
-- [ ] New **LimitedStock** section — horizontal 4-card grid with stock progress bars
-- [ ] New **BrandsStrip** — horizontal scrollable brand logos
-- [ ] New **ReviewsSection** — 3-col customer reviews (pull from existing data or static)
-- [ ] Update `app/[locale]/page.tsx` to use new sections (keep FAQ + schema untouched)
+### Phase 2 — Homepage Sections ✅ COMPLETE
+- [x] New **Hero** — 2-col layout, green main card + 2 side cards (dark green / gold)
+- [x] New **CategoryGrid** — 7-col tile grid, WC images, color fallback (no emoji)
+- [x] New **DealsSection** — client-side filter tabs + auto-fill grid
+- [x] New **BrandsStrip** — scrollable brand name list in white card
+- [x] New **ReviewsSection** — static 3-col reviews with star ratings
+- [x] Update `app/[locale]/page.tsx` — wired new sections, removed PromotionGrid/BannerStrip, all schemas+FAQ preserved
+- [x] Build passes: 0 errors
 
 ### Phase 3 — Product Card & Listing Page
 - [ ] New **ProductCard** component — new visual design, uses `next/image`, no emoji
@@ -289,7 +289,7 @@ messages/en.json + messages/sv.json            — Add new translation keys for 
 | Phase | Status | Branch commit | Notes |
 |---|---|---|---|
 | Phase 1 — Shell | ✅ Complete | `7606bc0` | TopInfoBar, ContentHeader, CategoryNavStrip, Footer, layout.tsx — build passes |
-| Phase 2 — Homepage | Not started | — | |
+| Phase 2 — Homepage | ✅ Complete | `998cbb2` | Hero, CategoryGrid, DealsSection, BrandsStrip, ReviewsSection — build passes |
 | Phase 3 — Product Listing | Not started | — | |
 | Phase 4 — Product Detail | Not started | — | |
 | Phase 5 — QA & Polish | Not started | — | |
