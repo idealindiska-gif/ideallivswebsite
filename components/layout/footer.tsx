@@ -1,11 +1,13 @@
 import { Link } from '@/lib/navigation';
 import NextLink from 'next/link';
 import Image from 'next/image';
-import Script from 'next/script';
 import { brandProfile } from '@/config/brand-profile';
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Clock, Youtube, ExternalLink, Linkedin, Star } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Twitter, Linkedin, Star, ExternalLink, MapPin, Mail, Phone } from 'lucide-react';
 import { getOnSaleProducts } from '@/lib/woocommerce/products-direct';
 import { getTranslations } from 'next-intl/server';
+
+const logoUrl =
+  "https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-white.png";
 
 export async function Footer() {
   const saleProducts = await getOnSaleProducts(3);
@@ -13,226 +15,240 @@ export async function Footer() {
   const nav = await getTranslations('navigation');
 
   return (
-    <footer className="w-full bg-gradient-to-br from-primary/95 via-primary to-primary/90 border-t-4 border-primary-600 pt-12 pb-6 text-white shadow-2xl">
-      <div className="w-full px-5 max-w-[1400px] mx-auto">
-        {/* Main Footer Grid - 2 cols on mobile, 3 on tablet, 5 on desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 mb-8">
+    <footer className="w-full bg-[#0f1f16] border-t border-white/10 pt-12 pb-6 text-white">
+      <div className="max-w-[1380px] mx-auto px-5 sm:px-8">
 
-          {/* Column 1: Brand Info */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <Link href="/" className="inline-block mb-4">
-              <div className="relative h-10 w-20">
+        {/* Main grid — 1 col mobile, 2 tablet, 4 desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+
+          {/* Col 1: Brand + Contact */}
+          <div>
+            <Link href="/" className="inline-block mb-5">
+              <div className="relative h-10 w-24">
                 <Image
-                  src="https://crm.ideallivs.com/wp-content/uploads/2025/04/final-new-logo-white.png"
-                  alt={`${brandProfile.name} - Stockholm's Best Indian & Pakistani Grocery Store`}
+                  src={logoUrl}
+                  alt={`${brandProfile.name} - Indian & Pakistani Groceries Stockholm`}
                   fill
                   className="object-contain"
-                  sizes="80px"
+                  sizes="96px"
                 />
               </div>
             </Link>
-            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{t('contact')}</h2>
-            <ul className="space-y-2.5 text-sm text-white/70 font-sans">
-              <li className="text-xs leading-relaxed">
-                {brandProfile.address.street}, {brandProfile.address.area}<br />
-                {brandProfile.address.postalCode} {brandProfile.address.city}
+            <p className="text-white/50 text-[12px] leading-relaxed mb-5 max-w-[220px]">
+              Stockholm&apos;s favourite Indian &amp; Pakistani grocery store, delivering across Sweden &amp; Europe.
+            </p>
+            <ul className="space-y-2.5">
+              <li className="flex items-start gap-2.5 text-white/60 text-[12px]">
+                <MapPin className="h-3.5 w-3.5 mt-0.5 shrink-0 text-white/30" />
+                <span>
+                  {brandProfile.address.street}, {brandProfile.address.area}<br />
+                  {brandProfile.address.postalCode} {brandProfile.address.city}
+                </span>
               </li>
-              <li className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer text-xs">
-                <Mail className="h-3.5 w-3.5 flex-shrink-0" />
-                <span className="truncate">{brandProfile.contact.email}</span>
+              <li className="flex items-center gap-2.5 text-white/60 text-[12px]">
+                <Mail className="h-3.5 w-3.5 shrink-0 text-white/30" />
+                <a href={`mailto:${brandProfile.contact.email}`} className="hover:text-white transition-colors truncate">
+                  {brandProfile.contact.email}
+                </a>
               </li>
-              <li className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer text-xs">
-                <Phone className="h-3.5 w-3.5 flex-shrink-0" />
-                {brandProfile.contact.phoneFormatted}
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 2: Delivery Information */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('delivery')}</h2>
-            <ul className="space-y-2.5 text-sm text-white/70 font-sans">
-              <li>
-                <Link href="/delivery-information" className="group hover:text-white transition-colors">
-                  <p className="font-semibold text-white/90 mb-0.5 group-hover:text-white transition-colors text-xs">{t('deliveryInfo')}</p>
-                  <p className="text-xs text-white/70">{t('fastReliable')}</p>
-                </Link>
-              </li>
-              <li>
-                <p className="font-semibold text-white/90 mb-0.5 text-xs">{t('neighborhoods')}</p>
-                <p className="text-[11px] leading-relaxed text-white/70">
-                  {t('neighborhoodsList')}
-                </p>
-              </li>
-              <li>
-                <p className="font-semibold text-white/90 mb-0.5 text-xs">{t('sameDay')}</p>
-                <p className="text-xs text-white/70">{t('localStockholm')}</p>
+              <li className="flex items-center gap-2.5 text-white/60 text-[12px]">
+                <Phone className="h-3.5 w-3.5 shrink-0 text-white/30" />
+                <a href={`tel:${brandProfile.contact.phone}`} className="hover:text-white transition-colors">
+                  {brandProfile.contact.phoneFormatted}
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Featured Offers */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('featuredOffers')}</h2>
-            <div className="space-y-3">
-              {saleProducts.slice(0, 3).map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/product/${product.slug}`}
-                  className="flex gap-2.5 group items-center"
-                >
-                  <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white/10 flex-shrink-0 border border-white/20 shadow-md group-hover:shadow-xl group-hover:scale-105 transition-all duration-300">
-                    {product.images && product.images[0] ? (
-                      <Image
-                        src={product.images[0].src}
-                        alt={product.images[0].alt || product.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        sizes="40px"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-[8px] text-white/50">
-                        No Img
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col justify-center min-w-0 flex-1">
-                    <h5 className="text-xs font-medium text-white group-hover:text-white/80 transition-colors line-clamp-1 truncate">
-                      {product.name}
-                    </h5>
-                    <div
-                      className="text-[11px] font-bold text-white/90 mt-0.5"
-                      dangerouslySetInnerHTML={{ __html: product.price_html || '' }}
-                    />
-                  </div>
-                </Link>
-              ))}
-              {saleProducts.length === 0 && (
-                <p className="text-xs text-white/60 italic">{t('noSaleItems')}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Column 4: Shop Links */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{t('shop')}</h2>
+          {/* Col 2: Shop */}
+          <div>
+            <h3 className="font-heading text-[11px] font-bold uppercase tracking-[0.18em] text-white/40 mb-5">
+              {t('shop')}
+            </h3>
             <nav aria-label="Shop navigation">
-              <ul className="space-y-2.5 text-sm text-white/70 font-sans">
-                <li><Link href="/shop" className="hover:text-white transition-colors text-xs">{nav('allProducts')}</Link></li>
-                <li><Link href="/deals" className="hover:text-white transition-colors text-xs">{nav('dealsOffers')}</Link></li>
-                <li><Link href="/brands" className="hover:text-white transition-colors text-xs">{nav('brands')}</Link></li>
-                <li><Link href="/blog" className="hover:text-white transition-colors text-xs">{nav('blog')}</Link></li>
-                <li><Link href="/about" className="hover:text-white transition-colors text-xs">{nav('ourStory')}</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors text-xs">{nav('contactUs')}</Link></li>
+              <ul className="space-y-3">
+                <li><Link href="/shop" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('allProducts')}</Link></li>
+                <li><Link href="/deals" className="text-destructive/80 hover:text-destructive transition-colors text-[13px] font-medium">{nav('dealsOffers')}</Link></li>
+                <li><Link href="/brands" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('brands')}</Link></li>
+                <li><Link href="/blog" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('blog')}</Link></li>
+                <li><Link href="/about" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('ourStory')}</Link></li>
+                <li><Link href="/contact" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('contactUs')}</Link></li>
+              </ul>
+            </nav>
+
+            {/* Featured offers — compact list */}
+            {saleProducts.length > 0 && (
+              <div className="mt-8">
+                <h3 className="font-heading text-[11px] font-bold uppercase tracking-[0.18em] text-white/40 mb-4">
+                  {t('featuredOffers')}
+                </h3>
+                <ul className="space-y-3">
+                  {saleProducts.slice(0, 3).map((product) => (
+                    <li key={product.id}>
+                      <Link
+                        href={`/product/${product.slug}`}
+                        className="flex items-center gap-2.5 group"
+                      >
+                        <div className="relative w-9 h-9 rounded-md overflow-hidden bg-white/10 shrink-0 border border-white/10">
+                          {product.images?.[0] ? (
+                            <Image
+                              src={product.images[0].src}
+                              alt={product.images[0].alt || product.name}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                              sizes="36px"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-white/5" />
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-white/70 group-hover:text-white transition-colors text-[12px] line-clamp-1 font-medium">
+                            {product.name}
+                          </p>
+                          <div
+                            className="text-[11px] text-white/50 mt-0.5"
+                            dangerouslySetInnerHTML={{ __html: product.price_html || '' }}
+                          />
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Col 3: Help & Support */}
+          <div>
+            <h3 className="font-heading text-[11px] font-bold uppercase tracking-[0.18em] text-white/40 mb-5">
+              {nav('support')}
+            </h3>
+            <nav aria-label="Support navigation">
+              <ul className="space-y-3">
+                <li><Link href="/faq" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('faq')}</Link></li>
+                <li><Link href="/delivery-information" className="text-white/70 hover:text-white transition-colors text-[13px]">{t('deliveryInfo')}</Link></li>
+                <li><Link href="/privacy-policy" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('privacy')}</Link></li>
+                <li><Link href="/terms-conditions" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('terms')}</Link></li>
+                <li><Link href="/refund-return" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('refunds')}</Link></li>
               </ul>
             </nav>
           </div>
 
-          {/* Column 5: Connect & Support Combined */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-lg hover:bg-white/10 transition-all duration-300">
-            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-4 text-white">{nav('connect')}</h2>
+          {/* Col 4: Connect (social) */}
+          <div>
+            <h3 className="font-heading text-[11px] font-bold uppercase tracking-[0.18em] text-white/40 mb-5">
+              {nav('connect')}
+            </h3>
             <nav aria-label="Social media links">
-              <ul className="space-y-2.5 text-sm text-white/70 font-sans mb-5">
+              <ul className="space-y-3">
                 {brandProfile.social.instagram && (
                   <li>
-                    <a href={brandProfile.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                      <Instagram className="h-3.5 w-3.5" /> Instagram
+                    <a href={brandProfile.social.instagram} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 text-white/70 hover:text-white transition-colors text-[13px]">
+                      <Instagram className="h-4 w-4 text-white/40" />
+                      Instagram
                     </a>
                   </li>
                 )}
                 {brandProfile.social.facebook && (
                   <li>
-                    <a href={brandProfile.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                      <Facebook className="h-3.5 w-3.5" /> Facebook
+                    <a href={brandProfile.social.facebook} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 text-white/70 hover:text-white transition-colors text-[13px]">
+                      <Facebook className="h-4 w-4 text-white/40" />
+                      Facebook
                     </a>
                   </li>
                 )}
                 {brandProfile.social.youtube && (
                   <li>
-                    <a href={brandProfile.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                      <Youtube className="h-3.5 w-3.5" /> YouTube
+                    <a href={brandProfile.social.youtube} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 text-white/70 hover:text-white transition-colors text-[13px]">
+                      <Youtube className="h-4 w-4 text-white/40" />
+                      YouTube
                     </a>
                   </li>
                 )}
                 {brandProfile.social.tiktok && (
                   <li>
-                    <a href={brandProfile.social.tiktok} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                      <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z"/></svg> TikTok
+                    <a href={brandProfile.social.tiktok} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 text-white/70 hover:text-white transition-colors text-[13px]">
+                      <svg className="h-4 w-4 text-white/40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z"/>
+                      </svg>
+                      TikTok
                     </a>
                   </li>
                 )}
                 {brandProfile.social.twitter && (
                   <li>
-                    <a href={brandProfile.social.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                      <Twitter className="h-3.5 w-3.5" /> X (Twitter)
+                    <a href={brandProfile.social.twitter} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 text-white/70 hover:text-white transition-colors text-[13px]">
+                      <Twitter className="h-4 w-4 text-white/40" />
+                      X (Twitter)
                     </a>
                   </li>
                 )}
                 {brandProfile.social.linkedin && (
                   <li>
-                    <a href={brandProfile.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs">
-                      <Linkedin className="h-3.5 w-3.5" /> LinkedIn
+                    <a href={brandProfile.social.linkedin} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 text-white/70 hover:text-white transition-colors text-[13px]">
+                      <Linkedin className="h-4 w-4 text-white/40" />
+                      LinkedIn
                     </a>
                   </li>
                 )}
                 <li>
-                  <a href={brandProfile.google.reviewUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 text-xs text-yellow-300/80 hover:text-yellow-200">
-                    <Star className="h-3.5 w-3.5" /> Leave a Google Review
+                  <a href={brandProfile.google.reviewUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 text-yellow-400/80 hover:text-yellow-300 transition-colors text-[13px]">
+                    <Star className="h-4 w-4" />
+                    Leave a Google Review
                   </a>
                 </li>
-              </ul>
-            </nav>
-            <h2 className="font-heading text-[13px] font-bold uppercase tracking-[0.15em] mb-3 text-white">{nav('support')}</h2>
-            <nav aria-label="Support navigation">
-              <ul className="space-y-2.5 text-sm text-white/70 font-sans">
-                <li><Link href="/faq" className="hover:text-white transition-colors text-xs">{nav('faq')}</Link></li>
-                <li><Link href="/privacy-policy" className="hover:text-white transition-colors text-xs">{nav('privacy')}</Link></li>
-                <li><Link href="/terms-conditions" className="hover:text-white transition-colors text-xs">{nav('terms')}</Link></li>
-                <li><Link href="/refund-return" className="hover:text-white transition-colors text-xs">{nav('refunds')}</Link></li>
               </ul>
             </nav>
           </div>
 
         </div>
 
-        {/* Bottom Bar - 2 col grid on mobile */}
-        <div className="border-t border-white/20 pt-6 mt-4 bg-white/5 backdrop-blur-sm rounded-lg p-4">
-          <div className="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-4" style={{ fontSize: '11px' }}>
-            {/* Copyright */}
-            <p className="text-white/60 tracking-wide font-sans col-span-2 md:col-span-1">
-              © {new Date().getFullYear()} Ideal Indiska Livs. {t('allRightsReserved')}.
-            </p>
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-            {/* Locale links — NextLink so Googlebot can crawl all locale versions without auto-prefixing */}
-            <nav aria-label="Language versions" className="flex items-center gap-2 text-white/50 font-sans col-span-2 md:col-span-1">
-              <NextLink href="/" className="hover:text-white transition-colors" hrefLang="en">EN</NextLink>
-              <span aria-hidden="true">·</span>
-              <NextLink href="/sv" className="hover:text-white transition-colors" hrefLang="sv">SV</NextLink>
-              <span aria-hidden="true">·</span>
-              <NextLink href="/no" className="hover:text-white transition-colors" hrefLang="nb">NO</NextLink>
-              <span aria-hidden="true">·</span>
-              <NextLink href="/da" className="hover:text-white transition-colors" hrefLang="da">DA</NextLink>
-            </nav>
+          <p className="text-white/40 text-[11px] tracking-wide">
+            © {new Date().getFullYear()} Ideal Indiska Livs. {t('allRightsReserved')}.
+          </p>
 
-            {/* Payment Icons */}
-            <div className="relative h-5 w-48">
-              <Image
-                src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
-                alt="Payment Methods"
-                fill
-                className="object-contain"
-                sizes="192px"
-              />
-            </div>
+          {/* Locale links */}
+          <nav aria-label="Language versions" className="flex items-center gap-2.5 text-white/35 text-[11px]">
+            <NextLink href="/" className="hover:text-white/70 transition-colors" hrefLang="en">EN</NextLink>
+            <span aria-hidden="true">·</span>
+            <NextLink href="/sv" className="hover:text-white/70 transition-colors" hrefLang="sv">SV</NextLink>
+            <span aria-hidden="true">·</span>
+            <NextLink href="/no" className="hover:text-white/70 transition-colors" hrefLang="nb">NO</NextLink>
+            <span aria-hidden="true">·</span>
+            <NextLink href="/da" className="hover:text-white/70 transition-colors" hrefLang="da">DA</NextLink>
+          </nav>
 
-            {/* Credits */}
-            <p className="flex items-center gap-1.5 text-white/60 tracking-wide font-sans">
-              <span>by</span>
-              <a href="https://fourlines.agency" target="_blank" rel="noopener noreferrer" className="font-semibold text-white/80 hover:text-white transition-colors flex items-center gap-1 uppercase">
-                Fourlines <ExternalLink className="h-2 w-2" />
-              </a>
-            </p>
+          {/* Payment methods */}
+          <div className="relative h-5 w-44 opacity-60">
+            <Image
+              src="https://crm.ideallivs.com/wp-content/uploads/2026/01/payment-methods.png"
+              alt="Payment Methods: Visa, Mastercard, Klarna, Swish"
+              fill
+              className="object-contain"
+              sizes="176px"
+            />
           </div>
+
+          {/* Credits */}
+          <p className="flex items-center gap-1.5 text-white/35 text-[11px] tracking-wide">
+            <span>by</span>
+            <a href="https://fourlines.agency" target="_blank" rel="noopener noreferrer"
+              className="font-semibold text-white/50 hover:text-white/80 transition-colors flex items-center gap-1 uppercase">
+              Fourlines <ExternalLink className="h-2.5 w-2.5" />
+            </a>
+          </p>
+
         </div>
       </div>
     </footer>

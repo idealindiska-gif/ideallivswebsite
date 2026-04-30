@@ -59,6 +59,10 @@
    --destructive-foreground: 210 40% 98%;
    --info: 217 91% 60%;
 
+   /* Brand accent — gold for discount badges, sale events */
+   --gold: 43 74% 47%;
+   --gold-light: 43 74% 92%;
+
    /* Background & Foreground - Light Mint Green */
    --background: 127 50% 97%;
    --foreground: 222 47% 11%;
