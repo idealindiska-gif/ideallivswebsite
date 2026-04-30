@@ -223,7 +223,7 @@ export default async function RootLayout({
         </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
-        <AiChatWidget />
+        {/* <AiChatWidget /> */}
 
         {/* Global SEO Schemas - Locale-aware for Swedish/English */}
         <SchemaScript
