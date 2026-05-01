@@ -9,6 +9,7 @@ import { UserNav } from "@/components/layout/user-nav";
 import { SmartSearch } from "@/components/search/smart-search";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { MobileMenu } from "@/components/layout/mobile-menu";
+import { ChevronDown } from "lucide-react";
 import type { ProductCategoryFull } from "@/types/woocommerce";
 
 interface ContentHeaderProps {
@@ -20,11 +21,12 @@ const logoUrl =
 
 export function ContentHeader({ categories = [] }: ContentHeaderProps) {
   const ts = useTranslations("search");
+  const nav = useTranslations("navigation");
 
   return (
     <header
       className="sticky top-0 z-30 w-full bg-white border-b border-border shadow-sm"
-      style={{ "--header-height": "72px" } as React.CSSProperties}
+      style={{ "--header-height": "112px" } as React.CSSProperties}
     >
       {/* ── Desktop Header ──────────────────────────────── */}
       <div className="hidden lg:flex items-center gap-6 max-w-[1380px] mx-auto px-8 h-[72px]">
@@ -59,6 +61,46 @@ export function ContentHeader({ categories = [] }: ContentHeaderProps) {
           <WishlistIcon />
           <CartIcon />
         </div>
+      </div>
+
+      {/* ── Desktop Nav Strip ─────────────────────────────── */}
+      <div className="hidden lg:block border-t border-border/40">
+        <nav aria-label="Main navigation" className="max-w-[1380px] mx-auto px-8 h-10 flex items-center gap-0.5">
+
+          <NavItem href="/shop">{nav("allProducts")}</NavItem>
+          <NavItem href="/deals" variant="deals">{nav("dealsOffers")}</NavItem>
+          <NavItem href="/brands">{nav("brands")}</NavItem>
+          <NavItem href="/prepared-meals">{nav("preparedMeals")}</NavItem>
+          <NavItem href="/blog">{nav("blog")}</NavItem>
+
+          {/* Delivery dropdown */}
+          <div className="relative group h-10 flex items-center">
+            <button
+              className="flex items-center gap-1 px-3 h-10 text-[13px] font-medium text-muted-foreground hover:text-primary transition-colors whitespace-nowrap"
+              aria-haspopup="true"
+            >
+              {nav("delivery")}
+              <ChevronDown className="h-3 w-3 transition-transform duration-200 group-hover:rotate-180" />
+            </button>
+            {/* -mt-1 overlaps 4px with the button row so the hover bridge has no gap */}
+            <div className="absolute top-full -mt-1 left-0 hidden group-hover:block z-50 min-w-[230px]">
+              <div className="pt-1">
+                <div className="bg-white rounded-lg border border-border shadow-xl py-1.5">
+                  <DropLink href="/delivery-information">{nav("stockholmDelivery")}</DropLink>
+                  <DropLink href="/delivery-goteborg-malmo">{nav("goteborgMalmoDelivery")}</DropLink>
+                  <DropLink href="/delivery-kalmar">{nav("kalmarDelivery")}</DropLink>
+                  <DropLink href="/norway-delivery">{nav("norwayDelivery")}</DropLink>
+                  <DropLink href="/denmark-delivery">{nav("denmarkDelivery")}</DropLink>
+                  <DropLink href="/europe-delivery">{nav("europeDelivery")}</DropLink>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <NavItem href="/about">{nav("ourStory")}</NavItem>
+          <NavItem href="/contact">{nav("contactUs")}</NavItem>
+
+        </nav>
       </div>
 
       {/* ── Mobile Header ───────────────────────────────── */}
@@ -118,6 +160,7 @@ function MobileQuickNav() {
     { href: "/shop", label: nav("shop"), highlight: false },
     { href: "/deals", label: nav("dealsOffers"), highlight: true },
     { href: "/brands", label: nav("shopByBrands"), highlight: false },
+    { href: "/prepared-meals", label: nav("preparedMeals"), highlight: false },
     { href: "/blog", label: nav("blog"), highlight: false },
     { href: "/delivery-information", label: nav("deliveryInfo"), highlight: false },
     { href: "/about", label: nav("aboutUs"), highlight: false },
@@ -141,5 +184,39 @@ function MobileQuickNav() {
         </li>
       ))}
     </ul>
+  );
+}
+
+function NavItem({
+  href,
+  children,
+  variant,
+}: {
+  href: string;
+  children: React.ReactNode;
+  variant?: "deals";
+}) {
+  return (
+    <Link
+      href={href}
+      className={
+        variant === "deals"
+          ? "flex items-center px-3 h-10 text-[13px] font-semibold text-destructive/80 hover:text-destructive transition-colors whitespace-nowrap"
+          : "flex items-center px-3 h-10 text-[13px] font-medium text-muted-foreground hover:text-primary transition-colors whitespace-nowrap"
+      }
+    >
+      {children}
+    </Link>
+  );
+}
+
+function DropLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="flex items-center px-4 py-2 text-[13px] text-foreground/80 hover:text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
+    >
+      {children}
+    </Link>
   );
 }

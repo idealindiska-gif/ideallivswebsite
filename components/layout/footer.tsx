@@ -131,6 +131,9 @@ export async function Footer() {
                 <li><Link href="/delivery-information" className="text-white/70 hover:text-white transition-colors text-[13px]">{t('deliveryInfo')}</Link></li>
                 <li><Link href="/delivery-goteborg-malmo" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('goteborgMalmoDelivery')}</Link></li>
                 <li><Link href="/delivery-kalmar" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('kalmarDelivery')}</Link></li>
+                <li><Link href="/norway-delivery" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('norwayDelivery')}</Link></li>
+                <li><Link href="/denmark-delivery" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('denmarkDelivery')}</Link></li>
+                <li><Link href="/europe-delivery" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('europeDelivery')}</Link></li>
                 <li><Link href="/privacy-policy" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('privacy')}</Link></li>
                 <li><Link href="/terms-conditions" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('terms')}</Link></li>
                 <li><Link href="/refund-return" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('refunds')}</Link></li>
