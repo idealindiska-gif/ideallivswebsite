@@ -1,12 +1,8 @@
 "use client";
 
 import { Link } from "@/lib/navigation";
-import Image from "next/image";
 import { ArrowRight, ShoppingBag, Percent } from "lucide-react";
 import { useTranslations } from "next-intl";
-
-const heroImage =
-  "https://crm.ideallivs.com/wp-content/uploads/2025/08/delivery-cover-post.png";
 
 export function Hero() {
   const t = useTranslations("home");
@@ -24,19 +20,6 @@ export function Hero() {
           {/* Decorative circles */}
           <div className="pointer-events-none absolute right-[-40px] bottom-[-40px] w-64 h-64 rounded-full bg-white/5" />
           <div className="pointer-events-none absolute right-[80px] top-[-60px] w-40 h-40 rounded-full bg-white/4" />
-
-          {/* Background hero image — subtle overlay */}
-          <div className="pointer-events-none absolute inset-0 opacity-[0.12]">
-            <Image
-              src={heroImage}
-              alt=""
-              fill
-              className="object-cover object-center"
-              priority
-              fetchPriority="high"
-              sizes="(max-width: 1024px) 100vw, 800px"
-            />
-          </div>
 
           {/* Content */}
           <div className="relative z-10 max-w-lg">
