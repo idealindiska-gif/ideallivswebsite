@@ -17,6 +17,7 @@ export async function GET() {
         { url: "/blog", priority: 0.7, changefreq: "weekly",  lastmod: "2026-04-01" },
         { url: "/delivery-information", priority: 0.8, changefreq: "monthly",  lastmod: "2026-03-01" },
         { url: "/delivery-goteborg-malmo", priority: 0.7, changefreq: "monthly",  lastmod: "2026-02-01" },
+        { url: "/delivery-kalmar", priority: 0.7, changefreq: "monthly",  lastmod: "2026-05-02" },
         { url: "/norway-delivery", priority: 0.7, changefreq: "monthly",  lastmod: "2026-02-01" },
         { url: "/denmark-delivery", priority: 0.7, changefreq: "monthly",  lastmod: "2026-02-01" },
         { url: "/europe-delivery", priority: 0.7, changefreq: "monthly",  lastmod: "2026-02-01" },

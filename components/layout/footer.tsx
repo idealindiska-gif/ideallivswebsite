@@ -70,6 +70,7 @@ export async function Footer() {
                 <li><Link href="/shop" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('allProducts')}</Link></li>
                 <li><Link href="/deals" className="text-destructive/80 hover:text-destructive transition-colors text-[13px] font-medium">{nav('dealsOffers')}</Link></li>
                 <li><Link href="/brands" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('brands')}</Link></li>
+                <li><Link href="/prepared-meals" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('preparedMeals')}</Link></li>
                 <li><Link href="/blog" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('blog')}</Link></li>
                 <li><Link href="/about" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('ourStory')}</Link></li>
                 <li><Link href="/contact" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('contactUs')}</Link></li>
@@ -128,6 +129,8 @@ export async function Footer() {
               <ul className="space-y-3">
                 <li><Link href="/faq" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('faq')}</Link></li>
                 <li><Link href="/delivery-information" className="text-white/70 hover:text-white transition-colors text-[13px]">{t('deliveryInfo')}</Link></li>
+                <li><Link href="/delivery-goteborg-malmo" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('goteborgMalmoDelivery')}</Link></li>
+                <li><Link href="/delivery-kalmar" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('kalmarDelivery')}</Link></li>
                 <li><Link href="/privacy-policy" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('privacy')}</Link></li>
                 <li><Link href="/terms-conditions" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('terms')}</Link></li>
                 <li><Link href="/refund-return" className="text-white/70 hover:text-white transition-colors text-[13px]">{nav('refunds')}</Link></li>
