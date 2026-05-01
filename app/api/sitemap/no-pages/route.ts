@@ -16,6 +16,7 @@ export async function GET() {
         { url: "/no/delivery-information", priority: 0.8, changefreq: "monthly" },
         { url: "/no/delivery-goteborg-malmo", priority: 0.8, changefreq: "monthly" },
         { url: "/no/europe-delivery", priority: 0.8, changefreq: "monthly" },
+        { url: "/no/norway-delivery", priority: 0.8, changefreq: "monthly" },
         { url: "/no/privacy-policy", priority: 0.3, changefreq: "yearly" },
         { url: "/no/refund-return", priority: 0.3, changefreq: "yearly" },
         { url: "/no/terms-conditions", priority: 0.3, changefreq: "yearly" },

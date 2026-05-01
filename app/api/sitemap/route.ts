@@ -6,9 +6,14 @@ export async function GET() {
   const baseUrl = siteConfig.site_domain;
 
   // Fetch products to calculate how many product sitemaps we need
-  const productsRes = await getProducts({ per_page: 1 });
-  const totalProducts = productsRes.total;
-  const productSitemapCount = Math.ceil(totalProducts / 100);
+  // Fall back to 10 pages if WooCommerce is unavailable (so Googlebot still gets the sitemap index)
+  let productSitemapCount = 10;
+  try {
+    const productsRes = await getProducts({ per_page: 1 });
+    productSitemapCount = Math.ceil(productsRes.total / 100);
+  } catch {
+    // WooCommerce unavailable — use last-known safe page count
+  }
 
   const sitemaps = [
     // English sitemaps
