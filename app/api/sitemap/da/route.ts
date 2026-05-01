@@ -1,14 +1,12 @@
 import { siteConfig } from "@/site.config";
-import { getProducts } from "@/lib/woocommerce/products-direct";
 import { NextResponse } from "next/server";
 
 export async function GET() {
     const baseUrl = siteConfig.site_domain;
 
-    const productsRes = await getProducts({ per_page: 1 });
-    const totalProducts = productsRes.total;
-    const productSitemapCount = Math.ceil(totalProducts / 100);
-
+    // DA product pages (/da/product/*) are 301-redirected to English by middleware
+    // because there are no Danish product translations. Including product sitemaps
+    // here would just waste Googlebot crawl budget on redirect chains — so we omit them.
     const sitemaps = [
         `${baseUrl}/da/sitemap-pages.xml`,
         `${baseUrl}/da/sitemap-posts.xml`,
@@ -16,10 +14,6 @@ export async function GET() {
         `${baseUrl}/da/sitemap-product-categories.xml`,
         `${baseUrl}/da/sitemap-product-brands.xml`,
     ];
-
-    for (let i = 1; i <= productSitemapCount; i++) {
-        sitemaps.push(`${baseUrl}/da/sitemap-products-${i}.xml`);
-    }
 
     const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
