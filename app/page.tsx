@@ -1,7 +1,9 @@
+import { Hero } from "@/components/home/hero";
 import { CategoryGrid } from "@/components/home/category-grid";
-import { PromotionGrid } from "@/components/home/promotion-grid";
-import { BannerStrip } from "@/components/home/banner-strip";
+import { DealsSection } from "@/components/home/deals-section";
 import { ProductShowcase } from "@/components/home/product-showcase";
+import { BrandsStrip } from "@/components/home/brands-strip";
+import { ReviewsSection } from "@/components/home/reviews-section";
 import { Features } from "@/components/home/features";
 import { SeoContent } from "@/components/home/seo-content";
 import { getProducts, getProductCategories } from "@/lib/woocommerce";
@@ -64,7 +66,7 @@ export default async function HomePage() {
     getProducts({ per_page: 8, orderby: 'popularity' }),
     getProducts({ per_page: 8, orderby: 'date' }),
     getProducts({ per_page: 8, on_sale: true }),
-    getProducts({ per_page: 8, brand: 'haldiram' }),
+    getProducts({ per_page: 8, brand: 'hr' }),
     getProducts({ per_page: 8, category: 'fresh-produce' }),
   ]);
 
@@ -93,22 +95,15 @@ export default async function HomePage() {
   const freshProduceProducts = freshProduceRes?.data || [];
 
   return (
-    <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
-      {/* 1. Promotion Cards (first card contains the page H1) */}
-      <PromotionGrid promotionProducts={dealProducts} />
+    <main className="flex min-h-screen flex-col bg-background overflow-x-hidden max-w-full">
+      {/* 1. Hero */}
+      <Hero />
 
       {/* 2. Top Categories */}
       <CategoryGrid categories={categories} />
 
-      {/* 3. Special Offers */}
-      <ProductShowcase
-        title="Special Offers on Indian & Pakistani Groceries"
-        products={dealProducts}
-        moreLink="/deals"
-      />
-
-      {/* 3. Banner Strip */}
-      <BannerStrip />
+      {/* 3. Today's Best Deals */}
+      <DealsSection products={dealProducts} moreLink="/deals" />
 
       {/* 4. Trending Products */}
       <ProductShowcase
@@ -117,26 +112,32 @@ export default async function HomePage() {
         moreLink="/shop?sort=bestsellers"
       />
 
-      {/* 5. Haldiram Section */}
-      <ProductShowcase
-        title="Haldiram's - Authentic Indian Snacks"
-        products={haldiramProducts}
-        moreLink="/brand/haldiram"
-      />
-
-      {/* 6. New Arrivals */}
+      {/* 5. New Arrivals */}
       <ProductShowcase
         title="Fresh Arrivals - New Stock Just In"
         products={newProducts}
         moreLink="/shop?sort=new"
       />
 
-      {/* 7. Fresh Produce Section */}
+      {/* 6. Haldiram Section */}
+      <ProductShowcase
+        title="Haldiram's - Authentic Indian Snacks"
+        products={haldiramProducts}
+        moreLink="/brand/hr"
+      />
+
+      {/* 7. Fresh Produce */}
       <ProductShowcase
         title="Fresh Produce - Fruits & Vegetables"
         products={freshProduceProducts}
         moreLink="/product-category/fresh-produce"
       />
+
+      {/* 8. Brands Strip */}
+      <BrandsStrip />
+
+      {/* 9. Customer Reviews */}
+      <ReviewsSection />
 
       {/* 8. SEO & Brand Content */}
       <SeoContent />

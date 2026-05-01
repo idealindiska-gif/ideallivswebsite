@@ -10,8 +10,8 @@ import { TopInfoBar } from "@/components/layout/top-info-bar";
 import { SchemaScript } from "@/lib/schema/schema-script";
 import { idealIndiskaWebsiteSchema, schemaGraph, idealIndiskaOrganizationSchemaFull, idealLivsLocalBusinessSchema, siteNavigationSchema } from "@/lib/schema";
 import { GoogleTagManager, GoogleTagManagerNoScript, FacebookPixel, CookieConsentBanner } from "@/components/analytics";
-import { VerticalSidebar } from "@/components/layout/vertical-sidebar";
 import { ContentHeader } from "@/components/layout/content-header";
+import { CategoryNavStrip } from "@/components/layout/category-nav-strip";
 import { Footer } from "@/components/layout/footer";
 import { GeoMetaTags } from "@/components/seo/geo-meta-tags";
 import { HreflangTags } from "@/components/seo/hreflang-tags";
@@ -144,7 +144,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const categories = await getProductCategories({ parent: 0 });
+  const categories = await getProductCategories({ parent: 0 }).catch(() => []);
 
   // Detect locale from next-intl (en = no prefix, sv = /sv/ prefix)
   const locale = await getLocale();
@@ -201,24 +201,18 @@ export default async function RootLayout({
             disableTransitionOnChange
             defaultColorTheme="freshGrocery"
           >
-            {/* Top Green Info Bar - Desktop only */}
+            {/* Top Info Bar */}
             <TopInfoBar />
 
-            {/* Main Layout Container */}
-            <div className="flex min-h-screen lg:min-h-[calc(100vh-40px)] overflow-x-hidden">
-              {/* Vertical Sidebar - Fixed on left, hidden on mobile */}
-              <VerticalSidebar categories={categories} />
+            {/* Sticky horizontal header */}
+            <ContentHeader categories={categories} />
 
-              {/* Main Content Area - Responsive margin */}
-              <div className="flex-1 lg:ml-64 flex flex-col overflow-x-hidden max-w-full">
-                {/* Content Header - Search, Login, Cart */}
-                <ContentHeader />
+            {/* Category nav strip — sticky below header, desktop only */}
+            <CategoryNavStrip categories={categories} />
 
-                {/* Page Content */}
-                <main className="flex-1 w-full overflow-x-hidden">{children}</main>
-                <Footer />
-              </div>
-            </div>
+            {/* Page Content */}
+            <main className="flex-1 w-full overflow-x-hidden min-h-screen">{children}</main>
+            <Footer />
 
             <CartDrawer />
             <WishlistDrawer />
@@ -229,7 +223,7 @@ export default async function RootLayout({
         </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
-        <AiChatWidget />
+        {/* <AiChatWidget /> */}
 
         {/* Global SEO Schemas - Locale-aware for Swedish/English */}
         <SchemaScript

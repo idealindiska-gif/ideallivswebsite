@@ -1,7 +1,9 @@
+import { Hero } from "@/components/home/hero";
 import { CategoryGrid } from "@/components/home/category-grid";
-import { PromotionGrid } from "@/components/home/promotion-grid";
-import { BannerStrip } from "@/components/home/banner-strip";
+import { DealsSection } from "@/components/home/deals-section";
 import { ProductShowcase } from "@/components/home/product-showcase";
+import { BrandsStrip } from "@/components/home/brands-strip";
+import { ReviewsSection } from "@/components/home/reviews-section";
 import { Features } from "@/components/home/features";
 import { SeoContent } from "@/components/home/seo-content";
 import { getProducts, getProductCategories } from "@/lib/woocommerce";
@@ -290,7 +292,7 @@ export default async function LocaleHomePage({ params }: PageProps) {
         getProducts({ per_page: 8, orderby: 'popularity' }),
         getProducts({ per_page: 8, orderby: 'date' }),
         getProducts({ per_page: 8, on_sale: true }),
-        getProducts({ per_page: 8, brand: 'haldiram' }),
+        getProducts({ per_page: 8, brand: 'hr' }),
         getProducts({ per_page: 8, category: 'fresh-produce' }),
     ]);
 
@@ -316,22 +318,15 @@ export default async function LocaleHomePage({ params }: PageProps) {
     const pageUrl = locale !== 'en' ? `${BASE_URL}/${locale}` : BASE_URL;
 
     return (
-        <main className="flex min-h-screen flex-col bg-background pb-20 overflow-x-hidden max-w-full">
-            {/* 1. Eid Banner Strip */}
-            <BannerStrip />
+        <main className="flex min-h-screen flex-col bg-background overflow-x-hidden max-w-full">
+            {/* 1. Hero — 2-col Nordic layout */}
+            <Hero />
 
-            {/* 2. Promotion Cards (first card contains the page H1) */}
-            <PromotionGrid promotionProducts={dealProducts} />
-
-            {/* 3. Top Categories */}
+            {/* 2. Top Categories — 7-col tile grid */}
             <CategoryGrid categories={categories} />
 
-            {/* 4. Special Offers */}
-            <ProductShowcase
-                title={t('specialOffers')}
-                products={dealProducts}
-                moreLink={`${linkPrefix}/deals`}
-            />
+            {/* 3. Today's Best Deals — filter tabs + product grid */}
+            <DealsSection products={dealProducts} moreLink={`${linkPrefix}/deals`} />
 
             {/* 4. Trending Products */}
             <ProductShowcase
@@ -340,34 +335,40 @@ export default async function LocaleHomePage({ params }: PageProps) {
                 moreLink={`${linkPrefix}/shop?sort=bestsellers`}
             />
 
-            {/* 5. Haldiram Section */}
-            <ProductShowcase
-                title={t('haldiramSection')}
-                products={haldiramProducts}
-                moreLink={`${linkPrefix}/brand/haldiram`}
-            />
-
-            {/* 6. New Arrivals */}
+            {/* 5. New Arrivals */}
             <ProductShowcase
                 title={t('freshArrivals')}
                 products={newProducts}
                 moreLink={`${linkPrefix}/shop?sort=new`}
             />
 
-            {/* 7. Fresh Produce Section */}
+            {/* 6. Haldiram Section */}
+            <ProductShowcase
+                title={t('haldiramSection')}
+                products={haldiramProducts}
+                moreLink={`${linkPrefix}/brand/hr`}
+            />
+
+            {/* 7. Fresh Produce */}
             <ProductShowcase
                 title={t('freshProduce')}
                 products={freshProduceProducts}
                 moreLink={`${linkPrefix}/product-category/fresh-produce`}
             />
 
-            {/* 8. SEO & Brand Content */}
+            {/* 8. Brands Strip */}
+            <BrandsStrip />
+
+            {/* 9. Customer Reviews */}
+            <ReviewsSection />
+
+            {/* 10. SEO & Brand Content */}
             <SeoContent />
 
-            {/* 9. FAQ Section — machine-liftable for Google AI Overview */}
+            {/* 11. FAQ Section — machine-liftable for Google AI Overview */}
             <HomeFAQ locale={locale} />
 
-            {/* 10. Features/Benefits Section */}
+            {/* 12. Features/Benefits */}
             <Features />
 
             {/* ========== SEO STRUCTURED DATA ========== */}

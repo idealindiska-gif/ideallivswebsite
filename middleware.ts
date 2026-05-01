@@ -321,6 +321,7 @@ function handleLegacyRedirects(request: NextRequest): NextResponse | null {
     '/special-offers':                                               '/deals',
     '/pages/delivery-information':                                   '/europe-delivery',
     '/delivery/goteborg-malmo':                                      '/delivery-goteborg-malmo',
+    '/delivery':                                                     '/delivery-information',
   };
   if (miscRedirects[path]) {
     return NextResponse.redirect(new URL(miscRedirects[path], request.url), 301);

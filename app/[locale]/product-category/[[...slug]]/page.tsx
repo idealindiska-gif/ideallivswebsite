@@ -4,6 +4,7 @@ import { getProductCategoryBySlug, getProducts, getProductCategories } from '@/l
 import { getProductBrands } from '@/lib/woocommerce/brands';
 import { ArchiveTemplate } from '@/components/templates';
 import { ShopTopBar } from '@/components/shop/shop-top-bar';
+import { CategoryHeroStrip } from '@/components/shop/category-hero-strip';
 import { BreadcrumbItem } from '@/components/layout/breadcrumbs';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -166,6 +167,14 @@ export default async function ProductCategoryPage({ params, searchParams }: Prod
                 totalPages={totalPages}
                 basePath={`/product-category/${resolvedParams.slug?.join('/')}`}
                 gridColumns={5}
+                headerContent={
+                    <CategoryHeroStrip
+                        name={category.name}
+                        description={category.description}
+                        count={total}
+                        image={category.image ?? null}
+                    />
+                }
                 filterBar={
                     <Suspense fallback={<Skeleton className="h-16 w-full" />}>
                         <ShopTopBar
