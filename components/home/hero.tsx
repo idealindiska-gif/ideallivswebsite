@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Link } from "@/lib/navigation";
 import { ArrowRight, ShoppingBag, Percent } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -17,9 +18,23 @@ export function Hero() {
 
         {/* ── Main card ─────────────────────────────────── */}
         <div className="relative bg-primary rounded-2xl overflow-hidden min-h-[220px] lg:min-h-[260px] flex flex-col justify-end p-7 lg:p-10">
-          {/* Decorative circles */}
-          <div className="pointer-events-none absolute right-[-40px] bottom-[-40px] w-64 h-64 rounded-full bg-white/5" />
-          <div className="pointer-events-none absolute right-[80px] top-[-60px] w-40 h-40 rounded-full bg-white/4" />
+          {/* Background images */}
+          <Image
+            src="https://crm.ideallivs.com/wp-content/uploads/2026/05/web-cover-mobile.png"
+            alt=""
+            fill
+            className="object-cover lg:hidden"
+            priority
+          />
+          <Image
+            src="https://crm.ideallivs.com/wp-content/uploads/2026/05/web-cover.png"
+            alt=""
+            fill
+            className="object-cover hidden lg:block"
+            priority
+          />
+          {/* Overlay for text readability */}
+          <div className="absolute inset-0 bg-black/40" />
 
           {/* Content */}
           <div className="relative z-10 max-w-lg">

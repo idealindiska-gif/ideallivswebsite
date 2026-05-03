@@ -38,8 +38,21 @@ export function TopInfoBar() {
                 <span className="text-white/80">{storeStatus.statusText}</span>
               </span>
               <span className="hidden lg:inline text-white/40">·</span>
-              <span className="hidden lg:inline text-white/60 truncate max-w-[180px]">
-                {getFormattedStoreHours().weekday}
+              <span className="hidden lg:inline-block overflow-hidden max-w-[220px] align-middle">
+                <span className="flex whitespace-nowrap animate-marquee">
+                  {[
+                    getFormattedStoreHours().weekday,
+                    '·',
+                    getFormattedStoreHours().weekend,
+                    '·',
+                    getFormattedStoreHours().weekday,
+                    '·',
+                    getFormattedStoreHours().weekend,
+                    '·',
+                  ].map((item, i) => (
+                    <span key={i} className={`px-2 ${item === '·' ? 'text-white/30' : 'text-white/60'}`}>{item}</span>
+                  ))}
+                </span>
               </span>
             </div>
           )}

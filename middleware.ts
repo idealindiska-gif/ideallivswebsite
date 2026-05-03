@@ -24,15 +24,6 @@ function handleLegacyRedirects(request: NextRequest): NextResponse | null {
     return NextResponse.redirect(new URL(`/${doubleLocale[1]}${rest}`, request.url), 301);
   }
 
-  // ─── 2. /no/* and /da/* product/product-category/brand → English ────────
-  // These locales lack real WooCommerce product data; redirect to English canonical
-  const noOrDaRoute = path.match(/^\/(no|da)\/(product|product-category|brand)(\/.*)?$/);
-  if (noOrDaRoute) {
-    const type = noOrDaRoute[2];
-    const rest = noOrDaRoute[3] || '';
-    return NextResponse.redirect(new URL(`/${type}${rest}`, request.url), 301);
-  }
-
   // ─── 3. /shop/product/* → /product/* ────────────────────────────────────
   if (path.startsWith('/shop/product/')) {
     const slug = path.replace('/shop/product/', '');

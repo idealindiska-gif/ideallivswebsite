@@ -305,6 +305,15 @@
     animation: shimmer 3s infinite linear;
   }
 
+  @keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-marquee {
+    animation: marquee-scroll 32s linear infinite;
+  }
+
   /* Custom Scrollbar Utilities */
   .scrollbar-thin {
     scrollbar-width: thin;
