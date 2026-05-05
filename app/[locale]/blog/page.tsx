@@ -67,12 +67,13 @@ function stripHtml(html: string): string {
 
 // Helper function to get featured image URL
 function getFeaturedImageUrl(post: any): string {
-  // Check if post has _embedded data with featured media
-  if (post._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
-    return post._embedded['wp:featuredmedia'][0].source_url;
+  const media = post._embedded?.['wp:featuredmedia']?.[0];
+  // Guard against WP error objects (e.g. { code: 'rest_post_invalid_id' } returned
+  // when featured_media was set but the attachment was later deleted from the media library)
+  if (media?.source_url && !media.code) {
+    return media.source_url;
   }
-  // Fallback to placeholder
-  return 'https://crm.ideallivs.com/wp-content/uploads/2025/07/rice-and-flours-e1752149384409.jpg';
+  return 'https://crm.ideallivs.com/wp-content/uploads/2026/03/Eid-Celebration-in-Sweden.jpg';
 }
 
 // Helper function to get author name
@@ -123,33 +124,84 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
       <section className="py-12 bg-muted/30 border-b">
         <div className="container px-4 md:px-6 space-y-8">
 
-          {/* Featured Static Post 1 (Diwali – next major upcoming festival) */}
+          {/* Featured Static Post — Eid al-Adha (happening ~27 May, most urgent) */}
           <div className="flex flex-col md:flex-row gap-8 items-center bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6">
             <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0">
               <Image
-                src="https://crm.ideallivs.com/wp-content/uploads/2026/04/diwali-2026-sverige-ideal-indiska.jpg"
-                alt={t('diwaliTitle')}
+                src="https://crm.ideallivs.com/wp-content/uploads/2026/05/eid-ul-adha-in-sweden-scaled.jpeg"
+                alt={t('eidAlAdhaTitle')}
                 fill
                 className="object-cover"
               />
-              <div className="absolute top-4 left-4 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                {t('newGuide')}
+              <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                🐑 {t('eidAlAdhaCategory')}
               </div>
             </div>
             <div className="flex-1 space-y-4">
-              <div className="text-sm font-medium text-orange-600 uppercase tracking-widest">{t('diwaliCategory')}</div>
-              <h2 className="text-2xl md:text-3xl font-bold font-heading">{t('diwaliTitle')}</h2>
+              <div className="text-sm font-medium text-primary uppercase tracking-widest">{t('eidAlAdhaCategory')}</div>
+              <h2 className="text-2xl md:text-3xl font-bold font-heading">{t('eidAlAdhaTitle')}</h2>
               <p className="text-muted-foreground line-clamp-3">
-                {t('diwaliDescription')}
+                {t('eidAlAdhaDescription')}
               </p>
-              <Button asChild className="rounded-full px-8 bg-orange-600 hover:bg-orange-700">
-                <Link href="/blog/diwali-2026-sverige">{t('viewDiwaliGuide')}</Link>
+              <Button asChild className="rounded-full px-8 bg-primary hover:bg-primary/90">
+                <Link href="/blog/eid-al-adha-2026-sverige">{t('viewEidAlAdhaGuide')}</Link>
               </Button>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Indian Fika */}
+            {/* Diwali */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/04/diwali-2026-sverige-ideal-indiska.jpg"
+                  alt={t('diwaliTitle')}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  {t('newGuide')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-orange-600 uppercase tracking-widest">{t('diwaliCategory')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('diwaliTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('diwaliDescription')}
+                </p>
+                <Button asChild className="rounded-full w-full mt-auto bg-orange-600 hover:bg-orange-700">
+                  <Link href="/blog/diwali-2026-sverige">{t('viewDiwaliGuide')}</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Indian Food Delivery Guide */}
+            <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
+                <Image
+                  src="https://crm.ideallivs.com/wp-content/uploads/2026/01/Delivey-Post-scaled-e1768345875656.jpg"
+                  alt={t('deliveryGuideTitle')}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+                <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  🚚 {t('deliveryGuideCategory')}
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="text-sm font-medium text-blue-600 uppercase tracking-widest">{t('deliveryGuideCategory')}</div>
+                <h2 className="text-2xl font-bold font-heading line-clamp-2">{t('deliveryGuideTitle')}</h2>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t('deliveryGuideDescription')}
+                </p>
+                <Button asChild className="rounded-full w-full mt-auto bg-blue-600 hover:bg-blue-700">
+                  <Link href="/blog/indisk-mat-leverans-sverige">{t('viewDeliveryGuide')}</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Eid al-Fitr */}
             <div className="flex flex-col bg-background rounded-3xl overflow-hidden shadow-sm border p-4 md:p-6 h-full">
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden flex-shrink-0 mb-6">
                 <Image
