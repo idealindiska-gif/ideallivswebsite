@@ -318,6 +318,34 @@ function handleLegacyRedirects(request: NextRequest): NextResponse | null {
     return NextResponse.redirect(new URL(miscRedirects[path], request.url), 301);
   }
 
+  // ─── 12. Product slug renames (old WC slug → new slug or nearest category) ─
+  const productSlugRenames: Record<string, string> = {
+    // "alibaba-" brand prefix was shortened to "ab-" in WooCommerce
+    '/sv/product/alibaba-gram-flour-1-kg':            '/sv/product/ab-gram-flour-1-kg',
+    '/product/alibaba-gram-flour-1-kg':               '/product/ab-gram-flour-1-kg',
+    // Removed / slug unknown — redirect to nearest category
+    '/sv/product/heera-agarbati-pure-lavendar':       '/sv/product-category/agarbatti',
+    '/product/heera-agarbati-pure-lavendar':          '/product-category/agarbatti',
+    '/sv/product/al-waid-cooking-oil-5-liter':        '/sv/product-category/cooking-oil',
+    '/product/al-waid-cooking-oil-5-liter':           '/product-category/cooking-oil',
+    '/sv/product/dates-900g':                         '/sv/product-category/dry-fruits',
+    '/product/dates-900g':                            '/product-category/dry-fruits',
+    '/sv/product/tang-mango-instant-drink-mix-2kg':   '/sv/product-category/instant-drink-mixes',
+    '/product/tang-mango-instant-drink-mix-2kg':      '/product-category/instant-drink-mixes',
+  };
+  if (productSlugRenames[path]) {
+    return NextResponse.redirect(new URL(productSlugRenames[path], request.url), 301);
+  }
+
+  // ─── 13. Brand slug renames ───────────────────────────────────────────────
+  const brandSlugRenames: Record<string, string> = {
+    '/sv/brand/haldiram': '/sv/brand/hr',
+    '/brand/haldiram':    '/brand/hr',
+  };
+  if (brandSlugRenames[path]) {
+    return NextResponse.redirect(new URL(brandSlugRenames[path], request.url), 301);
+  }
+
   return null;
 }
 

@@ -68,6 +68,16 @@ export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://www.id
         '@type': 'Place',
         name: 'Nacka',
       },
+      {
+        '@type': 'City',
+        name: 'Södertälje',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Södertälje',
+          postalCode: '151 00',
+          addressCountry: 'SE',
+        },
+      },
     ],
     offers: [
       {
@@ -98,6 +108,27 @@ export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://www.id
           { '@type': 'Place', name: 'Farsta' },
           { '@type': 'Place', name: 'Älvsjö' },
         ],
+      },
+      {
+        '@type': 'Offer',
+        name: 'Free Delivery to Södertälje',
+        description: 'Free delivery to Södertälje (postcodes 151 00–152 99) on orders of 1,000 SEK or more.',
+        price: '0',
+        priceCurrency: 'SEK',
+        eligibleTransactionVolume: {
+          '@type': 'PriceSpecification',
+          minPrice: 1000,
+          priceCurrency: 'SEK',
+        },
+        areaServed: {
+          '@type': 'City',
+          name: 'Södertälje',
+          address: {
+            '@type': 'PostalAddress',
+            postalCode: '151 00',
+            addressCountry: 'SE',
+          },
+        },
       },
     ],
     availableChannel: {
@@ -342,6 +373,14 @@ export function deliveryFAQSchema(baseUrl: string = 'https://www.ideallivs.com')
         acceptedAnswer: {
           '@type': 'Answer',
           text: 'Yes! We offer same-day evening delivery to nearby areas including Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö. Place your order before 4 PM (16:00) to receive delivery the same evening between 7 PM - 10 PM (19:00 - 22:00).',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you deliver to Södertälje?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes! We deliver to Södertälje and surrounding areas (postcodes 151 00–152 99). Orders of 1,000 SEK or more qualify for free delivery — no extra charge. For orders below 1,000 SEK, our standard delivery fee applies. Enter your postcode at checkout and the correct delivery option is calculated automatically.',
         },
       },
       {

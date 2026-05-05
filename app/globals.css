@@ -314,6 +314,10 @@
     animation: marquee-scroll 32s linear infinite;
   }
 
+  .animate-announce {
+    animation: marquee-scroll 48s linear infinite;
+  }
+
   /* Custom Scrollbar Utilities */
   .scrollbar-thin {
     scrollbar-width: thin;

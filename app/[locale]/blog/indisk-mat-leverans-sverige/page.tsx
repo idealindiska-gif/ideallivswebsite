@@ -16,7 +16,7 @@ export const revalidate = 86400;
 
 const FEATURE_IMAGE = 'https://crm.ideallivs.com/wp-content/uploads/2026/01/Delivey-Post-scaled-e1768345875656.jpg';
 const PUBLISH_DATE = '2026-05-05';
-const MODIFY_DATE = '2026-05-05';
+const MODIFY_DATE = '2026-05-06';
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
@@ -30,11 +30,11 @@ function getContent(locale: string) {
         isSv,
 
         metaTitle: isSv
-            ? 'Indisk Mat Leverans Sverige — Samma Dag Stockholm, Gratis Helg & DHL Hela Sverige'
-            : 'Indian Food Delivery Sweden — Same Day Stockholm, Free Weekend & DHL Nationwide',
+            ? 'Indisk Mat Leverans Sverige — Stockholm, Södertälje Gratis & DHL Hela Sverige'
+            : 'Indian Food Delivery Sweden — Stockholm, Södertälje Free Delivery & DHL Nationwide',
         metaDescription: isSv
-            ? 'Beställ autentiska indiska och pakistanska livsmedel online. Samma-dagleverans i Stockholm, gratis helgleverans till Järfälla, Kungsängen & Upplands-Bro (order 500+ kr), och DHL till hela Sverige.'
-            : 'Order authentic Indian and Pakistani groceries online. Same-day delivery in Stockholm, free weekend delivery to Järfälla, Kungsängen & Upplands-Bro (orders 500+ SEK), and DHL across Sweden.',
+            ? 'Beställ autentiska indiska och pakistanska livsmedel online. Samma-dagleverans i Stockholm, gratis leverans till Södertälje (postnr 151–152, order 1 000+ kr), gratis helgleverans till Järfälla & Upplands-Bro (500+ kr), och DHL till hela Sverige.'
+            : 'Order authentic Indian and Pakistani groceries online. Same-day delivery in Stockholm, free delivery to Södertälje (postcodes 151–152, orders 1,000+ SEK), free weekend delivery to Järfälla & Upplands-Bro (500+ SEK), and DHL across Sweden.',
 
         heroBadge: isSv ? 'Leveransguide · Hela Sverige' : 'Delivery Guide · All of Sweden',
         heroTitle: isSv
@@ -45,12 +45,14 @@ function getContent(locale: string) {
         tldrLabel: isSv ? 'Snabbguide — Alla Leveransalternativ' : 'Quick Guide — All Delivery Options',
         tldrItems: isSv ? [
             '🚀 <strong>Samma-dagleverans Stockholm:</strong> Bandhagen och omgivande stadsdelar — lägg order före kl. 16:00.',
+            '📍 <strong>Gratis leverans — Södertälje (postnr 151–152):</strong> Beställ för 1 000 kr eller mer och leveransen är gratis.',
             '🎉 <strong>Gratis helgleverans:</strong> Järfälla, Kungsängen & Upplands-Bro — beställ lördag–söndag, order 500 kr+.',
             '🚚 <strong>DHL — hela Sverige:</strong> Leverans till din dörr oavsett stad — pris beräknas i kassan.',
             '🏪 <strong>Hämta i butik:</strong> Gratis upphämtning på Bandhagsplan 4, Bandhagen, Stockholm.',
             '📦 <strong>Över 1 500 produkter:</strong> Basmatiris, kryddor, frysta snacks, sötsaker, drycker och mycket mer.',
         ] : [
             '🚀 <strong>Same-day delivery Stockholm:</strong> Bandhagen and surrounding districts — order before 16:00.',
+            '📍 <strong>Free delivery — Södertälje (postcodes 151–152):</strong> Order 1,000 SEK or more and delivery is free.',
             '🎉 <strong>Free weekend delivery:</strong> Järfälla, Kungsängen & Upplands-Bro — Sat–Sun, orders 500 SEK+.',
             '🚚 <strong>DHL — all of Sweden:</strong> Door-to-door delivery anywhere — price calculated at checkout.',
             '🏪 <strong>Store pickup:</strong> Free collection at Bandhagsplan 4, Bandhagen, Stockholm.',
@@ -80,10 +82,18 @@ function getContent(locale: string) {
         stockholmZones: [
             'Bandhagen', 'Hagsätra', 'Rågsved', 'Högdalen', 'Farsta', 'Enskede',
             'Huddinge', 'Solna', 'Sundbyberg', 'Älvsjö', 'Hägersten', 'Skärholmen',
+            'Södertälje',
         ],
         stockholmNote: isSv
             ? 'Leveransavgift tillkommer. Minimibeställning 300 kr. Är du osäker på om din adress ingår — ring oss eller skriv i WhatsApp så kontrollerar vi.'
             : 'Delivery fee applies. Minimum order 300 SEK. Unsure if your address is covered — call or WhatsApp us and we\'ll check.',
+
+        sodertaljeTitle: isSv
+            ? 'Nytt: Gratis leverans till Södertälje (postnr 151 00–152 99) vid beställning för 1 000 kr+'
+            : 'New: Free Delivery to Södertälje (postcodes 151 00–152 99) on Orders 1,000 SEK+',
+        sodertaljeBody: isSv
+            ? 'Vi levererar nu till Södertälje och kringliggande områden. Beställ för 1 000 kr eller mer och leveransen är helt gratis. Beställningar under 1 000 kr debiteras ordinarie leveransavgift. Ange ditt postnummer (151 xx eller 152 xx) i kassan så beräknas rätt leveransalternativ automatiskt.'
+            : 'We now deliver to Södertälje and surrounding areas. Order 1,000 SEK or more and delivery is completely free. Orders below 1,000 SEK are charged the standard delivery fee. Enter your postcode (151 xx or 152 xx) at checkout and the correct delivery option is calculated automatically.',
 
         // Weekend zone content
         weekendBody: isSv
@@ -175,6 +185,10 @@ function getContent(locale: string) {
                 a: 'Minimibeställning för lokal leverans i Stockholm är 300 kr. För gratis helgleverans till Järfälla, Kungsängen och Upplands-Bro gäller 500 kr.',
             },
             {
+                q: 'Levererar ni indiska livsmedel till Södertälje?',
+                a: 'Ja! Vi levererar nu till Södertälje (postnummer 151 00–152 99). Beställningar på 1 000 kr eller mer berättigar till helt gratis leverans — utan extra kostnad. För beställningar under 1 000 kr tillkommer ordinarie leveransavgift. Ange ditt postnummer i kassan så beräknas rätt alternativ automatiskt.',
+            },
+            {
                 q: 'Levererar ni indiska livsmedel till Göteborg och Malmö?',
                 a: 'Ja, vi levererar till hela Sverige via DHL — inklusive Göteborg, Malmö, Uppsala, Västerås, Örebro och alla andra städer. Vi har en specifik guide för Göteborg och Malmö-leverans.',
             },
@@ -202,6 +216,10 @@ function getContent(locale: string) {
             {
                 q: 'What is the minimum order for Stockholm delivery?',
                 a: 'Minimum order for local Stockholm delivery is 300 SEK. For free weekend delivery to Järfälla, Kungsängen and Upplands-Bro, the minimum is 500 SEK.',
+            },
+            {
+                q: 'Do you deliver Indian groceries to Södertälje?',
+                a: 'Yes! We now deliver to Södertälje (postcodes 151 00–152 99). Orders of 1,000 SEK or more qualify for completely free delivery — no extra charge. For orders below 1,000 SEK, our standard delivery fee applies. Enter your postcode at checkout and the correct option is calculated automatically.',
             },
             {
                 q: 'Do you deliver Indian groceries to Gothenburg and Malmö?',
@@ -242,8 +260,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
             images: [{ url: FEATURE_IMAGE, width: 1200, height: 630, alt: 'Indisk mat leverans Sverige' }],
         },
         keywords: locale === 'sv'
-            ? ['indisk mat leverans sverige', 'indisk mat leverans stockholm', 'indian food delivery sweden', 'indian grocery delivery stockholm', 'grocery delivery stockholm', 'indisk matbutik leverans', 'helgleverans järfälla', 'indisk leverans samma dag']
-            : ['indian food delivery sweden', 'indian grocery delivery stockholm', 'indian food delivery', 'grocery delivery stockholm'],
+            ? ['indisk mat leverans sverige', 'indisk mat leverans stockholm', 'indian food delivery sweden', 'indian grocery delivery stockholm', 'grocery delivery stockholm', 'indisk matbutik leverans', 'helgleverans järfälla', 'indisk leverans samma dag', 'indisk leverans södertälje', 'leverans södertälje', 'gratis leverans södertälje']
+            : ['indian food delivery sweden', 'indian grocery delivery stockholm', 'indian food delivery', 'grocery delivery stockholm', 'indian grocery delivery södertälje', 'södertälje grocery delivery', 'free delivery södertälje'],
     };
 }
 
@@ -283,7 +301,7 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
         description: c.metaDescription,
         url: c.articleUrl,
         inLanguage: c.isSv ? 'sv' : 'en',
-        keywords: 'indisk mat leverans sverige, indian food delivery sweden, grocery delivery stockholm',
+        keywords: 'indisk mat leverans sverige, indian food delivery sweden, grocery delivery stockholm, indisk leverans södertälje, södertälje grocery delivery',
     };
 
     const faqSchema = {
@@ -307,6 +325,7 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
         },
         areaServed: [
             { '@type': 'City', name: 'Stockholm' },
+            { '@type': 'City', name: 'Södertälje' },
             { '@type': 'City', name: 'Järfälla' },
             { '@type': 'City', name: 'Kungsängen' },
             { '@type': 'City', name: 'Upplands-Bro' },
@@ -500,6 +519,14 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                                 {c.isSv ? '(Gratis helg · 500 kr+)' : '(Free weekend · 500 SEK+)'}
                                             </text>
 
+                                            {/* Södertälje delivery zone */}
+                                            <ellipse cx="390" cy="400" rx="60" ry="22"
+                                                fill="rgba(234,88,12,0.15)" stroke="#ea580c" strokeWidth="1.5" strokeDasharray="4,2" />
+                                            <text x="390" y="397" textAnchor="middle" fontSize="11" fontWeight="700" fill="#c2410c">Södertälje</text>
+                                            <text x="390" y="411" textAnchor="middle" fontSize="9" fill="#c2410c">
+                                                {c.isSv ? 'Gratis vid 1 000 kr+ · 151–152' : 'Free on 1,000 SEK+ · 151–152'}
+                                            </text>
+
                                             {/* DHL label */}
                                             <text x="22" y="30" fontSize="11" fill="#d97706" fontWeight="700">
                                                 {c.isSv ? '🚚 DHL — Hela Sverige (1–3 arbetsdagar)' : '🚚 DHL — All of Sweden (1–3 working days)'}
@@ -519,6 +546,10 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                             <div className="flex items-center gap-2">
                                                 <span className="w-4 h-4 rounded border-2 border-dashed border-blue-600 bg-blue-100 dark:bg-blue-900/30 shrink-0" />
                                                 <span className="text-muted-foreground">{c.isSv ? 'Gratis helgleverans' : 'Free weekend delivery'}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <span className="w-4 h-4 rounded border-2 border-dashed border-orange-500 bg-orange-100 dark:bg-orange-900/30 shrink-0" />
+                                                <span className="text-muted-foreground">{c.isSv ? 'Södertälje — Gratis vid 1 000 kr+' : 'Södertälje — Free on 1,000 SEK+'}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <span className="w-4 h-4 rounded border-2 border-dashed border-amber-500 shrink-0" />
@@ -558,6 +589,15 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                             {c.isSv ? 'Beställ senast kl. 16:00 för leverans samma kväll' : 'Order by 16:00 for same-evening delivery'}
                                         </p>
                                         <p className="text-muted-foreground">{c.stockholmNote}</p>
+                                    </div>
+                                </div>
+
+                                {/* ── Södertälje highlight ──────────────────────────── */}
+                                <div className="not-prose flex items-start gap-3 p-5 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/40 text-sm my-4">
+                                    <MapPin className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+                                    <div>
+                                        <p className="font-bold text-foreground mb-1">{c.sodertaljeTitle}</p>
+                                        <p className="text-muted-foreground">{c.sodertaljeBody}</p>
                                     </div>
                                 </div>
 
@@ -769,6 +809,11 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                         <div className="p-3 rounded-xl bg-primary/5 border border-primary/20">
                                             <p className="font-bold text-foreground text-sm mb-1">🚀 {c.isSv ? 'Samma dag — Stockholm' : 'Same Day — Stockholm'}</p>
                                             <p className="text-xs text-muted-foreground">{c.isSv ? 'Order före 16:00 · Min. 300 kr' : 'Order by 16:00 · Min. 300 SEK'}</p>
+                                        </div>
+                                        {/* Södertälje */}
+                                        <div className="p-3 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/40">
+                                            <p className="font-bold text-green-800 dark:text-green-300 text-sm mb-1">📍 {c.isSv ? 'Gratis — Södertälje' : 'Free — Södertälje'}</p>
+                                            <p className="text-xs text-green-700 dark:text-green-400">{c.isSv ? 'Postnr 151–152 · Min. 1 000 kr · Gratis frakt' : 'Postcode 151–152 · Min. 1,000 SEK · Free shipping'}</p>
                                         </div>
                                         {/* Weekend */}
                                         <div className="p-3 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/40">
