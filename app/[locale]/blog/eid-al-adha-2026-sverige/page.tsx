@@ -943,7 +943,7 @@ export default async function EidAlAdhaPage({ params }: { params: Promise<{ loca
                                             { label: 'Crown Chapli Kebab Kyckling', emoji: '🍔', href: '/product/crown-chapli-kebab-chicken-12-st' },
                                             { label: 'Hamdard Rooh Afza 800ml', emoji: '🍓', href: '/product/hamdard-rooh-afza-syrup-800-ml' },
                                             { label: 'Tang Orange', emoji: '🍊', href: '/product/tang-orange' },
-                                            { label: c.isSv ? 'Anmol Sweets (Gulab Jamun, Laddu, Barfi)', emoji: '🍬', href: '/product/laddu-gulab-jamun-barfi-sweets' },
+                                            { label: c.isSv ? 'Anmol Sweets (Gulab Jamun, Laddu, Barfi)' : 'Anmol Sweets (Gulab Jamun, Laddu, Barfi)', emoji: '🍬', href: '/product/laddu-gulab-jamun-barfi-sweets' },
                                         ].map((item, i) => (
                                             <Link key={i} href={item.href} className="flex gap-3 group items-center hover:opacity-80 transition-opacity">
                                                 <span className="text-2xl shrink-0">{item.emoji}</span>
