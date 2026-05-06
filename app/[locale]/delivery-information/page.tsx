@@ -15,8 +15,8 @@ export const revalidate = 86400;
 // ─── Delivery FAQ data ─────────────────────────────────────────────────────────
 
 const deliveryFaqsEn = [
-    { q: 'How does delivery work in Stockholm?', a: 'We offer local delivery across all of Stockholm. A delivery fee applies to all orders. The minimum order is 300 SEK. Visit our Delivery Information page for current pricing details.' },
-    { q: 'How fast is same-day delivery?', a: 'Same-day delivery is available to Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna, and Sundbyberg. Place your order before 4 PM (16:00) for same-day delivery.' },
+    { q: 'How does same-day delivery work?', a: 'We offer same-day delivery in Bandhagen and nearby districts (Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Älvsjö and more). Minimum order is 500 SEK. A delivery fee applies. Place your order before 4 PM (16:00) for same-evening delivery.' },
+    { q: 'Do you deliver to Järfälla, Kungsängen and Upplands-Bro?', a: 'Yes — we run weekend deliveries (Saturday & Sunday) to Järfälla, Kungsängen and Upplands-Bro. Minimum order is 1,000 SEK. A delivery fee applies; this is not a free-delivery zone. On weekdays, standard DHL rates apply.' },
     { q: 'Do you deliver to Södertälje?', a: 'Yes! We deliver to Södertälje and surrounding areas (postcodes 151 00–152 99). Orders of 1,000 SEK or more qualify for free delivery. For orders below 1,000 SEK, our standard delivery fee applies. Enter your postcode at checkout and the correct option is calculated automatically.' },
     { q: 'Do you deliver outside Stockholm?', a: 'Yes. We deliver to all of Sweden and across Europe via DHL. No customs duties apply within the EU. Rates are calculated at checkout based on your location and order weight.' },
     { q: 'Can I pick up my order from the store?', a: 'Yes. Free in-store pickup is available at Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Select "Store Pickup" at checkout and we will prepare your order.' },
@@ -24,8 +24,8 @@ const deliveryFaqsEn = [
 ];
 
 const deliveryFaqsSv = [
-    { q: 'Hur fungerar leveransen i Stockholm?', a: 'Vi erbjuder lokalleverans i hela Stockholm. Leveransavgift tillkommer på alla beställningar. Minimibeställning är 300 kr. Besök vår leveransinformationssida för aktuell prisinformation.' },
-    { q: 'Hur snabb är samma-dagleveransen?', a: 'Samma-dagleverans finns till Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna och Sundbyberg. Lägg din beställning före kl. 16:00 för leverans samma dag.' },
+    { q: 'Hur fungerar samma-dagleveransen?', a: 'Vi erbjuder samma-dagleverans i Bandhagen och angränsande stadsdelar (Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Älvsjö m.fl.). Minimibeställning är 500 kr. Leveransavgift tillkommer. Lägg din beställning före kl. 16:00 för leverans samma kväll.' },
+    { q: 'Levererar ni till Järfälla, Kungsängen och Upplands-Bro?', a: 'Ja — vi kör helgleverans (lördag & söndag) till Järfälla, Kungsängen och Upplands-Bro. Minimibeställning är 1 000 kr. Leveransavgift tillkommer — detta är inte ett gratisfrakt-område. Under veckodagar gäller vanliga DHL-taxor.' },
     { q: 'Levererar ni till Södertälje?', a: 'Ja! Vi levererar till Södertälje och kringliggande områden (postnummer 151 00–152 99). Beställningar på 1 000 kr eller mer berättigar till gratis leverans. För beställningar under 1 000 kr tillkommer ordinarie leveransavgift. Ange ditt postnummer i kassan så beräknas rätt alternativ automatiskt.' },
     { q: 'Levererar ni utanför Stockholm?', a: 'Ja. Vi levererar till hela Sverige och Europa via DHL. Inga tullavgifter inom EU. Priset beräknas i kassan baserat på din plats och beställningens vikt.' },
     { q: 'Kan jag hämta min beställning i butiken?', a: 'Ja. Gratis upphämtning i butik finns på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Välj "Hämta i butik" i kassan så förbereder vi din beställning.' },
@@ -33,8 +33,8 @@ const deliveryFaqsSv = [
 ];
 
 const deliveryFaqsNo = [
-    { q: 'Hvordan fungerer levering i Stockholm?', a: 'Vi tilbyr lokal levering i hele Stockholm. En leveringsavgift gjelder for alle bestillinger. Minimumsbestilling er 300 SEK. Besøk vår leveringsinformasjonsside for gjeldende priser.' },
-    { q: 'Hvor rask er samme-dag levering?', a: 'Samme-dag levering er tilgjengelig til Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna og Sundbyberg. Legg inn bestillingen din før kl. 16:00 for levering samme dag.' },
+    { q: 'Hvordan fungerer samme-dag levering?', a: 'Vi tilbyr samme-dag levering i Bandhagen og nærliggende bydeler (Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Älvsjö m.fl.). Minimumsbestilling er 500 SEK. En leveringsavgift gjelder. Legg inn bestillingen din før kl. 16:00 for levering samme kveld.' },
+    { q: 'Leverer dere til Järfälla, Kungsängen og Upplands-Bro?', a: 'Ja — vi kjører helgelevering (lørdag & søndag) til Järfälla, Kungsängen og Upplands-Bro. Minimumsbestilling er 1 000 SEK. Leveringsavgift gjelder — dette er ikke et gratis leveringsområde.' },
     { q: 'Leverer dere til Södertälje?', a: 'Ja! Vi leverer til Södertälje og nærliggende områder (postnumre 151 00–152 99). Bestillinger på 1 000 SEK eller mer gir gratis levering. For bestillinger under 1 000 SEK gjelder standard leveringsavgift.' },
     { q: 'Leverer dere utenfor Stockholm?', a: 'Ja. Vi leverer til hele Sverige og Europa via DHL. Ingen tollgebyrer innen EU. Priser beregnes ved kassen basert på din plassering og bestillingens vekt.' },
     { q: 'Kan jeg hente bestillingen min i butikken?', a: 'Ja. Gratis henting i butikk er tilgjengelig på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Velg «Hent i butikk» ved kassen, så forbereder vi bestillingen din.' },
@@ -42,8 +42,8 @@ const deliveryFaqsNo = [
 ];
 
 const deliveryFaqsDa = [
-    { q: 'Hvordan fungerer levering i Stockholm?', a: 'Vi tilbyder lokal levering i hele Stockholm. Et leveringsgebyr gælder for alle bestillinger. Minimumsbestilling er 300 SEK. Besøg vores leveringsinformationsside for aktuelle priser.' },
-    { q: 'Hvor hurtig er samme-dag levering?', a: 'Samme-dag levering er tilgængeligt til Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Solna og Sundbyberg. Afgiv din bestilling inden kl. 16:00 for levering samme dag.' },
+    { q: 'Hvordan fungerer samme-dag levering?', a: 'Vi tilbyder samme-dag levering i Bandhagen og nærliggende bydele (Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Älvsjö m.fl.). Minimumsbestilling er 500 SEK. Et leveringsgebyr gælder. Afgiv din bestilling inden kl. 16:00 for levering samme aften.' },
+    { q: 'Leverer I til Järfälla, Kungsängen og Upplands-Bro?', a: 'Ja — vi kører weekendlevering (lørdag & søndag) til Järfälla, Kungsängen og Upplands-Bro. Minimumsbestilling er 1 000 SEK. Leveringsgebyr gælder — dette er ikke et gratis leveringsområde.' },
     { q: 'Leverer I til Södertälje?', a: 'Ja! Vi leverer til Södertälje og nærliggende områder (postnumre 151 00–152 99). Bestillinger på 1 000 SEK eller mere giver gratis levering. For bestillinger under 1 000 SEK gælder standard leveringsgebyr.' },
     { q: 'Leverer I uden for Stockholm?', a: 'Ja. Vi leverer til hele Sverige og Europa via DHL. Ingen toldsatser inden for EU. Priser beregnes ved kassen baseret på din placering og bestillingens vægt.' },
     { q: 'Kan jeg hente min bestilling i butikken?', a: 'Ja. Gratis afhentning i butik er tilgængeligt på Bandhagsplan 4, 124 32 Bandhagen, Stockholm. Vælg «Afhent i butik» ved kassen, så forbereder vi din bestilling.' },

@@ -30,11 +30,11 @@ function getContent(locale: string) {
         isSv,
 
         metaTitle: isSv
-            ? 'Indisk Mat Leverans Sverige — Stockholm, Södertälje Gratis & DHL Hela Sverige'
-            : 'Indian Food Delivery Sweden — Stockholm, Södertälje Free Delivery & DHL Nationwide',
+            ? 'Indisk Mat Leverans Sverige — Bandhagen Samma Dag, Södertälje Gratis & DHL Hela Sverige'
+            : 'Indian Food Delivery Sweden — Bandhagen Same Day, Södertälje Free Delivery & DHL Nationwide',
         metaDescription: isSv
-            ? 'Beställ autentiska indiska och pakistanska livsmedel online. Samma-dagleverans i Stockholm, gratis leverans till Södertälje (postnr 151–152, order 1 000+ kr), gratis helgleverans till Järfälla & Upplands-Bro (500+ kr), och DHL till hela Sverige.'
-            : 'Order authentic Indian and Pakistani groceries online. Same-day delivery in Stockholm, free delivery to Södertälje (postcodes 151–152, orders 1,000+ SEK), free weekend delivery to Järfälla & Upplands-Bro (500+ SEK), and DHL across Sweden.',
+            ? 'Beställ autentiska indiska och pakistanska livsmedel online. Samma-dagleverans i Bandhagen och omgivning (min. 500 kr), gratis leverans till Södertälje (postnr 151–152, order 1 000+ kr), helgleverans till Järfälla & Upplands-Bro (min. 1 000 kr), och DHL till hela Sverige.'
+            : 'Order authentic Indian and Pakistani groceries online. Same-day delivery in Bandhagen and nearby areas (min. 500 SEK), free delivery to Södertälje (postcodes 151–152, orders 1,000+ SEK), weekend delivery to Järfälla & Upplands-Bro (min. 1,000 SEK), and DHL across Sweden.',
 
         heroBadge: isSv ? 'Leveransguide · Hela Sverige' : 'Delivery Guide · All of Sweden',
         heroTitle: isSv
@@ -44,16 +44,16 @@ function getContent(locale: string) {
 
         tldrLabel: isSv ? 'Snabbguide — Alla Leveransalternativ' : 'Quick Guide — All Delivery Options',
         tldrItems: isSv ? [
-            '🚀 <strong>Samma-dagleverans Stockholm:</strong> Bandhagen och omgivande stadsdelar — lägg order före kl. 16:00.',
+            '🚀 <strong>Samma-dagleverans — Bandhagen & omgivning:</strong> Hagsätra, Högdalen, Farsta m.fl. — order före kl. 16:00 · min. 500 kr.',
             '📍 <strong>Gratis leverans — Södertälje (postnr 151–152):</strong> Beställ för 1 000 kr eller mer och leveransen är gratis.',
-            '🎉 <strong>Gratis helgleverans:</strong> Järfälla, Kungsängen & Upplands-Bro — beställ lördag–söndag, order 500 kr+.',
+            '🚗 <strong>Helgleverans — Järfälla, Kungsängen & Upplands-Bro:</strong> Lördag–söndag — min. 1 000 kr.',
             '🚚 <strong>DHL — hela Sverige:</strong> Leverans till din dörr oavsett stad — pris beräknas i kassan.',
             '🏪 <strong>Hämta i butik:</strong> Gratis upphämtning på Bandhagsplan 4, Bandhagen, Stockholm.',
             '📦 <strong>Över 1 500 produkter:</strong> Basmatiris, kryddor, frysta snacks, sötsaker, drycker och mycket mer.',
         ] : [
-            '🚀 <strong>Same-day delivery Stockholm:</strong> Bandhagen and surrounding districts — order before 16:00.',
+            '🚀 <strong>Same-day delivery — Bandhagen & surroundings:</strong> Hagsätra, Högdalen, Farsta & nearby — order before 16:00 · min. 500 SEK.',
             '📍 <strong>Free delivery — Södertälje (postcodes 151–152):</strong> Order 1,000 SEK or more and delivery is free.',
-            '🎉 <strong>Free weekend delivery:</strong> Järfälla, Kungsängen & Upplands-Bro — Sat–Sun, orders 500 SEK+.',
+            '🚗 <strong>Weekend delivery — Järfälla, Kungsängen & Upplands-Bro:</strong> Saturday–Sunday — min. 1,000 SEK.',
             '🚚 <strong>DHL — all of Sweden:</strong> Door-to-door delivery anywhere — price calculated at checkout.',
             '🏪 <strong>Store pickup:</strong> Free collection at Bandhagsplan 4, Bandhagen, Stockholm.',
             '📦 <strong>Over 1,500 products:</strong> Basmati rice, spices, frozen snacks, sweets, drinks and much more.',
@@ -68,8 +68,8 @@ function getContent(locale: string) {
 
         // Section titles
         optionsTitle: isSv ? 'Tre sätt att få din indiska mat levererad' : 'Three ways to get your Indian groceries delivered',
-        stockholmTitle: isSv ? '1. Samma-dagleverans — Stockholm & Omgivningar' : '1. Same-Day Delivery — Stockholm & Surroundings',
-        weekendTitle: isSv ? '2. Gratis Helgleverans — Järfälla, Kungsängen & Upplands-Bro' : '2. Free Weekend Delivery — Järfälla, Kungsängen & Upplands-Bro',
+        stockholmTitle: isSv ? '1. Samma-dagleverans — Bandhagen & Omgivning' : '1. Same-Day Delivery — Bandhagen & Surroundings',
+        weekendTitle: isSv ? '2. Helgleverans — Järfälla, Kungsängen & Upplands-Bro' : '2. Weekend Delivery — Järfälla, Kungsängen & Upplands-Bro',
         dhlTitle: isSv ? '3. DHL Leverans — Hela Sverige' : '3. DHL Delivery — All of Sweden',
         howTitle: isSv ? 'Hur du beställer — steg för steg' : 'How to order — step by step',
         popularTitle: isSv ? 'Populärt att beställa hem' : 'Popular items to order',
@@ -77,16 +77,15 @@ function getContent(locale: string) {
 
         // Stockholm zone content
         stockholmBody: isSv
-            ? 'Vi erbjuder lokal leverans med samma dag i Stockholm och angränsande stadsdelar. Lägg din beställning senast kl. 16:00 för leverans till kvällen samma dag.'
-            : 'We offer local same-day delivery in Stockholm and surrounding districts. Place your order by 16:00 for evening delivery the same day.',
+            ? 'Vi erbjuder samma-dagleverans i Bandhagen och angränsande stadsdelar söder om Stockholm. Lägg din beställning senast kl. 16:00 för leverans till kvällen samma dag.'
+            : 'We offer same-day delivery in Bandhagen and nearby districts in southern Stockholm. Place your order by 16:00 for evening delivery the same day.',
         stockholmZones: [
             'Bandhagen', 'Hagsätra', 'Rågsved', 'Högdalen', 'Farsta', 'Enskede',
-            'Huddinge', 'Solna', 'Sundbyberg', 'Älvsjö', 'Hägersten', 'Skärholmen',
-            'Södertälje',
+            'Huddinge', 'Älvsjö', 'Hägersten', 'Skärholmen',
         ],
         stockholmNote: isSv
-            ? 'Leveransavgift tillkommer. Minimibeställning 300 kr. Är du osäker på om din adress ingår — ring oss eller skriv i WhatsApp så kontrollerar vi.'
-            : 'Delivery fee applies. Minimum order 300 SEK. Unsure if your address is covered — call or WhatsApp us and we\'ll check.',
+            ? 'Leveransavgift tillkommer. Minimibeställning 500 kr. Är du osäker på om din adress ingår — ring oss eller skriv i WhatsApp så kontrollerar vi.'
+            : 'Delivery fee applies. Minimum order 500 SEK. Unsure if your address is covered — call or WhatsApp us and we\'ll check.',
 
         sodertaljeTitle: isSv
             ? 'Nytt: Gratis leverans till Södertälje (postnr 151 00–152 99) vid beställning för 1 000 kr+'
@@ -97,8 +96,8 @@ function getContent(locale: string) {
 
         // Weekend zone content
         weekendBody: isSv
-            ? 'Bor du i Järfälla, Kungsängen eller Upplands-Bro? Vi kör helgleverans till dessa områden på lördagar och söndagar. Beställ för 500 kr eller mer och leveransen är helt gratis.'
-            : 'Do you live in Järfälla, Kungsängen or Upplands-Bro? We run weekend deliveries to these areas on Saturdays and Sundays. Order for 500 SEK or more and delivery is completely free.',
+            ? 'Bor du i Järfälla, Kungsängen eller Upplands-Bro? Vi kör helgleverans till dessa områden på lördagar och söndagar. Minimibeställning 1 000 kr. Leveransavgift tillkommer.'
+            : 'Do you live in Järfälla, Kungsängen or Upplands-Bro? We run weekend deliveries to these areas on Saturdays and Sundays. Minimum order 1,000 SEK. Delivery fee applies.',
         weekendZones: [
             { area: 'Järfälla', desc: isSv ? 'Inkl. Jakobsberg, Kallhäll, Skälby, Viksjö' : 'Incl. Jakobsberg, Kallhäll, Skälby, Viksjö' },
             { area: 'Kungsängen', desc: isSv ? 'Inkl. centrala Kungsängen och Brunna' : 'Incl. central Kungsängen and Brunna' },
@@ -106,13 +105,13 @@ function getContent(locale: string) {
         ],
         weekendRules: isSv ? [
             ['📅 Dagar', 'Lördag & Söndag'],
-            ['💰 Minimum', '500 kr'],
-            ['🚚 Leveransavgift', 'Gratis (vid 500 kr+)'],
+            ['💰 Minimum', '1 000 kr'],
+            ['🚚 Leveransavgift', 'Tillkommer'],
             ['⏰ Beställningsfrist', 'Beställ helgen, leverans samma helgdag'],
         ] : [
             ['📅 Days', 'Saturday & Sunday'],
-            ['💰 Minimum', '500 SEK'],
-            ['🚚 Delivery fee', 'Free (orders 500 SEK+)'],
+            ['💰 Minimum', '1,000 SEK'],
+            ['🚚 Delivery fee', 'Applies'],
             ['⏰ Order deadline', 'Order on the weekend, delivery same day'],
         ],
         weekendNote: isSv
@@ -141,13 +140,13 @@ function getContent(locale: string) {
         steps: isSv ? [
             { n: '1', title: 'Gå till vår webshop', desc: 'Besök ideallivs.com och bläddra bland över 1 500 produkter — ris, kryddor, frysta snacks, sötsaker, drycker och mycket mer.' },
             { n: '2', title: 'Lägg till produkter i varukorgen', desc: 'Välj dina varor, justera antal och klicka på "Lägg i varukorg". Du kan filtrera efter kategori, märke eller sökord.' },
-            { n: '3', title: 'Välj leveransalternativ i kassan', desc: 'I kassan väljer du mellan lokal leverans (Stockholm), helgleverans (Järfälla/Kungsängen/Upplands-Bro) eller DHL. Fraktkostnaden beräknas automatiskt.' },
+            { n: '3', title: 'Välj leveransalternativ i kassan', desc: 'I kassan väljer du mellan samma-dagleverans (Bandhagen & omgivning), helgleverans (Järfälla/Kungsängen/Upplands-Bro) eller DHL. Fraktkostnaden beräknas automatiskt.' },
             { n: '4', title: 'Betala säkert', desc: 'Vi accepterar Klarna, Swish, Visa, Mastercard, Apple Pay och Google Pay. Betala tryggt med krypterad betalning.' },
             { n: '5', title: 'Ta emot din leverans', desc: 'Din beställning packas omsorgsfullt i Bandhagen och levereras. Du får en bekräftelse och, för DHL-leveranser, ett spårningsnummer.' },
         ] : [
             { n: '1', title: 'Go to our webshop', desc: 'Visit ideallivs.com and browse over 1,500 products — rice, spices, frozen snacks, sweets, drinks and much more.' },
             { n: '2', title: 'Add products to your cart', desc: 'Select your items, adjust quantities and click "Add to cart". You can filter by category, brand or keyword.' },
-            { n: '3', title: 'Choose your delivery option at checkout', desc: 'At checkout choose between local delivery (Stockholm), weekend delivery (Järfälla/Kungsängen/Upplands-Bro) or DHL. Shipping is calculated automatically.' },
+            { n: '3', title: 'Choose your delivery option at checkout', desc: 'At checkout choose between same-day delivery (Bandhagen & surroundings), weekend delivery (Järfälla/Kungsängen/Upplands-Bro) or DHL. Shipping is calculated automatically.' },
             { n: '4', title: 'Pay securely', desc: 'We accept Klarna, Swish, Visa, Mastercard, Apple Pay and Google Pay. Safe encrypted payment.' },
             { n: '5', title: 'Receive your delivery', desc: 'Your order is carefully packed in Bandhagen and dispatched. You\'ll receive a confirmation and, for DHL orders, a tracking number.' },
         ],
@@ -165,12 +164,12 @@ function getContent(locale: string) {
         // FAQs
         faqs: isSv ? [
             {
-                q: 'Levererar Ideal Indiska Livs till hela Stockholm?',
-                a: 'Ja, vi erbjuder lokal leverans i hela Stockholm och angränsande stadsdelar. Lägg din beställning senast kl. 16:00 för leverans samma kväll. Kontakta oss om du är osäker på om din adress ingår.',
+                q: 'Erbjuder ni samma-dagleverans i Stockholm?',
+                a: 'Vi erbjuder samma-dagleverans i Bandhagen och angränsande stadsdelar (t.ex. Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Älvsjö). Minimibeställning 500 kr. Lägg din beställning senast kl. 16:00 för leverans samma kväll. Kontakta oss om du är osäker på om din adress ingår.',
             },
             {
-                q: 'Är helgleveransen till Järfälla verkligen gratis?',
-                a: 'Ja — vi kör gratis helgleverans till Järfälla, Kungsängen och Upplands-Bro på lördagar och söndagar för beställningar på 500 kr eller mer. Under veckan gäller vanliga DHL-taxor för dessa områden.',
+                q: 'Är helgleveransen till Järfälla gratis?',
+                a: 'Helgleverans till Järfälla, Kungsängen och Upplands-Bro körs lördag–söndag med minimibeställning 1 000 kr. Leveransavgift tillkommer — leveransen är inte gratis för detta område. Under veckan gäller vanliga DHL-taxor.',
             },
             {
                 q: 'Hur lång tid tar DHL-leveransen till resten av Sverige?',
@@ -181,8 +180,8 @@ function getContent(locale: string) {
                 a: 'Absolut! Gratis upphämtning är tillgänglig på Bandhagsplan 4, 124 32 Bandhagen. Välj "Hämta i butik" i kassan så har vi din order redo.',
             },
             {
-                q: 'Vad är minimibeställningen för Stockholm-leverans?',
-                a: 'Minimibeställning för lokal leverans i Stockholm är 300 kr. För gratis helgleverans till Järfälla, Kungsängen och Upplands-Bro gäller 500 kr.',
+                q: 'Vad är minimibeställningen för lokal leverans?',
+                a: 'Minimibeställning för samma-dagleverans i Bandhagen och omgivning är 500 kr. För helgleverans till Järfälla, Kungsängen och Upplands-Bro gäller 1 000 kr. För gratis leverans till Södertälje (postnr 151–152) gäller 1 000 kr.',
             },
             {
                 q: 'Levererar ni indiska livsmedel till Södertälje?',
@@ -198,12 +197,12 @@ function getContent(locale: string) {
             },
         ] : [
             {
-                q: 'Does Ideal Indiska Livs deliver to all of Stockholm?',
-                a: 'Yes, we offer local delivery across Stockholm and surrounding districts. Place your order by 16:00 for same-evening delivery. Contact us if you\'re unsure whether your address is covered.',
+                q: 'Do you offer same-day delivery in Stockholm?',
+                a: 'We offer same-day delivery in Bandhagen and nearby districts (e.g. Hagsätra, Högdalen, Farsta, Enskede, Huddinge, Älvsjö). Minimum order is 500 SEK. Place your order by 16:00 for same-evening delivery. Contact us if you\'re unsure whether your address is covered.',
             },
             {
-                q: 'Is the weekend delivery to Järfälla really free?',
-                a: 'Yes — we run free weekend delivery to Järfälla, Kungsängen and Upplands-Bro on Saturdays and Sundays for orders of 500 SEK or more. On weekdays, standard DHL rates apply to these areas.',
+                q: 'Is the weekend delivery to Järfälla free?',
+                a: 'No — weekend delivery to Järfälla, Kungsängen and Upplands-Bro requires a minimum order of 1,000 SEK and a delivery fee applies. This is not a free delivery zone. On weekdays, standard DHL rates apply to these areas.',
             },
             {
                 q: 'How long does DHL delivery take to the rest of Sweden?',
@@ -214,8 +213,8 @@ function getContent(locale: string) {
                 a: 'Absolutely! Free collection is available at Bandhagsplan 4, 124 32 Bandhagen. Select "Store Pickup" at checkout and we\'ll have your order ready.',
             },
             {
-                q: 'What is the minimum order for Stockholm delivery?',
-                a: 'Minimum order for local Stockholm delivery is 300 SEK. For free weekend delivery to Järfälla, Kungsängen and Upplands-Bro, the minimum is 500 SEK.',
+                q: 'What is the minimum order for local delivery?',
+                a: 'Minimum order for same-day delivery in Bandhagen and surroundings is 500 SEK. For weekend delivery to Järfälla, Kungsängen and Upplands-Bro the minimum is 1,000 SEK. Free delivery to Södertälje (postcodes 151–152) also requires a minimum of 1,000 SEK.',
             },
             {
                 q: 'Do you deliver Indian groceries to Södertälje?',
@@ -424,15 +423,15 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                             icon: <Truck className="w-6 h-6" />,
                                             badge: c.isSv ? 'Alternativ 1' : 'Option 1',
                                             title: c.isSv ? 'Samma dag' : 'Same Day',
-                                            sub: c.isSv ? 'Stockholm & omgivningar' : 'Stockholm & surroundings',
+                                            sub: c.isSv ? 'Bandhagen & omgivning' : 'Bandhagen & surroundings',
                                             color: 'bg-primary/10 text-primary border-primary/20',
                                         },
                                         {
                                             icon: <Gift className="w-6 h-6" />,
                                             badge: c.isSv ? 'Alternativ 2' : 'Option 2',
-                                            title: c.isSv ? 'Gratis helg' : 'Free Weekend',
+                                            title: c.isSv ? 'Helgleverans' : 'Weekend Delivery',
                                             sub: c.isSv ? 'Järfälla · Kungsängen · Upplands-Bro' : 'Järfälla · Kungsängen · Upplands-Bro',
-                                            color: 'bg-green-50 dark:bg-green-950/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800/40',
+                                            color: 'bg-blue-50 dark:bg-blue-950/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800/40',
                                         },
                                         {
                                             icon: <Package className="w-6 h-6" />,
@@ -508,7 +507,7 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                                 {c.isSv ? 'Stockholm' : 'Stockholm'}
                                             </text>
                                             <text x="450" y="288" textAnchor="middle" fontSize="10" fill="#16a34a">
-                                                {c.isSv ? 'Samma dag · före kl. 16:00' : 'Same day · before 16:00'}
+                                                {c.isSv ? 'Bandhagen · Samma dag · min. 500 kr' : 'Bandhagen · Same day · min. 500 SEK'}
                                             </text>
                                             <text x="476" y="344" textAnchor="start" fontSize="11" fill="#15803d" fontWeight="600">Bandhagen</text>
 
@@ -516,7 +515,7 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                             <text x="195" y="215" textAnchor="middle" fontSize="10" fill="#1d4ed8">Kungsängen</text>
                                             <text x="245" y="230" textAnchor="middle" fontSize="10" fill="#1d4ed8">Upplands-Bro</text>
                                             <text x="245" y="245" textAnchor="middle" fontSize="9" fill="#3b82f6">
-                                                {c.isSv ? '(Gratis helg · 500 kr+)' : '(Free weekend · 500 SEK+)'}
+                                                {c.isSv ? '(Helg · min. 1 000 kr)' : '(Weekend · min. 1,000 SEK)'}
                                             </text>
 
                                             {/* Södertälje delivery zone */}
@@ -644,9 +643,9 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                     </table>
                                 </div>
 
-                                <div className="not-prose flex items-start gap-3 p-4 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/40 text-sm my-4">
-                                    <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
-                                    <p className="text-green-800 dark:text-green-300">{c.weekendNote}</p>
+                                <div className="not-prose flex items-start gap-3 p-4 rounded-xl bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800/40 text-sm my-4">
+                                    <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                                    <p className="text-blue-800 dark:text-blue-300">{c.weekendNote}</p>
                                 </div>
 
                                 {/* ── DHL Sweden ───────────────────────────────────── */}
@@ -805,10 +804,10 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                         {c.isSv ? 'Leveransöversikt' : 'Delivery Overview'}
                                     </h3>
                                     <div className="space-y-4">
-                                        {/* Stockholm */}
+                                        {/* Bandhagen same-day */}
                                         <div className="p-3 rounded-xl bg-primary/5 border border-primary/20">
-                                            <p className="font-bold text-foreground text-sm mb-1">🚀 {c.isSv ? 'Samma dag — Stockholm' : 'Same Day — Stockholm'}</p>
-                                            <p className="text-xs text-muted-foreground">{c.isSv ? 'Order före 16:00 · Min. 300 kr' : 'Order by 16:00 · Min. 300 SEK'}</p>
+                                            <p className="font-bold text-foreground text-sm mb-1">🚀 {c.isSv ? 'Samma dag — Bandhagen' : 'Same Day — Bandhagen'}</p>
+                                            <p className="text-xs text-muted-foreground">{c.isSv ? 'Order före 16:00 · Min. 500 kr' : 'Order by 16:00 · Min. 500 SEK'}</p>
                                         </div>
                                         {/* Södertälje */}
                                         <div className="p-3 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/40">
@@ -816,9 +815,9 @@ export default async function DeliveryGuidePage({ params }: { params: Promise<{ 
                                             <p className="text-xs text-green-700 dark:text-green-400">{c.isSv ? 'Postnr 151–152 · Min. 1 000 kr · Gratis frakt' : 'Postcode 151–152 · Min. 1,000 SEK · Free shipping'}</p>
                                         </div>
                                         {/* Weekend */}
-                                        <div className="p-3 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800/40">
-                                            <p className="font-bold text-green-800 dark:text-green-300 text-sm mb-1">🎉 {c.isSv ? 'Gratis helg — Järfälla m.fl.' : 'Free Weekend — Järfälla etc.'}</p>
-                                            <p className="text-xs text-green-700 dark:text-green-400">{c.isSv ? 'Lör–Sön · Min. 500 kr · Gratis frakt' : 'Sat–Sun · Min. 500 SEK · Free shipping'}</p>
+                                        <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800/40">
+                                            <p className="font-bold text-blue-800 dark:text-blue-300 text-sm mb-1">🚗 {c.isSv ? 'Helgleverans — Järfälla m.fl.' : 'Weekend — Järfälla etc.'}</p>
+                                            <p className="text-xs text-blue-700 dark:text-blue-400">{c.isSv ? 'Lör–Sön · Min. 1 000 kr · Avgift tillkommer' : 'Sat–Sun · Min. 1,000 SEK · Fee applies'}</p>
                                         </div>
                                         {/* DHL */}
                                         <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40">

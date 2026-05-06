@@ -15,8 +15,8 @@ export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://www.id
     '@context': 'https://schema.org',
     '@type': 'Service',
     '@id': `${baseUrl}/#stockholm-delivery-service`,
-    name: 'Stockholm Grocery Delivery Service',
-    description: 'Local delivery to all of Stockholm. Delivery fee applies to all orders. Same-day delivery available to nearby areas.',
+    name: 'Bandhagen & Area Grocery Delivery Service',
+    description: 'Same-day delivery in Bandhagen and nearby southern Stockholm districts (min. 500 SEK). Weekend delivery to Järfälla, Kungsängen & Upplands-Bro (min. 1,000 SEK). Free delivery to Södertälje on orders 1,000 SEK+.',
     provider: {
       '@type': 'Organization',
       '@id': `${baseUrl}/#organization`,
@@ -82,31 +82,41 @@ export function stockholmDeliveryServiceSchema(baseUrl: string = 'https://www.id
     offers: [
       {
         '@type': 'Offer',
-        name: 'Standard Stockholm Delivery',
-        description: 'Flat delivery fee for orders between 300-499 SEK',
-        price: '30',
+        name: 'Same-Day Delivery — Bandhagen & Surroundings',
+        description: 'Same-day evening delivery to Bandhagen and nearby districts. Order before 4 PM (16:00). Minimum order 500 SEK. Delivery fee applies.',
         priceCurrency: 'SEK',
         eligibleTransactionVolume: {
           '@type': 'PriceSpecification',
-          minPrice: 300,
-          maxPrice: 499.99,
+          minPrice: 500,
           priceCurrency: 'SEK',
         },
-      },
-      {
-        '@type': 'Offer',
-        name: 'Same-Day Evening Delivery',
-        description: 'Same-day delivery to nearby areas (order before 4 PM)',
-        price: '30',
-        priceCurrency: 'SEK',
         areaServed: [
           { '@type': 'Place', name: 'Bandhagen' },
           { '@type': 'Place', name: 'Högdalen' },
           { '@type': 'Place', name: 'Hagsätra' },
           { '@type': 'Place', name: 'Rågsved' },
-          { '@type': 'Place', name: 'Stureby' },
           { '@type': 'Place', name: 'Farsta' },
+          { '@type': 'Place', name: 'Enskede' },
+          { '@type': 'Place', name: 'Huddinge' },
           { '@type': 'Place', name: 'Älvsjö' },
+          { '@type': 'Place', name: 'Hägersten' },
+          { '@type': 'Place', name: 'Skärholmen' },
+        ],
+      },
+      {
+        '@type': 'Offer',
+        name: 'Weekend Delivery — Järfälla, Kungsängen & Upplands-Bro',
+        description: 'Weekend delivery (Saturday & Sunday) to Järfälla, Kungsängen and Upplands-Bro. Minimum order 1,000 SEK. Delivery fee applies.',
+        priceCurrency: 'SEK',
+        eligibleTransactionVolume: {
+          '@type': 'PriceSpecification',
+          minPrice: 1000,
+          priceCurrency: 'SEK',
+        },
+        areaServed: [
+          { '@type': 'Place', name: 'Järfälla' },
+          { '@type': 'Place', name: 'Kungsängen' },
+          { '@type': 'Place', name: 'Upplands-Bro' },
         ],
       },
       {
@@ -361,10 +371,10 @@ export function deliveryFAQSchema(baseUrl: string = 'https://www.ideallivs.com')
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'What is the minimum order for delivery in Stockholm?',
+        name: 'What is the minimum order for local delivery?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The minimum order for our local delivery service in Stockholm is 300 SEK. A delivery fee applies to all orders. Visit our Delivery Information page for current pricing.',
+          text: 'Minimum order for same-day delivery in Bandhagen and surroundings is 500 SEK (delivery fee applies). For weekend delivery to Järfälla, Kungsängen and Upplands-Bro the minimum is 1,000 SEK (delivery fee applies). Free delivery to Södertälje (postcodes 151–152) requires a minimum of 1,000 SEK.',
         },
       },
       {
@@ -372,7 +382,7 @@ export function deliveryFAQSchema(baseUrl: string = 'https://www.ideallivs.com')
         name: 'Do you offer same-day delivery?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes! We offer same-day evening delivery to nearby areas including Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö. Place your order before 4 PM (16:00) to receive delivery the same evening between 7 PM - 10 PM (19:00 - 22:00).',
+          text: 'Yes! We offer same-day evening delivery to Bandhagen and nearby areas including Hagsätra, Högdalen, Rågsved, Farsta, Enskede, Huddinge, Älvsjö, Hägersten and Skärholmen. Minimum order is 500 SEK. Place your order before 4 PM (16:00) to receive delivery the same evening.',
         },
       },
       {
