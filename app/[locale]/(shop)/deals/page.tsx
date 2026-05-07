@@ -129,7 +129,7 @@ const dealsFaqsEn = [
     },
     {
         q: 'Do you deliver deals orders in Stockholm?',
-        a: 'Yes. We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 SEK. Same-day delivery is available to nearby areas for orders placed before 4 PM.',
+        a: 'Yes. We deliver to addresses within a 3–4 km radius of our Bandhagen store (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö). Delivery fee is 50 kr for orders under 500 kr (free at 500 kr and above). Minimum order is 500 kr for local delivery. Same-day evening delivery available for orders placed before 4 PM.',
     },
     {
         q: 'Can I get deals delivered across Europe?',
@@ -156,7 +156,7 @@ const dealsFaqsSv = [
     },
     {
         q: 'Levererar ni dealbeställningar i Stockholm?',
-        a: 'Ja. Vi erbjuder lokalleverans i hela Stockholm. Leveransavgift tillkommer på alla beställningar. Minimibeställning är 300 kr. Samma-dagleverans finns till närliggande områden för beställningar lagda före 16:00.',
+        a: 'Ja. Vi levererar till adresser inom 3–4 km från vår Bandhagen-butik (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta och Älvsjö). Leveransavgift 50 kr för beställningar under 500 kr (fri leverans vid 500 kr eller mer). Minimibeställning 500 kr. Kvällsleverans samma dag för beställningar lagda före 16:00.',
     },
     {
         q: 'Kan jag få deals levererade inom Europa?',
@@ -183,7 +183,7 @@ const dealsFaqsNo = [
     },
     {
         q: 'Leverer dere tilbudsbestillinger i Stockholm?',
-        a: 'Ja. Vi tilbyr lokal levering i hele Stockholm. En leveringsavgift gjelder for alle bestillinger. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgjengelig til nærliggende områder for bestillinger lagt inn før kl. 16:00.',
+        a: 'Ja. Vi leverer til adresser innenfor 3–4 km fra vår Bandhagen-butikk (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta og Älvsjö). Leveringsavgift 50 kr for bestillinger under 500 kr (gratis ved 500 kr eller mer). Minimumsbestilling 500 kr. Kveldslevering samme dag for bestillinger lagt inn før kl. 16:00.',
     },
     {
         q: 'Kan jeg få tilbud levert i hele Europa?',
@@ -210,7 +210,7 @@ const dealsFaqsDa = [
     },
     {
         q: 'Leverer I tilbudsbestillinger i Stockholm?',
-        a: 'Ja. Vi tilbyder lokal levering i hele Stockholm. Et leveringsgebyr gælder for alle bestillinger. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgængeligt til nærliggende områder for bestillinger afgivet inden kl. 16:00.',
+        a: 'Ja. Vi leverer til adresser inden for 3–4 km fra vores Bandhagen-butik (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta og Älvsjö). Leveringsgebyr 50 kr for ordrer under 500 kr (gratis ved 500 kr eller derover). Minimumsordre 500 kr. Aftenlevering samme dag for ordrer afgivet inden kl. 16:00.',
     },
     {
         q: 'Kan jeg få tilbud leveret i hele Europa?',

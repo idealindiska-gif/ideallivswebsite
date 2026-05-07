@@ -5,15 +5,14 @@ const WP_API_BASE = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://crm.id
 const MCP_KEY = process.env.FOURLINES_MCP_KEY || process.env.NEXT_PUBLIC_FOURLINES_MCP_KEY;
 
 /**
- * Local pickup is only available for customers in the Stockholm area
- * (Swedish postcodes 100xx–199xx, which covers the store at 124 32 Bandhagen)
+ * Local pickup is only available for customers in the Bandhagen area
+ * (Swedish postcodes 124 00–124 99, where the store at Bandhagsplan 4 is located)
  */
 function isStockholmPostcode(postcode: string): boolean {
   const normalized = postcode.replace(/\s+/g, '');
   const prefix = normalized.substring(0, 3);
   if (prefix.length < 3 || !/^\d+$/.test(prefix)) return false;
-  const prefixNum = parseInt(prefix, 10);
-  return prefixNum >= 100 && prefixNum <= 199;
+  return prefix === '124';
 }
 
 // Fallback shipping methods when API is unavailable

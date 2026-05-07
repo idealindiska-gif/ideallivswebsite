@@ -94,7 +94,7 @@ export function idealIndiskaFAQSchema(baseUrl: string = 'https://www.ideallivs.c
             },
             {
                 question: 'Do you deliver in Stockholm?',
-                answer: 'Yes! We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 SEK. Visit our Delivery Information page for current pricing.',
+                answer: 'Yes! We deliver to addresses within a 3–4 km radius of our Bandhagen store (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö). Delivery fee is 50 kr for orders under 500 kr; free delivery on orders of 500 kr or more. Minimum order is 500 kr. Visit our Delivery Information page for full details.',
             },
             {
                 question: 'Do you deliver outside Stockholm?',

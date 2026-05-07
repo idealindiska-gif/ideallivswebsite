@@ -70,7 +70,7 @@ const dealsFaqs = [
     },
     {
         q: 'Do you deliver deals orders in Stockholm?',
-        a: 'Yes. We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 SEK. Same-day delivery is available to nearby areas for orders placed before 4 PM.',
+        a: 'Yes. We deliver to addresses within a 3–4 km radius of our Bandhagen store (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö). Delivery fee is 50 kr for orders under 500 kr (free at 500 kr and above). Minimum order is 500 kr for local delivery. Same-day evening delivery available for orders placed before 4 PM.',
     },
     {
         q: 'Can I get deals delivered across Europe?',

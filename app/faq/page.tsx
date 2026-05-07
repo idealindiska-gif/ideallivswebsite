@@ -60,11 +60,11 @@ const faqs = [
         questions: [
             {
                 q: "Do you deliver Indian groceries in Stockholm?",
-                a: "Absolutely! We offer our own local delivery service across all of Stockholm. We're proud to be a premier indisk mataffär offering matleverans i Stockholm. Visit our Delivery Information page for full details."
+                a: "Yes! We operate our own local delivery service for addresses within approximately 3–4 km of our store in Bandhagen (covering Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö). A 50 kr delivery fee applies to orders under 500 kr; free delivery on orders of 500 kr or more. Minimum order is 500 kr. Visit our Delivery Information page for full details."
             },
             {
                 q: "Do you deliver in Stockholm?",
-                a: "Yes! We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 kr. Visit our Delivery Information page for current pricing details."
+                a: "Yes! We deliver to addresses within a 3–4 km radius of our Bandhagen store. Delivery fee is 50 kr for orders under 500 kr (free at 500 kr and above). Minimum order is 500 kr for local delivery. For addresses outside our local area, please use DHL shipping at checkout — no minimum order required. Visit our Delivery Information page for current details."
             },
             {
                 q: "Do you deliver to the rest of Sweden?",

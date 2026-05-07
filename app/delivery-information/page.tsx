@@ -58,7 +58,7 @@ export default function DeliveryInformationPage() {
                                     Welcome to Ideal Indiska Livs! We make it easier than ever to get your favourite authentic Indian and Pakistani groceries.
                                 </p>
                                 <p>
-                                    We offer fast and reliable local delivery across all of Stockholm, as well as flexible shipping options to every corner of Sweden through our trusted partner, DHL. Whether you are in Bandhagen, Södermalm, Kungsholmen, Norrmalm, Vasastan, Östermalm, Gamla Stan, or the surrounding suburbs, getting the taste of home is just a few clicks away.
+                                    We offer our own door-to-door delivery service within a 3–4 km radius of our Bandhagen store, covering areas such as Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö. For customers across the rest of Stockholm and all of Sweden, we offer flexible shipping through our trusted partner DHL. Getting the taste of home is just a few clicks away.
                                 </p>
                             </section>
 
@@ -74,27 +74,18 @@ export default function DeliveryInformationPage() {
 
                                 <div className="space-y-6">
                                     <div className="p-6 rounded-xl border bg-card/50">
-                                        <h3 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-3">1. Ideal Indiska Local Delivery (Our Own Service)</h3>
+                                        <h3 style={{ fontSize: '20px', fontWeight: 600 }} className="mb-3">1. Ideal Indiska Local Delivery (Bandhagen Area)</h3>
                                         <div className="space-y-4 text-muted-foreground" style={{ fontSize: '15.13px' }}>
-                                            <p>Enjoy our personalized local delivery service with great flexibility and value.</p>
+                                            <p>Our own door-to-door delivery service, operated directly by our team. We deliver to addresses within approximately 3–4 km of our store at Bandhagsplan 4, Bandhagen.</p>
                                             <ul className="list-disc pl-5 space-y-2">
-                                                <li><strong>Delivery:</strong> Available for all orders across Stockholm. A delivery fee applies.</li>
-                                                <li><strong>Standard Delivery:</strong> For orders between 300 kr and 499 kr, a flat delivery fee of 30 kr applies.</li>
-                                                <li><strong>Minimum Order:</strong> The minimum order for our local delivery service is 300 kr.</li>
+                                                <li><strong>Delivery Area:</strong> Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö — within approximately 3–4 km of our store.</li>
+                                                <li><strong>Delivery Fee:</strong> 50 kr for orders under 500 kr. Free delivery on orders of 500 kr or more.</li>
+                                                <li><strong>Minimum Order:</strong> 500 kr applies to all local deliveries. No minimum order is required for DHL.</li>
                                             </ul>
 
                                             <div className="mt-4 pt-4 border-t">
-                                                <h4 className="font-semibold text-foreground mb-2">Coverage Areas:</h4>
-                                                <p>Our local delivery covers the entire Stockholm region, including central areas like Södermalm, Kungsholmen, Norrmalm, Vasastan, and Östermalm, as well as surrounding communities including Solna, Sundbyberg, Kista, Nacka, Huddinge, and Järfälla.</p>
-                                            </div>
-
-                                            <div className="mt-4 pt-4 border-t">
-                                                <h4 className="font-semibold text-foreground mb-2">Special Same-Day Evening Delivery for Our Neighbours:</h4>
-                                                <p>For our local community in and around Bandhagen, we offer a special Same-day evening delivery service.</p>
-                                                <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
-                                                    <li><strong>Areas:</strong> Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, Älvsjö.</li>
-                                                    <li><strong>Schedule:</strong> Place your order before 4 PM (16:00) to receive your delivery the Same day evening between 7 PM - 10 PM.</li>
-                                                </ul>
+                                                <h4 className="font-semibold text-foreground mb-2">Same-Day Evening Delivery:</h4>
+                                                <p>Place your order before 4:00 PM (16:00) to receive your delivery the same evening between 7:00 PM – 10:00 PM.</p>
                                             </div>
                                         </div>
                                     </div>

@@ -288,10 +288,10 @@
   "delivery": {
     "no_free_shipping": "We do not offer free shipping. Shipping costs are calculated at checkout based on order weight and destination.",
     "stockholm_local": {
-      "type": "Own delivery service",
-      "minimum_order": "300 SEK",
-      "fee_300_499": "30 SEK flat fee",
-      "fee_500_plus": "Delivery fee applies (no free shipping)",
+      "type": "Own delivery service — Bandhagen area only (3–4 km radius)",
+      "minimum_order": "500 SEK",
+      "fee_under_500": "50 SEK flat fee",
+      "fee_500_plus": "FREE delivery",
       "same_day": {
         "areas": [
           "Bandhagen",
@@ -307,23 +307,15 @@
         "days": "Mon – Sun"
       },
       "coverage": [
-        "All of Stockholm city",
-        "Södermalm",
-        "Östermalm",
-        "Norrmalm",
-        "Kungsholmen",
-        "Vasastan",
-        "Gamla Stan",
-        "Solna",
-        "Sundbyberg",
-        "Kista",
-        "Nacka",
-        "Huddinge",
-        "Botkyrka",
-        "Järfälla",
-        "Lidingö",
-        "Danderyd"
-      ]
+        "Bandhagen",
+        "Högdalen",
+        "Hagsätra",
+        "Rågsved",
+        "Stureby",
+        "Farsta",
+        "Älvsjö"
+      ],
+      "coverage_note": "Local delivery is limited to approximately 3–4 km from the store. Customers outside this area should choose DHL."
     },
     "stockholm_dhl": {
       "type": "DHL within Stockholm",
@@ -595,7 +587,7 @@
     },
     {
       "question": "What is the minimum order?",
-      "answer": "For Stockholm local delivery: minimum order is 300 SEK. For DHL shipping to the rest of Sweden and Europe: no minimum order amount.",
+      "answer": "For our local Bandhagen delivery: minimum order is 500 SEK. For DHL shipping to the rest of Stockholm, Sweden, and Europe: no minimum order amount.",
       "category": "delivery"
     },
     {

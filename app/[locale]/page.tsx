@@ -29,7 +29,7 @@ const enFaqs = [
     },
     {
         question: "Do you deliver in Stockholm?",
-        answer: "Yes. We offer local delivery across all of Stockholm. A delivery fee applies to all orders. Minimum order is 300 SEK. Same-day delivery is available to nearby areas (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for orders placed before 4 PM. Visit our Delivery Information page for full pricing details.",
+        answer: "Yes. We deliver to addresses within a 3–4 km radius of our Bandhagen store (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta, and Älvsjö). Delivery fee is 50 kr for orders under 500 kr (free at 500 kr and above). Minimum order is 500 kr for local delivery. Same-day evening delivery is available for orders placed before 4 PM. Visit our Delivery Information page for full details.",
     },
     {
         question: "Do you deliver Indian groceries outside Stockholm and Sweden?",
@@ -56,7 +56,7 @@ const svFaqs = [
     },
     {
         question: "Levererar ni i Stockholm?",
-        answer: "Ja. Vi erbjuder lokalleverans i hela Stockholm. Leveransavgift tillkommer på alla beställningar. Minimibeställning är 300 kr. Samma-dagleverans finns till närliggande områden (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) för beställningar lagda före 16:00. Besök vår leveransinformationssida för aktuell prisinformation.",
+        answer: "Ja. Vi erbjuder lokalleverans till adresser inom ca 3–4 km från vår butik i Bandhagen (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta och Älvsjö). Leveransavgift 50 kr för beställningar under 500 kr — fri leverans vid 500 kr eller mer. Minimibeställning 500 kr. Kvällsleverans samma dag för beställningar lagda före 16:00. Besök vår leveransinformationssida för aktuell prisinformation.",
     },
     {
         question: "Levererar ni utanför Stockholm och Sverige?",
@@ -83,7 +83,7 @@ const noFaqs = [
     },
     {
         question: "Leverer dere i Stockholm?",
-        answer: "Ja. Vi tilbyr lokal levering i hele Stockholm. En leveringsavgift gjelder for alle bestillinger. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgjengelig til nærliggende områder (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for bestillinger lagt inn før kl. 16:00. Besøk vår leveringsinformasjonsside for gjeldende priser.",
+        answer: "Ja. Vi tilbyr lokal levering til adresser innenfor ca. 3–4 km fra vår butikk i Bandhagen (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta og Älvsjö). Leveringsavgift 50 kr for bestillinger under 500 kr — gratis levering ved 500 kr eller mer. Minimumsbestilling 500 kr. Kveldslevering samme dag for bestillinger lagt inn før kl. 16:00. Besøk vår leveringsinformasjonsside for gjeldende priser.",
     },
     {
         question: "Leverer dere indiske matvarer utenfor Stockholm og Sverige?",
@@ -110,7 +110,7 @@ const daFaqs = [
     },
     {
         question: "Leverer I i Stockholm?",
-        answer: "Ja. Vi tilbyder lokal levering i hele Stockholm. Et leveringsgebyr gælder for alle bestillinger. Minimumsbestilling er 300 SEK. Samme-dag levering er tilgængeligt til nærliggende områder (Bandhagen, Hagsätra, Högdalen, Farsta, Enskede, Huddinge) for bestillinger afgivet inden kl. 16:00. Besøg vores leveringsinformationsside for aktuelle priser.",
+        answer: "Ja. Vi tilbyder lokal levering til adresser inden for ca. 3–4 km fra vores butik i Bandhagen (Bandhagen, Högdalen, Hagsätra, Rågsved, Stureby, Farsta og Älvsjö). Leveringsgebyr 50 kr for ordrer under 500 kr — gratis levering ved 500 kr eller derover. Minimumsordre 500 kr. Aftenlevering samme dag for ordrer afgivet inden kl. 16:00. Besøg vores leveringsinformationsside for aktuelle priser.",
     },
     {
         question: "Leverer I indiske dagligvarer uden for Stockholm og Sverige?",
